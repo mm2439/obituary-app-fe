@@ -128,6 +128,7 @@ const Guardians = () => {
                       : "bg-white text-[#6D778E] border-gradient"
                   }`}
                   onClick={() => setActiveTab(item.id)}
+                  key={index}
                 >
                   {item.name} {item.sirName}
                 </button>
@@ -728,7 +729,7 @@ const Guardians = () => {
               <tbody>
                 {logs && logs.length > 0
                   ? logs.map((item, index) => (
-                      <tr className="bg-[#FFFFFF80]">
+                      <tr className="bg-[#FFFFFF80]" key={index}>
                         <td className="px-6 py-2 border-b border-[#A1B1D4] text-sm font-normal text-[#3C3E41]">
                           {formattedDate(item.createdTimestamp)}
                         </td>

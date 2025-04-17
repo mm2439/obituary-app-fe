@@ -45,6 +45,11 @@ const UserAccountLayout = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    fetchPendingPosts();
+    getKeeperMemory();
+  }, []);
+
+  useEffect(() => {
     if (pathname == "/moj-racun") {
       setHeadingOne("Moj račun");
       setHeadingTwo("Moja naročila");
@@ -112,11 +117,6 @@ const UserAccountLayout = ({ children }) => {
   //fetching data
   const [pendingPosts, setPendingPosts] = useState([]);
   const [previousPosts, setPreviousPosts] = useState([]);
-
-  useEffect(() => {
-    fetchPendingPosts();
-    getKeeperMemory();
-  }, []);
 
   const fetchPendingPosts = async () => {
     try {

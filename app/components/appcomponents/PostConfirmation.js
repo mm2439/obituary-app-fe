@@ -778,7 +778,7 @@ const PostConfirmation = () => {
           >
             {previousPosts && previousPosts.length > 0 ? (
               previousPosts.map((item, index) => (
-                <div className="mt-[30px]">
+                <div className="mt-[30px]" key={index}>
                   <div className="flex justify-between">
                     <h3 className="text-[#1E2125] text-[16px] font-medium">
                       {item?.Obituary?.name} {item?.Obituary?.sirName}

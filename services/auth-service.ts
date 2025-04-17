@@ -4,13 +4,16 @@ const login = async (credentials: { email: string; password: string }) => {
   try {
     const endpoint = "/auth/login";
 
-    const response = await axios.post(endpoint, credentials);
+    const response = await axios.post(endpoint, credentials, {
+      withCredentials: true,
+    });
 
     return response.data;
   } catch (error: any) {
     if (error.response && error.response.data) {
       return { error: error.response.data.error };
     }
+    console.log(error);
     return { error: "An unexpected error occurred" };
   }
 };
@@ -18,7 +21,9 @@ const login = async (credentials: { email: string; password: string }) => {
 const logout = async () => {
   const endpoint = "/auth/logout";
 
-  const response = await axios.post(endpoint);
+  const response = await axios.post(endpoint, {
+    withCredentials: true,
+  });
 
   return response.data;
 };

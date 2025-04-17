@@ -1,5 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+
+import React, { useEffect, useState } from "react";
 
 const TopBar = ({
   setIsModalVisible,
@@ -7,19 +9,43 @@ const TopBar = ({
   setIsLocalQuickModalVisible,
 }) => {
   const popuButtonRef = React.useRef();
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [router]);
+
+  const isDesktop = () => window.innerWidth >= 758;
+
+  const handleNavigation = () => {
+    if (user) {
+      if (isDesktop()) {
+        router.push("/moj-racun");
+      } else {
+        router.push("/user-accounts-dashboard");
+      }
+    } else {
+      router.push("/registrationpage");
+    }
+  };
+
   return (
     <div className="flex w-full h-[45px] flex-col items-center justify-between bg-[#414141] ">
       <div className=" w-full desktop:w-[1200px] mobile:px-[24px] my-auto flex flex-row justify-between">
         <div className=" w-full z-0  flex  flex-row items-center mobile:justify-between ">
           <div className="flex desktop:pl-[23px] tablet:pl-[23px] flex-row items-center">
             {/* 24 October 2024 /keeperpromo */}
-            <Link href={"/registrationpage"}>
+            <button onClick={handleNavigation}>
               <img
                 src="ico_user_top.png"
                 alt="user"
                 className="w-[24px] h-[24px] "
               />
-            </Link>
+            </button>
             <button
               className="ml-[50px]  tablet:ml-[95px] desktop:ml-[80px]"
               onClick={() => {
@@ -69,7 +95,7 @@ const TopBar = ({
           </div>
         </div>
       </div>
-      <div className="w-full h-[3px] bg-[#0A85C260] "/>
+      <div className="w-full h-[3px] bg-[#0A85C260] " />
     </div>
   );
 };

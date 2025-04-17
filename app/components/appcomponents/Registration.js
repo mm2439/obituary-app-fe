@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Checkbox } from "@headlessui/react";
@@ -20,6 +20,12 @@ const Registration = () => {
   const [enableTermsOfUse, setEnableTermsOfUse] = useState(false);
   const [enabledRememberMe, setEnabledRememberMe] = useState(true);
 
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth > 768) {
+      setIsDesktop(true);
+    }
+  }, []);
   const [activeDiv, setActiveDiv] = useState("login");
 
   const handleEmailInput = (event) => {
@@ -109,7 +115,12 @@ const Registration = () => {
       localStorage.setItem("user", JSON.stringify(response.user));
 
       toast.success(response.message || "Login successful!");
-      router.push("/");
+
+      if (isDesktop) {
+        router.push("/moj-racun");
+      } else {
+        router.push("/user-accounts-dashboard");
+      }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
     }

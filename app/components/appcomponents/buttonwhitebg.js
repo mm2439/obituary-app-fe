@@ -36,7 +36,9 @@ const ButtonWhiteBG = ({
 
         <div
           className={`ml-[20px] h-full text-base  ${
-            isOpen === 2 ? "text-[#EB1D1D]" : "text-[#6D778E]"
+            isOpen === 2 || placeholderText === "NAZAJ NA SPLETNO STRAN"
+              ? "text-[#EB1D1D]"
+              : "text-[#6D778E]"
           } text-[16px]
             font-variation-customOpt16 font-normal leading-[24px] flex justify-center items-center`}
         >

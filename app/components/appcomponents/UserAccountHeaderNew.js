@@ -8,12 +8,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ButtonWhiteBG from "./buttonwhitebg";
 import ButtonLightGreen from "./buttonLightGreen";
-
+import FooterMobile from "../appcomponents/FooterMobile";
 function UserAccountHeaderNew({
   onMenuClick,
-  setIsMobilSideBarOpen,
   isMobilSideBarOpen,
   pendingConfirmations,
+  setIsMobilSideBarOpen,
   isKeeper,
   memories,
 }) {
@@ -26,7 +26,19 @@ function UserAccountHeaderNew({
   //   console.log("back");
   //   router.back(); // This will navigate to the previous page
   // };
+  const logoutUser = async () => {
+    try {
+      const response = await authService.logout();
 
+      localStorage.removeItem("user");
+      localStorage.removeItem("access-token");
+      localStorage.removeItem("refresh-token");
+      document.cookie = "accessToken=; path=/; max-age=0";
+      router.push("/");
+    } catch (err) {
+      console.error("Error Fetching Pending Posts:", err);
+    }
+  };
   return (
     <React.Fragment>
       <header className="fixed top-0 left-0 right-0 bg-white shadow-lg z-50 ">
@@ -39,23 +51,22 @@ function UserAccountHeaderNew({
                         desktopUserAcc:w-[1260px] mobileUserAcc:max-w-[360px] desktopUserAcc:px-[18px] justify-between items-center
                         "
           >
-            <div className="hidden mobileUserAcc:flex">
-              <div className="flex items-center ">
+            <div className="hidden mobileUserAcc:flex tabletUserAcc:flex ">
+              <div
+                className="flex items-center "
+                onClick={() => {
+                  // 23 October 2024
+                  router.back();
+                }}
+              >
                 <Image src={back_icon} width={30} height={32} />
-                <div
-                  className="text-[14px]  text-[#3C3E41] font-variation-customOpt12 font-bold ml-2 mt-[2px] "
-                  onClick={() => {
-                    setIsMobilSideBarOpen(false);
-                    // 23 October 2024
-                    router.back();
-                  }}
-                >
+                <div className="text-[14px]  text-[#3C3E41] font-variation-customOpt12 font-bold ml-2 mt-[2px] ">
                   NAZAJ
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 justify-between w-full mobileUserAcc:w-auto">
+            <div className="flex items-center gap-3 justify-between w-full mobileUserAcc:w-auto mx-5">
               <Link href={"/"} className="flex items-center ">
                 <Image
                   src={omr}
@@ -65,7 +76,7 @@ function UserAccountHeaderNew({
               </Link>
 
               <div
-                className=" flex flex-col mobileUserAcc:hidden items-center cursor-pointer "
+                className=" flex flex-col mobileUserAcc:hidden   items-center cursor-pointer "
                 onClick={onMenuClick}
               >
                 <Image
@@ -121,12 +132,7 @@ function UserAccountHeaderNew({
                     MOJI BLIŽNJI
                   </div>
                   <Link href="/pregled">
-                    <div
-                      className="mt-[10px]"
-                      onClick={() => {
-                        setIsMobilSideBarOpen(false);
-                      }}
-                    >
+                    <div className="mt-[10px]">
                       <ButtonWhiteBG
                         placeholderImg={"/ico_pregled.png"}
                         placeholderText={"PREGLED"}
@@ -135,15 +141,18 @@ function UserAccountHeaderNew({
                   </Link>
 
                   <Link href="/obletnice">
-                    <div
-                      className="mt-[10px]"
-                      onClick={() => {
-                        setIsMobilSideBarOpen(false);
-                      }}
-                    >
+                    <div className="mt-[10px]">
                       <ButtonWhiteBG
                         placeholderImg={"/ico_obletnice.png"}
                         placeholderText={"OBLETNICE"}
+                      />
+                    </div>
+                  </Link>
+                  <Link href="/moji-prispevki">
+                    <div className="mt-[10px]">
+                      <ButtonWhiteBG
+                        placeholderImg={"/ico_obletnice.png"}
+                        placeholderText={"Moji prispevki"}
                       />
                     </div>
                   </Link>
@@ -173,12 +182,7 @@ function UserAccountHeaderNew({
                       </div>
 
                       <Link href={"/potrditev-objave"}>
-                        <div
-                          className="mt-[10px]"
-                          onClick={() => {
-                            setIsMobilSideBarOpen(false);
-                          }}
-                        >
+                        <div className="mt-[10px]">
                           <ButtonWhiteBG
                             placeholderImg={""}
                             placeholderText={"POTRDITEV OBJAVE"}
@@ -205,9 +209,9 @@ function UserAccountHeaderNew({
                   )}
 
                   <div className="w-[322px] mt-[50px] rounded-[10px]">
-                    <h1 className="uppercase text-[#2198D3] pb-[3px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
+                    {/* <h1 className="uppercase text-[#2198D3] pb-[3px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
                       POSTANI SKRBNIK
-                    </h1>
+                    </h1> */}
 
                     <div className="h-[62px] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] border-2 custom-border-gradient flex flex-row items-center rounded-[8px]">
                       <div className="ml-[15px]">
@@ -306,12 +310,7 @@ function UserAccountHeaderNew({
                       </div>
 
                       <Link href={"/potrditev-objave"}>
-                        <div
-                          className="mt-[10px]"
-                          onClick={() => {
-                            setIsMobilSideBarOpen(false);
-                          }}
-                        >
+                        <div className="mt-[10px]">
                           <ButtonWhiteBG
                             placeholderImg={""}
                             placeholderText={"POTRDITEV OBJAVE"}
@@ -341,6 +340,8 @@ function UserAccountHeaderNew({
           </div>
         )}
       </div>
+
+      <FooterMobile setIsMobilSideBarOpen={setIsMobilSideBarOpen} />
     </React.Fragment>
   );
 }

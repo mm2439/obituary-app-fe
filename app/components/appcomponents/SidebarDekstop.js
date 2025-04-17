@@ -2,14 +2,30 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { CommonViewUserAccSidebar } from "./Commonfunction";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import authService from "@/services/auth-service";
+
 function SidebarDekstop({
   showAlternateContent,
   setShowAlternateContent,
   pendingConfirmations,
 }) {
   const pathname = usePathname();
+  const router = useRouter();
 
+  const logoutUser = async () => {
+    try {
+      const response = await authService.logout();
+
+      localStorage.removeItem("user");
+      localStorage.removeItem("access-token");
+      localStorage.removeItem("refresh-token");
+      document.cookie = "accessToken=; path=/; max-age=0";
+      router.push("/");
+    } catch (err) {
+      console.error("Error Fetching Pending Posts:", err);
+    }
+  };
   return (
     <div
       className="px-[22px] mx-auto bg-[#F1F5F8] pt-[36px] hidden desktopUserAcc:flex flex-col border-r-2 border-[#FFFFFF]
@@ -141,7 +157,10 @@ function SidebarDekstop({
             </div>
           </div>
 
-          <div className="w-[186px] cursor-pointer rounded-[10px] mt-[4px]">
+          <div
+            className="w-[186px]   cursor-pointer rounded-[10px] mt-[4px]"
+            onClick={logoutUser}
+          >
             <div className="h-[48px] flex justify-start items-center rounded-[8px]">
               <div className="ml-[15px]">
                 <Image src={"/ico_logout.png"} alt="" width={24} height={24} />

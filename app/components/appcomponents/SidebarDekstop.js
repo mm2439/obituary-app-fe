@@ -101,17 +101,20 @@ function SidebarDekstop({
               }
               title={"Pregled"}
               route="/pregled2"
+              isKeeper={true}
             />
             <CommonViewUserAccSidebar
               imgPath={""}
               title={"Potrditev objave"}
               route="/potrditev-objave"
               pendingConfirmations={pendingConfirmations}
+              isKeeper={true}
             />
             <CommonViewUserAccSidebar
               imgPath={"/ico_setting.png"}
               title={"Dodaj vsebine"}
               route="/dodaj-vsebine"
+              isKeeper={true}
             />
           </div>
         ) : (
@@ -121,13 +124,9 @@ function SidebarDekstop({
                 imgPath={"/icon_plus_round.png"}
                 title={"Postani Skrbnik"}
                 route=""
+                isKeeper={true}
               />
 
-              <CommonViewUserAccSidebar
-                imgPath={"/icon_left_right.png"}
-                title={""}
-                route=""
-              />
               <CommonViewUserAccSidebar
                 imgPath={"/icon_left_right.png"}
                 title={""}

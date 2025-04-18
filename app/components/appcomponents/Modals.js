@@ -2136,45 +2136,24 @@ const Modals = ({
   );
 };
 
-function CommonStyle({ item, index, key }) {
-  const gradientClass = useMemo(() => getRandomGradientClass(), [item?.user]);
-  return (
-    <div
-      key={key}
-      className={` ${
-        index % 2 !== 0 ? "bg-[#E8F0F6]" : "bg-white popup-custom-shadow"
-      }  h-14 flex-row flex items-center border-b-[1px] border-[#D4D4D4] mobile:flex-row-reverse mobile:justify-between mobile:pr-[4px] relative `}
-    >
-      <div
-        className={`py-[10px] border-2 text-[#6D778E]
-       ${gradientClass} w-11 h-11 ml-8 mobile:ml-4 rounded-full text-center`}
-      >
-        {(() => {
-          const nameParts = item?.name?.split(" ") || [];
-          const initials =
-            nameParts.length > 1
-              ? nameParts[0][0] + nameParts[1][0]
-              : nameParts[0]?.substring(0, 2) || "";
+const getConsistentIndex = (input, length) => {
+  let hash = 0;
+  for (let i = 0; i < input.length; i++) {
+    hash = input.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash) % length;
+};
 
-          return initials.toUpperCase();
-        })()}
-      </div>
-
-      <div className="text-[16px] mobile:absolute whitespace-nowrap text-[#000000] font-variation-customOpt16 font-light ml-[31.5px] mobile:left-[7px] mobile:ml-[7px]">
-        {item.name}
-        {item?.relation ? `, ${item?.relation}` : ""}
-      </div>
-    </div>
-  );
-}
-
+// Use this for gradients
+const getConsistentGradientClass = (input) => {
+  const index = getConsistentIndex(input, gradientStyles.length);
+  return gradientStyles[index].class;
+};
 const gradientStyles = [
   {
     class: "bg-gradient-to-br from-[#F1A5F380] to-[#FFFFFF30] border-[#F1A5F3]",
   },
-  {
-    class: "bg-gradient-to-br from-[#FFFFFF80] to-[#FFFFFF30] border-[#FFFFFF]",
-  },
+
   {
     class: "bg-gradient-to-br from-[#A6A5F380] to-[#FFFFFF30] border-[#A6A5F3]",
   },
@@ -2191,10 +2170,42 @@ const gradientStyles = [
     class: "bg-gradient-to-br from-[#B2E6E380] to-[#FFFFFF30] border-[#B2E6E3]",
   },
 ];
-const getRandomGradientClass = () => {
-  const randomIndex = Math.floor(Math.random() * gradientStyles.length);
-  return gradientStyles[randomIndex].class;
-};
+function CommonStyle({ item, index, key }) {
+  const userIdentifier = item?.createdTimestamp || "default";
+  const gradientClass = useMemo(
+    () => getConsistentGradientClass(userIdentifier),
+    [userIdentifier]
+  );
+
+  return (
+    <div
+      key={key}
+      className={` ${
+        index % 2 !== 0 ? "bg-[#E8F0F6]" : "bg-white popup-custom-shadow"
+      }  h-14 flex-row flex items-center border-b-[1px] border-[#D4D4D4] mobile:flex-row-reverse mobile:justify-between mobile:pr-[4px] relative `}
+    >
+      <div
+        className={`py-[10px] border-2 text-[#6D778E]
+       ${gradientClass} w-11 h-11 ml-8 mobile:ml-4 rounded-full text-center`}
+      >
+        {(() => {
+          const nameParts = item?.name?.split(" ") || [];
+          const initials =
+            nameParts.length > 1
+              ? nameParts[0][0] + nameParts[1][0]
+              : nameParts[0]?.substring(0, 1) || "";
+
+          return initials.toUpperCase();
+        })()}
+      </div>
+
+      <div className="text-[16px] mobile:absolute whitespace-nowrap text-[#000000] font-variation-customOpt16 font-light ml-[31.5px] mobile:left-[7px] mobile:ml-[7px]">
+        {item.name}
+        {item?.relation ? `, ${item?.relation}` : ""}
+      </div>
+    </div>
+  );
+}
 
 function CommonView({ text, key, onPress, selectMusic }) {
   return (

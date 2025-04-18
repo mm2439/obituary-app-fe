@@ -228,24 +228,7 @@ const PostConfirmation = () => {
             </p>
           </div>
         </div>
-        <div>
-          <h1>Assign Keeper</h1>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="User ID"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Obituary ID"
-              value={obituaryId}
-              onChange={(e) => setObituaryId(e.target.value)}
-            />
-            <button type="submit">Assign</button>
-          </form>
-        </div>
+
         {pendingPosts && pendingPosts.length > 0 ? (
           <div className="overflow-x-auto mt-[40px]">
             <div className="overflow-x-auto">
@@ -299,7 +282,7 @@ const PostConfirmation = () => {
                             <span className="flex flex-col text-[#6D778E]">
                               {item?.userName}
                               <span className="text-[14px] font-medium text-[#3C3E41]">
-                                {item?.type}
+                                {item?.typeInSL}
                               </span>
                             </span>
                           </div>
@@ -391,9 +374,7 @@ const PostConfirmation = () => {
               </div>
             </div>
           </div>
-        ) : (
-          <p>No Pending Posts</p>
-        )}
+        ) : null}
 
         {previousPosts && previousPosts.length > 0 ? (
           <div className="overflow-x-auto">
@@ -445,7 +426,7 @@ const PostConfirmation = () => {
                             <span className="flex flex-col text-[14px] font-medium text-[#6D778E]">
                               {item?.userName}
                               <span className="text-[16px] font-medium text-[#3C3E41]">
-                                {item?.type}
+                                {item?.typeInSL}
                               </span>
                             </span>
                           </div>
@@ -501,11 +482,26 @@ const PostConfirmation = () => {
               </div>
             </div>
           </div>
-        ) : (
-          <p>No Previous Posts</p>
-        )}
+        ) : null}
       </div>
-
+      <div>
+        <h1>Assign Keeper</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="User ID"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Obituary ID"
+            value={obituaryId}
+            onChange={(e) => setObituaryId(e.target.value)}
+          />
+          <button type="submit">Assign</button>
+        </form>
+      </div>
       {/*  responsive code for tablet */}
       <div className="desktopUserAcc:hidden">
         <div className="text-[14px] text-[#6D778E] mobileUserAcc:text-nowrap font-medium text-right mt-[50px]">
@@ -534,7 +530,7 @@ const PostConfirmation = () => {
               </div>
               <div className="flex justify-between mt-[2px]">
                 <h4 className="text-[#717B8C] text-[14px] font-medium mt-[0px]">
-                  {item?.type}
+                  {item?.typeInSL}
                 </h4>
                 {/* 17 October 2024 */}
                 <div
@@ -687,7 +683,7 @@ const PostConfirmation = () => {
                             <span className="flex flex-col text-[14px] font-medium text-[#6D778E]">
                               Anonymous
                               <span className="text-[16px] font-medium text-[#3C3E41]">
-                                {item?.type}
+                                {item?.typeInSL}
                               </span>
                             </span>
                           </div>
@@ -789,7 +785,7 @@ const PostConfirmation = () => {
                   </div>
                   <div className="flex justify-between mt-[10px]">
                     <p className="text-[#717B8C] text-[14px] font-medium">
-                      {item?.type}
+                      {item?.typeInSL}
                     </p>
                     <Image
                       src={

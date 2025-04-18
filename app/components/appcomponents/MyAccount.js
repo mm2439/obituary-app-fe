@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import iconDropDown from "@/public/ico_dropdown_red.png";
+import DropdownWithSearch from "./DropdownWithSearch";
 
 import regionsAndCities from "@/utils/regionAndCities";
 import ModalLibrary from "../appcomponents/ModalLibrary";
@@ -106,11 +107,11 @@ const MyAccount = () => {
 
   const handleCitySelect = async (item) => {
     try {
-      console.log("here");
-      const response = await userService.updateMyUser({ city: item.place });
+      console.log("here", item);
+      const response = await userService.updateMyUser({ city: item });
       toast.success("City Updated Successfully");
-      setSelectedCity(item.place);
-      const newUser = { ...user, city: item.place };
+      setSelectedCity(item);
+      const newUser = { ...user, city: item };
       localStorage.setItem("user", JSON.stringify(newUser));
       setUser(newUser);
     } catch (error) {
@@ -267,38 +268,26 @@ const MyAccount = () => {
             </div>
           </div>
           {/* 23 october 2024 desktopUserAcc:pl-0 tabletUserAcc:pl-0 tabletUserAcc:pr-0 */}
-          <div className="flex w-full mobileUserAcc:w-auto desktopUserAcc:w-[282px] h-10 border-b-[1px] mobileUserAcc:border-b-0 border-[#A1B1D440] justify-between mobileUserAcc:justify-end desktopUserAcc:pl-0 desktopUserAcc:pr-0 tabletUserAcc:pl-0 tabletUserAcc:pr-0 pl-3 pr-8 mobileUserAcc:pl-0 mobileUserAcc:pr-0 items-center">
+          <div className="flex w-full mobileUserAcc:w-auto desktopUserAcc:w-[282px] h-10   mobileUserAcc:border-b-0  justify-between mobileUserAcc:justify-end desktopUserAcc:pl-0 desktopUserAcc:pr-0 tabletUserAcc:pl-0 tabletUserAcc:pr-0 pl-3 pr-8 mobileUserAcc:pl-0 mobileUserAcc:pr-0 items-center">
             {/* 23 october 2024 desktopUserAcc:pl-0 desktopUserAcc:pr-0 tabletUserAcc:pr-0 tabletUserAcc:pl-0  tabletUserAcc:w-full*/}
-            <div className="flex h-10 w-[270px] tabletUserAcc:w-full mobileUserAcc:w-8 border-b-[1px] mobileUserAcc:border-b-0 border-[#A1B1D440] justify-between desktopUserAcc:pl-0 tabletUserAcc:pl-0 pl-3 desktopUserAcc:pr-0 tabletUserAcc:pr-0 pr-8 mobileUserAcc:pl-0 mobileUserAcc:pr-0 items-center  mobileUserAcc:hidden">
+            <div className="flex h-10 w-[270px] tabletUserAcc:w-full mobileUserAcc:w-8  mobileUserAcc:border-b-0  justify-between desktopUserAcc:pl-0 tabletUserAcc:pl-0 pl-3 desktopUserAcc:pr-0 tabletUserAcc:pr-0 pr-8 mobileUserAcc:pl-0 mobileUserAcc:pr-0 items-center  mobileUserAcc:hidden">
               {/* <CustomDropdown
                 label={"Izberi lokalni kraj"}
                 data={cityOptions}
               /> */}
-              <Dropdown
-                label={"Išči po kraju"}
-                isFromNotification={false}
-                isFromObituary={false}
-                isFromFlower={false}
-                isFrom={"userAccount"}
-                data={cityOptions}
-                selectedValue={selectedCity}
-                isFromFlowerGreenBgTablet={false}
-                onSelect={handleCitySelect}
+
+              <DropdownWithSearch
+                onSelectCity={handleCitySelect}
+                selectedCity={selectedCity}
               />
             </div>
 
-            <div className="hidden h-10 border-b-0 border-[#A1B1D440] justify-between pl-0 pr-0 items-center mobileUserAcc:flex">
-              <Dropdown
-                label={"Išči po kraju"}
-                isFromNotification={false}
-                isFromObituary={false}
-                isFromFlower={false}
-                isFrom={"userAccount"}
-                data={cityOptions}
-                selectedValue={selectedCity}
-                isFromFlowerGreenBgTablet={false}
-                onSelect={handleCitySelect}
+            <div className="hidden h-10  justify-between pl-0 pr-0 items-center mobileUserAcc:flex">
+              <DropdownWithSearch
+                onSelectCity={handleCitySelect}
+                selectedCity={selectedCity}
               />
+
               {/* <CustomDropdown label={"Spremeni"} data={cityOptions} /> */}
             </div>
           </div>

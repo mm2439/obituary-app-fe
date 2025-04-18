@@ -107,6 +107,21 @@ const Guardians = () => {
 
     return `${day}.${month}.${year}`;
   };
+
+  const formattedDateWithTime = (timestamp) => {
+    const funeralDate = new Date(timestamp);
+    if (isNaN(funeralDate.getTime())) return "";
+
+    const day = funeralDate.getDate().toString().padStart(2, "0");
+    const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = funeralDate.getFullYear();
+
+    const hours = funeralDate.getHours().toString().padStart(2, "0");
+    const minutes = funeralDate.getMinutes().toString().padStart(2, "0");
+
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
+  };
+
   useEffect(() => {
     console.log(logs);
   }, [logs]);
@@ -119,23 +134,21 @@ const Guardians = () => {
       >
         <div className="flex tabletUserAcc:flex-col-reverse mobileUserAcc:flex-col flex-row justify-between">
           <div className="flex flex-wrap gap-[16px]">
-            {memories && memories.length > 0 ? (
-              memories.map((item, index) => (
-                <button
-                  className={`px-4 py-2 h-12 rounded-lg p-6 min-w-[116px] ${
-                    activeTab === item.id
-                      ? "bg-gradient-to-t from-[#530CC6] to-[#0D94E8] text-white"
-                      : "bg-white text-[#6D778E] border-gradient"
-                  }`}
-                  onClick={() => setActiveTab(item.id)}
-                  key={index}
-                >
-                  {item.name} {item.sirName}
-                </button>
-              ))
-            ) : (
-              <p>No Memories Found</p>
-            )}
+            {memories && memories.length > 0
+              ? memories.map((item, index) => (
+                  <button
+                    className={`px-4 py-2 h-12 rounded-lg p-6 min-w-[116px] ${
+                      activeTab === item.id
+                        ? "bg-gradient-to-t from-[#530CC6] to-[#0D94E8] text-white"
+                        : "bg-white text-[#6D778E] border-gradient"
+                    }`}
+                    onClick={() => setActiveTab(item.id)}
+                    key={index}
+                  >
+                    {item.name} {item.sirName}
+                  </button>
+                ))
+              : null}
           </div>
           {/* 17 October 2024 - tabletUserAcc:max-w-[950px] */}
           <div className="ml-[49px] tabletUserAcc:mb-5 tabletUserAcc:max-w-[950px] mobileUserAcc:mt-5 md:m-2 flex justify-end items-end mobileUserAcc:ml-[22px] h-[25px] text-[18px] font-normal text-[#0D94E8]">
@@ -406,7 +419,7 @@ const Guardians = () => {
                   Kmalu
                 </p>
 
-                <img
+                {/* <img
                   src="/Time.svg"
                   alt="Čas preživet na strani"
                   className="mt-2"
@@ -414,18 +427,17 @@ const Guardians = () => {
                     width: "42px",
                     height: "40px",
                   }}
-                />
+                /> */}
 
-                {/* <p
-                  className="text-[#FFFFFF] text-sm font-light w-full h-[30px] flex justify-center items-center"
+                <p
+                  className="text-[#FFFFFF] text-sm font-light w-full h-[30px] mt-11 flex justify-center items-center"
                   style={{
                     background:
                       "linear-gradient(180deg, #63B8F3 0%, #1F6BB2 100%)",
                   }}
                 >
-                  Minut v maju:
-                  <span className="text-[16px] font-bold pl-1">236</span>
-                </p> */}
+                  <span className="text-[16px] font-bold pl-1"> </span>
+                </p>
               </div>
             </div>
             <img
@@ -590,7 +602,7 @@ const Guardians = () => {
                   }}
                 >
                   Premium svečk:
-                  <span className="text-[16px] font-bold pl-1">6</span>
+                  <span className="text-[16px] font-bold pl-1">0</span>
                 </p>
               </div>
             </div>
@@ -731,13 +743,13 @@ const Guardians = () => {
                   ? logs.map((item, index) => (
                       <tr className="bg-[#FFFFFF80]" key={index}>
                         <td className="px-6 py-2 border-b border-[#A1B1D4] text-sm font-normal text-[#3C3E41]">
-                          {formattedDate(item.createdTimestamp)}
+                          {formattedDateWithTime(item.createdTimestamp)}
                         </td>
                         <td className="px-6 py-2 border-b border-[#A1B1D4] text-base font-normal text-[#3C3E41]">
                           <strong className="text-[#6D778E] text-sm font-normal">
-                            {item.interactionData?.name}
+                            {item.interactionData?.name || item?.userName}
                           </strong>
-                          <br /> {item.type}
+                          <br /> {item.typeInSL}
                         </td>
                       </tr>
                     ))

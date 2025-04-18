@@ -941,39 +941,53 @@ const UserCircles = ({ onTextClick, onCircle, users }) => {
     </div>
   );
 };
+// Deterministic hash function (simple but works for this use case)
+const getConsistentIndex = (input, length) => {
+  let hash = 0;
+  for (let i = 0; i < input.length; i++) {
+    hash = input.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash) % length;
+};
+
+// Use this for gradients
+const getConsistentGradientClass = (input) => {
+  const index = getConsistentIndex(input, gradientStyles.length);
+  return gradientStyles[index].class;
+};
+
 const Container = ({ index, item, key, onCircleClick }) => {
-  const gradientClass = useMemo(() => getRandomGradientClass(), [item?.user]);
+  const userIdentifier = item?.createdTimestamp || "default";
+  const gradientClass = useMemo(
+    () => getConsistentGradientClass(userIdentifier),
+    [userIdentifier]
+  );
+
   return (
     <button
       onClick={onCircleClick}
       key={index}
-      className={`flex border-2 backdrop-blur-lg cursor-pointer ${gradientClass} items-center justify-center w-[64px] h-[64px] rounded-full ml-[-10px]`}
-      style={{ backgroundColor: getRandomColor() }}
+      className={`flex border-2 backdrop-blur-lg cursor-pointer ${gradientClass}  items-center justify-center w-[64px] h-[64px] rounded-full ml-[-10px]`}
     >
-      <div className="text-[20px] text-[#1E2125] font-normal ">
+      <div className="text-[20px] text-[#1E2125] font-normal">
         {(() => {
           const nameParts = item?.name?.split(" ") || [];
           const initials =
             nameParts.length > 1
               ? nameParts[0][0] + nameParts[1][0]
-              : nameParts[0]?.substring(0, 2) || "";
+              : nameParts[0]?.substring(0, 1) || "";
 
           return initials.toUpperCase();
         })()}
-
-        {key}
       </div>
     </button>
   );
 };
-
 const gradientStyles = [
   {
     class: "bg-gradient-to-br from-[#F1A5F380] to-[#FFFFFF30] border-[#F1A5F3]",
   },
-  {
-    class: "bg-gradient-to-br from-[#FFFFFF80] to-[#FFFFFF30] border-[#FFFFFF]",
-  },
+
   {
     class: "bg-gradient-to-br from-[#A6A5F380] to-[#FFFFFF30] border-[#A6A5F3]",
   },
@@ -990,22 +1004,5 @@ const gradientStyles = [
     class: "bg-gradient-to-br from-[#B2E6E380] to-[#FFFFFF30] border-[#B2E6E3]",
   },
 ];
-const getRandomGradientClass = () => {
-  const randomIndex = Math.floor(Math.random() * gradientStyles.length);
-  return gradientStyles[randomIndex].class;
-};
-
-const getRandomColor = () => {
-  const colors = [
-    "bg-red-200",
-    "bg-green-200",
-    "bg-blue-200",
-    "bg-purple-200",
-    "bg-pink-200",
-    "bg-yellow-200",
-    "bg-teal-200",
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
-};
 
 export default MemorialPageTopComp;

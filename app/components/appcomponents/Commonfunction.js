@@ -10,19 +10,28 @@ export function CommonViewUserAccSidebar({
   title,
   route,
   pendingConfirmations,
+  isKeeper,
 }) {
   const pathname = usePathname();
 
   return (
     <Link href={route ? route : ""}>
-      <div className="w-[186px] mt-1 cursor-pointer shadow-custom-light-dark-box-image rounded-[10px] border-[2px] border-[#FFFFFF]">
+      <div
+        className={`w-[186px] mt-1 cursor-pointer shadow-custom-light-dark-box-image rounded-[10px] ${
+          isKeeper ? "" : "border-[2px] border-[#FFFFFF]"
+        }`}
+      >
         <div
           className={`h-[48px] ${
             pathname == route
               ? "bg-gradient-to-b from-[#0D94E8] to-[#1860A3]"
               : "bg-[#FFFFFF80]"
-          } border-[1px] border-[#FFFFFF40] 
-          flex justify-start items-center rounded-[8px]`}
+          } ${
+            !isKeeper || pathname == route
+              ? "border-[1px] border-[#FFFFFF40]"
+              : "border-[1.5px] border-[#1860A3]"
+          } 
+      flex justify-start items-center rounded-[8px]`}
         >
           {title == "Pogosta vprašanja" ? null : imgPath == "" ? (
             <div

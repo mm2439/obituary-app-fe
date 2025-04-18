@@ -205,7 +205,7 @@ const Anniversaries = () => {
           </div>
         </div>
         <div
-          className="flex desktopUserAcc:flex-col gap-4 mobileUserAcc:gap-3 mt-[50px] mobileUserAcc:mt-5 tabletUserAcc:overflow-x-scroll mobileUserAcc:overflow-x-scroll tabletUserAcc:snap-x mobileUserAcc:snap-x snap-mandatory"
+          className="flex desktopUserAcc:flex-col gap-4 mobileUserAcc:gap-3 mt-[32px] mobileUserAcc:mt-5 tabletUserAcc:overflow-x-scroll mobileUserAcc:overflow-x-scroll tabletUserAcc:snap-x mobileUserAcc:snap-x snap-mandatory"
           style={{
             scrollbarWidth: "none",
           }}
@@ -416,7 +416,7 @@ const Anniversaries = () => {
                   <TextView text={"OBISKOV STRANI:"} val={item.totalVisits} />
                 </div>
 
-                <div className="flex justify-between gap-2">
+                <div className="flex justify-between gap-3">
                   <div className="w-[105px] h-[73px] flex justify-center items-center">
                     {item.visits && item.visits.length > 0 ? (
                       <CommonView
@@ -605,9 +605,13 @@ function CommonView({ isLeft, isCandle = false, val, date }) {
 
   return (
     <div
-      className={`flex flex-row desktopUserAcc:flex-col w-full ${
-        isLeft && "items-end"
-      } ${date !== "" || (date === "" && val === "") ? "items-center" : ""} `}
+      className={`flex flex-row  desktopUserAcc:flex-col w-full ${
+        isLeft && "desktopUserAcc:items-end"
+      } ${
+        date !== "" || (date === "" && val === "")
+          ? "desktopUserAcc:items-start"
+          : ""
+      } `}
     >
       {date !== "" && val && (
         <>
@@ -653,7 +657,7 @@ function CommonView({ isLeft, isCandle = false, val, date }) {
 function TextStyle({ text, size }) {
   return (
     <div
-      className={`${size}  ${
+      className={`${size}    ${
         text == "14.09.2024" ? "text-[#EB1D1D]" : "text-[#6D778E]"
       }  font-normal leading-[16.41px] mobileUserAcc:text-[12px] pt-1`}
     >

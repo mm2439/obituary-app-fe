@@ -4,6 +4,8 @@ import Image from "next/image";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import obituaryService from "@/services/obituary-service";
+import regionsAndCities from "@/utils/regionAndCities";
+import DropdownWithSearch from "./DropdownWithSearch";
 
 const ReviewUserAccount = () => {
   const [showSelect, setShowSelect] = useState(false);
@@ -32,6 +34,20 @@ const ReviewUserAccount = () => {
     const year = funeralDate.getFullYear();
 
     return `${day}.${month}.${year}`;
+  };
+  const [selectedCity, setSelectedCity] = useState(null);
+
+  const cityOptions = [
+    ...Object.values(regionsAndCities)
+      .flat()
+      .map((city) => ({
+        place: city,
+        id: city,
+      }))
+      .sort((a, b) => a.place.localeCompare(b.place, "sl")),
+  ];
+  const handleCitySelect = async (item) => {
+    setSelectedCity(item);
   };
 
   return (
@@ -93,62 +109,58 @@ const ReviewUserAccount = () => {
         </div>
       </div>
 
-      <div className="mt-[20px] tabletUserAcc:mt-[17px] mobileUserAcc:mt-[24px] w-full flex flex-wrap gap-[11px] tabletUserAcc:gap-[9px] mobileUserAcc:gap-[9px] ">
-        <div className="mt-[20px] tabletUserAcc:mt-[17px] mobileUserAcc:mt-[24px] w-full flex flex-wrap gap-[11px] tabletUserAcc:gap-[9px] mobileUserAcc:gap-[9px]">
-          {memories && memories.length > 0 ? (
-            memories.map((memory, index) => (
-              <div
-                key={index}
-                className="relative w-[234px] h-[76px] p-[2px] rounded-[8px]
+      <div className="mt-[10px] tabletUserAcc:mt-[10px] mobileUserAcc:mt-[12px] w-full flex flex-wrap gap-[11px] tabletUserAcc:gap-[9px] mobileUserAcc:gap-[9px] ">
+        <div className="mt-[10px] tabletUserAcc:mt-[10px] mobileUserAcc:mt-[12px] w-full flex flex-wrap gap-[11px] tabletUserAcc:gap-[9px] mobileUserAcc:gap-[9px]">
+          {memories && memories.length > 0
+            ? memories.map((memory, index) => (
+                <div
+                  key={index}
+                  className="relative w-[234px] h-[76px] p-[2px] rounded-[8px]
         mobileUserAcc:w-[160px] mobileUserAcc:h-[73px]"
-              >
-                <Link
-                  href={`/memorypage/${memory.id}/${memory.name}_${
-                    memory.sirName
-                  }_${funeralDateFormatted(memory.funeralTimestamp)}`}
-                  className={`flex flex-col justify-between items-center w-full h-full rounded-[8px] pt-[12px] pb-[16px]
+                >
+                  <Link
+                    href={`/memorypage/${memory.id}/${memory.name}_${
+                      memory.sirName
+                    }_${funeralDateFormatted(memory.funeralTimestamp)}`}
+                    className={`flex flex-col justify-between items-center w-full h-full rounded-[8px] pt-[12px] pb-[16px]
             mobileUserAcc:py-[6px]
             ${
               memory.Keepers?.length > 0
                 ? memory.isKeeper
                   ? "bg-[#e9f1e8] border-2 border-purple-500"
-                  : "bg-[#e9f1e8] border-2 border-blue-500"
-                : "bg-[#ffffff] border-2 border-blue-500"
+                  : "bg-[#e9f1e8] border-2 border-[#1860A3]"
+                : "bg-[#ffffff] border-2 border-[#1860A3]"
             }
           `}
-                >
-                  <div className="mobileUserAcc:text-center">
-                    <p
-                      className="text-[16px] font-normal leading-[18.75px] text-[#1E2125] m-[0]
+                  >
+                    <div className="mobileUserAcc:text-center">
+                      <p
+                        className="text-[16px] font-normal leading-[18.75px] text-[#1E2125] m-[0]
               mobileUserAcc:text-[14px] mobileUserAcc:leading-[16.41px] mobileUserAcc:text-[#6D778E] mobileUserAcc:mt-[2px]"
-                    >
-                      {memory.name}
-                      <span className="mobileUserAcc:block text-[16px] font-normal leading-[18.75px] text-[#1E2125] m-[0]">
-                        {memory.sirName}
-                      </span>
-                    </p>
-                  </div>
-                  <div>
-                    <p
-                      className="text-[14px] font-normal leading-[16.41px] text-[#6D778E] m-[0]
+                      >
+                        {memory.name}
+                        <span className="mobileUserAcc:block text-[16px] ml-1 font-normal leading-[18.75px] text-[#1E2125] m-[0]">
+                          {memory.sirName}
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      <p
+                        className="text-[14px] font-normal leading-[16.41px] text-[#6D778E] m-[0]
               mobileUserAcc:text-[12px] mobileUserAcc:font-light mobileUserAcc:leading-[14.06px] mobileUserAcc:m-[0]"
-                    >
-                      {memory.city}
-                    </p>
-                  </div>
-                  <div className="absolute bottom-[4px] right-[10px] mobileUserAcc:hidden">
-                    <p className="text-[10px] font-extralight leading-[11.72px] text-[rgba(109,_119,_142,_0.6)] m-[0]">
-                      {memory.deathDate}
-                    </p>
-                  </div>
-                </Link>
-              </div>
-            ))
-          ) : (
-            <p className="text-[#6D778E] text-[16px] font-light">
-              No memories found
-            </p>
-          )}
+                      >
+                        {memory.city}
+                      </p>
+                    </div>
+                    <div className="absolute bottom-[4px] right-[10px] mobileUserAcc:hidden">
+                      <p className="text-[10px] font-extralight leading-[11.72px] text-[rgba(109,_119,_142,_0.6)] m-[0]">
+                        {funeralDateFormatted(memory.deathDate)}
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              ))
+            : null}
         </div>
       </div>
 
@@ -176,50 +188,19 @@ const ReviewUserAccount = () => {
         <input
           type="text"
           placeholder="Išči po imenu / priimku"
-          className="w-[227px] h-[48px] bg-[#FFFFFF] border-[1px] border-[solid] border-[#7C7C7C] rounded-[8px] pl-[16px] placeholder:text-[16px] placeholder:font-normal placeholder:text-[#7C7C7C] placeholder:m-[0]
+          className="w-[227px] h-[36px] bg-[#f1fffe] border-[1px] border-[solid] border-[#7C7C7C] rounded-[8px] pl-[16px] placeholder:text-[16px] placeholder:font-normal placeholder:text-[#7C7C7C] placeholder:m-[0]
           mobileUserAcc:w-[335px]
           "
         ></input>
-
-        <div
-          onClick={() => {
-            setShowSelect(!showSelect);
-          }}
-          className="relative flex justify-between items-center cursor-pointer w-[227px] h-[48px] pl-[16px] pr-[15px] border-[1px]  border-[#7C7C7C] bg-[#ffffff] rounded-[8px] 
-          mobileUserAcc:w-[335px]
-          mobileUserAcc:mt-[16px]
-          "
-        >
-          <div>
-            <p
-              className="text-[16px] font-normal leading-[24px] text-[#7C7C7C] m-[0]
-                "
-            >
-              Išči po kraju
-            </p>
-          </div>
-
-          <div className=" ">
-            <Image
-              src={"/icon_dropDown.png"}
-              height={28}
-              width={28}
-              className="h-[28px] w-[28px]"
-            />
-          </div>
-
-          {showSelect ? (
-            <div className="h-auto w-full bg-[#ffffff] rounded-[12px] p-[5px] absolute left-0 top-[50px]  z-10">
-              <li className="font-sourcesans text-[16px] font-normal leading-[24px] text-[#848484] m-[0]">
-                Option1
-              </li>
-            </div>
-          ) : (
-            ""
-          )}
+        <div className="w-[227px]   bg-transparent  rounded-[8px]   placeholder:text-[16px] placeholder:font-normal placeholder:text-[#7C7C7C] placeholder:m-[0]">
+          <DropdownWithSearch
+            onSelectCity={handleCitySelect}
+            selectedCity={selectedCity}
+            isFrom="reviewUser"
+          />
         </div>
 
-        <div className=" flex mobileUserAcc:hidden justify-center  w-12 items-center h-full aspect-square rounded-lg bg-[#414141]">
+        <div className=" flex mobileUserAcc:hidden justify-center  w-9 items-center h-full aspect-square rounded-lg bg-[#414141]">
           <MagnifyingGlassIcon className="w-5 h-5 text-white " />
         </div>
       </div>

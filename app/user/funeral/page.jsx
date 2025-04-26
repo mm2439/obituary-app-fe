@@ -90,7 +90,7 @@ export default function Funeral() {
               </div>
               <div>
               <div className="text-[rgb(60,62,65)] hidden mobileUserAcc:block">
-              Pozor. Razen spodnjih treh povezav je ta del za boljšo uporabniško izkušnjo optimiziran za tablico ali računalnik. <br />
+              Pozor. Razen spodnjih treh povezav je ta del za boljšo uporabniško izkušnjo optimiziran za tablico ali računalnik. <br /> <br />
               Vseeno nadaljujem?
               </div>
             </div>
@@ -207,14 +207,45 @@ export default function Funeral() {
               </div>
 
               {/* 21 October 2024 */}
+              
               <div className="w-[314px] flex flex-col">
-                <div className="mt-[10px]">
+                <div className="items-center justify-center gap-5 mt-5 hidden mobileUserAcc:flex">
+                  <Link
+                    href={"/obituarylist"}
+                    className="flex items-center rounded-lg justify-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
+                mobile:h-[43px] mobile:w-[103px]
+                tablet:h-[43px] tablet:w-[97px]
+                desktop:h-12 desktop:w-[125px]"
+                  >
+                    {/* <div className="hidden desktop:flex font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
+                    Prikaži več
+                  </div> */}
+                    <div className="flex font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
+                    NAZAJ
+                    </div>
+                  </Link>
+                  <Link
+                    href={"/obituarylist"}
+                    className="flex items-center rounded-lg justify-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
+                mobile:h-[43px] mobile:w-[103px]
+                tablet:h-[43px] tablet:w-[97px]
+                desktop:h-12 desktop:w-[125px]"
+                  >
+                    {/* <div className="hidden desktop:flex font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
+                    Prikaži več
+                  </div> */}
+                    <div className="flex font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
+                    NAPREJ
+                    </div>
+                  </Link>
+                </div>
+                <div className="mt-[10px]  mobileUserAcc:hidden">
                   <ButtonWhiteBG
                     placeholderImg={"/ico_obletnice.png"}
                     placeholderText={"NAZAJ NA SPLETNO STRAN"}
                   />
                 </div>
-                <div className="mt-[10px]">
+                <div className="mt-[10px]  mobileUserAcc:hidden">
                   <ButtonWhiteBG
                     placeholderImg={"/ico_obletnice.png"}
                     placeholderText={"POGOSTA VPRAŠANJA"}

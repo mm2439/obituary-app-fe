@@ -65,6 +65,43 @@ export function CommonViewUserAccSidebar({
   );
 }
 
+export function NotificationViewUserAccSidebar({
+  title,
+  route,
+  count,
+}) {
+  const pathname = usePathname();
+
+  return (
+    <Link href={route ? route : ""}>
+    <div
+      className={`w-[186px] mt-1 cursor-pointer shadow-custom-light-dark-box-image rounded-[10px] bg-white`}
+    >
+      <div
+        className={`h-[48px] flex justify-start items-center rounded-[8px]`}
+      >
+        <div className="ml-[15px]">
+          <div className="w-5 h-5 rounded-full bg-[#EB1D1D] flex justify-center items-center font-semibold text-[12px] text-[#FFFFFF]">
+          {count}
+          </div>
+        </div>
+        <div
+          style={{
+            fontVariationSettings: "'opsz' 16",
+          }}
+          className={`ml-[8px] h-full my-[2px] text-base  ${
+            pathname == route ? "text-[#FFFFFF]" : "text-[#6D778E]"
+          } font-normal leading-[24px] flex justify-center items-center`}
+        >
+          {title}
+        </div>
+      </div>
+    </div>
+  </Link>
+  );
+}
+
+
 export function CommonView({ onPress, isSelected, imgPath, title }) {
   return (
     <div

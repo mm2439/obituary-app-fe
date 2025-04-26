@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 import UserAccountHeaderNew from "@/app/components/appcomponents/UserAccountHeaderNew";
-import FooterMobile from "@/app/components/appcomponents/FooterMobile";
+import CompanyFooterMobile from "@/app/components/appcomponents/CompanyFooterMobile";
 import { usePathname } from "next/navigation";
 import obituaryService from "@/services/obituary-service";
 import CompanySidebar from "@/app/components/appcomponents/CompanySidebar";
@@ -271,7 +271,7 @@ const CompanyAccountLayout = ({ children }) => {
       </div>
 
       {/* FOOTER FOR MOBILE */}
-      <FooterMobile
+      <CompanyFooterMobile
         handleGoToTop={handleGoToTop}
         setIsMobilSideBarOpen={setIsMobilSideBarOpen}
       />

@@ -94,6 +94,19 @@ export default function CompanySidebar({
             title={"Naši podatki"}
             route="/user/companies/account-settings"
           />
+          <div className="w-[186px] cursor-pointer rounded-[10px] mt-[4px] shadow-custom-light-dark-box-image border-[2px] border-[#FFFFFF]">
+            <div
+              className="h-[50px] bg-[#FFFFFF80] border-[1px] border-[#FFFFFF40] 
+    flex justify-center items-center rounded-[8px]"
+            >
+              <div
+                className=" h-full text-base  text-[#2d2d2da9] text-[16px]
+        font-variation-customOpt16 font-normal leading-[24px] flex justify-start items-center"
+              >
+                Pogosta vprašanja
+              </div>
+            </div>
+          </div>
         <div className="mt-[54px]">
           <div className="w-[186px] cursor-pointer rounded-[10px] mt-[4px] shadow-custom-light-dark-box-image border-[2px] border-[#FFFFFF]">
             <div

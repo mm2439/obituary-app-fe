@@ -65,6 +65,67 @@ export function CommonViewUserAccSidebar({
   );
 }
 
+export function CommonViewBusinessAccSidebar({
+  imgPath,
+  title,
+  route,
+  pendingConfirmations,
+  isKeeper,
+  isActive,
+}) {
+  const pathname = usePathname();
+
+  return (
+    <Link href={route ? route : ""}>
+      <div
+        className={`w-[186px] mt-1 cursor-pointer shadow-custom-light-dark-box-image rounded-[10px] ${
+          isKeeper ? "" : "border-[2px] border-[#FFFFFF]"
+        }`}
+      >
+        <div
+          className={`h-[48px] ${
+            isActive || pathname == route
+              ? "bg-gradient-to-b from-[#0D94E8] to-[#1860A3]"
+              : "bg-[#FFFFFF80]"
+          } ${
+            isActive || !isKeeper || pathname == route
+              ? "border-[1px] border-[#FFFFFF40]"
+              : "border-[1.5px] border-[#1860A3]"
+          } 
+      flex justify-start items-center rounded-[8px]`}
+        >
+          {title == "Pogosta vprašanja" ? null : imgPath == "" ? (
+            <div
+              className={`rounded-full h-[24px] w-[24px] ml-[15px] flex justify-center items-center ${
+                pendingConfirmations === 0 ? "bg-none" : "bg-[#EB1D1D]"
+              }`}
+            >
+              {/* 17 October 2024 */}
+              <div className="text-[15px] text-[#FFFFFF] leading-[21px] font-[700px] font-sourcesans">
+                {pendingConfirmations}
+              </div>
+            </div>
+          ) : (
+            <div className="ml-[15px]">
+              <Image src={imgPath} alt="" width={24} height={24} />
+            </div>
+          )}
+          <div
+            style={{
+              fontVariationSettings: "'opsz' 16",
+            }}
+            className={`ml-[8px] h-full my-[2px] text-base  ${
+              isActive || pathname == route ? "text-[#FFFFFF]" : "text-[#6D778E]"
+            } font-normal leading-[24px] flex justify-center items-center`}
+          >
+            {title}
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export function NotificationViewUserAccSidebar({
   title,
   route,

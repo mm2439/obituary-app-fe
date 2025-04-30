@@ -1,6 +1,7 @@
 "use client";
+
 import Image from "next/image";
-import { CommonViewUserAccSidebar, NotificationViewUserAccSidebar } from "./Commonfunction";
+import { CommonViewBusinessAccSidebar, NotificationViewUserAccSidebar } from "./Commonfunction";
 import { usePathname, useRouter } from "next/navigation";
 import authService from "@/services/auth-service";
 
@@ -11,6 +12,11 @@ export default function CompanySidebar({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+
+  console.log(pathname);
+  const normalPath = pathname.startsWith("/c") ? pathname.replace("/c", "") : pathname.replace("/p", "");
+
+  const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
   const logoutUser = async () => {
     try {
@@ -25,6 +31,7 @@ export default function CompanySidebar({
       console.error("Error Fetching Pending Posts:", err);
     }
   };
+
   return (
     <div
       className="px-[22px] mx-auto bg-[#F1F5F8] pt-[36px] hidden desktopUserAcc:flex flex-col border-r-2 border-[#FFFFFF]
@@ -44,28 +51,31 @@ export default function CompanySidebar({
           MOJI BLIŽNJI
         </div>
         <div>
-          <CommonViewUserAccSidebar
+          <CommonViewBusinessAccSidebar
             imgPath={
-              pathname == "/pregled" ? "/ico_pre.png" : "/ico_pregled.png"
+              normalPath == "/nase_osmrtnice" || normalPath == "/osmrtnice_stat" ? "/ico_pre.png" : "/ico_pregled.png"
             }
             title={"Osmrtnice"}
-            route="/user/osmrtnice"
+            route={absolutePath + "/nase_osmrtnice"}
             pendingConfirmations={pendingConfirmations}
+            isActive={normalPath === "/osmrtnice_stat"}
           />
-          <CommonViewUserAccSidebar
+          <CommonViewBusinessAccSidebar
             imgPath={
-             "/spominske.png"
+              normalPath === "/nase_spominske" || normalPath === "/nasi_prispevki" ? "/anti_spominske.png" : "/spominske.png"
             }
             title={"Spominske"}
-            route="/spominske"
+            route={absolutePath + "/nase_spominske"}
+            isActive={normalPath === "/nase_spominske" || normalPath === "/nasi_prispevki"}
           />
 
-          <CommonViewUserAccSidebar
+          <CommonViewBusinessAccSidebar
             imgPath={
-              "/mobi_predloge.png"
+              normalPath === "/nasa_darila" || normalPath === "/darila_pregled" ? "/anti_mobi.png" : "/mobi_predloge.png"
             }
             title={"MOBI predloge"}
-            route="/moji-prispevki"
+            route={absolutePath + "/nasa_darila"}
+            isActive={normalPath === "/nasa_darila" || normalPath === "/darila_pregled"}
           />
 
           <div className="w-[186px] cursor-pointer rounded-[10px] shadow-custom-light-dark-box-image relative mt-5 overflow-hidden">
@@ -85,23 +95,25 @@ export default function CompanySidebar({
         >
           MOJI SKRBNIKI
         </div>
-        <CommonViewUserAccSidebar
+        <CommonViewBusinessAccSidebar
             imgPath={
-              pathname == "/user/companies/account-settingsasdf"
+              normalPath == "/nasa_pokopalisca"
                 ? "/icon_white_setting.png"
                 : "/ico_setting.png"
             }
             title={"Naša spletna stran"}
-            route="/user/companies/account-settingsadsf"
+            route={absolutePath + "/nasa_pokopalisca"}
+            isActive={normalPath === "/nasa_pokopalisca"}
           />
-        <CommonViewUserAccSidebar
+        <CommonViewBusinessAccSidebar
             imgPath={
-              pathname == "/user/companies/account-settings"
+              normalPath == "/nasi_podatki" || normalPath == "/narocila" || normalPath == "/promocije"
                 ? "/icon_white_setting.png"
                 : "/ico_setting.png"
             }
             title={"Naši podatki"}
-            route="/user/companies/account-settings"
+            route={absolutePath + "/nasi_podatki"}
+            isActive={normalPath === "/nasi_podatki" || normalPath === "/narocila" || normalPath === "/promocije"}
           />
           <div className="w-[186px] cursor-pointer rounded-[10px] mt-[4px] shadow-custom-light-dark-box-image border-[2px] border-[#FFFFFF]">
             <div

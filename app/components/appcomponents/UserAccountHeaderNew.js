@@ -9,6 +9,8 @@ import Link from "next/link";
 import ButtonWhiteBG from "./buttonwhitebg";
 import ButtonLightGreen from "./buttonLightGreen";
 import FooterMobile from "../appcomponents/FooterMobile";
+import CompanyFooterMobile from "./CompanyFooterMobile";
+
 function UserAccountHeaderNew({
   onMenuClick,
   isMobilSideBarOpen,
@@ -16,6 +18,8 @@ function UserAccountHeaderNew({
   setIsMobilSideBarOpen,
   isKeeper,
   memories,
+  company,
+  noFooterOnMobile,
 }) {
   const router = useRouter();
 
@@ -341,7 +345,9 @@ function UserAccountHeaderNew({
         )}
       </div>
 
-      <FooterMobile setIsMobilSideBarOpen={setIsMobilSideBarOpen} />
+      {company ? <div className={`${noFooterOnMobile ? "mobileUserAcc:hidden" : ""}`}><CompanyFooterMobile
+        setIsMobilSideBarOpen={setIsMobilSideBarOpen}
+      /></div> : <FooterMobile setIsMobilSideBarOpen={setIsMobilSideBarOpen} />}
     </React.Fragment>
   );
 }

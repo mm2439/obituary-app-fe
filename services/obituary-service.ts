@@ -269,6 +269,29 @@ const getLogs = async () => {
     throw new Error("Network error or no response");
   }
 };
+
+const getApprovedData = async () => {
+  try {
+    const endpoint = `/post/approved`;
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Getting Posts:", error);
+    throw new Error("Network error or no response");
+  }
+};
+
+const getAdminMemories = async () => {
+  try {
+    const endpoint = `/obituary/admin/memories`;
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Getting Posts:", error);
+    throw new Error("Network error or no response");
+  }
+};
+
 const obituaryService = {
   createObituary,
   getObituary,
@@ -289,6 +312,8 @@ const obituaryService = {
   getMemories,
   getKeeperMemories,
   getMemoryLogs,
+  getApprovedData,
+  getAdminMemories,
 };
 
 export default obituaryService;

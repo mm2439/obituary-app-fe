@@ -612,13 +612,20 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                 )}
 
                 <div
-                  className="flex-col mt-[13px]    
+                  className={`
+                 
+                  flex-col     
                           pt-4       
                           pl-[22px] pr-[18px]  
                           tablet:mt-6 w-[100%]                       
-                            desktop:mt-8 desktop:w-[517px]   desktop:pl-[22px] desktop:pr-[14px]
+                            desktop:w-[517px]   desktop:pl-[22px] desktop:pr-[14px]
                             border-2 border-white shadow-custom-light-dark-box 
-                            bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                            bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]
+                              ${
+                                parsedEvents.length === 90
+                                  ? "desktop:mt-2"
+                                  : "desktop:mt-8"
+                              }  `}
                 >
                   <div
                     className="flex flex-col tablet:flex-row desktop:flex-row tablet:justify-between 
@@ -628,7 +635,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                       Prižgi svečko v spomin
                     </div>
                     <div className="hidden  tablet:flex desktop:flex text-[12px] text-[#1E2125] font-normal mt-[10px]">
-                      Skupno ta teden: {data?.totalVisits}
+                      Skupno ta teden: {data?.currentWeekVisits}
                     </div>
                     {/* <div className="flex tablet:hidden desktop:hidden self-end text-[12px] text-[#1E2125] font-normal mt-[-10px] ">
                       Skupno ta teden: {data?.currentWeekVisits}
@@ -658,14 +665,20 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                       </div>
                       <div className="flex h-[29px] tablet:h-[40]  desktop:h-[40px]">
                         <p className="text-[#1E2125] text-[16px] font-variation-customOpt16 font-normal ">
-                          Skupno obiskov: {data.currentWeekVisits}
+                          Skupno obiskov: {data.totalVisits}
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className=" hidden tablet:flex desktop:flex self-end tablet:my-4 desktop:my-[22px] desktop:h-[18px] items-center desktop:pr-[20px]">
+                <div
+                  className={`hidden tablet:flex desktop:flex self-end ${
+                    parsedEvents.length === 90
+                      ? "tablet:my-2 desktop:my-[10px]"
+                      : "tablet:my-4 desktop:my-[22px]"
+                  } desktop:h-[18px] items-center desktop:pr-[20px]`}
+                >
                   {false && (
                     <>
                       <Image
@@ -686,7 +699,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                 </div>
 
                 <div
-                  className="flex-col mt-6 tablet:mt-0 
+                  className="flex-col  tablet:mt-0 
                             desktop:mt-0
                             py-4      
                             pl-[21px] pr-[28px]

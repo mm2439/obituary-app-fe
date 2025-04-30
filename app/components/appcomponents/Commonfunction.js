@@ -29,14 +29,18 @@ export function CommonViewUserAccSidebar({
           } ${
             !isKeeper || pathname == route
               ? "border-[1px] border-[#FFFFFF40]"
-              : "border-[1.5px] border-[#1860A3]"
+              : ""
           } 
+
+           ${
+             title == "Postani Skrbnik" ? "border-[1.5px] border-[#1860A3]" : ""
+           } 
       flex justify-start items-center rounded-[8px]`}
         >
           {title == "Pogosta vprašanja" ? null : imgPath == "" ? (
             <div
               className={`rounded-full h-[24px] w-[24px] ml-[15px] flex justify-center items-center ${
-                pendingConfirmations === 0 ? "bg-none" : "bg-[#EB1D1D]"
+                pendingConfirmations === 0 ? "bg-gray-500" : "bg-[#EB1D1D]"
               }`}
             >
               {/* 17 October 2024 */}

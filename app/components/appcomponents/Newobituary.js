@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-const Newobituary = ({focusRef}) => {
+const Newobituary = ({ focusRef }) => {
   const [inputValuePic, setInputValuePic] = useState("");
   const [nameValue, setNameValue] = useState("");
   const [relationValue, setRelationValue] = useState("");
@@ -25,11 +25,10 @@ const Newobituary = ({focusRef}) => {
 
   return (
     <div
-    ref={focusRef}
-      className="gap-11 mobile:gap-6 pt-[50px] pb-[70px] mobile:pb-[40px] mobile:pt-[40px] relative max-w-[1920px] h-auto desktop:bg-[url('/backBgabotuiry.png')] bg-[url('/backBgabotuiry.png')] 
+      ref={focusRef}
+      className="gap-11 mobile:gap-6 pt-[50px] pb-[70px] mobile:pb-[40px] mobile:pt-[40px] relative max-w-[1920px] h-auto desktop:bg-[url('/backBgabotuiry.avif')] bg-[url('/backBgabotuiry.avif')] 
       tablet:bg-cover bg-cover w-full mx-auto  flex justify-center items-center flex-col"
     >
-
       <div
         className="desktop:w-[650px] pb-[60px] pt-[60px] tablet:pb-[35px] tablet:pt-[35px] tablet:w-[550px] mobile:max-w-[336px] mobile:w-full mobile:mx-2 flex flex-col justify-center
         bg-gradient-to-r from-white to-[#5d657900]  backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] shadow-lg mb-[20px] + mobile:pt-4 mobile:pb-4"
@@ -143,7 +142,7 @@ const Newobituary = ({focusRef}) => {
               className="text-[16px] h-[48px] bg-transparent focus:outline-none text-[#848484]"
               placeholder="Sorodstvena vez s pokojnim (npr. sin)"
             />
-              <div className="w-full h-[1px] bg-gradient-to-r from-[#D4D4D4] to-[#D4D4D4]"></div>
+            <div className="w-full h-[1px] bg-gradient-to-r from-[#D4D4D4] to-[#D4D4D4]"></div>
           </div>
         </div>
 

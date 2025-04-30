@@ -186,11 +186,14 @@ const PersonCard = ({ name, date, relation, Condolence }) => {
 
 const PersonList = ({ currentSlide, setCurrentSlide, persons }) => {
   const formatDate = (timestamp) => {
-    return new Date(timestamp).toLocaleString("sl-SI", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    const funeralDate = new Date(timestamp);
+    if (isNaN(funeralDate.getTime())) return "";
+
+    const day = funeralDate.getDate().toString().padStart(2, "0");
+    const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = funeralDate.getFullYear();
+
+    return `${day}.${month}.${year}`;
   };
 
   const handleNext = () => {

@@ -31,14 +31,14 @@ const FreeCharge = () => {
           {/*image for mobile */}
           {/* 7 October 2024 To be confirmed */}
           <img
-            src="/image_mobile_offer.png"
+            src="/image_mobile_offer.avif"
             className="w-[336px] h-[217px] self-center mt-[42px] hidden mobile:flex"
           ></img>
 
           {/*image for tablet*/}
           {/* 7 October 2024 - To be confirmed */}
           <img
-            src="/image_desktop_offer.png"
+            src="/image_desktop_offer.avif"
             className=" h-[401px] self-center mx-4 mt-[63px] desktop:mt-[70px] flex mobile:hidden"
           ></img>
         </div>

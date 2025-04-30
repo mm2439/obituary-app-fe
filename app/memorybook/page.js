@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import SideMenuAdmin from "../components/appcomponents/SideMenuAdmin";
 import RevenueComp from "../components/appcomponents/RevenueComp";
 import RevenueCompoMemory from "../components/appcomponents/RevenueCompoMemory";
 import Dropdown from "../components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import obituaryService from "@/services/obituary-service";
 
 const MemoryBook = () => {
   const tableData = [
@@ -94,6 +95,44 @@ const MemoryBook = () => {
       keeper: "",
     },
   ];
+  const [approvedPosts, setApprovedPosts] = useState({});
+  const [memories, setMemories] = useState({});
+
+  useEffect(() => {
+    getApprovedData();
+    getMemories();
+  }, []);
+
+  const getApprovedData = async () => {
+    try {
+      const response = await obituaryService.getApprovedData();
+
+      setApprovedPosts(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getMemories = async () => {
+    try {
+      const response = await obituaryService.getAdminMemories();
+
+      setMemories(response.finalObituaries);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const formatDate = (timestamp) => {
+    const funeralDate = new Date(timestamp);
+    if (isNaN(funeralDate.getTime())) return "";
+
+    const day = funeralDate.getDate().toString().padStart(2, "0");
+    const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = funeralDate.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  };
   return (
     <div className="w-[1920px] bg-[#ECF0F3] min-h-screen pt-[80px] flex flex-row justify-start">
       <div>
@@ -107,34 +146,34 @@ const MemoryBook = () => {
       <div className="w-full bg-[#e5eaf1] pt-[60px]  py-[2px] px-[20px] flex flex-col">
         <div className="w-full h-[114px] py-[2px] flex flex-row justify-between">
           <RevenueCompoMemory
-            amount={"917"}
-            total={"7667"}
+            amount={approvedPosts?.sorrowBooks?.data?.currentMonthCount.toString()}
+            total={approvedPosts?.sorrowBooks?.total.toString()}
             revenue={"Grief Book entries"}
-            previous={"943"}
+            previous={approvedPosts?.sorrowBooks?.data?.lastMonthCount.toString()}
             change={""}
             isWhiteBg={"1"}
           />
           <RevenueCompoMemory
-            amount={"687"}
-            total={"5892"}
+            amount={approvedPosts?.condolence?.data?.currentMonthCount.toString()}
+            total={approvedPosts?.condolence?.total.toString()}
             revenue={"Sympathy Messages"}
-            previous={"753"}
+            previous={approvedPosts?.condolence?.data?.lastMonthCount.toString()}
             change={""}
             isWhiteBg={"1"}
           />
           <RevenueCompoMemory
-            amount={"88"}
-            total={"770"}
+            amount={approvedPosts?.dedication?.data?.currentMonthCount.toString()}
+            total={approvedPosts?.dedication?.total.toString()}
             revenue={"Tributes"}
-            previous={"80"}
+            previous={approvedPosts?.dedication?.data?.lastMonthCount.toString()}
             change={""}
             isWhiteBg={"1"}
           />
           <RevenueCompoMemory
-            amount={"58"}
-            total={"170"}
+            amount={approvedPosts?.photos?.data?.currentMonthCount.toString()}
+            total={approvedPosts?.photos?.total.toString()}
             revenue={"Photos"}
-            previous={"65"}
+            previous={approvedPosts?.photos?.data?.lastMonthCount.toString()}
             change={""}
             isWhiteBg={"1"}
           />
@@ -150,18 +189,18 @@ const MemoryBook = () => {
 
         <div className="w-full h-[114px] py-[2px] flex mt-[37px] justify-between">
           <RevenueCompoMemory
-            amount={"5882"}
-            total={"65563"}
+            amount={approvedPosts?.candle?.data?.currentMonthCount.toString()}
+            total={approvedPosts?.candle?.total.toString()}
             revenue={"Daily Candles"}
-            previous={"4024"}
+            previous={approvedPosts?.candle?.data?.lastMonthCount.toString()}
             change={""}
             isWhiteBg={"1"}
           />
           <RevenueCompoMemory
-            amount={"78582"}
-            total={"618363"}
+            amount={approvedPosts?.memories?.data?.currentMonthCount.toString()}
+            total={approvedPosts?.memories?.total.toString()}
             revenue={"Memory Page counter"}
-            previous={"53677"}
+            previous={approvedPosts?.memories?.data?.lastMonthCount.toString()}
             change={""}
             isWhiteBg={"1"}
           />
@@ -322,137 +361,135 @@ const MemoryBook = () => {
               </tr>
             </thead>
             <tbody className="">
-              {tableData.map((data, index) => (
-                <tr
-                  key={index}
-                  className={`border-[0.5px] border-[#A1B1D4] ${
-                    index === 0 || index === 2 ? "bg-[#F7F9FA70]" : ""
-                  }`}
-                >
-                  <td className="w-[181px] h-[64px] flex flex-col justify-center items-start text-[12px] text-black pl-4">
-                    <div className=" text-[13px] text-[#3C3E41] font-normal leading-[23px] font-variation-customOpt20">
-                      {data.memoryName}{" "}
-                      <span className="text-[12px] font-normal text-[#D4D4D4]">
-                        {data.memory}
-                      </span>
-                    </div>
-                  </td>
+              {memories && memories.length > 0
+                ? memories.map((data, index) => (
+                    <tr
+                      key={index}
+                      className={`border-[0.5px] border-[#A1B1D4] ${
+                        index === 0 || index === 2 ? "bg-[#F7F9FA70]" : ""
+                      }`}
+                    >
+                      <td className="w-[181px] h-[64px] flex flex-col justify-center items-start text-[12px] text-black pl-4">
+                        <div className=" text-[13px] text-[#3C3E41] font-normal leading-[23px] font-variation-customOpt20">
+                          {data.name}
+                          <p className="text-[12px] font-normal text-[#D4D4D4]">
+                            {data.id}
+                          </p>
+                        </div>
+                      </td>
 
-                  <td className=" h-[64px] text-left w-[135px] text-[13px] font-normal text-[#3C3E41]">
-                    {data.city}
-                  </td>
+                      <td className=" h-[64px] text-left w-[135px] text-[13px] font-normal text-[#3C3E41]">
+                        {data.city}
+                      </td>
 
-                  <td>
-                    <div className="text-[12px] font-normal text-[#3C3E41]">
-                      {data.created}
-                    </div>
-                  </td>
+                      <td>
+                        <div className="text-[12px] font-normal text-[#3C3E41]">
+                          {formatDate(data.createdTimestamp)}
+                        </div>
+                      </td>
 
-                  <td className="w-[122px]  pl-[28px] h-[64px] text-center px-2 ">
-                    <div className="flex flex-col items-start gap-y-[4px]">
-                      <Image
-                        src={data.obitPage}
-                        alt=""
-                        width={16}
-                        height={18}
-                        className={`${
-                          data.obitPage === "" ? "hidden" : "block"
-                        }`}
-                      />
-                    </div>
-                  </td>
+                      <td className="w-[122px]  pl-[28px] h-[64px] text-center px-2 ">
+                        <div className="flex flex-col items-start gap-y-[4px]">
+                          <Image
+                            src={tableData[0].obitPage}
+                            alt=""
+                            width={16}
+                            height={18}
+                            className={"block"}
+                          />
+                        </div>
+                      </td>
 
-                  <td className="w-[112px] h-[64px] text-center pl-[18px] px-2 ">
-                    <div className="flex flex-col items-start gap-y-[4px]">
-                      <Image
-                        src={data.keeper}
-                        alt=""
-                        width={16}
-                        height={18}
-                        className={`${data.keeper === "" ? "hidden" : "block"}`}
-                      />
-                    </div>
-                  </td>
+                      <td className="w-[112px] h-[64px] text-center pl-[18px] px-2 ">
+                        <div className="flex flex-col items-start gap-y-[4px]">
+                          <Image
+                            src={tableData[0].keeper}
+                            alt=""
+                            width={16}
+                            height={18}
+                            className={`${
+                              data.hasKeeper === false ? "hidden" : "block"
+                            }`}
+                          />
+                        </div>
+                      </td>
 
-                  <td className="text-[20px] text-center font-bold text-[#3C3E41]">
-                    {data.totalView}
-                  </td>
+                      <td className="text-[20px] text-center font-bold text-[#3C3E41]">
+                        {data.totalVisits}
+                      </td>
 
-                  <td className="w-[80px] h-[64px] text-center text-[20px] font-bold text-[#3C3E41] ">
-                    {data.contributors}
-                  </td>
-                  <td className="w-[180px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
-                    {data.uniqueContry}
-                  </td>
+                      <td className="w-[80px] h-[64px] text-center text-[20px] font-bold text-[#3C3E41] ">
+                        {data.totalContributions}
+                      </td>
+                      <td className="w-[180px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
+                        {data.uniqueContribution}
+                      </td>
 
-                  <td className="w-[180px] h-[64px] text-center text-[13px]  text-[#3C3E41]  "></td>
+                      <td className="w-[180px] h-[64px] text-center text-[13px]  text-[#3C3E41]  "></td>
 
-                  <td className="w-[105px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
-                    {data.grifBook}
-                  </td>
-                  <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
-                    {data.sympthy}
-                  </td>
-                  <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
-                    {data.candle}
-                  </td>
+                      <td className="w-[105px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
+                        {data.totalSorrowBooks}
+                      </td>
+                      <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
+                        {data.totalCondolences}
+                      </td>
+                      <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
+                        {data.totalCandles}
+                      </td>
 
-                  <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  "></td>
+                      <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  "></td>
 
-                  <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
-                    {data.photos}
-                  </td>
-                  <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
-                    {data.tribute}
-                  </td>
-                  <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
-                    {data.mobile}
-                  </td>
-                  <td className="w-[100px] h-[64px] text-justify pl-[30px] text-[10px]  text-[#3C3E41]  ">
-                    {data.premium}
-                  </td>
+                      <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
+                        {data.totalPhotos}
+                      </td>
+                      <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
+                        {data.totalDedications}
+                      </td>
+                      <td className="w-[100px] h-[64px] text-center text-[13px]  text-[#3C3E41]  ">
+                        0
+                      </td>
+                      <td className="w-[100px] h-[64px] text-justify pl-[30px] text-[10px]  text-[#3C3E41]  ">
+                        0
+                      </td>
 
-                  <td className="w-[90px] h-[64px] text-center text-[12px]  text-[#3C3E41]  ">
-                    <div className="flex flex-row justify-center items-center">
-                      <Image
-                        src={data.notes}
-                        alt=""
-                        width={14}
-                        height={14}
-                        className={`h-[18.9px] w-[18.9px] ${
-                          data.notes === "" ? "hidden" : "block "
-                        }`}
-                      />
-                    </div>
-                  </td>
+                      <td className="w-[90px] h-[64px] text-center text-[12px]  text-[#3C3E41]  ">
+                        <div className="flex flex-row justify-center items-center">
+                          <Image
+                            src={tableData[0].notes}
+                            alt=""
+                            width={14}
+                            height={14}
+                            className={`h-[18.9px] w-[18.9px] ${"block "}`}
+                          />
+                        </div>
+                      </td>
 
-                  <td className="w-[90px] h-[64px] items-center text-[12px]  text-[#3C3E41]  ">
-                    <div className="flex flex-row justify-center items-center">
-                      <Image
-                        src={data.email}
-                        alt=""
-                        width={20}
-                        height={19}
-                        className={`${data.email === "" ? "hidden" : "block "}`}
-                      />
-                    </div>
-                  </td>
+                      <td className="w-[90px] h-[64px] items-center text-[12px]  text-[#3C3E41]  ">
+                        <div className="flex flex-row justify-center items-center">
+                          <Image
+                            src={tableData[0].email}
+                            alt=""
+                            width={20}
+                            height={19}
+                            className={`${"block "}`}
+                          />
+                        </div>
+                      </td>
 
-                  <td className="w-[90px] h-[64px] items-center text-[12px]  text-[#3C3E41]  ">
-                    <div className="flex flex-row justify-center items-center">
-                      <Image
-                        src={data.grantCode}
-                        alt=""
-                        width={22}
-                        height={18}
-                        className={`${
-                          data.grantCode === "" ? "hidden" : "block "
-                        }`}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                      <td className="w-[90px] h-[64px] items-center text-[12px]  text-[#3C3E41]  ">
+                        <div className="flex flex-row justify-center items-center">
+                          <Image
+                            src={tableData[0].grantCode}
+                            alt=""
+                            width={22}
+                            height={18}
+                            className={`${"block "}`}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                : null}
             </tbody>
           </table>
         </div>

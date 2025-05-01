@@ -3,14 +3,15 @@ import type { NextRequest } from "next/server";
 
 const PUBLIC_ROUTES = ["/", "/registrationpage"];
 const PROTECTED_ROUTES = [
-  // "/moj-racun",
-  // "/moji-prispevki",
-  // "/obletnice",
-  // "/pregled",
-  // "/pregled2",
-  // "/user-accounts-dashboard",
-  // "/potrditev-objave",
-  "/asdfasdfasdfasdf"
+  "/moj-racun",
+  "/moji-prispevki",
+  "/obletnice",
+  "/pregled",
+  "/pregled2",
+  "/user-accounts-dashboard",
+  "/potrditev-objave",
+  "/c/nase_osmrtnice",
+  "/obituaryform",
 ];
 
 export function middleware(request: NextRequest) {
@@ -43,5 +44,7 @@ export const config = {
     "/pregled2",
     "/user-accounts-dashboard",
     "/potrditev-objave",
+    "/c/nase_osmrtnice",
+    "/obituaryform",
   ],
 };

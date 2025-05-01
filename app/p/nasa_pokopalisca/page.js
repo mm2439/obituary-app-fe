@@ -3,7 +3,7 @@ import CompanyAccountLayout from "@/app/components/appcomponents/CompanyAccountL
 export default function Cemeteries() {
   return (
     <CompanyAccountLayout>
-      <div className="w-full max-w-[940px] mobileUserAcc:w-[720px]">
+      <div className="w-full max-w-[950px] mobileUserAcc:w-[720px]">
         <div className="justify-end hidden tabletUserAcc:flex mobileUserAcc:flex tabletUserAcc:mt-[26px] mobileUserAcc:mt-[24px] tabletUserAcc:mr-[46px] mobileUserAcc:mr-[46px]">
           <div className="flex gap-[16px]">
             <div className="w-[30px] shrink-0 inline-flex items-center justify-end">
@@ -12,7 +12,7 @@ export default function Cemeteries() {
             <span className="text-[#0A85C2] text-[16px] uppercase underline">dodaj pokopališče</span>
           </div>
         </div>
-        <div className="mt-[26px] flex justify-between tabletUserAcc:flex-col mobileUserAcc:flex-col">
+        <div className="mt-[62px] tabletUserAcc:mt-[26px] mobileUserAcc:mt-[26px] flex justify-between tabletUserAcc:flex-col mobileUserAcc:flex-col">
           <div className="flex gap-[47px]">
             <div className="border-gradient-rounded  flex flex-col h-[90px] w-[310px] py-[13px] px-[15px] border-[2px] border-[#0A85C2] rounded-[10px] bg-[#fff] shadow-md">
               <div className="flex justify-between items-start mb-[2px]">
@@ -42,7 +42,7 @@ export default function Cemeteries() {
                     <h2 className="text-[40px] font-bold text-[#EB1D1D] leading-[100%]">
                     6
                     </h2>
-                    <div className="inline-flex items-center gap-[16px] cursor-pointer">
+                    <div className="inline-flex items-center gap-[16px]">
                       <span className="text-[#0A85C2] underline text-[16px]">
                       Dopolni
                       </span>

@@ -13,9 +13,7 @@ export default function CompanySidebar({
   const pathname = usePathname();
   const router = useRouter();
 
-  console.log(pathname);
   const normalPath = pathname.startsWith("/c") ? pathname.replace("/c", "") : pathname.replace("/p", "");
-
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
   const logoutUser = async () => {
@@ -59,6 +57,7 @@ export default function CompanySidebar({
             route={absolutePath + "/nase_osmrtnice"}
             pendingConfirmations={pendingConfirmations}
             isActive={normalPath === "/osmrtnice_stat"}
+            isFirstLetterDifferent={true}
           />
           <CommonViewBusinessAccSidebar
             imgPath={
@@ -67,6 +66,7 @@ export default function CompanySidebar({
             title={"Spominske"}
             route={absolutePath + "/nase_spominske"}
             isActive={normalPath === "/nase_spominske" || normalPath === "/nasi_prispevki"}
+            isFirstLetterDifferent={true}
           />
 
           <CommonViewBusinessAccSidebar
@@ -76,12 +76,13 @@ export default function CompanySidebar({
             title={"MOBI predloge"}
             route={absolutePath + "/nasa_darila"}
             isActive={normalPath === "/nasa_darila" || normalPath === "/darila_pregled"}
+            isFirstLetterDifferent={true}
           />
 
           <div className="w-[186px] cursor-pointer rounded-[10px] shadow-custom-light-dark-box-image relative mt-5 overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#0D94E8] to-[#530CC6] rounded-[10px]" />
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#0D94E8] to-[#530CC6] rounded-[8px]" />
             <div
-              className="h-[40px] bg-[#ffffff] relative z-10 m-1 border-[1px] border-[#FFFFFF40] flex justify-center items-center rounded-[8px]"
+              className="h-[40px] bg-[#ffffff] relative z-10 m-[2px] border-[1px] border-[#FFFFFF40] flex justify-center items-center rounded-[7px]"
             >
               <img src="/dodaj-com.png" alt="" />
             </div>

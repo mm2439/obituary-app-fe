@@ -11,6 +11,10 @@ import CompanySidebar from "@/app/components/appcomponents/CompanySidebar";
 const CompanyAccountLayout = ({ children }) => {
   const pathname = usePathname();
 
+  const normalPath = pathname.startsWith("/c") ? pathname.replace("/c", "") : pathname.replace("/p", "");
+
+  const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
+
   const gotoTopRef = useRef(null);
   const [isMobilSideBarOpen, setIsMobilSideBarOpen] = useState(false);
 
@@ -51,43 +55,43 @@ const CompanyAccountLayout = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (pathname == "/user/funeral/account-settings" || pathname == "/user/florist/account-settings") {
+    if (normalPath == "/nasi_podatki") {
       setHeadingOne("Račun in nastavitve");
       setHeadingTwo("Naročila");
       setHeadingThree("Promocije");
-    } else if (pathname == "/user/obituaries") {
+    } else if (normalPath == "/nase_osmrtnice") {
       setHeadingOne("Vnešene osmrtnice");
       setHeadingTwo("Mesečna statistika");
       setHeadingThree(null);
-    } else if (pathname == "/user/obituaries/monthly-stats") {
+    } else if (normalPath == "/osmrtnice_stat") {
       setHeadingOne("Mesečna statistika");
       setHeadingTwo("Dopolni vnešene osmrtnice");
       setHeadingThree(null);
-    } else if (pathname == "/user/spominske") {
+    } else if (normalPath == "/nase_spominske") {
       setHeadingOne("Podarjene spominske");
       setHeadingTwo("Naša sodelovanja na spominskih");
       setHeadingThree(null);
-    } else if (pathname == "/user/collaborations") {
+    } else if (normalPath == "/nasi_prispevki") {
       setHeadingOne("Naša sodelovanja na spominskih");
       setHeadingTwo("Podarjene spominske");
       setHeadingThree(null);
-    } else if (pathname == "/user/darila") {
+    } else if (normalPath == "/darila_pregled") {
       setHeadingOne("Darila - mesečni pregled");
       setHeadingTwo("Podrobno");
       setHeadingThree(null);
-    } else if (pathname == "/user/mobi") {
+    } else if (normalPath == "/nasa_darila") {
       setHeadingOne("Darila strankam");
       setHeadingTwo("Mesečni pregled");
       setHeadingThree(null);
-    } else if (pathname == "/user/narocila") {
+    } else if (normalPath == "/narocila") {
       setHeadingOne("Naročila");
       setHeadingTwo("Uporabniški račun");
       setHeadingThree("Promocije");
-    } else if (pathname == "/user/cemeteries") {
+    } else if (normalPath == "/nasa_pokopalisca") {
       setHeadingOne("Naša pokopališča");
       setHeadingTwo("Naša spletna stran");
       setHeadingThree(null);
-    } else if (pathname == "/user/promotions") {
+    } else if (normalPath == "/promocije") {
       setHeadingOne("Promocije");
       setHeadingTwo("Račun in nastavitve");
       setHeadingThree("Naročila");

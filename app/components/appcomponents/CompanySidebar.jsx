@@ -13,9 +13,7 @@ export default function CompanySidebar({
   const pathname = usePathname();
   const router = useRouter();
 
-  console.log(pathname);
   const normalPath = pathname.startsWith("/c") ? pathname.replace("/c", "") : pathname.replace("/p", "");
-
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
   const logoutUser = async () => {

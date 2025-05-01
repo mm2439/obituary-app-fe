@@ -59,6 +59,7 @@ export default function CompanySidebar({
             route={absolutePath + "/nase_osmrtnice"}
             pendingConfirmations={pendingConfirmations}
             isActive={normalPath === "/osmrtnice_stat"}
+            isFirstLetterDifferent={true}
           />
           <CommonViewBusinessAccSidebar
             imgPath={
@@ -67,6 +68,7 @@ export default function CompanySidebar({
             title={"Spominske"}
             route={absolutePath + "/nase_spominske"}
             isActive={normalPath === "/nase_spominske" || normalPath === "/nasi_prispevki"}
+            isFirstLetterDifferent={true}
           />
 
           <CommonViewBusinessAccSidebar
@@ -76,6 +78,7 @@ export default function CompanySidebar({
             title={"MOBI predloge"}
             route={absolutePath + "/nasa_darila"}
             isActive={normalPath === "/nasa_darila" || normalPath === "/darila_pregled"}
+            isFirstLetterDifferent={true}
           />
 
           <div className="w-[186px] cursor-pointer rounded-[10px] shadow-custom-light-dark-box-image relative mt-5 overflow-hidden">

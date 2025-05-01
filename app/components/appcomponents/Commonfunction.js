@@ -76,6 +76,7 @@ export function CommonViewBusinessAccSidebar({
   pendingConfirmations,
   isKeeper,
   isActive,
+  isFirstLetterDifferent,
 }) {
   const pathname = usePathname();
 
@@ -122,7 +123,7 @@ export function CommonViewBusinessAccSidebar({
               isActive || pathname == route ? "text-[#FFFFFF]" : "text-[#6D778E]"
             } font-normal leading-[24px] flex justify-center items-center`}
           >
-            {title}
+            {isFirstLetterDifferent ? <><span className={`${isActive || pathname == route ? "text-[#A7C6E3]" : "text-[#0A85C2]"} font-bold`}>{title.charAt(0).toUpperCase()}</span> {title.slice(1)}</> : title}
           </div>
         </div>
       </div>

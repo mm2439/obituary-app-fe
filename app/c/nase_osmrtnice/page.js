@@ -51,7 +51,7 @@ export default function Obituaries() {
           </h4>
           {/* Table */}
           <div className="mt-[20px]">
-            <table className="min-w-[720px]">
+            <table className="min-w-[720px] w-full">
               <thead>
                 <tr className="text-[16px] tabletUserAcc:text-[14px] mobileUserAcc:text-[14px] text-[#6D778E] font-variation-customOpt16 font-normal leading-[24px] border-b border-[#A1B1D4] uppercase">
                   <th className="w-[20%] tabletUserAcc:w-[10%] mobileUserAcc:w-[10%] pb-[12px]"></th>

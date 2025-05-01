@@ -5,7 +5,7 @@ import React from "react";
 export default function Obituaries() {
   return (
     <CompanyAccountLayout>
-      <div className="w-full max-w-[940px]">
+      <div className="w-full max-w-[950px]">
         <div className="mt-[60px]">
           <div className="flex items-center gap-3">
             <div className="h-[55px] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] border-2 custom-border-gradient inline-flex flex-row items-center justify-center rounded-[8px] w-[310px] relative cursor-pointer tabletUserAcc:w-[310px]">

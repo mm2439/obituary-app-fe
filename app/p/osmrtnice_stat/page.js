@@ -4,7 +4,7 @@ import React from "react";
 export default function Obituaries() {
   return (
     <CompanyAccountLayout>
-      <div className="w-full max-w-[940px]">
+      <div className="w-full max-w-[950px]">
         <div className="mt-[62px] flex gap-[15px]">
 
           <div className="border-gradient-rounded  flex flex-col h-[90px] w-[310px] py-[13px] px-[15px] border-[2px] border-[#0A85C2] rounded-[10px] bg-[#fff] shadow-md">

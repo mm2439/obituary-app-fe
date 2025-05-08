@@ -2030,6 +2030,9 @@ const Modals = ({
 
           <div className=" w-[328px] mobile:w-full rounded-[10px] self-center mt-14 shadow-custom-dark-bottom">
             <div
+              onClick={() => {
+                set_Id("17");
+              }}
               className="h-[60px] w-full bg-gradient-to-b from-[#D8A800] to-[#F48F5370] border-[1.5px] border-[#D8A800] 
         flex justify-center items-center rounded-[10px]"
             >

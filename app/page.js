@@ -52,6 +52,7 @@ export default function Home() {
 
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState(null);
+  const [name, setName] = useState(null);
 
   const regionOptions = [
     allRegionsOption,
@@ -135,6 +136,8 @@ export default function Home() {
       if (selectedCity) queryParams.city = selectedCity;
 
       if (selectedRegion) queryParams.region = selectedRegion;
+
+      if (name) queryParams.name = name;
       const response = await obituaryService.getObituary(queryParams);
 
       if (response.error) {
@@ -238,7 +241,7 @@ export default function Home() {
               <div className="flex flex-col w-full items-center tablet:flex-row desktop:flex-row desktop:space-x-[16px] tablet:justify-between mobile:h-[112px] tablet:h-[48px] desktop:h-[48px]">
                 <div className="hidden desktop:flex h-[48px]">
                   <input
-                    type="email"
+                    type="text"
                     placeholder="Išči po imenu / priimku"
                     style={{
                       fontSize: "16px",
@@ -255,6 +258,7 @@ export default function Home() {
                       backgroundColor: "white",
                       fontVariationSettings: "'opsz' 16",
                     }}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
 

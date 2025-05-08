@@ -79,7 +79,7 @@ const MemoryPage = ({ params }) => {
         );
         return;
       }
-      console.log("MemoryPage obituary data:", obituary);
+      console.log("MemoryPage obituary data:", response.obituary);
 
       setObituary(response.obituary);
 

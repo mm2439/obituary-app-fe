@@ -37,7 +37,8 @@ function UserAccountHeaderNew({
       localStorage.removeItem("user");
       localStorage.removeItem("access-token");
       localStorage.removeItem("refresh-token");
-      document.cookie = "accessToken=; path=/; max-age=0";
+      document.cookie =
+        "accessToken=; path=/; domain=.osmrtnica.com; secure; sameSite=None; max-age=0";
       router.push("/");
     } catch (err) {
       console.error("Error Fetching Pending Posts:", err);
@@ -345,9 +346,13 @@ function UserAccountHeaderNew({
         )}
       </div>
 
-      {company ? <div className={`${noFooterOnMobile ? "mobileUserAcc:hidden" : ""}`}><CompanyFooterMobile
-        setIsMobilSideBarOpen={setIsMobilSideBarOpen}
-      /></div> : <FooterMobile setIsMobilSideBarOpen={setIsMobilSideBarOpen} />}
+      {company ? (
+        <div className={`${noFooterOnMobile ? "mobileUserAcc:hidden" : ""}`}>
+          <CompanyFooterMobile setIsMobilSideBarOpen={setIsMobilSideBarOpen} />
+        </div>
+      ) : (
+        <FooterMobile setIsMobilSideBarOpen={setIsMobilSideBarOpen} />
+      )}
     </React.Fragment>
   );
 }

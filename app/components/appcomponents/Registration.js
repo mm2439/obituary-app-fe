@@ -127,7 +127,7 @@ const Registration = () => {
   };
 
   return (
-    <div
+    <form
       className="relative max-w-[1920px] min-h-screen mobile:pb-[41px] mobile:pt-[71px] desktop:bg-[url('/login_ozadje.avif')] tablet:bg-[url('/ozadje_klop_tablica.avif')]
       mobile:bg-[url('/mobi_ozadje.avif')]
       bg-cover bg-center w-full desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[79px] flex flex-col justify-center items-center mx-auto"
@@ -201,6 +201,7 @@ const Registration = () => {
               <input
                 type="email"
                 value={inputValueEmail}
+                autoComplete="email"
                 onChange={handleEmailInput}
                 className="w-full h-full bg-transparent focus:outline-none text-[#848484]"
               />
@@ -214,6 +215,7 @@ const Registration = () => {
               <input
                 type="password"
                 value={inputValueGeslo}
+                autoComplete="current-password"
                 onChange={handleGesloInput}
                 className="h-[38px] w-full bg-transparent focus:outline-none text-[#848484]"
               />
@@ -378,7 +380,7 @@ const Registration = () => {
           </div>
         </div>
       )}
-    </div>
+    </form>
   );
 };
 

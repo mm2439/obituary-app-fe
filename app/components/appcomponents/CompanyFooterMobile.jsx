@@ -28,7 +28,8 @@ function CompanyFooterMobile({ handleGoToTop, setIsMobilSideBarOpen }) {
       localStorage.removeItem("user");
       localStorage.removeItem("access-token");
       localStorage.removeItem("refresh-token");
-      document.cookie = "accessToken=; path=/; max-age=0";
+      document.cookie =
+        "accessToken=; path=/; domain=.osmrtnica.com; secure; sameSite=None; max-age=0";
       router.push("/");
     } catch (err) {
       console.error("Error Fetching Pending Posts:", err);
@@ -43,10 +44,7 @@ function CompanyFooterMobile({ handleGoToTop, setIsMobilSideBarOpen }) {
       >
         <div className=" hidden tabletUserAcc:flex ">
           <button onClick={logoutUser} className="w-full h-[52px] ">
-            <IconView
-              iconPath={"/icon_home.png"}
-              name={"Začetna"}
-            />
+            <IconView iconPath={"/icon_home.png"} name={"Začetna"} />
           </button>
         </div>
 
@@ -61,10 +59,7 @@ function CompanyFooterMobile({ handleGoToTop, setIsMobilSideBarOpen }) {
 
           <Link href={"/pregled"}>
             <div>
-              <IconView
-                iconPath={"/ico_pregled.png"}
-                name={"Osmrtnice"}
-              />
+              <IconView iconPath={"/ico_pregled.png"} name={"Osmrtnice"} />
             </div>
           </Link>
 

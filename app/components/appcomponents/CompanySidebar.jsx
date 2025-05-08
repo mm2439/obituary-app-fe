@@ -1,7 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { CommonViewBusinessAccSidebar, NotificationViewUserAccSidebar } from "./Commonfunction";
+import {
+  CommonViewBusinessAccSidebar,
+  NotificationViewUserAccSidebar,
+} from "./Commonfunction";
 import { usePathname, useRouter } from "next/navigation";
 import authService from "@/services/auth-service";
 
@@ -13,7 +16,9 @@ export default function CompanySidebar({
   const pathname = usePathname();
   const router = useRouter();
 
-  const normalPath = pathname.startsWith("/c") ? pathname.replace("/c", "") : pathname.replace("/p", "");
+  const normalPath = pathname.startsWith("/c")
+    ? pathname.replace("/c", "")
+    : pathname.replace("/p", "");
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
   const logoutUser = async () => {
@@ -23,7 +28,8 @@ export default function CompanySidebar({
       localStorage.removeItem("user");
       localStorage.removeItem("access-token");
       localStorage.removeItem("refresh-token");
-      document.cookie = "accessToken=; path=/; max-age=0";
+      document.cookie =
+        "accessToken=; path=/; domain=.osmrtnica.com; secure; sameSite=None; max-age=0";
       router.push("/");
     } catch (err) {
       console.error("Error Fetching Pending Posts:", err);
@@ -51,7 +57,9 @@ export default function CompanySidebar({
         <div>
           <CommonViewBusinessAccSidebar
             imgPath={
-              normalPath == "/nase_osmrtnice" || normalPath == "/osmrtnice_stat" ? "/ico_pre.png" : "/ico_pregled.png"
+              normalPath == "/nase_osmrtnice" || normalPath == "/osmrtnice_stat"
+                ? "/ico_pre.png"
+                : "/ico_pregled.png"
             }
             title={"Osmrtnice"}
             route={absolutePath + "/nase_osmrtnice"}
@@ -61,29 +69,37 @@ export default function CompanySidebar({
           />
           <CommonViewBusinessAccSidebar
             imgPath={
-              normalPath === "/nase_spominske" || normalPath === "/nasi_prispevki" ? "/anti_spominske.png" : "/spominske.png"
+              normalPath === "/nase_spominske" ||
+              normalPath === "/nasi_prispevki"
+                ? "/anti_spominske.png"
+                : "/spominske.png"
             }
             title={"Spominske"}
             route={absolutePath + "/nase_spominske"}
-            isActive={normalPath === "/nase_spominske" || normalPath === "/nasi_prispevki"}
+            isActive={
+              normalPath === "/nase_spominske" ||
+              normalPath === "/nasi_prispevki"
+            }
             isFirstLetterDifferent={true}
           />
 
           <CommonViewBusinessAccSidebar
             imgPath={
-              normalPath === "/nasa_darila" || normalPath === "/darila_pregled" ? "/anti_mobi.png" : "/mobi_predloge.png"
+              normalPath === "/nasa_darila" || normalPath === "/darila_pregled"
+                ? "/anti_mobi.png"
+                : "/mobi_predloge.png"
             }
             title={"MOBI predloge"}
             route={absolutePath + "/nasa_darila"}
-            isActive={normalPath === "/nasa_darila" || normalPath === "/darila_pregled"}
+            isActive={
+              normalPath === "/nasa_darila" || normalPath === "/darila_pregled"
+            }
             isFirstLetterDifferent={true}
           />
 
           <div className="w-[186px] cursor-pointer rounded-[10px] shadow-custom-light-dark-box-image relative mt-5 overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#0D94E8] to-[#530CC6] rounded-[8px]" />
-            <div
-              className="h-[40px] bg-[#ffffff] relative z-10 m-[2px] border-[1px] border-[#FFFFFF40] flex justify-center items-center rounded-[7px]"
-            >
+            <div className="h-[40px] bg-[#ffffff] relative z-10 m-[2px] border-[1px] border-[#FFFFFF40] flex justify-center items-center rounded-[7px]">
               <img src="/dodaj-com.png" alt="" />
             </div>
           </div>
@@ -97,38 +113,44 @@ export default function CompanySidebar({
           MOJI SKRBNIKI
         </div>
         <CommonViewBusinessAccSidebar
-            imgPath={
-              normalPath == "/nasa_pokopalisca"
-                ? "/icon_white_setting.png"
-                : "/ico_setting.png"
-            }
-            title={"Naša spletna stran"}
-            route={absolutePath + "/nasa_pokopalisca"}
-            isActive={normalPath === "/nasa_pokopalisca"}
-          />
+          imgPath={
+            normalPath == "/nasa_pokopalisca"
+              ? "/icon_white_setting.png"
+              : "/ico_setting.png"
+          }
+          title={"Naša spletna stran"}
+          route={absolutePath + "/nasa_pokopalisca"}
+          isActive={normalPath === "/nasa_pokopalisca"}
+        />
         <CommonViewBusinessAccSidebar
-            imgPath={
-              normalPath == "/nasi_podatki" || normalPath == "/narocila" || normalPath == "/promocije"
-                ? "/icon_white_setting.png"
-                : "/ico_setting.png"
-            }
-            title={"Naši podatki"}
-            route={absolutePath + "/nasi_podatki"}
-            isActive={normalPath === "/nasi_podatki" || normalPath === "/narocila" || normalPath === "/promocije"}
-          />
-          <div className="w-[186px] cursor-pointer rounded-[10px] mt-[4px] shadow-custom-light-dark-box-image border-[2px] border-[#FFFFFF]">
-            <div
-              className="h-[50px] bg-[#FFFFFF80] border-[1px] border-[#FFFFFF40] 
+          imgPath={
+            normalPath == "/nasi_podatki" ||
+            normalPath == "/narocila" ||
+            normalPath == "/promocije"
+              ? "/icon_white_setting.png"
+              : "/ico_setting.png"
+          }
+          title={"Naši podatki"}
+          route={absolutePath + "/nasi_podatki"}
+          isActive={
+            normalPath === "/nasi_podatki" ||
+            normalPath === "/narocila" ||
+            normalPath === "/promocije"
+          }
+        />
+        <div className="w-[186px] cursor-pointer rounded-[10px] mt-[4px] shadow-custom-light-dark-box-image border-[2px] border-[#FFFFFF]">
+          <div
+            className="h-[50px] bg-[#FFFFFF80] border-[1px] border-[#FFFFFF40] 
     flex justify-center items-center rounded-[8px]"
-            >
-              <div
-                className=" h-full text-base  text-[#2d2d2da9] text-[16px]
+          >
+            <div
+              className=" h-full text-base  text-[#2d2d2da9] text-[16px]
         font-variation-customOpt16 font-normal leading-[24px] flex justify-start items-center"
-              >
-                Pogosta vprašanja
-              </div>
+            >
+              Pogosta vprašanja
             </div>
           </div>
+        </div>
         <div className="mt-[54px]">
           <div className="w-[186px] cursor-pointer rounded-[10px] mt-[4px] shadow-custom-light-dark-box-image border-[2px] border-[#FFFFFF]">
             <div

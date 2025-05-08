@@ -41,7 +41,8 @@ function UserCompanyHeaderNew({
       localStorage.removeItem("user");
       localStorage.removeItem("access-token");
       localStorage.removeItem("refresh-token");
-      document.cookie = "accessToken=; path=/; max-age=0";
+      document.cookie =
+        "accessToken=; path=/; domain=.osmrtnica.com; secure; sameSite=None; max-age=0";
       router.push("/");
     } catch (err) {
       console.error("Error Fetching Pending Posts:", err);
@@ -60,7 +61,10 @@ function UserCompanyHeaderNew({
                         "
           >
             <div className="flex items-center gap-3 justify-between w-full mx-5">
-              <Link href={absolutePath + "/menu"} className="flex items-center ">
+              <Link
+                href={absolutePath + "/menu"}
+                className="flex items-center "
+              >
                 <Image
                   src={omr}
                   alt="App Logo"
@@ -81,8 +85,14 @@ function UserCompanyHeaderNew({
               </div>
               <div className="hidden tabletUserAcc:flex mobileUserAcc:flex items-center gap-[35px]">
                 <div className="flex items-center gap-2">
-                  <img src="/bell_icon.png" alt="back" className="w-[20px] h-[20px] mb-[15px]" />
-                  <span className="text-[34px] font-bold text-[#EB1D1D] mt-[15px]">2</span>
+                  <img
+                    src="/bell_icon.png"
+                    alt="back"
+                    className="w-[20px] h-[20px] mb-[15px]"
+                  />
+                  <span className="text-[34px] font-bold text-[#EB1D1D] mt-[15px]">
+                    2
+                  </span>
                 </div>
                 <div
                   className="flex items-center"

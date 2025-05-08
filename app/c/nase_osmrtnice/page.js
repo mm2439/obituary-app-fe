@@ -1,8 +1,55 @@
+"use client";
 import CompanyAccountLayout from "@/app/components/appcomponents/CompanyAccountLayout";
+import obituaryService from "@/services/obituary-service";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Obituaries() {
+  const [obituaries, setObituaries] = useState([]);
+  useEffect(() => {
+    getObituaries();
+  }, []);
+
+  const getObituaries = async () => {
+    try {
+      const response = await obituaryService.getCompanyObituaries();
+      console.log(response);
+      setObituaries(response.obituaries);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const formatDate = (timestamp) => {
+    const funeralDate = new Date(timestamp);
+    if (isNaN(funeralDate.getTime())) return "";
+
+    const day = funeralDate.getDate().toString().padStart(2, "0");
+    const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = funeralDate.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  };
+  const formatDay = (timestamp) => {
+    const funeralDate = new Date(timestamp);
+    if (isNaN(funeralDate.getTime())) return "";
+
+    const day = funeralDate.getDate().toString().padStart(2, "0");
+    const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = funeralDate.getFullYear();
+
+    return `${day}.${month}.`;
+  };
+  const formatYear = (timestamp) => {
+    const funeralDate = new Date(timestamp);
+    if (isNaN(funeralDate.getTime())) return "";
+
+    const day = funeralDate.getDate().toString().padStart(2, "0");
+    const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = funeralDate.getFullYear();
+
+    return `${year}`;
+  };
   return (
     <CompanyAccountLayout>
       <div className="w-full max-w-[950px]">
@@ -41,12 +88,14 @@ export default function Obituaries() {
               />
             </div>
           </div>
-
         </div>
         <div className="mt-[82px]">
-          <h4 className="text-[24px] text-[#0A85C2]" style={{
-            fontVariationSettings: "'wdth' 50,'wght' 600,'opsz' 26",
-          }}>
+          <h4
+            className="text-[24px] text-[#0A85C2]"
+            style={{
+              fontVariationSettings: "'wdth' 50,'wght' 600,'opsz' 26",
+            }}
+          >
             Dopolni podatke
           </h4>
           {/* Table */}
@@ -55,168 +104,134 @@ export default function Obituaries() {
               <thead>
                 <tr className="text-[16px] tabletUserAcc:text-[14px] mobileUserAcc:text-[14px] text-[#6D778E] font-variation-customOpt16 font-normal leading-[24px] border-b border-[#A1B1D4] uppercase">
                   <th className="w-[20%] tabletUserAcc:w-[10%] mobileUserAcc:w-[10%] pb-[12px]"></th>
-                  <th className="w-[25%] tabletUserAcc:w-[30%] mobileUserAcc:w-[30%] pb-[12px] text-start">osmrtnica</th>
+                  <th className="w-[25%] tabletUserAcc:w-[30%] mobileUserAcc:w-[30%] pb-[12px] text-start">
+                    osmrtnica
+                  </th>
                   <th className="w-[10%] pb-[12px]">skrbnik</th>
                   <th className="flex items-center gap-[10px]">
                     <span className="w-[50%] text-end">slika</span>
                     <span className="text-[#D4D4D4] shrink-0">I</span>
                     <span className="w-[50%] text-start">pogreb</span>
                   </th>
-                  <th className="w-[20%] tabletUserAcc:w-[25%] mobileUserAcc:w-[25%] pb-[12px] text-end pr-[25px]">dopolni  podatke</th>
+                  <th className="w-[20%] tabletUserAcc:w-[25%] mobileUserAcc:w-[25%] pb-[12px] text-end pr-[25px]">
+                    dopolni podatke
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white/40">
-                <tr className="h-[72px] border-b border-[#A1B1D4]">
-                  <td className="px-[19px] py-[28px] tabletUserAcc:py-[16px] mobileUserAcc:py-[16px] text-[#6D778E] leading-none">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">12.03.2023</span>
-                    <span className="hidden mobileUserAcc:block tabletUserAcc:block text-end text-[rgba(109,119,142,1)] leading-[20px] text-[14px]">12.03.<br/><span className="text-[rgba(212,212,212,1)]">2023</span></span>
-                  </td>
-                  <td>
-                    <div className="inline-flex gap-[16px] items-center">
-                      <div className="space-y-[1px]">
-                        <span className="text-[14px] text-[#6D778E]">Elizabeth</span>
-                        <div className="text-[#3C3E41] text-[16px]">Frederickson</div>
-                      </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.8} stroke="#6D778E" className="size-5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                      </svg>
-                    </div>
-                  </td>
-                  <td className="flex justify-center items-center h-[72px]">
-                    <img src="/tick.png" alt="" className="w-[24px] h-[24px]" />
-                  </td>
-                  <td className="text-center">
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="w-[50%] flex items-center justify-end">
-                        <img src="/tick_green.png" alt="" className="w-[28px] h-[28px]" />
-                      </div>
-                      <span className="text-[#D4D4D4]">I</span>
-                      <div className="w-[50%] flex items-center justify-start">
-                        <img src="/cross.png" alt="" className="w-[28px] h-[28px]" />
+                {obituaries.length > 0
+                  ? obituaries.map((obituary, index) => (
+                      <tr
+                        key={index}
+                        className="h-[72px] border-b border-[#A1B1D4]"
+                      >
+                        <td className="px-[19px] py-[28px] tabletUserAcc:py-[16px] mobileUserAcc:py-[16px] text-[#6D778E] leading-none">
+                          <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
+                            {formatDate(obituary.createdTimestamp)}
+                          </span>
+                          <span className="hidden mobileUserAcc:block tabletUserAcc:block text-end text-[rgba(109,119,142,1)] leading-[20px] text-[14px]">
+                            {formatDay(obituary.createdTimestamp)}
+                            <br />
+                            <span className="text-[rgba(212,212,212,1)]">
+                              {formatYear(obituary.createdTimestamp)}
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <div className="inline-flex gap-[16px] items-center">
+                            <div className="space-y-[1px]">
+                              <span className="text-[14px] text-[#6D778E]">
+                                {obituary.name}
+                              </span>
+                              <div className="text-[#3C3E41] text-[16px]">
+                                {obituary.sirName}
+                              </div>
+                            </div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={2.8}
+                              stroke="#6D778E"
+                              className="size-5"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                              />
+                            </svg>
+                          </div>
+                        </td>
 
-                      </div>
-                    </div>
-                  </td>
-                  <td className="pr-[25px]">
-                    <button className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto ">
-                      <img src="/edit.png" alt="" className="w-[26px] h-[26px]" />
-                      <span className="text-[16px] text-[#6D778E] leading-none">Dopolni</span>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="h-[72px] border-b border-[#A1B1D4]">
-                  <td className="px-[19px] py-[28px] tabletUserAcc:py-[16px] mobileUserAcc:py-[16px] text-[#6D778E] leading-none">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">12.03.2023</span>
-                    <span className="hidden mobileUserAcc:block tabletUserAcc:block text-end text-[rgba(109,119,142,1)] leading-[20px] text-[14px]">12.03.<br/><span className="text-[rgba(212,212,212,1)]">2023</span></span>
-                  </td>
-                  <td>
-                    <div className="inline-flex gap-[16px] items-center">
-                      <div className="space-y-[1px]">
-                        <span className="text-[14px] text-[#6D778E]">Alex</span>
-                        <div className="text-[#3C3E41] text-[16px]">Hulk</div>
-                      </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.8} stroke="#6D778E" className="size-5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                      </svg>
-                    </div>
-                  </td>
-                  <td className="flex justify-center items-center h-[72px]">
-                    {/* <img src="/tick.png" alt="" className="w-[24px] h-[24px]" /> */}
-                  </td>
-                  <td className="text-center">
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="w-[50%] flex items-center justify-end">
-                        <img src="/cross.png" alt="" className="w-[28px] h-[28px]" />
-                      </div>
-                      <span className="text-[#D4D4D4]">I</span>
-                      <div className="w-[50%] flex items-center justify-start">
-                        <img src="/cross.png" alt="" className="w-[28px] h-[28px]" />
-                      </div>
-                    </div>
-                  </td>
-                  <td className="pr-[25px]">
-                    <button className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto ">
-                      <img src="/edit.png" alt="" className="w-[26px] h-[26px]" />
-                      <span className="text-[16px] text-[#6D778E] leading-none">Dopolni</span>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="h-[72px] border-b border-[#A1B1D4]">
-                  <td className="px-[19px] py-[28px] tabletUserAcc:py-[16px] mobileUserAcc:py-[16px] text-[#6D778E] leading-none">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">12.03.2023</span>
-                    <span className="hidden mobileUserAcc:block tabletUserAcc:block text-end text-[rgba(109,119,142,1)] leading-[20px] text-[14px]">12.03.<br/><span className="text-[rgba(212,212,212,1)]">2023</span></span>
-                  </td>
-                  <td>
-                    <div className="inline-flex gap-[16px] items-center">
-                      <div className="space-y-[1px]">
-                        <span className="text-[14px] text-[#6D778E]">Elizabeth</span>
-                        <div className="text-[#3C3E41] text-[16px]">Frederickson</div>
-                      </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.8} stroke="#6D778E" className="size-5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                      </svg>
-                    </div>
-                  </td>
-                  <td className="flex justify-center items-center h-[72px]">
-                    <img src="/tick.png" alt="" className="w-[24px] h-[24px]" />
-                  </td>
-                  <td className="text-center">
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="w-[50%] flex items-center justify-end">
-                        <img src="/tick_green.png" alt="" className="w-[28px] h-[28px]" />
-                      </div>
-                      <span className="text-[#D4D4D4]">I</span>
-                      <div className="w-[50%] flex items-center justify-start">
-                        <img src="/tick_green.png" alt="" className="w-[28px] h-[28px]" />
+                        <td className="text-center">
+                          <div className="flex items-center justify-center gap-3">
+                            {obituary.hasKeeper === true ? (
+                              <img
+                                src="/tick_green.png"
+                                alt=""
+                                className="w-[28px] h-[28px]"
+                              />
+                            ) : (
+                              <img
+                                src="/tick.png"
+                                alt=""
+                                className="w-[24px] h-[24px]"
+                              />
+                            )}
+                          </div>
+                        </td>
 
-                      </div>
-                    </div>
-                  </td>
-                  <td className="pr-[25px] ">
-                    <button className="border-[2px] border-[#ffffff00] rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] ml-auto">
-                      <img src="/edit.png" alt="" className="w-[26px] h-[26px]" />
-                      <span className="text-[16px] text-[#6D778E] leading-none opacity-0">Dopolni</span>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="h-[72px] border-b border-[#A1B1D4]">
-                  <td className="px-[19px] py-[28px] tabletUserAcc:py-[16px] mobileUserAcc:py-[16px] text-[#6D778E] leading-none">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">12.03.2023</span>
-                    <span className="hidden mobileUserAcc:block tabletUserAcc:block text-end text-[rgba(109,119,142,1)] leading-[20px] text-[14px]">12.03.<br/><span className="text-[rgba(212,212,212,1)]">2023</span></span>
-                  </td>
-                  <td>
-                    <div className="inline-flex gap-[16px] items-center">
-                      <div className="space-y-[1px]">
-                        <span className="text-[14px] text-[#6D778E]">Elizabeth</span>
-                        <div className="text-[#3C3E41] text-[16px]">Frederickson</div>
-                      </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.8} stroke="#6D778E" className="size-5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                      </svg>
-                    </div>
-                  </td>
-                  <td className="flex justify-center items-center h-[72px]">
-                    <img src="/tick.png" alt="" className="w-[24px] h-[24px]" />
-                  </td>
-                  <td className="text-center">
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="w-[50%] flex items-center justify-end">
-                        <img src="/tick_green.png" alt="" className="w-[28px] h-[28px]" />
-                      </div>
-                      <span className="text-[#D4D4D4]">I</span>
-                      <div className="w-[50%] flex items-center justify-start">
-                        <img src="/cross.png" alt="" className="w-[28px] h-[28px]" />
-
-                      </div>
-                    </div>
-                  </td>
-                  <td className="pr-[25px]">
-                    <button className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto">
-                      <img src="/edit.png" alt="" className="w-[26px] h-[26px]" />
-                      <span className="text-[16px] text-[#6D778E] leading-none">Dopolni</span>
-                    </button>
-                  </td>
-                </tr>
+                        <td className="text-center">
+                          <div className="flex items-center justify-center gap-3">
+                            <div className="w-[50%] flex items-center justify-end">
+                              {obituary.image === null ? (
+                                <img
+                                  src="/cross.png"
+                                  alt=""
+                                  className="w-[28px] h-[28px]"
+                                />
+                              ) : (
+                                <img
+                                  src="/tick_green.png"
+                                  alt=""
+                                  className="w-[28px] h-[28px]"
+                                />
+                              )}
+                            </div>
+                            <span className="text-[#D4D4D4]">I</span>
+                            <div className="w-[50%] flex items-center justify-start">
+                              {obituary.funeralTimestamp === null ? (
+                                <img
+                                  src="/cross.png"
+                                  alt=""
+                                  className="w-[28px] h-[28px]"
+                                />
+                              ) : (
+                                <img
+                                  src="/tick_green.png"
+                                  alt=""
+                                  className="w-[28px] h-[28px]"
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="pr-[25px]">
+                          <button className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto ">
+                            <img
+                              src="/edit.png"
+                              alt=""
+                              className="w-[26px] h-[26px]"
+                            />
+                            <span className="text-[16px] text-[#6D778E] leading-none">
+                              Dopolni
+                            </span>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  : null}
               </tbody>
             </table>
           </div>

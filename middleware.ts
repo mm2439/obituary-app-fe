@@ -10,7 +10,7 @@ const PROTECTED_ROUTES = [
   "/pregled2",
   "/user-accounts-dashboard",
   "/potrditev-objave",
-  "/c/nase_osmrtnice",
+
   "/obituaryform",
 ];
 

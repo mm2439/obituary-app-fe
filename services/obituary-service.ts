@@ -292,6 +292,39 @@ const getAdminMemories = async () => {
   }
 };
 
+const getCompanyObituaries = async () => {
+  try {
+    const endpoint = `/obituary/company`;
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Getting Posts:", error);
+    throw new Error("Network error or no response");
+  }
+};
+
+const getMonthlyCompanyData = async () => {
+  try {
+    const endpoint = `/obituary/company/monthly`;
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Getting Posts:", error);
+    throw new Error("Network error or no response");
+  }
+};
+
+const getCompanyLogs = async () => {
+  try {
+    const endpoint = `/obituary/company/logs/`;
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Getting Logs:", error);
+    throw new Error("Network error or no response");
+  }
+};
+
 const obituaryService = {
   createObituary,
   getObituary,
@@ -314,6 +347,9 @@ const obituaryService = {
   getMemoryLogs,
   getApprovedData,
   getAdminMemories,
+  getCompanyObituaries,
+  getMonthlyCompanyData,
+  getCompanyLogs,
 };
 
 export default obituaryService;

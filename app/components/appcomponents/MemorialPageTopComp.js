@@ -765,6 +765,31 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                     </div>
                   </div>
                 </div>
+
+                <div
+                  className="flex-col
+                            mt-[21px]
+                            py-4      
+                            pl-[21px] pr-[28px]
+                            w-[100%] tablet:px-4 
+                            desktop:w-[517px] desktop:pl-[22px] desktop:pr-[17px]
+                             border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                >
+                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  w-full">
+                    QR koda do te strani
+                    </div>
+                    <div className="flex items-end justify-end gap-[10px]">
+                      <span className="text-[16px] text-[#414141] font-variation-customOpt12 font-normal">Klikni za povečavo</span>
+                      <Image
+                        src={"/qr_demo.png"}
+                        alt="Slika"
+                        width={72}
+                        height={72}
+                        className=""
+                      />
+                    </div>
+                </div>
+
                 <div
                   onClick={() => {
                     set_Id("error_report"), setModal(true);

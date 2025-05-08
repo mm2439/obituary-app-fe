@@ -29,11 +29,6 @@ function UserCompanyHeaderNew({
 
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
-  // 23 October 2024
-  // const handleGoBack = () => {
-  //   console.log("back");
-  //   router.back(); // This will navigate to the previous page
-  // };
   const logoutUser = async () => {
     try {
       const response = await authService.logout();
@@ -59,7 +54,7 @@ function UserCompanyHeaderNew({
                         desktopUserAcc:w-[1260px] desktopUserAcc:px-[18px] justify-between items-center
                         "
           >
-            <div className="flex items-center gap-3 justify-between w-full mx-5">
+            <div className="flex items-center gap-3 justify-between w-full">
               <Link href={absolutePath + "/menu"} className="flex items-center ">
                 <Image
                   src={omr}

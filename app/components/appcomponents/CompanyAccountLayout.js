@@ -95,6 +95,14 @@ const CompanyAccountLayout = ({ children }) => {
       setHeadingOne("Promocije");
       setHeadingTwo("Račun in nastavitve");
       setHeadingThree("Naročila");
+    } else if (normalPath == "/spletna-stran") {
+      setHeadingOne("Naša spletna stran");
+      if(absolutePath == "/p"){
+        setHeadingTwo("Naša pokopališča");
+      } else {
+        setHeadingTwo(null);
+      }
+      setHeadingThree(null);
     }
   }, [pathname, innnerSize]);
 
@@ -186,7 +194,7 @@ const CompanyAccountLayout = ({ children }) => {
           <div className="flex pt-[46px]  desktopUserAcc:max-w-[1049px] w-full ">
             <div className="flex flex-row w-full ">
               <div
-                className={`flex w-full  flex-col pl-[42px] mobileUserAcc:pl-[12px] mobileUserAcc:pr-[12px]  tabletUserAcc:px-3  pb-[155px] mobileUserAcc:pb-[100px] tabletUserAcc:pb-[272px] desktopUserAcc:pb-[217px] `}
+                className={`flex w-full  flex-col pl-[42px] mobileUserAcc:pl-[12px] mobileUserAcc:pr-[12px]  tabletUserAcc:px-3  pb-[155px] mobileUserAcc:pb-[100px] tabletUserAcc:pb-[272px] desktopUserAcc:pb-[217px] relative`}
               >
                 {/* MAIN SCREEN HEADING */}
                 <div className="flex h-[38px]  items-center">
@@ -212,7 +220,7 @@ const CompanyAccountLayout = ({ children }) => {
                     )}
                   </div>
 
-                  <Link
+                  {headingTwo && <Link
                     href={hrefLinkOne}
                     className={` mt-[10px]
                     
@@ -237,7 +245,7 @@ const CompanyAccountLayout = ({ children }) => {
                         {headingTwo}
                       </div>
                     </div>
-                  </Link>
+                  </Link>}
 
                   {headingThree && <Link
                     href={hrefLinkTwo}

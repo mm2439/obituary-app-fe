@@ -96,7 +96,7 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
   };
 
   return (
-    <div className="relative bg-[url('../public/pisano_ozadje.avif')]  bg-cover border-t-[1px] border-b-[1px] border-[#0F0671] py-24 w-full overflow-hidden mx-auto justify-center items-center flex flex-col">
+    <div className="relative bg-[url('../public/pisano_ozadje.avif')]  bg-cover border-t-[1px] border-b-[1px]  py-24 w-full overflow-hidden mx-auto justify-center items-center flex flex-col rounded-t-[16px] mt-[37px] shadow-[-5px_-5px_10px_0px_#FFFFFF]">
       <div className="max-w-[1280px] w-full flex flex-row mobile:flex-col justify-evenly mobile:px-7">
         <div className="w-[368.5px] mobile:pl-0 pl-[25px] mobile:w-full mx-3 mobile:mx-0 mobile:text-center  ">
           <div className="text-[32px] leading-[47px] mobile:text-[28px] mobile:leading-[33px] whitespace-nowrap font-normal text-[#1E2125]">

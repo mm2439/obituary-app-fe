@@ -15,6 +15,7 @@ import imgUp from "@/public/ico_up.png";
 import Image from "next/image";
 import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
+import AnnouncementBlock from "../../../components/appcomponents/AnnouncementBlock";
 
 const MemoryPage = ({ params }) => {
   const { id, user } = params;
@@ -173,6 +174,8 @@ const MemoryPage = ({ params }) => {
           setModal={setIsShowModal}
           data={obituary?.Condolences}
         />
+        <AnnouncementBlock />
+
         <ShippingNotifications
           set_Id={setSelect_Id}
           setModal={setIsShowModal}

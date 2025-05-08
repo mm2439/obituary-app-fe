@@ -98,13 +98,13 @@ export default function CompanySidebar({
         </div>
         <CommonViewBusinessAccSidebar
             imgPath={
-              normalPath == "/nasa_pokopalisca"
+              normalPath == "/nasa_pokopalisca" || normalPath == "/spletna-stran"
                 ? "/icon_white_setting.png"
                 : "/ico_setting.png"
             }
             title={"Naša spletna stran"}
             route={absolutePath + "/nasa_pokopalisca"}
-            isActive={normalPath === "/nasa_pokopalisca"}
+            isActive={normalPath === "/nasa_pokopalisca" || normalPath === "/spletna-stran"}
           />
         <CommonViewBusinessAccSidebar
             imgPath={

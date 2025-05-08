@@ -338,7 +338,7 @@ const Condolences = ({ set_Id, setModal, data }) => {
   const totalSlides = Math.ceil(data?.length / 2);
 
   return (
-    <div className="max-w-[1920px] h-auto     w-full mx-auto flex flex-col justify-center items-center ">
+    <div className="max-w-[1920px] h-auto     w-full mx-auto flex flex-col justify-center items-center rounded-[16px] shadow-custom-light-dark-box mb-[37px]">
       <div className="w-[1024px] tablet:w-[678.78px]   mobile:w-[341px] h-auto  flex flex-col items-center ">
         <div className="flex flex-row h-[47px] items-center">
           <div className="font-variation-customOpt40 text-[40px] leading-[46.88px] mr-[8px] mobile:text-[28px] mobile:leading-[32.9px] mobile:font-variation-customOpt28 text-[#1E2125] ">

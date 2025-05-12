@@ -28,8 +28,11 @@ export default function CompanySidebar({
       localStorage.removeItem("user");
       localStorage.removeItem("access-token");
       localStorage.removeItem("refresh-token");
-      document.cookie =
-        "accessToken=; path=/; domain=.osmrtnica.com; secure; sameSite=None; max-age=0";
+      const isProd = window.location.hostname.includes("osmrtnica.com");
+
+      document.cookie = `accessToken=; path=/; ${
+        isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
+      } max-age=0`;
       router.push("/");
     } catch (err) {
       console.error("Error Fetching Pending Posts:", err);
@@ -113,15 +116,18 @@ export default function CompanySidebar({
           MOJI SKRBNIKI
         </div>
         <CommonViewBusinessAccSidebar
-            imgPath={
-              normalPath == "/nasa_pokopalisca" || normalPath == "/spletna-stran"
-                ? "/icon_white_setting.png"
-                : "/ico_setting.png"
-            }
-            title={"Naša spletna stran"}
-            route={absolutePath + "/nasa_pokopalisca"}
-            isActive={normalPath === "/nasa_pokopalisca" || normalPath === "/spletna-stran"}
-          />
+          imgPath={
+            normalPath == "/nasa_pokopalisca" || normalPath == "/spletna-stran"
+              ? "/icon_white_setting.png"
+              : "/ico_setting.png"
+          }
+          title={"Naša spletna stran"}
+          route={absolutePath + "/nasa_pokopalisca"}
+          isActive={
+            normalPath === "/nasa_pokopalisca" ||
+            normalPath === "/spletna-stran"
+          }
+        />
         <CommonViewBusinessAccSidebar
           imgPath={
             normalPath == "/nasi_podatki" ||

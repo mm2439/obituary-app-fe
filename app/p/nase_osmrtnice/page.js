@@ -121,7 +121,10 @@ export default function Obituaries() {
               <tbody className="bg-white/40">
                 {obituaries.length > 0
                   ? obituaries.map((obituary, index) => (
-                      <tr className="h-[72px] border-b border-[#A1B1D4]">
+                      <tr
+                        key={index}
+                        className="h-[72px] border-b border-[#A1B1D4]"
+                      >
                         <td className="px-[19px] py-[28px] tabletUserAcc:py-[16px] mobileUserAcc:py-[16px] text-[#6D778E] leading-none">
                           <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
                             {formatDate(obituary.createdTimestamp)}

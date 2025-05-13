@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
 
-export default function Step1({ handleStepChange }) {
+export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
   const [companyName, setCompanyName] = useState(null);
   const [facebook, setFacebook] = useState(null);
@@ -17,8 +17,21 @@ export default function Step1({ handleStepChange }) {
   const [website, setWebsite] = useState(null);
   const [logo, setLogo] = useState(null);
   const [background, setBackground] = useState(null);
+  const [companyId, setCompanyId] = useState(null);
   const [user, setUser] = useState(null);
-
+  useEffect(() => {
+    if (data && data !== null) {
+      setCompanyName(data.name);
+      setFacebook(data.facebook);
+      setAddress(data.address);
+      setEmail(data.email);
+      setPhone(data.phone);
+      setWebsite(data.website);
+      setLogo(data.logo);
+      setBackground(data.background);
+      setCompanyId(data.id);
+    }
+  }, [data]);
   // useEffect(() => {
   //   const currUser = localStorage.getItem("user");
   //   if (!currUser) {
@@ -43,13 +56,20 @@ export default function Step1({ handleStepChange }) {
       formData.append("facebook", facebook);
       formData.append("email", email);
       formData.append("address", address);
-      formData.append("logo", logo);
-      formData.append("picture", background);
+      if (logo instanceof File) {
+        formData.append("logo", logo);
+      }
+      if (background instanceof File) {
+        formData.append("picture", background);
+      }
+
       formData.append("phone", phone);
       formData.append("website", website);
 
       const response = await companyService.createCompany(formData, "funeral");
+
       console.log(response);
+      onChange(response.funeralCompany);
     } catch (error) {
       console.error("Error Creating Funeral Company:", error);
       toast.error(

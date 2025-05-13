@@ -148,6 +148,7 @@ const Registration = () => {
               }  flex justify-center items-center`}
             >
               <button
+                type="button"
                 onClick={() => setActiveDiv("login")}
                 className=" w-full  mx-2 h-full my-[2px]"
               >
@@ -164,6 +165,7 @@ const Registration = () => {
               } flex justify-center items-center ml-4`}
             >
               <button
+                type="button"
                 onClick={() => setActiveDiv("register")}
                 className="w-full  mx-2 h-full my-[2px]"
               >

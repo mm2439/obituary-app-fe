@@ -57,12 +57,12 @@ export default function SpletnaStran() {
     {
       id: 3,
       title: "Izberi sliko",
-      component: <Step3 handleStepChange={handleStepChange} />,
+      component: <Step3 data={company} handleStepChange={handleStepChange} />,
     },
     {
       id: 4,
       title: "Izberi sliko",
-      component: <Step4 handleStepChange={handleStepChange} />,
+      component: <Step4 data={company} handleStepChange={handleStepChange} />,
     },
     {
       id: 5,
@@ -72,7 +72,7 @@ export default function SpletnaStran() {
     {
       id: 6,
       title: "Izberi sliko",
-      component: <Step6 handleStepChange={handleStepChange} />,
+      component: <Step6 data={company} handleStepChange={handleStepChange} />,
     },
   ];
 

@@ -4,31 +4,114 @@ import Image from "next/image";
 import OpenableBlock from "../components/OpenAbleBlock";
 import { BackgroundSelectorStep2 } from "../components/BackgroundSelector";
 import ImageSelector from "../components/ImageSelector";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import companyService from "@/services/company-service";
 
-export default function Step2({ handleStepChange }) {
+export default function Step2({ data, handleStepChange }) {
+
   const [sliderBlocks, setSliderBlocks] = useState([
     {
       id: 1,
       title: "Slike vaše ponudbe",
       isDefaultOpen: true,
+      image: null,
+      background: null,
+      subtitle: "",
     },
     {
       id: 2,
       title: "Slike vaše ponudbe",
       isDefaultOpen: false,
+      image: null,
+      background: null,
+      subtitle: "",
     },
     {
       id: 3,
       title: "Slike vaše ponudbe",
       isDefaultOpen: false,
+      image: null,
+      background: null,
+      subtitle: "",
     },
-    
   ]);
+  const [subtitle, setSubtitle] = useState("");
+  const [companyId, setCompanyId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  // Initialize with existing data if available
+  useEffect(() => {
+    if (data) {
+      setCompanyId(6);
+      console.log("Company ID:", companyId);
+      setSubtitle(data.subtitle || "");
+      
+      // Initialize slider blocks with existing data if available
+      if (data.slider_blocks) {
+        setSliderBlocks(data.slider_blocks);
+      }
+    }
+      setCompanyId(6);
+  }, [data]);
 
   const addSliderBlock = () => {
-    setSliderBlocks([...sliderBlocks, { id: sliderBlocks.length + 1 }]);
-  }
+    setSliderBlocks([
+      ...sliderBlocks,
+      { 
+        id: sliderBlocks.length + 1,
+        title: "Slike vaše ponudbe",
+        isDefaultOpen: false,
+        image: null,
+        background: null,
+        subtitle: ""
+      }
+    ]);
+  };
+
+  const updateSliderBlock = (id, field, value) => {
+    setSliderBlocks(sliderBlocks.map(block => 
+      block.id === id ? { ...block, [field]: value } : block
+    ));
+  };
+
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    
+    try {
+      const formData = new FormData();
+      
+      // Add subtitle
+      formData.append("subtitle", subtitle);
+      
+      // Add slider blocks data
+      sliderBlocks.forEach((block, index) => {
+        formData.append(`slider_blocks[${index}][title]`, block.title);
+        formData.append(`slider_blocks[${index}][subtitle]`, block.subtitle);
+        
+        if (block.image instanceof File) {
+          formData.append(`slider_blocks[${index}][image]`, block.image);
+        }
+        
+        if (block.background instanceof File) {
+          formData.append(`slider_blocks[${index}][background]`, block.background);
+        }
+      });
+      
+      const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Podatki uspešno shranjeni!");
+      console.log(response);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(
+        error?.response?.data?.error ||
+        "Napaka pri shranjevanju podatkov. Poskusite znova."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -59,10 +142,25 @@ export default function Step2({ handleStepChange }) {
               <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                 Podnaslov <span className="text-[#ACAAAA]">(pod Naša ponudba)</span>
               </label>
-              <input type="text" className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]" placeholder="Lahko ga pa tudi izpustite" />
+              <input 
+                type="text" 
+                className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]" 
+                placeholder="Lahko ga pa tudi izpustite" 
+                value={subtitle}
+                onChange={(e) => setSubtitle(e.target.value)}
+              />
             </div>
             {sliderBlocks.map((block) => (
-              <SliderBlock key={block.id} index={block.id} title="Slike vaše ponudbe" />
+              <SliderBlock 
+                key={block.id} 
+                index={block.id} 
+                title={block.title}
+                isDefaultOpen={block.isDefaultOpen}
+                onImageSelect={(file) => updateSliderBlock(block.id, 'image', file)}
+                onBackgroundSelect={(file) => updateSliderBlock(block.id, 'background', file)}
+                onSubtitleChange={(text) => updateSliderBlock(block.id, 'subtitle', text)}
+                subtitle={block.subtitle}
+              />
             ))}
             <div className="flex items-center justify-end pt-[8px] pb-[16px]">
               <div className="inline-flex items-center gap-[8px] cursor-pointer" onClick={addSliderBlock}>
@@ -74,8 +172,12 @@ export default function Step2({ handleStepChange }) {
         </div>
         <div className="space-y-[8px]">
           <div className="flex items-center gap-[8px] justify-between w-full">
-            <button className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]">
-            Shrani
+            <button 
+              onClick={handleSubmit}
+              disabled={isLoading}
+              className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] disabled:opacity-50"
+            >
+              {isLoading ? "Shranjevanje..." : "Shrani"}
             </button>
             <div className="flex items-center gap-[8px]">
               <button className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]" onClick={() => handleStepChange(1)}>
@@ -95,26 +197,31 @@ export default function Step2({ handleStepChange }) {
   )
 }
 
-function SliderBlock({ index, title }) {
-  const [isDefaultOpen, setIsDefaultOpen] = useState(index === 1);
+function SliderBlock({ index, title, isDefaultOpen, onImageSelect, onBackgroundSelect, onSubtitleChange, subtitle }) {
   return (
     <OpenableBlock isDefaultOpen={isDefaultOpen} title={title} index={index}>
       <div className="space-y-[16px]">
         <div className="space-y-[8px]">
           <div className="text-[14px] text-[#3C3E41] font-normal leading-[24px]">Za prvo silo smo nekaj slik že dodali. Svoje prilepi čimprej.</div>
-          <BackgroundSelectorStep2 />
+          <BackgroundSelectorStep2 onSelect={onBackgroundSelect} />
         </div>
         <div className="space-y-[8px]">
           <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Dodaj prvo sliko
           </div>
-          <ImageSelector />
+          <ImageSelector onImageSelect={onImageSelect} />
         </div>
         <div className="space-y-[8px]">
           <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
           Vpiši za kaj gre pod prvo sliko
           </div>
-          <input type="text" className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]" placeholder="Lahko ga pa tudi izpustite" />
+          <input 
+            type="text" 
+            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]" 
+            placeholder="Lahko ga pa tudi izpustite" 
+            value={subtitle}
+            onChange={(e) => onSubtitleChange(e.target.value)}
+          />
         </div>
       </div>
     </OpenableBlock>

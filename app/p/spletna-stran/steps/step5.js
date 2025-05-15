@@ -7,6 +7,7 @@ import ImageSelector from "../components/ImageSelector";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import faqService from "@/services/faq-service";
+import { toast } from "react-hot-toast";
 
 export default function Step5({ data, handleStepChange }) {
   const [faqs, setFaqs] = useState([]);
@@ -23,24 +24,59 @@ export default function Step5({ data, handleStepChange }) {
   useEffect(() => {
     if (data && data !== null) {
       setCompanyId(data.id);
+      if (data.faqs && data.faqs.length > 0) {
+        const updatedFaqs = data.faqs.map((faq, index) => ({
+          ...faq,
+          index: index + 1,
+          updated: false,
+        }));
+        setFaqs(updatedFaqs);
+      }
     }
+  }, [data]);
+
+  useEffect(() => {
+    console.log(faqs);
   }, [data]);
 
   const handleFaqChange = (index, updatedFaq) => {
     const updatedFaqs = [...faqs];
-    updatedFaqs[index] = updatedFaq;
+    updatedFaqs[index] = {
+      ...updatedFaq,
+      updated: true,
+    };
     setFaqs(updatedFaqs);
   };
+  const validateFields = () => {
+    const hasEmpty = faqs.some(
+      (faq) => faq.question.trim() === "" || faq.answer.trim() === ""
+    );
 
+    if (hasEmpty) {
+      toast.error("Please fill in all FAQ questions and answers.");
+      return false;
+    }
+
+    return true;
+  };
   const handleSubmit = async () => {
     try {
-      const data = {
-        companyId,
-        faqs,
-      };
+      if (!validateFields()) return;
 
-      const response = await faqService.createFaq(data);
-      console.log(response);
+      const faqsToSend = faqs.filter((faq) => {
+        return !faq.id || (faq.id && faq.updated);
+      });
+
+      const payload = {
+        companyId,
+        faqs: faqsToSend,
+      };
+      const response = await faqService.createFaq(payload);
+      if (response.message === "success" && response.faqs.length === 0) {
+        toast.success("Faq's Updated Successfully");
+      } else if (response.message === "success" && response.faqs.length > 0) {
+        toast.success("Faq's Added Successfully");
+      }
     } catch (error) {
       console.log("Error while submitting form:", error);
     }
@@ -49,8 +85,8 @@ export default function Step5({ data, handleStepChange }) {
   const [sliderBlocks, setSliderBlocks] = useState([
     {
       index: 1,
-      title: "",
-      description: "",
+      question: "",
+      answer: "",
     },
   ]);
 
@@ -59,8 +95,8 @@ export default function Step5({ data, handleStepChange }) {
       ...faqs,
       {
         index: faqs.length + 1,
-        title: "",
-        description: "",
+        question: "",
+        answer: "",
       },
     ]);
   };
@@ -177,10 +213,10 @@ function SliderBlock({ index, title, faq, onChange }) {
           </label>
           <input
             type="text"
-            name="title"
+            name="question"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
             placeholder="Kaj storiti, ko se zgodi"
-            value={faq.title}
+            value={faq.question}
             onChange={handleChange}
           />
         </div>
@@ -190,10 +226,10 @@ function SliderBlock({ index, title, faq, onChange }) {
           </label>
           <textarea
             type="text"
-            name="description"
+            name="answer"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] placeholder:leading-[100%] leading-[24px] min-h-[160px]"
             placeholder="SMRT NA DOMU Svojci umrlega morajo o smrti na domu na območju občine Trbovlje  obvestiti organ, ki na tem področju opravlja mrliško pregledno službo (dežurni zdravnik preglednik: 03 56 52 605). Mrliški preglednik opravi mrliški pregled in izda potrebno dokumentacijo  – potrdilo o opravljenem mrliškem pregledu. Po mrliškem pregledu svojci pokojnega pokličejo pogrebno službo Komunale Trbovlje na 041 599 742,  da se "
-            value={faq.description}
+            value={faq.answer}
             onChange={handleChange}
           />
         </div>

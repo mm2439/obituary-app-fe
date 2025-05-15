@@ -23,6 +23,14 @@ export default function Step3({ data, handleStepChange }) {
   useEffect(() => {
     if (data && data !== null) {
       setCompanyId(data.id);
+
+      if (data.cemeteries && data.cemeteries.length > 0) {
+        const updatedCemetries = data.cemeteries.map((cemetry, index) => ({
+          ...cemetry,
+          index: index + 1,
+        }));
+        setCemetries(updatedCemetries);
+      }
     }
   }, [data]);
   const addSliderBlock = () => {
@@ -49,16 +57,39 @@ export default function Step3({ data, handleStepChange }) {
       formData.append("companyId", companyId);
 
       cemetries.forEach((cemetery, index) => {
+        const originalCemetery = data.cemeteries?.find(
+          (c) => c.id === cemetery.id
+        );
+
+        // Append default fields
         formData.append(`cemeteries[${index}][name]`, cemetery.name);
         formData.append(`cemeteries[${index}][address]`, cemetery.address);
         formData.append(`cemeteries[${index}][city]`, cemetery.city);
+
+        // If image is selected, append it
         if (cemetery.image) {
           formData.append(`cemeteries[${index}][image]`, cemetery.image);
         }
+
+        // Check if this cemetery already exists
+        if (cemetery.id) {
+          const nameChanged =
+            originalCemetery && cemetery.name !== originalCemetery.name;
+          const addressChanged =
+            originalCemetery && cemetery.address !== originalCemetery.address;
+          const imageChanged = cemetery.image instanceof File;
+
+          if (nameChanged || addressChanged || imageChanged) {
+            formData.append(`cemeteries[${index}][updated]`, true);
+          }
+          formData.append(`cemeteries[${index}][id]`, cemetery.id); // Always include ID for updates
+        }
       });
+
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
+
       const response = await cemetryService.createCemetry(formData);
       console.log(response);
     } catch (error) {

@@ -26,10 +26,10 @@ export default function SpletnaStran() {
     try {
       const response = await companyService.getCompany();
       console.log(response);
-      if (response.companyData === null) {
+      if (response.company === null) {
         return;
       }
-      setCompany(response.companyData);
+      setCompany(response.company);
     } catch (error) {
       console.log(error);
     }

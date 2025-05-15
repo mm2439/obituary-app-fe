@@ -4,18 +4,65 @@ import Image from "next/image";
 import OpenableBlock from "../components/OpenAbleBlock";
 import { BackgroundSelectorStep2 } from "../components/BackgroundSelector";
 import ImageSelector from "../components/ImageSelector";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import faqService from "@/services/faq-service";
 
-export default function Step5({ handleStepChange }) {
+export default function Step5({ data, handleStepChange }) {
+  const [faqs, setFaqs] = useState([]);
+  const [companyId, setCompanyId] = useState(null);
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (!currUser) {
+      return;
+    }
+    setUser(JSON.parse(currUser));
+  }, [router]);
+  useEffect(() => {
+    if (data && data !== null) {
+      setCompanyId(data.id);
+    }
+  }, [data]);
+
+  const handleFaqChange = (index, updatedFaq) => {
+    const updatedFaqs = [...faqs];
+    updatedFaqs[index] = updatedFaq;
+    setFaqs(updatedFaqs);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const data = {
+        companyId,
+        faqs,
+      };
+
+      const response = await faqService.createFaq(data);
+      console.log(response);
+    } catch (error) {
+      console.log("Error while submitting form:", error);
+    }
+  };
+
   const [sliderBlocks, setSliderBlocks] = useState([
     {
-      id: 1,
-      isDefaultOpen: true,
+      index: 1,
+      title: "",
+      description: "",
     },
   ]);
 
   const addSliderBlock = () => {
-    setSliderBlocks([...sliderBlocks, { id: sliderBlocks.length + 1 }]);
+    setFaqs([
+      ...faqs,
+      {
+        index: faqs.length + 1,
+        title: "",
+        description: "",
+      },
+    ]);
   };
 
   return (
@@ -53,11 +100,13 @@ export default function Step5({ handleStepChange }) {
             </div>
           </div>
           <div className="space-y-[8px]">
-            {sliderBlocks.map((block) => (
+            {faqs.map((block) => (
               <SliderBlock
-                key={block.id}
-                index={block.id}
-                title={`Vprašanje ${block.id}`}
+                key={block.index}
+                index={block.index}
+                title={`Vprašanje ${block.index}`}
+                faq={block}
+                onChange={handleFaqChange}
               />
             ))}
             <div className="flex items-center justify-end pt-[8px] pb-[16px]">
@@ -79,7 +128,11 @@ export default function Step5({ handleStepChange }) {
         </div>
         <div className="space-y-[8px]">
           <div className="flex items-center gap-[8px] justify-between w-full">
-            <button className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]"
+            >
               Shrani
             </button>
             <div className="flex items-center gap-[8px]">
@@ -110,8 +163,11 @@ export default function Step5({ handleStepChange }) {
   );
 }
 
-function SliderBlock({ index, title }) {
+function SliderBlock({ index, title, faq, onChange }) {
   const [isDefaultOpen, setIsDefaultOpen] = useState(index === 1);
+  const handleChange = (e) => {
+    onChange(index - 1, { ...faq, [e.target.name]: e.target.value });
+  };
   return (
     <OpenableBlock isDefaultOpen={isDefaultOpen} title={title} index={index}>
       <div className="space-y-[16px]">
@@ -121,8 +177,11 @@ function SliderBlock({ index, title }) {
           </label>
           <input
             type="text"
+            name="title"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
             placeholder="Kaj storiti, ko se zgodi"
+            value={faq.title}
+            onChange={handleChange}
           />
         </div>
         <div className="space-y-[8px]">
@@ -131,8 +190,11 @@ function SliderBlock({ index, title }) {
           </label>
           <textarea
             type="text"
+            name="description"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] placeholder:leading-[100%] leading-[24px] min-h-[160px]"
             placeholder="SMRT NA DOMU Svojci umrlega morajo o smrti na domu na območju občine Trbovlje  obvestiti organ, ki na tem področju opravlja mrliško pregledno službo (dežurni zdravnik preglednik: 03 56 52 605). Mrliški preglednik opravi mrliški pregled in izda potrebno dokumentacijo  – potrdilo o opravljenem mrliškem pregledu. Po mrliškem pregledu svojci pokojnega pokličejo pogrebno službo Komunale Trbovlje na 041 599 742,  da se "
+            value={faq.description}
+            onChange={handleChange}
           />
         </div>
       </div>

@@ -26,10 +26,10 @@ export default function SpletnaStran() {
     try {
       const response = await companyService.getCompany();
       console.log(response);
-      if (response.company === null) {
+      if (response.companyData === null) {
         return;
       }
-      setCompany(response.company);
+      setCompany(response.companyData);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +67,7 @@ export default function SpletnaStran() {
     {
       id: 5,
       title: "Izberi sliko",
-      component: <Step5 handleStepChange={handleStepChange} />,
+      component: <Step5 data={company} handleStepChange={handleStepChange} />,
     },
     {
       id: 6,

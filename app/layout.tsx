@@ -16,6 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+        <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
         className={`${robotoFlex.className} ${sourceSerif.variable} ${greatVibes.variable}`}
       >

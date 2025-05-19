@@ -1,25 +1,42 @@
 "use client";
 
-import React from "react";
-import Layout from "../components/appcomponents/Layout";
-import FrequentlyAskedQuestionView from "../components/appcomponents/FrequentlyAskedQuestionView";
-import FuneralsCompanyBanner from "../components/appcomponents/FuneralsCompanyBanner";
-import Pride from "../components/appcomponents/Pride";
-import Cemeteries from "../components/appcomponents/Cemeteries";
-import LastObituariesList from "../components/appcomponents/LastObituariesList";
-import FuneralInFewDays from "../components/appcomponents/FuneralInFewDays";
+import React, { useEffect, useState } from "react";
+import FrequentlyAskedQuestionView from "../../components/appcomponents/FrequentlyAskedQuestionView";
+import FuneralsCompanyBanner from "../../components/appcomponents/FuneralsCompanyBanner";
+import Pride from "../../components/appcomponents/Pride";
+import Cemeteries from "../../components/appcomponents/Cemeteries";
+import LastObituariesList from "../../components/appcomponents/LastObituariesList";
+import FuneralInFewDays from "../../components/appcomponents/FuneralInFewDays";
+import Layout from "../../components/appcomponents/Layout";
+import companyService from "@/services/company-service";
 
-const FuneralCompany = () => {
+const FuneralCompany = ({ params }) => {
+  const { id } = params;
+  const [company, setCompany] = useState(null);
+
+  useEffect(() => {
+    getCompany();
+  }, []);
+
+  const getCompany = async () => {
+    try {
+      const response = await companyService.getCompany({ id });
+      console.log(response);
+      setCompany(response.company);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <Layout from={"5"} forFooter={"company"}>
+    <Layout from={"5"} data={company} forFooter={"company"}>
       <div className="w-full items-center flex-col flex">
         <div className="flex flex-col mx-auto w-full desktop:bg-[#F5F7F9] bg-white">
-          <FuneralsCompanyBanner />
+          <FuneralsCompanyBanner data={company} />
           <LastObituariesList />
           <FuneralInFewDays />
-          <Cemeteries />
-          <Pride />
-          <FrequentlyAskedQuestionView from={"2"} />
+          <Cemeteries data={company} />
+          <Pride data={company} />
+          <FrequentlyAskedQuestionView data={company} from={"2"} />
         </div>
         <div className="flex z-[50] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end mobile:mt-[49px] tablet:mt-[43px] desktop:mt-[93px]">
           <div className="flex shadow-custom-dark-dark-box-image-wall bg-[#FFFFFF] self-end  px-[18px] py-[17px] rounded-[17px] w-[171px] tablet:w-[171px] desktop:w-[171px]">

@@ -14,17 +14,25 @@ import companyService from "@/services/company-service";
 export default function SpletnaStran() {
   const [step, setStep] = useState(1);
   const [company, setCompany] = useState(null);
+  const [user, setUser] = useState(null);
 
   const handleStepChange = (step) => {
     setStep(step);
   };
   useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+    }
+  }, []);
+  useEffect(() => {
     getCompany();
   }, []);
 
   const getCompany = async () => {
+    console.log("here====================");
     try {
-      const response = await companyService.getCompany();
+      const response = await companyService.getCompany({ id: user.id });
       console.log(response);
       if (response.company === null) {
         return;

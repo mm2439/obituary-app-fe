@@ -1,6 +1,7 @@
-import React from "react";
-
-const Pride = () => {
+import React, { useEffect } from "react";
+import Image from "next/image";
+import API_BASE_URL from "@/config/apiConfig";
+const Pride = ({ data }) => {
   return (
     <div
       className="max-w-[1920px] relative w-full tablet:h-[359px] mobile:h-[567px] desktop:pt-[64px] desktop:pb-[64px] 
@@ -20,26 +21,20 @@ const Pride = () => {
             className="leading-[46.88px] desktop:ml-[10px] tablet:mt-[15px] mobile:text-[28px] 
                     mobile:font-variation-customOpt28 mobile:leading-[32.81px] mobile:flex mobile:justify-center text-[40px] text-[#1E2125] font-variation-customOpt40"
           >
-            <div>Naš ponos</div>
+            <div>{data?.secondary_title}</div>
           </div>
           <div
             className="font-variation-customOpt16 flex flex-col mt-[15px] text-[#414141] desktop:ml-[10px] leading-[24px] 
                     tablet:leading-[22.4px] tablet:text-[14px] text-[16px] mobile:text-[14px] mobile:leading-[22.4px] mobile:text-center"
           >
-            <div>
-              Projekt prenove trboveljskega pokopališča je bil leta 2020 izbran
-              kot primer dobre prakse trajnostnega urbanega razvoja v okviru
-              razpisa Mesta mestom.
-            </div>
+            {/* <div>{data?.secondary_description}</div> */}
 
             <div
               className="mt-[25px] tablet:mt-[20px] tablet:leading-[22.4px] tablet:text-[14px] text-[#414141]
                         mobile:text-[14px] mobile:leading-[22.4px] mobile:text-center"
             >
-              Trbovlje bodo tako prejele priznanje Mesta mestom, dobra praksa za
-              trajnostni urbani razvoj, projekt pa bo vključen tudi v katalog
-              Mesta mestom #3.{" "}
-              <span className="underline"> POVEZAVA TUKAJ</span>
+              {data?.secondary_description}
+              {/* <span className="underline"> POVEZAVA TUKAJ</span> */}
             </div>
           </div>
         </div>
@@ -48,11 +43,21 @@ const Pride = () => {
           className="w-[371.33px] h-[266px] tablet:w-[267.06px] tablet:h-[187.69px] 
                 bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] tablet:p-[3px] mobile:p-[3px] dekstop:p-2 rounded-lg mobile:w-[299.49px] mobile:h-[209.13px]  mobile:mt-[25px]"
         >
-          <img
-            src="/pokopalisce.avif"
-            alt="Pride_img"
-            className="h-full w-full object-cover rounded-lg"
-          />
+          {data?.secondary_image && (
+            <Image
+              src={`${API_BASE_URL}/${data.secondary_image}`}
+              alt="Pride_img"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+              className="h-full w-full object-cover rounded-lg"
+            />
+          )}
         </div>
       </div>
 

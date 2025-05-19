@@ -4,7 +4,7 @@ import imgLocation from "@/public/ico_location.png";
 import imgMessage from "@/public/ico_message.png";
 import imgPhone from "@/public/ico_phone.png";
 
-const CompanyFooter = () => {
+const CompanyFooter = ({ data }) => {
   return (
     // Main container
     <div className="w-full bg-[#D4E6F9]">
@@ -45,7 +45,7 @@ const CompanyFooter = () => {
                 />
 
                 <div className="text-[#1E2125] text-[20px] font-[400px] leading-[23.44px] whitespace-nowrap">
-                  041-599-742
+                  {data?.phone}
                 </div>
               </div>
             </div>
@@ -60,10 +60,10 @@ const CompanyFooter = () => {
               className="text-black text-[24px] leading-[28.13px] mobile:leading-[23.44px] mobile:text-[20px]
                      mobile:font-variation-customOpt20 font-variation-customOpt24 whitespace-nowrap"
             >
-              Delovni čas: pon-pet 7:00 - 15:00
+              Delovni čas: {data?.workingHours}
             </div>
             <div className="text-[#414141] mt-[16px] font-variation-customOpt16 italic text-[16px] whitespace-nowrap">
-              Poleti med 6. in 14. uro
+              {data?.working_hour_highlight_text}
             </div>
           </div>
 
@@ -74,7 +74,7 @@ const CompanyFooter = () => {
                 24-urna dežurna služba:
               </div>
               <div className=" text-[40px] font-variation-customOpt40 font-bold whitespace-nowrap">
-                041-599-742
+                {data?.emergencyPhone}
               </div>
             </div>
           </div>

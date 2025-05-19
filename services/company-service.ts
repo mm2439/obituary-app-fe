@@ -8,9 +8,9 @@ const createCompany = async (formData: FormData, type: String) => {
   return response.data;
 };
 
-const getCompany = async () => {
+const getCompany = async (queryParams?: { id?: string; userId?: string }) => {
   const endpoint = `/company`;
-  const response = await axios.get(endpoint);
+  const response = await axios.get(endpoint, { params: queryParams });
   return response.data;
 };
 

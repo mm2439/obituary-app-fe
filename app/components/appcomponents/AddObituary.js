@@ -41,6 +41,7 @@ const AddObituary = ({ set_Id, setModal }) => {
   const [isDeathReportConfirmed, setIsDeathReportConfirmed] = useState(false);
   const [uploadedDeathReport, setUploadedDeathReport] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [dataExists, setDataExists] = useState(false);
 
   const [events, setEvents] = useState([
     {
@@ -84,9 +85,95 @@ const AddObituary = ({ set_Id, setModal }) => {
       toast.error("You must be logged in to access this page.");
       router.push("/registrationpage");
     } else {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      console.log(parsedUser, "ParsedUser")
+      setUser(parsedUser);
+       if (parsedUser?.id) {
+      console.log("fetchUserWorks..")
+      fetchUserObituary(parsedUser.id);
+    }
     }
   }, [router]);
+
+const fetchUserObituary = async (userId) => {
+  try {
+    setLoading(true);
+    const response = await obituaryService.getObituaryByUser(userId);
+    
+    if (response) { // If user has an existing obituary
+      // Basic information
+      setDataExists(true);
+      setInputValueName(response.name || "");
+      setInputValueSirName(response.sirName || "");
+      setInputValueEnd(response.location || "");
+      setSelectedRegion(response.region || "");
+      setSelectedCity(response.city || "");
+      setInputValueGender(response.gender || "");
+      setUploadedImage(response.image);
+      setUploadedDeathReport(response.deathReport); 
+      setDeathReportFilePath(response.deathReport)
+
+
+
+      console.log("Image Response", `/${response.image}`)
+      
+      // Dates
+      setBirthDate(response.birthDate ? new Date(response.birthDate) : null);
+      setDeathDate(response.deathDate ? new Date(response.deathDate) : null);
+      
+      // Funeral information
+      setInputValueFuneralEnd(response.funeralLocation || "");
+      setInputValueFuneralCemetery(response.funeralCemetery || "");
+      setFuneralDate(response.funeralTimestamp ? new Date(response.funeralTimestamp) : null);
+      
+      // Funeral time
+      if (response.funeralTimestamp) {
+        const funeralDate = new Date(response.funeralTimestamp);
+        setSelecteFuneralHour(funeralDate.getHours());
+        setSelectedFuneralMinute(funeralDate.getMinutes());
+      }
+      
+      // Events
+      if (response.events && response.events.length > 0) {
+        setEvents(response.events.map(event => ({
+          eventName: event.eventName || "",
+          eventLocation: event.eventLocation || "",
+          eventDate: event.eventDate ? new Date(event.eventDate) : null,
+          eventHour: event.eventHour || null,
+          eventMinute: event.eventMinute || null
+        })));
+      } else {
+        setEvents([{
+          eventName: "",
+          eventLocation: "",
+          eventDate: null,
+          eventHour: null,
+          eventMinute: null
+        }]);
+      }
+      
+      // Death report
+      setIsDeathReportConfirmed(response.deathReportExists || false);
+      
+      // Images
+      if (response.image) {
+        setUploadedImage(response.image);
+        // If you need to maintain the File object for updates, you might need additional logic
+      }
+      
+      // Death report file (if stored as URL)
+      if (response.deathReport) {
+        // You might need to fetch the actual file or just show that it exists
+        setUploadedDeathReport(response.deathReport); // Mock file object
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching obituary:", error);
+    toast.error("Failed to load your obituary data");
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -268,8 +355,17 @@ const AddObituary = ({ set_Id, setModal }) => {
       if (uploadedDeathReport) {
         formData.append("deathReport", uploadedDeathReport);
       }
+    
+    if (dataExists) {
+      // Update existing obituary
+      response = await obituaryService.updateObituary(user.id, formData);
+      toast.success("Obituary updated successfully!");
+    } else {
+      // Create new obituary
+      response = await obituaryService.createObituary(formData);
+      toast.success("Obituary created successfully!");
+    }
 
-      const response = await obituaryService.createObituary(formData);
 
       if (response.error) {
         toast.error(
@@ -1627,7 +1723,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                 </div>
               </div>
 
-              {!uploadedDeathReport && (
+              {/* {!uploadedDeathReport && ( */}
                 <div className="flex py-3 px-6 mobile:py-3 mt-8 mobile:px-4 w-[250px] mobile:w-full rounded-lg border-[2px] border-[#6D778E42] bg-gradient-to-br to-[#FFFFFF] from-[#FFFFFF30] mobile:items-center mobile:justify-center">
                   <label
                     htmlFor="death-report-upload"
@@ -1652,7 +1748,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                     />
                   </label>
                 </div>
-              )}
+              {/* )} */}
 
               {uploadedDeathReport && (
                 <div className="mt-4 text-[#1E2125] text-[14px]">

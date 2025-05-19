@@ -30,7 +30,6 @@ export default function SpletnaStran() {
   }, []);
 
   const getCompany = async () => {
-    console.log("here====================");
     try {
       const response = await companyService.getCompany({ id: user.id });
       console.log(response);

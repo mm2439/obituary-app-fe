@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import { getYear, getMonth } from "date-fns";
 import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
-
+import { useParams } from 'next/navigation';
 import ModalDropBox from "./ModalDropBox";
 
 const AddObituary = ({ set_Id, setModal }) => {
@@ -42,6 +42,8 @@ const AddObituary = ({ set_Id, setModal }) => {
   const [uploadedDeathReport, setUploadedDeathReport] = useState(null);
   const [loading, setLoading] = useState(false);
   const [dataExists, setDataExists] = useState(false);
+  const { id } = useParams();
+  console.log("ObituaryId", id);
 
   const [events, setEvents] = useState([
     {
@@ -73,7 +75,6 @@ const AddObituary = ({ set_Id, setModal }) => {
   };
 
   const [activeDivtype, setActiveDivType] = useState("KORAK 1");
-
   const hours = Array.from({ length: 24 }, (_, i) => i + 1);
   const minutes = Array.from({ length: 4 }, (_, i) => i * 15);
 
@@ -87,13 +88,15 @@ const AddObituary = ({ set_Id, setModal }) => {
     } else {
       const parsedUser = JSON.parse(storedUser);
       console.log(parsedUser, "ParsedUser")
+      setUser(parsedUser);
+      fetchObituary(id);
     }
   }, [router]);
 
-const fetchUserObituary = async (userId) => {
+const fetchObituary = async (orbituaryId) => {
   try {
     setLoading(true);
-    const response = await obituaryService.getObituaryByUser(userId);
+    const response = await obituaryService.getObituaryById(orbituaryId);
     
     if (response) {
       setDataExists(true);
@@ -161,7 +164,7 @@ const fetchUserObituary = async (userId) => {
     }
   } catch (error) {
     console.error("Error fetching obituary:", error);
-    toast.error("Failed to load your obituary data");
+    // toast.error("Failed to load your obituary data");
   } finally {
     setLoading(false);
   }

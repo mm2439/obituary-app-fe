@@ -98,8 +98,13 @@ const fetchObituary = async (orbituaryId) => {
     setLoading(true);
     const response = await obituaryService.getObituaryById(orbituaryId);
     
-    if (response) {
-      setDataExists(true);
+    console.log("Response Variable: ", response);
+    
+    if (!response) return;
+
+    setDataExists(true);
+
+    try {
       setInputValueName(response.name || "");
       setInputValueSirName(response.sirName || "");
       setInputValueEnd(response.location || "");
@@ -107,28 +112,37 @@ const fetchObituary = async (orbituaryId) => {
       setSelectedCity(response.city || "");
       setInputValueGender(response.gender || "");
       setUploadedImage(response.image);
-      setUploadedDeathReport(response.deathReport); 
-      setDeathReportFilePath(response.deathReport)
+      setUploadedDeathReport(response.deathReport);
+    } catch (err) {
+      console.error("Error setting basic info state:", err);
+      // toast.error("Failed to set basic obituary information.");
+    }
 
-      console.log("Image Response", `/${response.image}`)
-      
-      // Dates
+    try {
+      console.log("Birthdate: ", response.birthDate);
       setBirthDate(response.birthDate ? new Date(response.birthDate) : null);
       setDeathDate(response.deathDate ? new Date(response.deathDate) : null);
-      
-      // Funeral information
+    } catch (err) {
+      console.error("Error setting birth/death dates:", err);
+      toast.error("Failed to parse birth or death date.");
+    }
+
+    try {
       setInputValueFuneralEnd(response.funeralLocation || "");
       setInputValueFuneralCemetery(response.funeralCemetery || "");
       setFuneralDate(response.funeralTimestamp ? new Date(response.funeralTimestamp) : null);
-      
-      // Funeral time
+
       if (response.funeralTimestamp) {
         const funeralDate = new Date(response.funeralTimestamp);
         setSelecteFuneralHour(funeralDate.getHours());
         setSelectedFuneralMinute(funeralDate.getMinutes());
       }
-      
-      // Events
+    } catch (err) {
+      console.error("Error setting funeral info:", err);
+      toast.error("Failed to set funeral details.");
+    }
+
+    try {
       if (response.events && response.events.length > 0) {
         setEvents(response.events.map(event => ({
           eventName: event.eventName || "",
@@ -146,29 +160,26 @@ const fetchObituary = async (orbituaryId) => {
           eventMinute: null
         }]);
       }
-      
-      // Death report
-      setIsDeathReportConfirmed(response.deathReportExists || false);
-      
-      // Images
-      if (response.image) {
-        setUploadedImage(response.image);
-        // If you need to maintain the File object for updates, you might need additional logic
-      }
-      
-      // Death report file (if stored as URL)
-      if (response.deathReport) {
-        // You might need to fetch the actual file or just show that it exists
-        setUploadedDeathReport(response.deathReport); // Mock file object
-      }
+    } catch (err) {
+      console.error("Error setting events:", err);
+      // toast.error("Failed to load events.");
     }
+
+    try {
+      setIsDeathReportConfirmed(response.deathReportExists || false);
+    } catch (err) {
+      console.error("Error confirming death report:", err);
+      toast.error("Failed to update death report status.");
+    }
+
   } catch (error) {
     console.error("Error fetching obituary:", error);
-    // toast.error("Failed to load your obituary data");
+    toast.error("Failed to load obituary data.");
   } finally {
     setLoading(false);
   }
 };
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -291,110 +302,105 @@ const fetchObituary = async (orbituaryId) => {
     return true;
   };
 
-  const handleSubmit = async () => {
-    if (!validateFields()) return;
+const handleSubmit = async () => {
+  if (!validateFields()) return;
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const formData = new FormData();
+    const formData = new FormData();
 
-      const formattedBirthDate = birthDate
-        ? birthDate.toISOString().split("T")[0]
-        : null;
-      const formattedDeathDate = deathDate
-        ? deathDate.toISOString().split("T")[0]
-        : null;
+    const formattedBirthDate = birthDate
+      ? birthDate.toISOString().split("T")[0]
+      : null;
+    const formattedDeathDate = deathDate
+      ? deathDate.toISOString().split("T")[0]
+      : null;
 
-      const fullName = `${inputValueName} ${inputValueSirName}`;
-      const obituaryText =
-        inputValueGender === "Male"
-          ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
-          : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.  `;
+    const fullName = `${inputValueName} ${inputValueSirName}`;
+    const obituaryText =
+      inputValueGender === "Male"
+        ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
+        : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.`;
 
-      let formattedFuneralTimestamp = null;
-      if (
-        funeralDate &&
-        selectedFuneralHour !== null &&
-        selectedFuneralMinute !== null
-      ) {
-        formattedFuneralTimestamp = new Date(
-          funeralDate.getFullYear(),
-          funeralDate.getMonth(),
-          funeralDate.getDate(),
-          selectedFuneralHour,
-          selectedFuneralMinute
-        ).toISOString();
-      }
+    let formattedFuneralTimestamp = null;
+    if (
+      funeralDate &&
+      selectedFuneralHour !== null &&
+      selectedFuneralMinute !== null
+    ) {
+      formattedFuneralTimestamp = new Date(
+        funeralDate.getFullYear(),
+        funeralDate.getMonth(),
+        funeralDate.getDate(),
+        selectedFuneralHour,
+        selectedFuneralMinute
+      ).toISOString();
+    }
 
-      formData.append("name", inputValueName);
-      formData.append("sirName", inputValueSirName);
-      formData.append("location", inputValueEnd);
-      formData.append("region", selectedRegion);
-      formData.append("city", selectedCity);
-      formData.append("gender", inputValueGender);
+    formData.append("name", inputValueName);
+    formData.append("sirName", inputValueSirName);
+    formData.append("location", inputValueEnd);
+    formData.append("region", selectedRegion);
+    formData.append("city", selectedCity);
+    formData.append("gender", inputValueGender);
+    formData.append("birthDate", formattedBirthDate);
+    formData.append("deathDate", formattedDeathDate);
+    formData.append("funeralLocation", inputValueFuneralEnd);
+    formData.append("funeralCemetery", inputValueFuneralCemetery);
+    if (formattedFuneralTimestamp) {
+      formData.append("funeralTimestamp", formattedFuneralTimestamp);
+    }
+    formData.append("deathReportExists", isDeathReportConfirmed);
+    formData.append("events", JSON.stringify(events));
+    formData.append("obituary", obituaryText);
 
-      formData.append("birthDate", formattedBirthDate);
-      formData.append("deathDate", formattedDeathDate);
-      formData.append("funeralLocation", inputValueFuneralEnd);
-      formData.append("funeralCemetery", inputValueFuneralCemetery);
-      formattedFuneralTimestamp &&
-        formData.append("funeralTimestamp", formattedFuneralTimestamp);
-      formData.append("deathReportExists", isDeathReportConfirmed);
-      formData.append("events", JSON.stringify(events));
-      formData.append("obituary", obituaryText);
+    if (uploadedPicture) {
+      formData.append("picture", uploadedPicture);
+    }
+    if (uploadedDeathReport) {
+      formData.append("deathReport", uploadedDeathReport);
+    }
 
-      if (uploadedPicture) {
-        formData.append("picture", uploadedPicture);
-      }
-      if (uploadedDeathReport) {
-        formData.append("deathReport", uploadedDeathReport);
-      }
-    
+    let response;
+
     if (dataExists) {
-      // Update existing obituary
       response = await obituaryService.updateObituary(user.id, formData);
       toast.success("Obituary updated successfully!");
     } else {
-      // Create new obituary
       response = await obituaryService.createObituary(formData);
       toast.success("Obituary created successfully!");
     }
 
-
-      if (response.error) {
-        toast.error(
-          response.error || "Something went wrong. Please try again!"
-        );
-        return;
-      }
-
-      toast.success("Obituary created successfully!");
-
-      const responseDeathDate = new Date(response.deathDate);
-      const deathDateFormatted = `${responseDeathDate
-        .getDate()
-        .toString()
-        .padStart(2, "0")}${(responseDeathDate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}${responseDeathDate
-        .getFullYear()
-        .toString()
-        .slice(2)}`;
-
-      router.push(
-        `/memorypage/${response.id}/${response.name}_${response.sirName}_${deathDateFormatted}`
-      );
-    } catch (error) {
-      console.error("Error creating obituary:", error);
-      toast.error(
-        error?.response?.data?.error ||
-          "Failed to create obituary. Please try again."
-      );
-    } finally {
-      setLoading(false);
+    if (response?.error) {
+      toast.error(response.error || "Something went wrong. Please try again!");
+      return;
     }
-  };
+
+    const responseDeathDate = new Date(response.deathDate);
+    const deathDateFormatted = `${responseDeathDate
+      .getDate()
+      .toString()
+      .padStart(2, "0")}${(responseDeathDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}${responseDeathDate
+      .getFullYear()
+      .toString()
+      .slice(2)}`;
+
+    router.push(
+      `/memorypage/${response.id}/${response.name}_${response.sirName}_${deathDateFormatted}`
+    );
+  } catch (error) {
+    console.error("Error creating obituary:", error);
+    toast.error(
+      error?.response?.data?.error ||
+        "Failed to create obituary. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   const [startDecade, setStartDecade] = useState(1950);
 

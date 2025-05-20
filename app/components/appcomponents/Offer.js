@@ -17,22 +17,29 @@ const Offer = ({ data }) => {
     );
   };
 
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return null;
+    return imagePath.includes("companyUploads")
+      ? `${API_BASE_URL}/${imagePath}`
+      : imagePath;
+  };
+
   const images = [
     data?.offer_one_image && data?.offer_one_title
       ? {
-          image: `${API_BASE_URL}/${data.offer_one_image}`,
+          image: getImageUrl(data.offer_one_image),
           title: data.offer_one_title,
         }
       : null,
     data?.offer_two_image && data?.offer_two_title
       ? {
-          image: `${API_BASE_URL}/${data.offer_two_image}`,
+          image: getImageUrl(data.offer_two_image),
           title: data.offer_two_title,
         }
       : null,
     data?.offer_three_image && data?.offer_three_title
       ? {
-          image: `${API_BASE_URL}/${data.offer_three_image}`,
+          image: getImageUrl(data.offer_three_image),
           title: data.offer_three_title,
         }
       : null,
@@ -61,9 +68,11 @@ const Offer = ({ data }) => {
         <div className="flex w-[1085px] h-[455px] tablet:w-[666px] tablet:h-[357px] mobile:w-[287.76px] mobile:h-[390.83px] mt-12 mobile:mt-[27px]">
           {images.length > 0 && (
             <div className="hidden w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:flex">
-              <img
+              <Image
                 src={images[currentIndex].image}
                 alt="flower 1 image"
+                width={291}
+                height={345}
                 className="w-[291px] h-[345px] tablet:w-[210px] tablet:h-[289px] mobile:w-[249.96px] mobile:h-[296.35px] mt-[22px] tablet:mt-0 rounded-lg"
               />
               <div className="text-[24px] text-[#1E2125] mobile:text-[20px] mobile:font-variation-customOpt20wght400 font-variation-customOpt24 mobile mt-5 mobile:mt-[14px] text-center">
@@ -75,7 +84,7 @@ const Offer = ({ data }) => {
           {data?.offer_one_image && data?.offer_one_title ? (
             <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
               <Image
-                src={`${API_BASE_URL}/${data.offer_one_image}`}
+                src={images[0].image}
                 alt={`${data?.offer_one_title}`}
                 width={290}
                 height={345}
@@ -92,7 +101,7 @@ const Offer = ({ data }) => {
           {data?.offer_two_image && data?.offer_two_title ? (
             <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full desktop:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark desktop:rounded-lg flex-col items-center ml-10 tablet:ml-[18px] mobile:hidden">
               <Image
-                src={`${API_BASE_URL}/${data.offer_two_image}`}
+                src={images[1].image}
                 alt={`${data?.offer_two_title}`}
                 width={290}
                 height={345}
@@ -108,7 +117,7 @@ const Offer = ({ data }) => {
           {data?.offer_three_image && data?.offer_three_title ? (
             <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full desktop:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark desktop:rounded-lg flex-col items-center ml-10 tablet:ml-[18px] mobile:hidden">
               <Image
-                src={`${API_BASE_URL}/${data.offer_three_image}`}
+                src={images[2].image}
                 alt={`${data?.offer_three_title}`}
                 width={290}
                 height={345}

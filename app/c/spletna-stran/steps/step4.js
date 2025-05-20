@@ -17,7 +17,6 @@ export default function Step4({ data, handleStepChange }) {
   const [boxes, setBoxes] = useState([
     {
       index: 1,
-
       isDefaultOpen: true,
     },
   ]);
@@ -62,7 +61,27 @@ export default function Step4({ data, handleStepChange }) {
   };
 
   useEffect(() => {
-    setCompanyId(data.id);
+    if (data && data !== null) {
+      setCompanyId(data.id);
+
+      const loadedBoxes = [];
+
+      for (let i = 1; i <= 3; i++) {
+        const text = data[`box_${getNumberWord(i)}_text`];
+        const icon = data[`box_${getNumberWord(i)}_icon`];
+
+        if (text || icon) {
+          loadedBoxes.push({
+            index: i,
+            isDefaultOpen: false,
+            text: text || "",
+            icon: icon || null,
+          });
+        }
+      }
+
+      setBoxes(loadedBoxes);
+    }
   }, [data]);
 
   return (

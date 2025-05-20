@@ -64,6 +64,14 @@ export default function Step5({ data, handleStepChange }) {
 
   useEffect(() => {
     setCompanyId(data.id);
+
+    if (data.slides && data.slides.length > 0) {
+      const updatedSlides = data.slides.map((slide, index) => ({
+        ...slide,
+        index: index + 1,
+      }));
+      setSlides(updatedSlides);
+    }
   }, [data]);
   return (
     <>

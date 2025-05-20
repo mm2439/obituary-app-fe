@@ -231,7 +231,12 @@ function SliderBlock({ index, title, cemetery, onChange }) {
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             ...ali izberi eno izmed naših nevtralnih
           </label>
-          <BackgroundSelector />
+          <BackgroundSelector
+            setFile={(file) => {
+              const updated = { ...cemetery, image: file.image };
+              onChange(index - 1, updated);
+            }}
+          />
         </div>
         <div className="space-y-[8px] pt-[22px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

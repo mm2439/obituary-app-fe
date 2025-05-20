@@ -73,7 +73,7 @@ export default function Step2({ data, handleStepChange }) {
           `offer_${getNumberWord(offerNumber)}_title`,
           offer.title
         );
-        if (offer.image instanceof File) {
+        if (offer.image !== null) {
           formData.append(
             `offer_${getNumberWord(offerNumber)}_image`,
             offer.image
@@ -225,12 +225,19 @@ function SliderBlock({ index, title, offer, onChange }) {
           <div className="text-[14px] text-[#3C3E41] font-normal leading-[24px]">
             Za prvo silo smo nekaj slik že dodali. Svoje prilepi čimprej.
           </div>
-          <BackgroundSelector />
+          <BackgroundSelector
+            setFile={(file) => {
+              const updated = { ...offer, image: file.image };
+              console.log(file.image, "============================");
+              onChange(index - 1, updated);
+            }}
+          />
         </div>
         <div className="space-y-[8px]">
           <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Dodaj prvo sliko
           </div>
+
           <ImageSelector
             setFile={(file) => {
               const updated = { ...offer, image: file };

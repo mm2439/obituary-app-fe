@@ -3,8 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function BackgroundSelector() {
+export default function BackgroundSelector({ setFile }) {
   const [selectedBackground, setSelectedBackground] = useState(0);
+  const handleChange = (background) => {
+    setSelectedBackground(background.id);
+    setFile(background);
+  };
 
   const backgrounds = [
     {
@@ -29,7 +33,7 @@ export default function BackgroundSelector() {
         <div
           key={background.id}
           className="w-[120px] h-[50px] rounded-[4px] overflow-hidden relative"
-          onClick={() => setSelectedBackground(background.id)}
+          onClick={() => handleChange(background)}
         >
           {selectedBackground === background.id && (
             <div className="absolute top-0 left-0 w-full h-full bg-[#00000066] flex items-center justify-center">

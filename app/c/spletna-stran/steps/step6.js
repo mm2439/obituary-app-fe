@@ -24,7 +24,7 @@ export default function Step6({ data, handleStepChange }) {
         index: shops.length + 1,
         title: "Podatki o trgovini",
         isDefaultOpen: false,
-        name: "",
+        shopName: "",
         hours: "",
         address: "",
         email: "",
@@ -73,8 +73,19 @@ export default function Step6({ data, handleStepChange }) {
   };
 
   useEffect(() => {
-    if (data !== null) {
-      setCompanyId(data.id);
+    setCompanyId(data.id);
+    setName(data.name);
+    setHighlightText(data.highlightText);
+    setFacebook(data.facebook);
+    setInstagram(data.instagram);
+    setLogo(data.logo);
+
+    if (data.shops && data.shops.length > 0) {
+      const updatedShops = data.shops.map((shop, index) => ({
+        ...shop,
+        index: index + 1,
+      }));
+      setShops(updatedShops);
     }
   }, [data]);
 
@@ -361,8 +372,8 @@ function SliderBlock({
           </div>
           <input
             type="text"
-            name="name"
-            value={shop.name}
+            name="shopName"
+            value={shop.shopName}
             onChange={handleChange}
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
             placeholder="Cvetličarna št.1"

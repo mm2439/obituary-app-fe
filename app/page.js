@@ -17,6 +17,8 @@ import MegaMenu from "./components/appcomponents/MegaMenuMain";
 import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
 import regionsAndCities from "@/utils/regionAndCities";
+import SlideTwo from "./components/slidercomponents/slideTwo";
+import HomePageBox from "./components/appcomponents/HomePageBox";
 export default function Home() {
   // 17 September 2024
   const arrPlace = [
@@ -362,6 +364,7 @@ export default function Home() {
           </div>
 
           <IpadView />
+          <HomePageBox />
 
           {/* <IpadView data={arrIpadData} /> */}
           <IphoneView />

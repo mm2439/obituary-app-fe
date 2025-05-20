@@ -142,28 +142,35 @@ const fetchObituary = async (orbituaryId) => {
       toast.error("Failed to set funeral details.");
     }
 
+    let parsedEvents = [];
+
     try {
-      if (response.events && response.events.length > 0) {
-        setEvents(response.events.map(event => ({
-          eventName: event.eventName || "",
-          eventLocation: event.eventLocation || "",
-          eventDate: event.eventDate ? new Date(event.eventDate) : null,
-          eventHour: event.eventHour || null,
-          eventMinute: event.eventMinute || null
-        })));
-      } else {
-        setEvents([{
-          eventName: "",
-          eventLocation: "",
-          eventDate: null,
-          eventHour: null,
-          eventMinute: null
-        }]);
-      }
-    } catch (err) {
-      console.error("Error setting events:", err);
-      // toast.error("Failed to load events.");
+      parsedEvents = typeof response.events === 'string' 
+        ? JSON.parse(response.events) 
+        : response.events;
+    } catch (e) {
+      console.error("Failed to parse events:", e);
+      toast.error("Invalid events format.");
+      return;
     }
+
+if (parsedEvents && parsedEvents.length > 0) {
+  setEvents(parsedEvents.map(event => ({
+    eventName: event.eventName || "",
+    eventLocation: event.eventLocation || "",
+    eventDate: event.eventDate ? new Date(event.eventDate) : null,
+    eventHour: event.eventHour || null,
+    eventMinute: event.eventMinute || null
+  })));
+} else {
+  setEvents([{
+    eventName: "",
+    eventLocation: "",
+    eventDate: null,
+    eventHour: null,
+    eventMinute: null
+  }]);
+}
 
     try {
       setIsDeathReportConfirmed(response.deathReportExists || false);
@@ -179,8 +186,6 @@ const fetchObituary = async (orbituaryId) => {
     setLoading(false);
   }
 };
-
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (

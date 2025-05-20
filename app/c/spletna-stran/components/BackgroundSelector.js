@@ -122,7 +122,7 @@ export function IconSelectorStep4({ setBoxIcon }) {
 
   const handleChange = (background) => {
     setSelectedBackground(background.id);
-    setBoxIcon("image", background.image);
+    setBoxIcon("icon", background.image);
   };
 
   const backgrounds = [

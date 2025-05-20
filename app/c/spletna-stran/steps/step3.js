@@ -7,6 +7,7 @@ import ImageSelector from "../components/ImageSelector";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import packageService from "@/services/pacakge-service";
+import toast from "react-hot-toast";
 
 export default function Step3({ data, handleStepChange }) {
   const [packages, setPackages] = useState([]);
@@ -44,13 +45,24 @@ export default function Step3({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
+      const incompletePackage = packages.find(
+        (currPackage) =>
+          !currPackage.price.trim() ||
+          !currPackage.title.trim() ||
+          !currPackage.image
+      );
+
+      if (incompletePackage) {
+        toast.error("Each package must have an image,price and description");
+        return;
+      }
       const formData = new FormData();
       formData.append("companyId", companyId);
 
       packages.forEach((currentPackage, index) => {
-        // const originalCemetery = data.pac?.find(
-        //   (c) => c.id === currentPackage.id
-        // );
+        const originalPackage = data.packages?.find(
+          (c) => c.id === currentPackage.id
+        );
 
         // Append default fields
         formData.append(`packages[${index}][title]`, currentPackage.title);
@@ -59,6 +71,19 @@ export default function Step3({ data, handleStepChange }) {
         if (currentPackage.image) {
           formData.append(`packages[${index}][image]`, currentPackage.image);
         }
+
+        if (currentPackage.id) {
+          const titleChanged =
+            originalPackage && currentPackage.title !== originalPackage.title;
+          const priceChanged =
+            originalPackage && currentPackage.price !== originalPackage.price;
+          const imageChanged = currentPackage.image instanceof File;
+
+          if (titleChanged || priceChanged || imageChanged) {
+            formData.append(`packages[${index}][updated]`, true);
+          }
+          formData.append(`packages[${index}][id]`, currentPackage.id);
+        }
       });
 
       for (let pair of formData.entries()) {
@@ -66,6 +91,7 @@ export default function Step3({ data, handleStepChange }) {
       }
 
       const response = await packageService.createPackage(formData);
+      toast.success("Packages Updated Successfully");
 
       console.log(response);
     } catch (error) {

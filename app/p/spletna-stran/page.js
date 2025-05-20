@@ -29,7 +29,7 @@ export default function SpletnaStran() {
     if (user) {
       getCompany();
     }
-  }, []);
+  }, [user]);
 
   const getCompany = async () => {
     try {

@@ -32,12 +32,6 @@ export default function Step4({ data, handleStepChange }) {
     }
   }, [data]);
   const validateFields = () => {
-    console.log(
-      secondaryImage,
-      secondaryDescription,
-      secondaryTitle,
-      companyId
-    );
     if (
       !secondaryDescription ||
       !secondaryTitle ||
@@ -63,6 +57,7 @@ export default function Step4({ data, handleStepChange }) {
       }
 
       const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Company Updated Successfully");
       console.log(response);
     } catch (error) {
       console.error("Error:", error);

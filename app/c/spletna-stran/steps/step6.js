@@ -6,6 +6,7 @@ import ImageSelector from "../components/ImageSelector";
 import { useEffect, useState } from "react";
 import companyService from "@/services/company-service";
 import shopService from "@/services/shop-service";
+import toast from "react-hot-toast";
 
 export default function Step6({ data, handleStepChange }) {
   const [openBlock, setOpenBlock] = useState(1);
@@ -35,7 +36,8 @@ export default function Step6({ data, handleStepChange }) {
 
   const handleShopChange = (index, updatedShop) => {
     const updatedShops = [...shops];
-    updatedShops[index] = updatedShop;
+    updatedShops[index] = { ...updatedShop, updated: true };
+
     setShops(updatedShops);
   };
 
@@ -50,22 +52,63 @@ export default function Step6({ data, handleStepChange }) {
       formData.append("instagram", instagram);
 
       const response = await companyService.updateCompany(formData, companyId);
-
+      toast.success("Company Updated Successfully");
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const validateFields = () => {
+    const hasEmpty = shops.some(
+      (shop) =>
+        !shop.shopName?.trim() ||
+        !shop.address?.trim() ||
+        !shop.telephone?.trim() ||
+        !shop.email?.trim() ||
+        !shop.hours?.trim()
+    );
+
+    if (hasEmpty) {
+      toast.error("Please fill in all Shops data");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleShopSubmit = async () => {
     try {
+      if (!validateFields()) return;
+
+      const shopsToSend = shops.filter((shop) => {
+        return !shop.id || (shop.id && shop.updated);
+      });
+      console.log(sh);
       const data = {
         companyId,
-        shops,
+        shops: shopsToSend,
       };
 
       const response = await shopService.createShop(data);
+      toast.success("Shops Updated Successfully");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  const handlePublish = async () => {
+    try {
+      if (data && data.status === "DRAFT") {
+        toast.error("Company is already sent for approval");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("status", "DRAFT");
+
+      const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Company Sent For Approval Successfully");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -287,6 +330,7 @@ export default function Step6({ data, handleStepChange }) {
                   if (openBlock === 1) {
                     setOpenBlock(2);
                   } else {
+                    handlePublish();
                     handleStepChange(6);
                   }
                 }}

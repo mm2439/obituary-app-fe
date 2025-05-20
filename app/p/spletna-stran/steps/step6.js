@@ -75,6 +75,7 @@ export default function Step6({ data, handleStepChange }) {
       formData.append("working_hour_highlight_text", workingHourHighlightText);
 
       const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Company Updated Successfully");
       console.log(response);
     } catch (error) {
       console.error("Error:", error);
@@ -82,6 +83,23 @@ export default function Step6({ data, handleStepChange }) {
         error?.response?.data?.error ||
           "Failed to update company. Please try again."
       );
+    }
+  };
+
+  const handlePublish = async () => {
+    try {
+      if (data && data.status === "DRAFT") {
+        toast.error("Company is already sent for approval");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("status", "DRAFT");
+
+      const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Company Sent For Approval Successfully");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -205,6 +223,7 @@ export default function Step6({ data, handleStepChange }) {
                 if (openBlock === 1) {
                   setOpenBlock(2);
                 } else {
+                  handlePublish();
                   handleStepChange(6);
                 }
               }}

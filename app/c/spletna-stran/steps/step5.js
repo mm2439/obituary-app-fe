@@ -6,6 +6,7 @@ import { BackgroundSelectorStep2 } from "../components/BackgroundSelector";
 import ImageSelector from "../components/ImageSelector";
 import { useEffect, useState } from "react";
 import slideService from "@/services/slides-service";
+import toast from "react-hot-toast";
 
 export default function Step5({ data, handleStepChange }) {
   const [slides, setSlides] = useState([]);
@@ -33,13 +34,20 @@ export default function Step5({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
+      const incompleteSlide = slides.find(
+        (slide) =>
+          !slide.title.trim() || !slide.description.trim() || !slide.image
+      );
+
+      if (incompleteSlide) {
+        toast.error("Each Slide must have an image,title and description");
+        return;
+      }
       const formData = new FormData();
       formData.append("companyId", companyId);
 
       slides.forEach((slide, index) => {
-        // const originalCemetery = data.pac?.find(
-        //   (c) => c.id === currentPackage.id
-        // );
+        const originalSlide = data.slides?.find((c) => c.id === slide.id);
 
         // Append default fields
         formData.append(`slides[${index}][title]`, slide.title);
@@ -48,6 +56,19 @@ export default function Step5({ data, handleStepChange }) {
         if (slide.image) {
           formData.append(`slides[${index}][image]`, slide.image);
         }
+
+        if (slide.id) {
+          const titleChanged =
+            originalSlide && slide.title !== originalSlide.title;
+          const descriptionChanged =
+            originalSlide && slide.description !== originalSlide.description;
+          const imageChanged = slide.image instanceof File;
+
+          if (titleChanged || descriptionChanged || imageChanged) {
+            formData.append(`slides[${index}][updated]`, true);
+          }
+          formData.append(`slides[${index}][id]`, slide.id);
+        }
       });
 
       for (let pair of formData.entries()) {
@@ -55,7 +76,7 @@ export default function Step5({ data, handleStepChange }) {
       }
 
       const response = await slideService.createSlide(formData);
-
+      toast.success("Florist Slides Updated Successfully");
       console.log(response);
     } catch (error) {
       console.log(error);

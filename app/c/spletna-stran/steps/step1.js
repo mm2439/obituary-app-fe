@@ -7,6 +7,7 @@ import ImageSelector from "../components/ImageSelector";
 import Switch from "../components/Switch";
 import { useEffect, useState } from "react";
 import companyService, { submitStep1Data } from "@/services/company-service";
+import toast from "react-hot-toast";
 
 export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
@@ -31,8 +32,27 @@ export default function Step1({ data, onChange, handleStepChange }) {
     }
 
     try {
-      const response = await companyService.createCompany(formData, "florist");
-      onChange(response.funeralCompany);
+      let response;
+      if (companyId !== null) {
+        const hasChanges =
+          (data && data.address !== companyName) ||
+          data.title !== title ||
+          data.description !== description ||
+          data.phone !== phone ||
+          selectedImage instanceof File;
+
+        if (hasChanges) {
+          response = await companyService.updateCompany(formData, companyId);
+          toast.success("Changes Applied Successfully");
+        } else {
+          toast.error("No Changes Found");
+          return;
+        }
+      } else if (companyId === null) {
+        response = await companyService.createCompany(formData, "florist");
+        toast.success("Company Created Successfully");
+      }
+      onChange(response.company);
     } catch (err) {
       console.error("Failed to create company:", err);
     }
@@ -230,7 +250,13 @@ export default function Step1({ data, onChange, handleStepChange }) {
                 </button>
                 <button
                   className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                  onClick={() => handleStepChange(2)}
+                  onClick={() => {
+                    if (companyId === null) {
+                      toast.error("Please Complete First Step");
+                      return;
+                    }
+                    handleStepChange(2);
+                  }}
                 >
                   Naslednji korak
                 </button>

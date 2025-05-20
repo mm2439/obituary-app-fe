@@ -14,12 +14,7 @@ import companyService from "@/services/company-service";
 
 export default function Step4({ data, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
-  const [boxes, setBoxes] = useState([
-    {
-      index: 1,
-      isDefaultOpen: true,
-    },
-  ]);
+  const [boxes, setBoxes] = useState([]);
 
   const addSliderBlock = () => {
     setBoxes([...boxes, { index: boxes.length + 1 }]);
@@ -32,6 +27,15 @@ export default function Step4({ data, handleStepChange }) {
   };
   const handleSubmit = async () => {
     try {
+      const incompleteBoxes = boxes.find(
+        (box) => !box.icon || !box.text.trim()
+      );
+
+      if (incompleteBoxes) {
+        console.log(boxes);
+        toast.error("Each box must have an image and title");
+        return;
+      }
       const formData = new FormData();
       formData.append("companyId", companyId);
       boxes.forEach((box, i) => {
@@ -39,12 +43,14 @@ export default function Step4({ data, handleStepChange }) {
 
         formData.append(`box_${getNumberWord(boxNumber)}_text`, box.text);
 
-        formData.append(`box_${getNumberWord(boxNumber)}_icon`, box.image);
+        formData.append(`box_${getNumberWord(boxNumber)}_icon`, box.icon);
       });
       for (let [key, value] of formData.entries()) {
         console.log(`${key}:`, value);
       }
       const response = await companyService.updateCompany(formData, companyId);
+
+      toast.success("Company updated Successfully");
       console.log(response);
     } catch (error) {
       console.error("Error:", error);
@@ -74,8 +80,8 @@ export default function Step4({ data, handleStepChange }) {
           loadedBoxes.push({
             index: i,
             isDefaultOpen: false,
-            text: text || "",
-            icon: icon || null,
+            text: text,
+            icon: icon,
           });
         }
       }

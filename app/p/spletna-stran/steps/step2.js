@@ -50,6 +50,7 @@ export default function Step2({ data, handleStepChange }) {
       }
 
       const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Company Updated Successfully");
       console.log(response);
     } catch (error) {
       console.error("Error:", error);

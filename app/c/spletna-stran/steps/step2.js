@@ -64,6 +64,18 @@ export default function Step2({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
+      const incompleteOffer = offers.find(
+        (offer) => !offer.image || !offer.title.trim() || !subtitle.trim()
+      );
+
+      if (incompleteOffer) {
+        if (!subtitle.trim()) {
+          toast.error("Enter Offer Subtitle");
+          return;
+        }
+        toast.error("Each offer must have an image and description"); // "Each offer must have an image and description"
+        return;
+      }
       const formData = new FormData();
       formData.append("offer_subtitle", subtitle);
       offers.forEach((offer, i) => {
@@ -84,6 +96,7 @@ export default function Step2({ data, handleStepChange }) {
         console.log(`${key}:`, value);
       }
       const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Company Updated Successfully");
       console.log(response);
     } catch (error) {
       console.error("Error:", error);

@@ -18,6 +18,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
   const [logo, setLogo] = useState(null);
   const [background, setBackground] = useState(null);
   const [companyId, setCompanyId] = useState(null);
+
   const [user, setUser] = useState(null);
   useEffect(() => {
     if (data && data !== null) {
@@ -31,6 +32,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
       setBackground(data.background);
       setCompanyId(data.id);
     }
+    console.log(data, "===============");
   }, [data]);
   // useEffect(() => {
   //   const currUser = localStorage.getItem("user");
@@ -65,11 +67,32 @@ export default function Step1({ data, onChange, handleStepChange }) {
 
       formData.append("phone", phone);
       formData.append("website", website);
+      let response;
+      if (companyId !== null) {
+        const hasChanges =
+          (data && data.name !== companyName) ||
+          data.facebook !== facebook ||
+          data.email !== email ||
+          data.address !== address ||
+          data.phone !== phone ||
+          data.website !== website ||
+          logo instanceof File ||
+          background instanceof File;
+        if (hasChanges) {
+          response = await companyService.updateCompany(formData, companyId);
 
-      const response = await companyService.createCompany(formData, "funeral");
+          toast.success("Changes Applied Succesfully");
+        } else {
+          toast.error("No Changes Found");
+          return;
+        }
+      } else if (companyId === null) {
+        response = await companyService.createCompany(formData, "funeral");
 
-      console.log(response);
-      onChange(response.funeralCompany);
+        toast.success("Company Created Succesfully");
+      }
+
+      onChange(response.company);
     } catch (error) {
       console.error("Error Creating Funeral Company:", error);
       toast.error(
@@ -272,6 +295,10 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   if (openedBlock === 1) {
                     setOpenedBlock(2);
                   } else {
+                    if (companyId === null) {
+                      toast.error("Please complete first step");
+                      return;
+                    }
                     handleStepChange(2);
                   }
                 }}

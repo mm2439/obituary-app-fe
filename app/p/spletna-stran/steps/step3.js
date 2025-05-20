@@ -7,6 +7,7 @@ import ImageSelector from "../components/ImageSelector";
 import { useState, useEffect } from "react";
 import cemetryService from "@/services/cemetry-service";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function Step3({ data, handleStepChange }) {
   const [cemetries, setCemetries] = useState([]);
@@ -53,6 +54,15 @@ export default function Step3({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
+      const incompleteCemetries = cemetries.find(
+        (cemetery) =>
+          !cemetery.name.trim() || !cemetery.address.trim() || !cemetery.image
+      );
+
+      if (incompleteCemetries) {
+        toast.error("Each package must have an name,address and image");
+        return;
+      }
       const formData = new FormData();
       formData.append("companyId", companyId);
 
@@ -91,7 +101,7 @@ export default function Step3({ data, handleStepChange }) {
       }
 
       const response = await cemetryService.createCemetry(formData);
-      console.log(response);
+      toast.success("Cemetries Updated Successfully");
     } catch (error) {
       console.log(error);
     }

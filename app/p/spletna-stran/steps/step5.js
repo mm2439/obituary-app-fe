@@ -72,11 +72,8 @@ export default function Step5({ data, handleStepChange }) {
         faqs: faqsToSend,
       };
       const response = await faqService.createFaq(payload);
-      if (response.message === "success" && response.faqs.length === 0) {
-        toast.success("Faq's Updated Successfully");
-      } else if (response.message === "success" && response.faqs.length > 0) {
-        toast.success("Faq's Added Successfully");
-      }
+
+      toast.success("Faq's Updated Successfully");
     } catch (error) {
       console.log("Error while submitting form:", error);
     }

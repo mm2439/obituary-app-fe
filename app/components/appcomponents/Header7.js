@@ -46,14 +46,14 @@ function ObituaryHeader({ from, data }) {
                 desktop:text-[32px] desktop:font-variation-customOpt32wght500"
                 >
                   {from === 7
-                    ? "Cvetličarna Suniflower, Milano"
+                    ? `${data?.address} , ${data?.city}`
                     : `${data?.name}, ${data?.city}`}
                 </h>
               </div>
               <div className="flex h-[50px] flex-col tablet:hidden desktop:hidden ml-[22px] pl-[2px]">
                 <h className="text-[#414141] text-[20px] font-variation-customOpt20 font-normal">
                   {from === 7
-                    ? "Cvetličarna Suniflower"
+                    ? `${data?.address} , ${data?.city}`
                     : `${data?.name}, ${data?.city}`}
                 </h>
                 <h className="text-[#939393] text-[16px] font-variation-customOpt20 font-normal">

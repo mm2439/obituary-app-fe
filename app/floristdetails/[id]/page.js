@@ -29,15 +29,15 @@ const FloristsDetailsPage = ({ params }) => {
   };
   return (
     <>
-      <Layout from={"7"} forFooter={"memorypage"}>
+      <Layout from={"7"} data={company} forFooter={"memorypage"}>
         <div className="flex flex-col items-center mx-auto w-full">
           <div className="flex flex-col mx-auto w-full bg-[#F5F7F9]">
             <FloristsSunFlowerView data={company} />
             <Offer data={company} />
             <SadProgram data={company} />
-            <Qualityflowers />
-            <SpecialOffer />
-            <SunflowerFlorist />
+            <Qualityflowers data={company} />
+            <SpecialOffer data={company} />
+            <SunflowerFlorist data={company} />
           </div>
           <div className="flex mobile:hidden z-[50] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end mobile:mt-[49px] tablet:mt-[83px] desktop:mt-[49px]">
             <div className="flex shadow-custom-dark-dark-box-image-wall bg-[#FFFFFF] self-end  px-[18px] py-[17px] rounded-[17px] w-[171px] tablet:w-[171px] desktop:w-[171px]">

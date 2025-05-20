@@ -26,12 +26,14 @@ export default function SpletnaStran() {
     }
   }, []);
   useEffect(() => {
-    getCompany();
+    if (user) {
+      getCompany();
+    }
   }, []);
 
   const getCompany = async () => {
     try {
-      const response = await companyService.getCompany({ id: user.id });
+      const response = await companyService.getFuneralCompany({ id: user.id });
       console.log(response);
       if (response.company === null) {
         return;

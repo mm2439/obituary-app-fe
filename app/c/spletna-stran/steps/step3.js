@@ -4,85 +4,74 @@ import Image from "next/image";
 import OpenableBlock from "../components/OpenAbleBlock";
 import { BackgroundSelectorStep2 } from "../components/BackgroundSelector";
 import ImageSelector from "../components/ImageSelector";
-import { useState } from "react";
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import packageService from "@/services/pacakge-service";
 
-export default function Step3({ handleStepChange }) {
+export default function Step3({ data, handleStepChange }) {
+  const [packages, setPackages] = useState([]);
+  const [companyId, setCompanyId] = useState(null);
 
+  useEffect(() => {
+    if (data && data !== null) {
+      setCompanyId(data.id);
 
-  const handleSubmit = async () => {
-    const submission = new FormData();
-    submission.append("title", formData.title);
-    formData.sliders.forEach((slider, index) => {
-      submission.append(`sliders[${index}][title]`, slider.title);
-      submission.append(`sliders[${index}][price]`, slider.price);
-      if (slider.image) {
-        submission.append(`sliders[${index}][image]`, slider.image);
+      if (data.packages && data.packages.length > 0) {
+        const updatedPackages = data.packages.map((item, index) => ({
+          ...item,
+          index: index + 1,
+        }));
+        setPackages(updatedPackages);
       }
-    });
-
-    try {
-      const response = await axios.post('http://localhost:4000/api/package', submission, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      if (response.status === 200 || response.status === 201) {
-        alert("Podatki uspešno poslani!");
-      } else {
-        throw new Error("Failed to submit");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Napaka pri pošiljanju obrazca.");
     }
+  }, [data]);
+  const addSliderBlock = () => {
+    setPackages([
+      ...packages,
+      {
+        index: packages.length + 1,
+        title: "",
+        price: "",
+        image: null,
+      },
+    ]);
+  };
+  const handlePackageChange = (index, updatedPackage) => {
+    const updatedPackages = [...packages];
+    updatedPackages[index] = updatedPackage;
+    setPackages(updatedPackages);
   };
 
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("companyId", companyId);
 
-  const [sliderBlocks, setSliderBlocks] = useState([
-    {
-      id: 1,
-      title: "Slike vaše ponudbe",
-      isDefaultOpen: true,
-    },
-    {
-      id: 2,
-      title: "Slike vaše ponudbe",
-      isDefaultOpen: false,
-    },
-    {
-      id: 3,
-      title: "Slike vaše ponudbe",
-      isDefaultOpen: false,
-    },
-    
-  ]);
+      packages.forEach((currentPackage, index) => {
+        // const originalCemetery = data.pac?.find(
+        //   (c) => c.id === currentPackage.id
+        // );
 
-  const [formData, setFormData] = useState({
-  title: "",
-  sliders: [
-    { image: null, title: "", price: "" },
-    { image: null, title: "", price: "" },
-    { image: null, title: "", price: "" },
-  ],
-});
+        // Append default fields
+        formData.append(`packages[${index}][title]`, currentPackage.title);
+        formData.append(`packages[${index}][price]`, currentPackage.price);
 
-const handleSliderChange = (index, key, value) => {
-  const updatedSliders = [...formData.sliders];
-  updatedSliders[index][key] = value;
-  setFormData({ ...formData, sliders: updatedSliders });
-};
+        if (currentPackage.image) {
+          formData.append(`packages[${index}][image]`, currentPackage.image);
+        }
+      });
 
-const addSliderBlock = () => {
-  setSliderBlocks([...sliderBlocks, { id: sliderBlocks.length + 1 }]);
-  setFormData((prev) => ({
-    ...prev,
-    sliders: [...prev.sliders, { image: null, title: "", price: "" }],
-  }));
-};
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}:`, pair[1]);
+      }
 
+      const response = await packageService.createPackage(formData);
 
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
@@ -96,54 +85,87 @@ const addSliderBlock = () => {
                 3
               </div>
               <div className="space-y-0">
-                <div className="text-[14px] text-[#6D778E] leading-[24px] font-normal">KORAK 3</div>
-                <div className="text-[20px] text-[#1E2125] leading-[100%] font-semibold">Predstavitev trgovine</div>
+                <div className="text-[14px] text-[#6D778E] leading-[24px] font-normal">
+                  KORAK 3
+                </div>
+                <div className="text-[20px] text-[#1E2125] leading-[100%] font-semibold">
+                  Predstavitev trgovine
+                </div>
               </div>
             </div>
             <div className="inline-flex gap-[8px]">
               <span className="text-[14px] text-[#3C3E41] leading-[24px]">
                 Predogled strani
               </span>
-              <Image src="/external_open.png" alt="Predogled strani" width={20} height={20} className="shrink-0 w-[20px] h-[20px]" />
+              <Image
+                src="/external_open.png"
+                alt="Predogled strani"
+                width={20}
+                height={20}
+                className="shrink-0 w-[20px] h-[20px]"
+              />
             </div>
           </div>
           <div className="space-y-[8px]">
             <div className="space-y-[8px] pb-[28px]">
               <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
-                Naslov <span className="text-[#ACAAAA] text-[14px]"> (v primeru smo se omejili na žalni program; ni pa to nujno)</span>
+                Naslov
+                <span className="text-[#ACAAAA] text-[14px]">
+                  (v primeru smo se omejili na žalni program; ni pa to nujno)
+                </span>
               </label>
-              <input type="text"
-  value={formData.title}
-  onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]" placeholder="Žalni program" />
+              <input
+                type="text"
+                className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+                placeholder="Žalni program"
+              />
             </div>
-            {sliderBlocks.map((block, i) => (
-  <SliderBlock
-    key={block.id}
-    index={i}
-    title={`Okvirček ${block.id}`}
-    data={formData.sliders[i]}
-    onChange={(key, value) => handleSliderChange(i, key, value)}
-  />
-))}
+            {packages.map((block, i) => (
+              <SliderBlock
+                title={`Okvirček ${block.index}`}
+                key={block.index}
+                index={block.index}
+                currentPackage={block}
+                onChange={handlePackageChange}
+              />
+            ))}
 
             <div className="flex items-center justify-end pt-[8px] pb-[16px]">
-              <div className="inline-flex items-center gap-[8px] cursor-pointer" onClick={addSliderBlock}>
-                <img src="/florist_plus.png" alt="Dodaj sliko" className="w-[16px] h-[16px]" />
-                <span className="text-[14px] text-[#3C3E41] font-normal leading-[100%]">DODAJ ŠE DODATNE (največ 8)</span>
+              <div
+                className="inline-flex items-center gap-[8px] cursor-pointer"
+                onClick={addSliderBlock}
+              >
+                <img
+                  src="/florist_plus.png"
+                  alt="Dodaj sliko"
+                  className="w-[16px] h-[16px]"
+                />
+                <span className="text-[14px] text-[#3C3E41] font-normal leading-[100%]">
+                  DODAJ ŠE DODATNE (največ 8)
+                </span>
               </div>
             </div>
           </div>
         </div>
         <div className="space-y-[8px]">
           <div className="flex items-center gap-[8px] justify-between w-full">
-          <button onClick={handleSubmit} className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]">
-    Shrani
-  </button>
+            <button
+              onClick={handleSubmit}
+              className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]"
+            >
+              Shrani
+            </button>
             <div className="flex items-center gap-[8px]">
-              <button className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]" onClick={() => handleStepChange(2)}>
+              <button
+                className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
+                onClick={() => handleStepChange(2)}
+              >
                 Nazaj
               </button>
-              <button className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]" onClick={() => handleStepChange(4)}>
+              <button
+                className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
+                onClick={() => handleStepChange(4)}
+              >
                 Naslednji korak
               </button>
             </div>
@@ -151,38 +173,65 @@ const addSliderBlock = () => {
         </div>
       </div>
       <div className="w-full">
-        <img src="/florist/3.png" alt="Spletna stran" className="w-full h-full object-contain" />
+        <img
+          src="/florist/3.png"
+          alt="Spletna stran"
+          className="w-full h-full object-contain"
+        />
       </div>
     </>
-  )
+  );
 }
 
-function SliderBlock({ index, title, data, onChange }) {
+function SliderBlock({ index, title, currentPackage, onChange }) {
   const [isDefaultOpen, setIsDefaultOpen] = useState(index === 1);
+  const handleChange = (e) => {
+    onChange(index - 1, { ...currentPackage, [e.target.name]: e.target.value });
+  };
   return (
     <OpenableBlock isDefaultOpen={isDefaultOpen} title={title} index={index}>
       <div className="space-y-[16px]">
         <div className="space-y-[8px]">
           <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
-          Slika
+            Slika
           </div>
-          <ImageSelector onImageSelect={(file) => onChange("image", file)} />
+          <ImageSelector
+            setFile={(file) => {
+              const updated = { ...currentPackage, image: file };
+              onChange(index - 1, updated);
+            }}
+            inputId={`package-${index}-upload`}
+          />
         </div>
         <div className="space-y-[8px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Naslov
           </label>
-          <input type="text"  value={data.title}
-  onChange={(e) => onChange("title", e.target.value)} className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]" placeholder="Čudoviti aranžma št. 1" />
+          <input
+            type="text"
+            value={currentPackage.title}
+            name="title"
+            onChange={handleChange}
+            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+            placeholder="Čudoviti aranžma št. 1"
+          />
         </div>
         <div className="space-y-[8px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
-            Cena <span className="text-[#ACAAAA] text-[14px]">(v kolikor jo želite dodati; lahko pustite prazno)</span>
+            Cena
+            <span className="text-[#ACAAAA] text-[14px]">
+              (v kolikor jo želite dodati; lahko pustite prazno)
+            </span>
           </label>
-          <input type="text" value={data.price}
-  onChange={(e) => onChange("price", e.target.value)} className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"/>
+          <input
+            type="text"
+            value={currentPackage.price}
+            name="price"
+            onChange={handleChange}
+            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+          />
         </div>
       </div>
     </OpenableBlock>
-  )
+  );
 }

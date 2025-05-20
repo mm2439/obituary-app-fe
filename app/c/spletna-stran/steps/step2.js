@@ -12,7 +12,6 @@ import companyService from "@/services/company-service";
 
 export default function Step2({ data, handleStepChange }) {
   const [offers, setOffers] = useState([]);
-
   const [subtitle, setSubtitle] = useState("");
   const [companyId, setCompanyId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,14 +21,40 @@ export default function Step2({ data, handleStepChange }) {
       ...offers,
       {
         index: offers.length + 1,
-        title: "Slike vaše ponudbe",
-        isDefaultOpen: false,
+        isDefaultOpen: true,
         image: null,
-
-        subtitle: "",
+        title: "",
       },
     ]);
   };
+
+  useEffect(() => {
+    if (data && data !== null) {
+      setCompanyId(data.id);
+
+      if (data.offer_subtitle) {
+        setSubtitle(data.offer_subtitle);
+      }
+
+      const loadedOffers = [];
+
+      for (let i = 1; i <= 3; i++) {
+        const title = data[`offer_${getNumberWord(i)}_title`];
+        const image = data[`offer_${getNumberWord(i)}_image`];
+
+        if (title || image) {
+          loadedOffers.push({
+            index: i,
+            isDefaultOpen: false,
+            title: title || "",
+            image: image || null,
+          });
+        }
+      }
+
+      setOffers(loadedOffers);
+    }
+  }, [data]);
 
   const handleOfferChange = (index, updatedOffer) => {
     const updatedOffers = [...offers];
@@ -46,7 +71,7 @@ export default function Step2({ data, handleStepChange }) {
 
         formData.append(
           `offer_${getNumberWord(offerNumber)}_title`,
-          offer.title || ""
+          offer.title
         );
         if (offer.image instanceof File) {
           formData.append(
@@ -58,8 +83,8 @@ export default function Step2({ data, handleStepChange }) {
       for (let [key, value] of formData.entries()) {
         console.log(`${key}:`, value);
       }
-      // const response = await companyService.updateCompany(formData, companyId);
-      // console.log(response);
+      const response = await companyService.updateCompany(formData, companyId);
+      console.log(response);
     } catch (error) {
       console.error("Error:", error);
       toast.error(
@@ -126,9 +151,9 @@ export default function Step2({ data, handleStepChange }) {
               <SliderBlock
                 key={block.index}
                 index={block.index}
-                cemetery={block}
+                offer={block}
                 onChange={handleOfferChange}
-                title={`Pokopališče ${block.index}`}
+                title={`Slike vaše ponudbe ${block.index}`}
               />
             ))}
             <div className="flex items-center justify-end pt-[8px] pb-[16px]">
@@ -222,6 +247,9 @@ function SliderBlock({ index, title, offer, onChange }) {
             type="text"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
             placeholder="Lahko ga pa tudi izpustite"
+            value={offer.title}
+            name="title"
+            onChange={handleChange}
           />
         </div>
       </div>

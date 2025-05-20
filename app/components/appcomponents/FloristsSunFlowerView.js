@@ -1,15 +1,28 @@
 import React from "react";
+import API_BASE_URL from "@/config/apiConfig";
+import Image from "next/image";
 
-const FloristsSunFlowerView = () => {
+const FloristsSunFlowerView = ({ data }) => {
   return (
     <div className="flex flex-col ">
       <div className="flex desktop:mt-[92.02px] tablet:mt-[80px]  mt-[72px] justify-center h-[451px] tablet:h-[415px] desktop:h-[456px] w-full shadow-custom-light-dark-banner">
-          <img
-            src={"/soncnica.avif"}
-            alt="soncnica"
-            className=" h-[100%] w-full object-cover"
-          />
- 
+        <Image
+          src={
+            data?.background
+              ? `${API_BASE_URL}/${data?.background}`
+              : "/pok_gabrsko4.avif"
+          }
+          alt="soncnica"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{
+            width: "100%",
+            height: "451px",
+            objectFit: "cover",
+          }}
+        />
+
         <div
           className="flex   absolute z-10 w-[330px] h-[451px]
                 mobile:items-center mobile:justify-center
@@ -30,18 +43,16 @@ const FloristsSunFlowerView = () => {
                 className="flex mobile:text-[28px] text-[36px] text-[#1E2125] font-variation-customOpt36
                            font-normal mobile:leading-[32.81px] leading-[47px] "
               >
-                Cvetličana z dolgoletno tradicijo
+                {data?.title}
               </h1>
             </div>
             <div className="flex flex-col mt-6">
               <p className="text-[#414141]  text-[16px] font-variation-customOpt16 font-normal">
-                V Cvetličarni Suniflower, na levem bregu Ljubljanice, že 22 let
-                širimo ljubezen do cvetličarske umetnosti. Nudimo vam rezano
-                cvetje, lončnice, žalne in poročne aranžmaje, aranžiranje daril.
+                {data?.description}
               </p>
-              <p className="text-[#414141] mt-[25px]  text-[16px] font-variation-customOpt16 font-normal">
+              {/* <p className="text-[#414141] mt-[25px]  text-[16px] font-variation-customOpt16 font-normal">
                 Obiščite nas!
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
@@ -51,8 +62,7 @@ const FloristsSunFlowerView = () => {
             mobile:w-[343px]  mobile:self-end
             tablet:mt-[6px] tablet:pr-[9px]
             desktop:mt-[14px] desktop:pr-[91px]"
-      >
-      </div>
+      ></div>
     </div>
   );
 };

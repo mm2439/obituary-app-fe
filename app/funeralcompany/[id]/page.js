@@ -20,7 +20,7 @@ const FuneralCompany = ({ params }) => {
 
   const getCompany = async () => {
     try {
-      const response = await companyService.getCompany({ id });
+      const response = await companyService.getFuneralCompany({ id });
       console.log(response);
       setCompany(response.company);
     } catch (error) {

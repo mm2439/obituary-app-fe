@@ -8,8 +8,20 @@ const createCompany = async (formData: FormData, type: String) => {
   return response.data;
 };
 
-const getCompany = async (queryParams?: { id?: string; userId?: string }) => {
-  const endpoint = `/company`;
+const getFuneralCompany = async (queryParams?: {
+  id?: string;
+  userId?: string;
+}) => {
+  const endpoint = `/company/funeral`;
+  const response = await axios.get(endpoint, { params: queryParams });
+  return response.data;
+};
+
+const getFloristCompany = async (queryParams?: {
+  id?: string;
+  userId?: string;
+}) => {
+  const endpoint = `/company/florist`;
   const response = await axios.get(endpoint, { params: queryParams });
   return response.data;
 };
@@ -22,39 +34,11 @@ const updateCompany = async (formData: FormData, id: String) => {
   return response.data;
 };
 
-export const submitStep1Data = async (formData: FormData) => {
-  try {
-    const response = await axios.post("/company/florist/", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error submitting step 1 data:", error);
-    throw error;
-  }
-};
-
-export const submitStep3Data = async (formData: FormData) => {
-  const response = await fetch("/company/florist/packages/", {
-    method: "POST",
-    body: formData,
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to submit step 3 data");
-  }
-
-  return await response.json();
-};
-
 const companyService = {
   createCompany,
-  getCompany,
+  getFuneralCompany,
   updateCompany,
-  submitStep1Data,
-  submitStep3Data,
+  getFloristCompany,
 };
 
 export default companyService;

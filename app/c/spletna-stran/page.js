@@ -22,8 +22,10 @@ export default function SpletnaStran() {
     setCompany(data);
   };
   useEffect(() => {
-    getCompany();
-  }, []);
+    if (user) {
+      getCompany();
+    }
+  }, [user]);
   useEffect(() => {
     const currUser = localStorage.getItem("user");
     if (currUser) {
@@ -33,8 +35,8 @@ export default function SpletnaStran() {
   }, []);
   const getCompany = async () => {
     try {
-      const response = await companyService.getCompany({ id: user.id });
-      console.log(response);
+      const response = await companyService.getFloristCompany({ id: user.id });
+
       if (response.company === null) {
         return;
       }
@@ -69,22 +71,46 @@ export default function SpletnaStran() {
     {
       id: 3,
       title: "Izberi sliko",
-      component: <Step3 handleStepChange={handleStepChange} />,
+      component: (
+        <Step3
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
     {
       id: 4,
       title: "Izberi sliko",
-      component: <Step4 handleStepChange={handleStepChange} />,
+      component: (
+        <Step4
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
     {
       id: 5,
       title: "Izberi sliko",
-      component: <Step5 handleStepChange={handleStepChange} />,
+      component: (
+        <Step5
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
     {
       id: 6,
       title: "Izberi sliko",
-      component: <Step6 handleStepChange={handleStepChange} />,
+      component: (
+        <Step6
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
   ];
 

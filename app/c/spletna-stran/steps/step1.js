@@ -21,7 +21,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
     e.preventDefault();
     const formData = new FormData();
 
-    formData.append("name", companyName);
+    formData.append("address", companyName);
     formData.append("phone", phone);
     formData.append("title", title);
     formData.append("description", description);
@@ -40,7 +40,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
 
   useEffect(() => {
     if (data && data !== null) {
-      setCompanyName(data.name);
+      setCompanyName(data.address);
       setTitle(data.title);
       setDescription(data.description);
       setPhone(data.phone);

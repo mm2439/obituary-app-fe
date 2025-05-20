@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import React from "react";
 
 // 7 October 2024 - bela_ikebana.avif, sopek.avif
-const SadProgram = () => {
+const SadProgram = ({ data }) => {
   const list = [
     {
       image: "/bela_ikebana.avif",
@@ -40,24 +40,24 @@ const SadProgram = () => {
     },
   ];
 
-  const listForMobile = [
-    {
-      image: "/bela_ikebana.avif",
-      title: "Čudoviti aranžma št. 1",
-    },
-    {
-      image: "/sopek.avif",
-      title: "Čudoviti aranžma št. 1",
-    },
-    {
-      image: "/bela_ikebana.avif",
-      title: "Čudoviti aranžma št. 1",
-    },
-    {
-      image: "/sopek.avif",
-      title: "Čudoviti aranžma št. 1",
-    },
-  ];
+  // const listForMobile = [
+  //   {
+  //     image: "/bela_ikebana.avif",
+  //     title: "Čudoviti aranžma št. 1",
+  //   },
+  //   {
+  //     image: "/sopek.avif",
+  //     title: "Čudoviti aranžma št. 1",
+  //   },
+  //   {
+  //     image: "/bela_ikebana.avif",
+  //     title: "Čudoviti aranžma št. 1",
+  //   },
+  //   {
+  //     image: "/sopek.avif",
+  //     title: "Čudoviti aranžma št. 1",
+  //   },
+  // ];
 
   return (
     <div className="relative max-w-[1920px] bg-[#F5F7F9] w-full py-16 tablet:py-12 mobile:py-8  overflow-hidden mx-auto justify-center items-center flex ">
@@ -97,7 +97,7 @@ const SadProgram = () => {
             ))}
 
             {/*List for Mobile*/}
-            {listForMobile.map((item, index) => (
+            {list.map((item, index) => (
               <div
                 key={index}
                 className=" bg-gradient-to-br from-white to-[#ffffff30] border-white border-2 w-[292px] h-[295px] items-center flex-col rounded-lg shadow-custom-light-dark mobile:flex hidden"

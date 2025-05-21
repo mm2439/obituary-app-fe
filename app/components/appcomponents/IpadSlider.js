@@ -1,6 +1,6 @@
 "use client";
 import SlideOne from "../../components/slidercomponents/SlideOne";
-import SlideTwo from "../../components/slidercomponents/slideTwo";
+import SlideTwo from "../../components/slidercomponents/SlideTwo";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -15,8 +15,7 @@ const IpadSlider = ({ data }) => {
   };
 
   return (
-    <section
-      className={`w-full flex justify-center items-center`}>
+    <section className={`w-full flex justify-center items-center`}>
       <div className="relative flex w-full mobile:w-[679px] tablet:my-auto tablet:w-full desktop:max-w-[1920px] desktop:w-full mobile:w-full">
         <Swiper
           direction="horizontal"
@@ -49,7 +48,11 @@ const IpadSlider = ({ data }) => {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
 
@@ -67,7 +70,11 @@ const IpadSlider = ({ data }) => {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </button>
       </div>

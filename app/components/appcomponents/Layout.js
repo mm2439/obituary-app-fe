@@ -14,7 +14,7 @@ import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
 import LocalQuickReview from "@/app/components/appcomponents/LocalQuickReview";
 
 const Layout = ({
-  data,
+  data = {},
   children,
   from,
   forFooter,

@@ -84,7 +84,7 @@ export default function Step6({ data, handleStepChange }) {
       const shopsToSend = shops.filter((shop) => {
         return !shop.id || (shop.id && shop.updated);
       });
-      console.log(sh);
+
       const data = {
         companyId,
         shops: shopsToSend,

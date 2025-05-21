@@ -118,20 +118,20 @@ export default function Footer() {
                   </div>
                   <ul className="mt-[24px] ">
                     <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
-                      <a
-                        href="#"
-                        className=" text-[#414141] font-variation-customOpt16 hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
+                      <div
+                        className=" text-[#414141] font-variation-customOpt16 hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer"
+                        onClick={handleLocalQuickModalVisible}
                       >
                         Osmrtnice
-                      </a>
+                      </div>
                     </li>
                     <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] mt-4 items-center">
-                      <a
-                        href="#"
-                        className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
+                      <div
+                        className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer"
+                        onClick={handleMemoralPopupVisible}
                       >
                         Pogrebi
-                      </a>
+                      </div>
                     </li>
                     <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                       <a
@@ -156,22 +156,6 @@ export default function Footer() {
                       >
                         Pogrebna podjetja
                       </a>
-                    </li>
-                    <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
-                      <div
-                        className="bg-[#414141] font-normal text-white rounded-lg p-[6px] hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer"
-                        onClick={handleLocalQuickModalVisible}
-                      >
-                        For Registered Users
-                      </div>
-                    </li>
-                    <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
-                      <div
-                        className="bg-[#414141] font-normal text-white rounded-lg p-[6px] hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer mt-10"
-                        onClick={handleMemoralPopupVisible}
-                      >
-                        Simple Popup
-                      </div>
                     </li>
                     <li className="flex tablet:hidden desktop:hidden mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                       <a

@@ -415,7 +415,6 @@ export default function Home() {
           <NotificationView />
         </div>
 
-        <IpadView />
 
         {/* <IpadView data={arrIpadData} /> */}
         <IphoneView />

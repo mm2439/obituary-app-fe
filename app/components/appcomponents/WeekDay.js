@@ -30,8 +30,7 @@ const WeekDay = () => {
             </div>
 
             <div 
-             className="w-full h-[48px] bg-[#0A85C2] flex flex-row justify-between items-center"> 
-
+             className="w-full h-[48px] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] flex flex-row justify-between items-center"> 
                 <div className="text-[20px] ml-[32px] text-[#FFFFFF] leading-[24px] font-variation-customOpt20 font-[400px]">
                     Maribor
                 </div>

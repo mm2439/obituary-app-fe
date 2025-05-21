@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+
 function HeaderAdmin({
   setWhichScreen,
   headerCheck,
@@ -16,6 +16,7 @@ function HeaderAdmin({
       setIsSelected("Delayed_Payments");
     }
   }, []);
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 ">
       <div className="w-full flex h-[75px] flex-row items-center relative">
@@ -40,8 +41,142 @@ function HeaderAdmin({
           </div>
         </div>
 
-        {headerCheck === 2 ? (
+        {headerCheck === 1 ? (
           <div
+            style={{
+              fontVariationSettings: "'opsz' 20",
+              fontVariationSettings: "'wdth' 50",
+            }}
+            className={`text-[20px] my-auto transform translate-y-[20%] flex flex-row ${
+              isSelected === "basic_info"
+                ? "text-[#0A85C2] font-semibold "
+                : "text-[#6D778E] font-normal"
+            } gap-x-[12px] leading-[23px]`}
+          >
+            <div
+              onClick={() => {
+                setIsSelected("basic_info");
+                setWhichScreen(1);
+              }}
+              className="flex flex-col items-center mb-[9px]"
+            >
+              <div className="mb-[9px]">Basic Info</div>
+              <div
+                className={`w-[100px] ${
+                  isSelected === "basic_info"
+                    ? "bg-[#0A85C2] font-semibold"
+                    : "bg-[#D4D4D4]"
+                }  h-[2px] rounded`}
+              />
+            </div>
+
+            <div
+              onClick={() => {
+                setIsSelected("gifts");
+                setWhichScreen(2);
+              }}
+              className={`flex flex-col ${
+                isSelected === "gifts"
+                  ? "text-[#0A85C2] font-semibold"
+                  : "text-[#6D778E] font-normal"
+              } items-center`}
+            >
+              <div className=" mb-[9px]">Gifts</div>
+              <div
+                className={`w-[62px] ${
+                  isSelected === "gifts"
+                    ? "bg-[#0A85C2]"
+                    : "bg-[#D4D4D4]"
+                } h-[2px] rounded`}
+              />
+            </div>
+
+            <div
+              onClick={() => {
+                setIsSelected("user_monthly_stats");
+                setWhichScreen(3);
+              }}
+              className={`flex flex-col ${
+                isSelected === "user_monthly_stats"
+                  ? "text-[#0A85C2] font-semibold"
+                  : "text-[#6D778E] font-normal"
+              } items-center`}
+            >
+              <div className=" mb-[9px]">Users - Monthly Stats</div>
+              <div
+                className={`w-[188px] ${
+                  isSelected === "user_monthly_stats"
+                    ? "bg-[#0A85C2]"
+                    : "bg-[#D4D4D4]"
+                } h-[2px] rounded`}
+              />
+            </div>
+
+            <div
+              onClick={() => {
+                setIsSelected("user_traffic");
+                setWhichScreen(4);
+              }}
+              className={`flex flex-col ${
+                isSelected === "user_traffic"
+                  ? "text-[#0A85C2] font-semibold"
+                  : "text-[#6D778E] font-normal"
+              } items-center`}
+            >
+              <div className="mb-[9px]">Users - Traffic</div>
+              <div
+                className={`w-[106px] ${
+                  isSelected === "user_traffic"
+                    ? "bg-[#0A85C2]"
+                    : "bg-[#D4D4D4]"
+                } h-[2px] rounded`}
+              />
+            </div>
+
+            <div
+              onClick={() => {
+                setIsSelected("contributions_by_users");
+                setWhichScreen(5);
+              }}
+              className={`flex flex-col ${
+                isSelected === "contributions_by_users"
+                  ? "text-[#0A85C2] font-semibold"
+                  : "text-[#6D778E] font-normal"
+              } items-center`}
+            >
+              <div className="mb-[9px]">Contributions - by Users</div>
+              <div
+                className={`w-[209px] ${
+                  isSelected === "contributions_by_users"
+                    ? "bg-[#0A85C2]"
+                    : "bg-[#D4D4D4]"
+                } h-[2px] rounded`}
+              />
+            </div>
+
+            <div
+              onClick={() => {
+                setIsSelected("totals_numbers");
+                setWhichScreen(6);
+              }}
+              className={`flex flex-col ${
+                isSelected === "totals_numbers"
+                  ? "text-[#0A85C2] font-semibold"
+                  : "text-[#6D778E] font-normal"
+              } items-center`}
+            >
+              <div className="mb-[9px]">Totals - Numbers</div>
+              <div
+                className={`w-[156px] ${
+                  isSelected === "totals_numbers"
+                    ? "bg-[#0A85C2]"
+                    : "bg-[#D4D4D4]"
+                } h-[2px] rounded`}
+              />
+            </div>
+          </div>
+        ):(headerCheck === 2 ? (
+          <div  
             style={{
               fontVariationSettings: "'opsz' 20",
               fontVariationSettings: "'wdth' 50",
@@ -76,7 +211,7 @@ function HeaderAdmin({
               }}
               className={`flex flex-col ${
                 isSelected === "page_earnings"
-                  ? "text-[#0A85C2] font-semibold font-semibold"
+                  ? "text-[#0A85C2] font-semibold"
                   : "text-[#6D778E] font-normal"
               } items-center`}
             >
@@ -459,7 +594,7 @@ function HeaderAdmin({
               />
             </div>
           </div>
-        )}
+        ))}
 
         <div className="w-[44px] h-[48px] mr-[37px] absolute right-0">
           <Image src={"/back_icon.png"} alt="" width={44} height={48} />
@@ -469,4 +604,5 @@ function HeaderAdmin({
   );
 }
 
-export default HeaderAdmin;
+
+export default HeaderAdmin; 

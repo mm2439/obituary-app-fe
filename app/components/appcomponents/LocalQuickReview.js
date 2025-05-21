@@ -1,143 +1,192 @@
 "use client"
-import React from "react";
 import Image from "next/image";
-import icoCross from "@/public/ico_cross_popup.png";
-import icoEdit from "@/public/ico_edit_popup.png";
-import icoArrowRight from "@/public/icon_arrowright.png";
-import icoArrowWhiteRight from "@/public/ico_arrow_right_popup.png";
-import icoCloseBlue from "@/public/ico_close_blue_popup.png";
+import React from "react";
 
 const LocalQuickReview = ({setIsLocalQuickModalVisible}) => {
   return (
-    <div className="fixed z-50 w-full bg-[#00000030] h-screen  mt-[45px] ">
-      <div className="relative mx-auto max-w-[1280px] flex justify-center mobile:justify-end w-full h-full mt-[5px]">
-        <div className="w-[350px] h-[557px] bg-[#FFFFFF] rounded-md">
-          <div className="h-[65px] shadow-box-shadow px-[1px] flex justify-center items-center mx-auto">
-            <div className="w-full flex flex-row justify-between text-[#0A85C2] text-[24px] leading-[28.13px] font-[600px]">
-              <div className="whitespace-nowrap ml-[10px]">
-                <span className="underline">LOKALNO</span> - HITER PREGLED
-              </div>
-
-              <button
-                onClick={() => {
-                  setIsLocalQuickModalVisible(false);
-                }}
-                className="w-[18px] h-[18px] mr-[16px] mt-[5px] "
-              >
-                <Image src={icoCloseBlue} alt="Close" width={18} height={18} />
-              </button>
-            </div>
+    <div className="fixed z-50 w-full bg-[#000000B2] h-screen py-[80px]" onClick={() => setIsLocalQuickModalVisible(false)}>
+      <div className="relative mx-auto max-w-[1280px] flex justify-center mobile:w-[360px] w-full h-full mt-[5px]" onClick={(e) => e.stopPropagation()}>
+        <div className="w-[550px] h-[750px] bg-[#E7EEF3] rounded-[16px] p-[6px]">
+          <div className="flex justify-end">
+            <img src={"./circle_cross.png"} alt="Close" className="w-[70px] h-[70px] cursor-pointer" onClick={() => setIsLocalQuickModalVisible(false)} />
           </div>
+          <h4 className="text-[28px] leading-[32px] tracking-[0%] text-center mx-auto max-w-[330px] text-[#3C3E41]">LOKALNO  -  HITRI PREGLED</h4>
+          <div className="w-[330px] mx-auto text-end text-[#1860A3] text-[18px] leading-[32px] underline font-bold">z enim samim klikom</div>
 
-          <div
-            className="h-[20px] mt-[6px] mx-[13px] flex flex-row justify-end text-[15px] leading-[24px]
-            text-[#3C3E41] font-variation-customOpt16"
-          >
-            Z ENIM SAMIM KLIKOM
-          </div>
-
-          {/* Center Container */}
-          <div className="w-[338px] border border-[#3C3E41] h-[327px] mt-[30px] mx-auto flex flex-col rounded-3xl overflow-hidden">
-            <div className="w-full h-[48px] bg-[#3C3E41] flex flex-row justify-between items-center">
-              <div className="flex flex-row">
-                <div className="text-[16px] text-[#CBE1EC] leading-[24px] font-variation-customOpt16 font-[400px] ml-[29px]">
-                  Torek,
-                </div>
-                <div className="text-[16px] text-[#CBE1EC] leading-[24px] font-variation-customOpt16 font-[400px] ml-[10px]">
-                  23.05.2024
-                </div>
+          <div className="mt-[47px] bg-[#FFFFFF] rounded-t-[17px] rounded-b-[24px] w-[338px] mx-auto pb-[28px] border-[1px] border-[#0A85C2]">
+            <div className="bg-[#414B5A] py-[14px] px-[27px] text-[#CBE1EC] text-[16px] font-semibold leading-[24px] rounded-t-[16px]">
+              <span className="pr-[9px]">Torek,</span>
+              <span>23.05.2024</span>
+            </div>
+            <div className="bg-gradient-to-b from-[#0D94E8] to-[#1860A3] border-[1px] border-[#0a85c25e] px-[30px] py-[14px] flex justify-between items-center shadow-md scale-[1.02] rounded-[1px]">
+              <div className="text-[22px] font-semibold text-[#FFFFFF] leading-[24px]">
+              Maribor
               </div>
-
-              <Image
-                src={icoCross}
-                alt="Close icon"
-                width={28}
-                height={28}
-                className="mr-[12px]"
-              />
+              <img src={"./pencil.png"} alt="Edit" className="w-[18px] h-[18px] cursor-pointer" />
             </div>
 
-            <div className="w-full h-[48px] bg-[#0A85C2] flex flex-row justify-between items-center">
-              <div className="text-[20px] ml-[32px] text-[#FFFFFF] leading-[24px] font-variation-customOpt20 font-[400px]">
-                Maribor
-              </div>
+            <div className="space-y-[19px] px-[16px] py-[29px]">
+              <div className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
+                <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
+                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
+                    <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">7</h4>
 
-              <Image
-                src={icoEdit}
-                alt="Edit icon"
-                width={18}
-                height={18}
-                className="mr-[18px]"
-              />
-            </div>
-
-            <div className="w-full h-[238px] bg-[#C7DFF5] flex flex-col items-center">
-              <div className="w-[300px] h-[109px] flex flex-col items-center mt-[30px]">
-                <div className="w-full h-[48px] mb-[13px] bg-[#FFFFFFCC] rounded-lg flex flex-row items-center">
-                  <div className="text-[#0A85C2] font-variation-customOpt24 text-[24px] leading-[24px] ml-[15px] font-[400px]">
-                    4
+                    <div className="flex flex-row gap-[9px] items-end">
+                      <span className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">Osmrtnic</span>
+                      <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">od včeraj</span>
+                    </div>
                   </div>
-                  <div className="text-[18px] leading-[24px] ml-[12px] font-variation-customOpt24 font-[400px] mr-[82px] text-[#3C3E41]">
-                    Osmrtnic od včeraj
-                  </div>
-
                   <Image
-                    src={icoArrowRight}
+                    src={"/arrow_right_ico.png"}
                     alt="Right_arrow"
                     width={24}
                     height={24}
-                  />
-                </div>
-
-                <div className="w-full h-[48px] bg-[#FFFFFFCC] rounded-lg flex flex-row  items-center">
-                  <div className="text-[#0A85C2] font-variation-customOpt24 text-[24px] leading-[24px] ml-[15px] font-[400px]">
-                    3
-                  </div>
-                  <div className="text-[18px] leading-[24px] ml-[12px] font-variation-customOpt24 mr-[50px] font-[400px] text-[#3C3E41]">
-                    Pogrebov danes in jutri
-                  </div>
-
-                  <Image
-                    src={icoArrowRight}
-                    alt="Right_arrow"
-                    width={24}
-                    height={24}
+                    className="mr-[6px]"
                   />
                 </div>
               </div>
+              <div className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
+                <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
+                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
+                    <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">5</h4>
 
-              <div className="w-full h-[28px] bg-[#0A85C2] flex items-center mt-[36px] shadow-box-shadow">
-                <div className="w-[293px] h-[24px] mr-[11px] ml-[34px] flex flex-row items-center">
-                  <div className="text-[#FFFFFF] text-[20px] leading-[24px] mr-[12px] font-variation-customOpt20 font-[400px]">
-                    4
+                    <div className="flex flex-row gap-[9px] items-end">
+                      <span className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">Pogrebov</span>
+                      <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">danes in jutri</span>
+                    </div>
                   </div>
-
-                  <div className="text-[#FFFFFF] text-[14px] mr-[82px] leading-[24px]">
-                    Novih spominskih strani
-                  </div>
-
                   <Image
-                    src={icoArrowWhiteRight}
+                    src={"/arrow_right_ico.png"}
                     alt="Right_arrow"
                     width={24}
                     height={24}
+                    className="mr-[6px]"
                   />
                 </div>
               </div>
             </div>
-          </div>
-          {/*  */}
 
-          <div className="mt-[19px] w-[289px] mx-auto text-[#3C3E41] font-[400px] text-[14px] leading-[24px]">
-            Mesto izbereš v svojem uporabniškem računu. Moraš biti prijavljen,
-            da zazna tvojo nastavitev. Brez vsakodnevnega iskanja po imenikih.
+            <div className="border-[1px] border-[#0A85C2] h-[28px] flex justify-between items-center shadow-md shadow-[#00000073] pl-[58px] pr-[30px]"  style={{ 
+                background: 'linear-gradient(180deg, #0D94E8 0.57%, #1860A3 99.25%)' 
+              }}>
+              <div className="flex flex-row justify-between items-center gap-[15px]">
+                <div className="text-[20px] leading-[24px] font-semibold text-[#FFFFFF]">
+                  4
+                </div>
+                <div className="text-[#FFFFFF] text-[14px] leading-[24px] font-[300]">
+                  Novih spominskih strani
+                </div>
+              </div>
+              
+              <img src={"/white_right_arrow.png"} alt="Edit" className="w-[24px] h-[24px] cursor-pointer shrink-0" />
+            </div>
+          </div>
+
+          <div className="text-[#3C3E41] text-[16px] leading-[20px] font-normal max-w-[324px] mx-auto mt-[40px]">
+            Mesto izbereš v svojem uporabniškem računu.
+            <br />
+            Moraš biti prijavljen, da zazna tvojo nastavitev.
+            <br />
+            Brez vsakodnevnega iskanja po imenikih.
+          </div>
+
+
+          <div className="flex justify-center mt-[18px]">
+            <span className="text-[#1860A3] text-center text-[18px] leading-[32px] font-semibold underline">
+            Prijavi se
+            </span>
           </div>
         </div>
       </div>
     </div>
-
-    
   );
 };
 
-export default LocalQuickReview;
+const LocalQuickReviewModal = ({setIsLocalQuickModalVisible}) => {
+  return (
+    <div className="fixed z-[1000] top-0 left-0 w-full bg-[#000000B2] h-screen py-[80px]" onClick={() => setIsLocalQuickModalVisible(false)}>
+      <div className="relative mx-auto max-w-[1280px] flex justify-center mobile:w-[360px] w-full h-full mt-[5px]" onClick={(e) => e.stopPropagation()}>
+        <div className="w-[550px] h-[550px] bg-[#E7EEF3] rounded-[16px] p-[6px]">
+          <div className="flex justify-end">
+            <img src={"./circle_cross.png"} alt="Close" className="w-[70px] h-[70px] cursor-pointer" onClick={() => setIsLocalQuickModalVisible(false)} />
+          </div>
+
+          <div className="mt-[30px] bg-[#FFFFFF] rounded-t-[17px] rounded-b-[24px] w-[338px] mx-auto pb-[28px] border-[1px] border-[#0A85C2]">
+            <div className="bg-[#414B5A] py-[14px] px-[27px] text-[#CBE1EC] text-[16px] font-semibold leading-[24px] rounded-t-[16px]">
+              <span className="pr-[9px]">Torek,</span>
+              <span>23.05.2024</span>
+            </div>
+            <div className="bg-gradient-to-b from-[#0D94E8] to-[#1860A3] border-[1px] border-[#0a85c25e] px-[30px] py-[14px] flex justify-between items-center shadow-md scale-[1.02] rounded-[1px]">
+              <div className="text-[22px] font-semibold text-[#FFFFFF] leading-[24px]">
+              Maribor
+              </div>
+              <img src={"./pencil.png"} alt="Edit" className="w-[18px] h-[18px] cursor-pointer" />
+            </div>
+
+            <div className="space-y-[19px] px-[16px] py-[29px]">
+              <div className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
+                <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
+                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
+                    <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">7</h4>
+
+                    <div className="flex flex-row gap-[9px] items-end">
+                      <span className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">Osmrtnic</span>
+                      <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">od včeraj</span>
+                    </div>
+                  </div>
+                  <Image
+                    src={"/arrow_right_ico.png"}
+                    alt="Right_arrow"
+                    width={24}
+                    height={24}
+                    className="mr-[6px]"
+                  />
+                </div>
+              </div>
+              <div className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
+                <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
+                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
+                    <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">5</h4>
+
+                    <div className="flex flex-row gap-[9px] items-end">
+                      <span className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">Pogrebov</span>
+                      <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">danes in jutri</span>
+                    </div>
+                  </div>
+                  <Image
+                    src={"/arrow_right_ico.png"}
+                    alt="Right_arrow"
+                    width={24}
+                    height={24}
+                    className="mr-[6px]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="border-[1px] border-[#0A85C2] h-[28px] flex justify-between items-center shadow-md shadow-[#00000073] pl-[58px] pr-[30px]"  style={{ 
+                background: 'linear-gradient(180deg, #0D94E8 0.57%, #1860A3 99.25%)' 
+              }}>
+              <div className="flex flex-row justify-between items-center gap-[15px]">
+                <div className="text-[20px] leading-[24px] font-semibold text-[#FFFFFF]">
+                  4
+                </div>
+                <div className="text-[#FFFFFF] text-[14px] leading-[24px] font-[300]">
+                  Novih spominskih strani
+                </div>
+              </div>
+              
+              <img src={"/white_right_arrow.png"} alt="Edit" className="w-[24px] h-[24px] cursor-pointer shrink-0" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export {LocalQuickReview, LocalQuickReviewModal};

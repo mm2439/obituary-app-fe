@@ -53,7 +53,7 @@ const AdminSideMenuButton = ({
         {placeholderText === "Notifications" && (
           <div className="flex-1 flex flex-row justify-end">
             <div className="bg-[#EB1D1D] rounded-full h-[24px] w-[24px] mr-[15px] flex justify-center items-center">
-              <div className="text-[15px] leading-[21px] font-[700px] font-sourcesans">
+              <div className="text-[15px] leading-[21px] font-[700px] font-sourcesans text-white">
                 4
               </div>
             </div>

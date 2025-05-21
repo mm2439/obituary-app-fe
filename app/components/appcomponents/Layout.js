@@ -11,7 +11,7 @@ import DrawerDialoge from "./DrawerDialoge";
 import { useState } from "react";
 import PopUp from "@/app/components/appcomponents/popup";
 import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
-import LocalQuickReview from "@/app/components/appcomponents/LocalQuickReview";
+import { LocalQuickReview } from "@/app/components/appcomponents/LocalQuickReview";
 
 const Layout = ({ children, from, forFooter, isMegaMenuVisible, megaMenu = {} }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

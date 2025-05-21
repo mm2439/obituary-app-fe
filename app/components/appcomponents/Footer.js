@@ -1,14 +1,30 @@
+"use client"
+
 import Image from "next/image";
 import logo from "@/public/app_big_logo.png";
 import iconFb from "@/public/icon_facebook.png";
 import mobFb from "@/public/fb_mob.png";
+import { useState } from "react";
 
 import BottomSlider from "../authcomponents/BottomSlider";
 import BottomSliderForTabAndMob from "../authcomponents/BottomSliderForTabAndMob";
-
+import { LocalQuickReviewModal } from "./LocalQuickReview";
+import MemoralPopup from "./MemoralPopup";
 
 export default function Footer() {
+  const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] = useState(false);
+  const [isMemoralPopupVisible, setIsMemoralPopupVisible] = useState(false);
+
+  const handleLocalQuickModalVisible = () => {
+    setIsLocalQuickModalVisible(!isLocalQuickModalVisible);
+  }
+
+  const handleMemoralPopupVisible = () => {
+    setIsMemoralPopupVisible(!isMemoralPopupVisible);
+  }
+
   return (
+    <>
     <div className="flex">
       <div className="flex w-full bg-[#E3E8EC] items-center justify-center">
         <div
@@ -140,6 +156,22 @@ export default function Footer() {
                       >
                         Pogrebna podjetja
                       </a>
+                    </li>
+                    <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                      <div
+                        className="bg-[#414141] font-normal text-white rounded-lg p-[6px] hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer"
+                        onClick={handleLocalQuickModalVisible}
+                      >
+                        For Registered Users
+                      </div>
+                    </li>
+                    <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                      <div
+                        className="bg-[#414141] font-normal text-white rounded-lg p-[6px] hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer mt-10"
+                        onClick={handleMemoralPopupVisible}
+                      >
+                        Simple Popup
+                      </div>
                     </li>
                     <li className="flex tablet:hidden desktop:hidden mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                       <a
@@ -381,6 +413,18 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      
     </div>
+    {isLocalQuickModalVisible && (
+      <LocalQuickReviewModal
+        setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
+      />
+    )}
+    {isMemoralPopupVisible && (
+      <MemoralPopup
+        setIsMemoralPopupVisible={setIsMemoralPopupVisible}
+      />
+    )}
+    </>
   );
 }

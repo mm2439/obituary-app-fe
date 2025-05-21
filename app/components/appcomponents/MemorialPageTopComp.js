@@ -122,11 +122,11 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
   return (
     <div
       id="memoryPageTop"
-      className="flex flex-col w-full  items-center  justify-center"
+      className="flex flex-col w-full items-center  justify-center"
     >
       <div
         className="bg-[#ecf0f3]   w-full flex justify-center 
-      mt-[57px] tablet:mt-[60px] desktop:mt-0   pt-[60px] "
+      mt-[57px] tablet:mt-[60px]   pt-[60px] "
       >
         <div
           className="flex flex-col 
@@ -137,10 +137,10 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
        
                "
         >
-          <div className="flex desktop:h-auto  flex-col desktop:flex-row w-[100%] min-h-screen  relative ">
-            <div className="flex  w-[100%] justify-center desktop:w-[50%]  desktop:h-screen static desktop:sticky top-20">
-              <div className="flex  flex-col  desktop:h-[60%] w-[100%]  ">
-                <div className="flex  flex-col w-[100%]  items-center ">
+          <div className="flex  flex-col desktop:flex-row w-[100%] relative">
+            <div className="flex  w-[100%] justify-center desktop:w-[50%] static">
+              <div className="flex  flex-col w-[100%]">
+                <div className="flex  flex-col w-[100%]  items-center  desktop:sticky top-[115px]">
                   <div className="hidden desktop:flex h-[30px]" />
                   <div className=" ">
                     <div className="text-[64px]   text-[#414141] font-greatVibes font-normal ">
@@ -198,7 +198,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                         {data.location ? formatTitleCase(data.location) : ""}
                       </div>
                     </div>
-                    <div className="flex flex-col w-[100%] my-[40px] tablet:[31px] desktop:mt-[30px] h-auto ">
+                    <div className="flex flex-col w-[100%] mt-[40px] tablet:[31px] desktop:mt-[30px] h-auto ">
                       <p className="text-[24px] text-[#414141] font-normal font-greatVibes text-center">
                         {data?.verse
                           ? data?.verse
@@ -328,11 +328,10 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                 <div className="hidden desktop:flex h-[70px] w-full" />
                 <div
                   className="flex-col 
-                  pt-4
-                            w-[100%] mobile:px-[21px] mobile:pb-[19px]
-                              tablet:px-[22px] tablet:pb-[15px]
-                             desktop:w-[517px]   desktop:pl-[22px] desktop:pr-[17px]
-                            border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                  pt-4 w-[100%] mobile:px-[21px] mobile:pb-[19px]
+                  tablet:px-[22px] tablet:pb-[15px]
+                  desktop:w-[517px]   desktop:pl-[22px] desktop:pr-[17px]
+                  border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
                 >
                   <div className="flex items-center h-[39px] ">
                     <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
@@ -376,7 +375,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                     set_Id("14");
                     setModal(true);
                   }}
-                  className="flex cursor-pointer self-end my-[13px] pr-[7px] tablet:pr-[9px] tablet:my-6 desktop:my-6 h-[14px] tablet:h-[16px] desktop:h-[16px] items-center desktop:pr-[20px]"
+                  className="flex cursor-pointer self-end mt-[13px] pr-[7px] tablet:pr-[9px] tablet:mt-6 desktop:mt-6 h-[14px] tablet:h-[16px] desktop:h-[16px] items-center desktop:pr-[20px]"
                 >
                   {/* {user && data.User && user.id === data.User.id && (
                     <> */}
@@ -624,7 +623,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                               ${
                                 parsedEvents.length === 90
                                   ? "desktop:mt-2"
-                                  : "desktop:mt-8"
+                                  : "desktop:mt-[21px]"
                               }  `}
                 >
                   <div
@@ -675,9 +674,9 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                 <div
                   className={`hidden tablet:flex desktop:flex self-end ${
                     parsedEvents.length === 90
-                      ? "tablet:my-2 desktop:my-[10px]"
-                      : "tablet:my-4 desktop:my-[22px]"
-                  } desktop:h-[18px] items-center desktop:pr-[20px]`}
+                      ? "tablet:mt-2 desktop:mt-[10px]"
+                      : "tablet:mt-4 desktop:mt-[22px]"
+                  } desktop:h-[0px] items-center desktop:pr-[20px]`}
                 >
                   {false && (
                     <>
@@ -705,7 +704,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                             pl-[21px] pr-[28px]
                             w-[100%] tablet:px-4 
                             desktop:w-[517px] desktop:pl-[22px] desktop:pr-[17px]
-                             border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                            border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
                 >
                   <div className="flex items-center  h-[39px]">
                     <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">

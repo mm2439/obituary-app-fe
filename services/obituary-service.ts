@@ -8,6 +8,11 @@ const createObituary = async (formData: FormData) => {
   return response.data;
 };
 
+ const getObituaryById = async (obituaryId: any) => {
+    const response = await axios.get(`/obituary?obituaryId=${obituaryId}`);
+    return response.data || null;
+  };
+
 const getObituary = async (queryParams?: {
   city?: string;
   region?: string;
@@ -326,6 +331,7 @@ const getCompanyLogs = async () => {
 };
 
 const obituaryService = {
+  getObituaryById,
   createObituary,
   getObituary,
   getMemory,

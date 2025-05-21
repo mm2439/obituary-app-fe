@@ -1,14 +1,54 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Checkbox } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
+import DropdownWithCustomDesign from "./DropdownWithSearch";
+import obituaryService from "@/services/obituary-service";
+import Select from "react-select";
 
 const OrbetoryFormComp = ({ showForms, focusInput }) => {
   const [selectedBtn, setSelectedBtn] = useState(0);
-
+  const [obituaries, setObituaries] = useState([]);
+  const [search, setSearch] = useState(null);
   const [showSelect, setShowSelect] = useState(false);
+  const [selectedObituary, setSelectedObituary] = useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
+
+  const getObituaries = async (query) => {
+    try {
+      let queryParams = {};
+      queryParams.name = query;
+      const response = await obituaryService.getObituary(queryParams);
+      setObituaries(response.obituaries);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const data = obituaries?.map((item) => ({
+    value: item.id,
+    label: `${item.name} ${item.sirName}`,
+  }));
+  const handleChange = (selected) => {
+    console.log(selected);
+  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(inputValue);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [inputValue]);
+  useEffect(() => {
+    if (debouncedValue.trim() !== "") {
+      getObituaries(debouncedValue);
+    }
+  }, [debouncedValue]);
+  const handleInputChange = (input) => {
+    setInputValue(input);
+  };
 
   return (
     <div
@@ -18,7 +58,7 @@ const OrbetoryFormComp = ({ showForms, focusInput }) => {
     >
       <div
         className="mb-[30px] pt-[50px] mobile:pt-[20px] tablet:pt-[40px] pr-[91px] pl-[91px] w-[650px] h-[620px] max-h-[100%] mobile:mx-2 absolute flex flex-col
-         bg-white/60 backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] shadow-lg
+         bg-gray-300/30 backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] shadow-lg
          
          tablet:w-[550px] tablet:pr-[60px] tablet:pl-[60px]
          mobile:w-[336px] mobile:pr-[18px] mobile:pl-[18px] 
@@ -129,11 +169,69 @@ const OrbetoryFormComp = ({ showForms, focusInput }) => {
         {selectedBtn === 1 ? (
           <div className="mt-[50px]">
             <div>
-              <input
+              {/* <input
                 placeholder="Vpiši ime pokojnika / ce"
                 className="w-full h-[48px] bg-transparent focus:outline-none placeholder:font-sourcesans placeholder:text-[16px] placeholder:font-normal placeholder:leading-[24px] placeholder:text-[#848484] text-[#123597] font-medium text-[18px] leading-[24px] m-[0]
                  mobile:placeholder:text-[14px] mobile:text-[14px]"
-              />
+              /> */}
+              <div className="w-full mx-auto">
+                <Select
+                  options={data} // Use flattened options without grouping
+                  onChange={handleChange}
+                  onInputChange={handleInputChange}
+                  value={
+                    selectedObituary
+                      ? obituaries.find(
+                          (option) => option.id === selectedObituary
+                        )
+                      : null
+                  }
+                  inputValue={inputValue}
+                  placeholder={"Select Obituary"}
+                  isSearchable
+                  filterOption={(option, inputValue) =>
+                    option.label
+                      .toLowerCase()
+                      .startsWith(inputValue.toLowerCase())
+                  }
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      backgroundColor: `none`,
+                      border: "1px solid #d4d4d4", // Light gray border
+                      boxShadow: "none", // Remove default shadow
+                      borderRadius: "4px",
+                      "&:hover": { borderColor: "#105ccf" }, // Change border on hover
+                      minHeight: "36px", // Match the dropdown height in the image
+                    }),
+                    dropdownIndicator: (base) => ({
+                      ...base,
+                      color: "#7d7d7d", // Arrow color
+                      "&:hover": { color: "#808080" }, // Arrow hover color
+                    }),
+                    indicatorSeparator: () => ({
+                      display: "none", // Remove the separator line
+                    }),
+                    menu: (base) => ({
+                      ...base,
+                      borderRadius: "4px", // Rounded menu
+                      marginTop: "2px", // Minimal gap
+                      zIndex: 10,
+                    }),
+                    option: (base, { isFocused }) => ({
+                      ...base,
+                      backgroundColor: isFocused ? "#e8f5f4" : "#fff", // Highlight on hover
+                      color: "#333", // Text color
+                      cursor: "pointer",
+                    }),
+                    singleValue: (base) => ({
+                      ...base,
+                      color: "#105CCF",
+                      fontSize: "18px",
+                    }),
+                  }}
+                />
+              </div>
               <div className="w-full h-[1px] bg-[rgba(212,_212,_212,_1)]"></div>
             </div>
 

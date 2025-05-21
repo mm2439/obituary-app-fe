@@ -148,6 +148,7 @@ const Registration = () => {
               }  flex justify-center items-center`}
             >
               <button
+                type="button"
                 onClick={() => setActiveDiv("login")}
                 className=" w-full  mx-2 h-full my-[2px]"
               >
@@ -164,6 +165,7 @@ const Registration = () => {
               } flex justify-center items-center ml-4`}
             >
               <button
+                type="button"
                 onClick={() => setActiveDiv("register")}
                 className="w-full  mx-2 h-full my-[2px]"
               >
@@ -307,6 +309,7 @@ const Registration = () => {
         {activeDiv === "register" && (
           <div className=" w-[429px] mobile:w-[297px] h-[48px] mt-[20px] mx-auto shadow-custom-light-dark-with-white">
             <button
+              type="button"
               onClick={handleRegister}
               className="flex w-full h-full items-center justify-center text-[16px] leading-[24px] font-variation-customOpt16 text-[#FFFFFF] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-lg"
             >
@@ -318,6 +321,7 @@ const Registration = () => {
         {activeDiv === "login" && (
           <div className="w-[429px] mobile:w-[297px] h-[48px] mt-[20px] mx-auto shadow-custom-light-dark-with-white">
             <button
+              type="button"
               onClick={handleLogin}
               className="flex w-full h-full bg-white items-center justify-center text-[16px] leading-[24px] font-variation-customOpt16 text-[#FFFFFF] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-lg"
             >

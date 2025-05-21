@@ -36,8 +36,11 @@ function UserCompanyHeaderNew({
       localStorage.removeItem("user");
       localStorage.removeItem("access-token");
       localStorage.removeItem("refresh-token");
-      document.cookie =
-        "accessToken=; path=/; domain=.osmrtnica.com; secure; sameSite=None; max-age=0";
+      const isProd = window.location.hostname.includes("osmrtnica.com");
+
+      document.cookie = `accessToken=; path=/; ${
+        isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
+      } max-age=0`;
       router.push("/");
     } catch (err) {
       console.error("Error Fetching Pending Posts:", err);

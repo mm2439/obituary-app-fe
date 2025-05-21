@@ -79,7 +79,10 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
             </div>
             {data && data?.MemoryLogs?.length > 0
               ? data?.MemoryLogs?.map((item, index) => (
-                  <div className="leading-[14.06px] text-[12px] desktop:mr-[3px] tablet:mr-[3px] mt-[4px] font-variation-customOpt12 text-[#414141]">
+                  <div
+                    key={index}
+                    className="leading-[14.06px] text-[12px] desktop:mr-[3px] tablet:mr-[3px] mt-[4px] font-variation-customOpt12 text-[#414141]"
+                  >
                     <div>
                       {item.typeInSL}: {item.userName}
                       {format(new Date(item.createdTimestamp), "dd.MM.yyyy")}

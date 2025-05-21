@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/keeperpromo/page.js", "app/user/obituaries/monthly-stats/page.jsx", "app/user/obituaries/page.jsx", "app/user/spominske/page.jsx", "app/user/darila/page.js", "app/user/narocila/page.js", "app/user/cemeteries/page.js", "app/user/promotions/page.js", "app/demo-memory-page/page.jsx", "app/c/menu/page.js", "app/c/nasi_podatki/page.js", "app/admin/page.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/keeperpromo/page.js", "app/user/obituaries/monthly-stats/page.jsx", "app/user/obituaries/page.jsx", "app/user/spominske/page.jsx", "app/user/darila/page.js", "app/user/narocila/page.js", "app/user/cemeteries/page.js", "app/user/promotions/page.js", "app/demo-memory-page/page.jsx", "app/c/menu/page.js", "app/c/nasi_podatki/page.js", "app/components/mobile-cards/card1.js"],
   "exclude": ["node_modules"]
 }

@@ -3,7 +3,7 @@ import IpadSlider from "./IpadSlider";
 
 const IpadView = () => {
   return (
-    <div>
+    <div className="h-auto">
       <IpadSlider />
     </div>
   );

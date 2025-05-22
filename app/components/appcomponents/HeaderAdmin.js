@@ -22,13 +22,15 @@ function HeaderAdmin({
       <div className="w-full flex h-[75px] flex-row items-center relative">
         <div className="w-[800px] flex flex-row items-center bg-[#FFFFFF80">
           <div className="h-[75px] overflow-hidden">
-            <Image
-              src={"/img_logo_admin.png"}
-              alt=""
-              width={248}
-              height={50}
-              className="shadow-custom-dark-bottom-admin mr-[37px]"
-            />
+            <a href="https://dev111.osmrtnica.com" className="flex flex-row items-center">
+              <Image
+                src={"/img_logo_admin.png"}
+                alt=""
+                width={248}
+                height={50}
+                className="shadow-custom-dark-bottom-admin mr-[37px]"
+              />
+            </a>
           </div>
 
           <div
@@ -596,7 +598,10 @@ function HeaderAdmin({
           </div>
         ))}
 
-        <div className="w-[44px] h-[48px] mr-[37px] absolute right-0">
+        <div className="w-[44px] h-[48px] mr-[37px] absolute right-0" onClick={() => {
+          // go back to the previous page
+          window.history.back();
+        }}>
           <Image src={"/back_icon.png"} alt="" width={44} height={48} />
         </div>
       </div>

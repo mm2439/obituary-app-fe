@@ -1,6 +1,6 @@
 "use client";
 import SlideOne from "../../components/slidercomponents/SlideOne";
-import SlideTwo from "../../components/slidercomponents/SlideTwo";
+import SlideTwo from "../../components/slidercomponents/slideTwo";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -15,8 +15,8 @@ const IpadSlider = ({ data }) => {
   };
 
   return (
-    <section className={`w-full `}>
-      <div className="relative flex w-full  ">
+    <section className={h - auto}>
+      <div className="relative w-full max-w-screen-xl">
         <Swiper
           direction="horizontal"
           autoplay={{ delay: 20000 }}

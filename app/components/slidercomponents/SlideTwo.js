@@ -11,7 +11,7 @@ const SlideTwo = () => {
   // === Desktop Layout ===
   if (breakpoint === "desktop") {
     return (
-     <div className="bg-[#F8EDE3] text-[#22281C] max-w-[1280px] h-[891px]">
+     <div className="bg-[#F8EDE3] text-[#22281C] max-w-[1280px] min-h-[979px]">
         <div className="flex justify-center p-[179px]">
             <div className="text-container w-[560px]">
                 <h2 className="text-[40px] leading-[100%] h-[73px]">Spominska stran <span className="text-[#de222e]">s skrbnikom</span></h2>

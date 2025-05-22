@@ -6,7 +6,7 @@ import SlideTwo from '../components/slidercomponents/SlideTwo'
 import IphoneView from '../components/appcomponents/IphoneView'
 const ViewCards = () => {
   return (
-      <IphoneView/>
+      <SlideTwo/>
 
   )
 }

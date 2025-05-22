@@ -22,6 +22,7 @@ import regionsAndCities from "@/utils/regionAndCities";
 import MainOptions from "./components/appcomponents/MainOptions";
 import SlideTwo from "./components/slidercomponents/SlideTwo";
 import HomePageBox from "./components/appcomponents/HomePageBox";
+import IpadSlider from "./components/appcomponents/IpadSlider";
 export default function Home() {
   // 17 September 2024
   const arrPlace = [
@@ -377,7 +378,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <IpadView />
+          <IpadSlider />
           <HomePageBox />
 
           {/* <IpadView data={arrIpadData} /> */}

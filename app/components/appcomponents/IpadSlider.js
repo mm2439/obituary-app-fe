@@ -15,7 +15,7 @@ const IpadSlider = ({ data }) => {
   };
 
   return (
-    <section className={h - auto}>
+    <section className="h-auto">
       <div className="relative w-full max-w-screen-xl">
         <Swiper
           direction="horizontal"

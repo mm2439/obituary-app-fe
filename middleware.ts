@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const PUBLIC_ROUTES = ["/", "/registrationpage"];
-const PROTECTED_ROUTES = [
+const USER_ROUTES = [
   "/moj-racun",
   "/moji-prispevki",
   "/obletnice",
@@ -10,31 +10,43 @@ const PROTECTED_ROUTES = [
   "/pregled2",
   "/user-accounts-dashboard",
   "/potrditev-objave",
-
   "/obituaryform",
 ];
+const FLORIST_ROUTES = ["/c/spletna-stran"];
+const FUNERAL_ROUTES = ["/p/spletna-stran"];
 
 export function middleware(request: NextRequest) {
-  console.log("this function is running");
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("accessToken")?.value;
+  const role = request.cookies.get("role")?.value;
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
-  const isProtectedRoute = PROTECTED_ROUTES.includes(pathname);
+  const isUserRoute = USER_ROUTES.includes(pathname);
+  const isFloristRoute = FLORIST_ROUTES.includes(pathname);
+  const isFuneralRoute = FUNERAL_ROUTES.includes(pathname);
 
   if (isPublicRoute) {
     return NextResponse.next();
   }
 
-  if (!token && isProtectedRoute) {
-    const loginUrl = new URL("/registrationpage", request.url);
-    return NextResponse.redirect(loginUrl);
+  if (!token) {
+    return NextResponse.redirect(new URL("/registrationpage", request.url));
+  }
+
+  if (isUserRoute && role !== "User") {
+    return NextResponse.rewrite(new URL("/access-denied", request.url));
+  }
+
+  if (isFloristRoute && role !== "Florist") {
+    return NextResponse.rewrite(new URL("/access-denied", request.url));
+  }
+  if (isFuneralRoute && role !== "Funeral") {
+    return NextResponse.rewrite(new URL("/access-denied", request.url));
   }
 
   return NextResponse.next();
 }
 
-// Apply middleware to specific protected routes
 export const config = {
   matcher: [
     "/moj-racun",
@@ -46,5 +58,7 @@ export const config = {
     "/potrditev-objave",
     "/c/nase_osmrtnice",
     "/obituaryform",
+    "/c/spletna-stran",
+    "/p/spletna-stran",
   ],
 };

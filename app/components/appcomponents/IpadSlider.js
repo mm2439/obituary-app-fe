@@ -15,8 +15,8 @@ const IpadSlider = ({ data }) => {
   };
 
   return (
-    <section className={`w-full flex justify-center items-center`}>
-      <div className="relative flex w-full mobile:w-[679px] tablet:my-auto tablet:w-full desktop:max-w-[1920px] desktop:w-full mobile:w-full">
+    <section className={`w-full `}>
+      <div className="relative flex w-full  ">
         <Swiper
           direction="horizontal"
           autoplay={{ delay: 20000 }}

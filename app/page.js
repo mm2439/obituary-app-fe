@@ -376,6 +376,7 @@ export default function Home() {
               </div>
             </Link>
           </div>
+
           <IpadView />
           <HomePageBox />
 
@@ -419,7 +420,6 @@ export default function Home() {
           <NotificationView />
         </div>
 
-        <IpadView />
 
         {/* <IpadView data={arrIpadData} /> */}
         <IphoneView />

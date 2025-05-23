@@ -107,7 +107,7 @@ export default function MainOptions() {
       <div className="w-full bg-[#f1f6fd] flex justify-center">
         <div
           className="
-        desktop:w-[1200px] desktop:pl-[57px] desktop:pr-[55px]
+        desktop:w-[1280px] desktop:pl-[57px] desktop:pr-[55px]
         tablet:w-[680px]
         mobile:py-[63px] py-[83px] mobile:mb-[62.76px] mobile:w-[310px] "
         >

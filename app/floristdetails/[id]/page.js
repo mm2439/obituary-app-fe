@@ -12,7 +12,7 @@ import companyService from "@/services/company-service";
 
 const FloristsDetailsPage = ({ params }) => {
   const { id } = params;
-  const [company, setCompany] = useState(null);
+  const [company, setCompany] = useState({});
 
   useEffect(() => {
     getCompany();

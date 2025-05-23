@@ -48,7 +48,25 @@ const Qualityflowers = ({ data }) => {
                 {data?.box_one_text}
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div
+              className="w-[315px] h-[174px] mobile:mx-auto tablet:w-[242.59px] tablet:h-[136.63px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30]
+                                     backdrop-blur border-[2px] border-[#FFFFFF] rounded-[16px] flex flex-col items-center"
+            >
+              <img
+                src="/truck.png"
+                alt="vehicle"
+                className="w-[70px] h-[52.5px] tablet:h-[55.17px] tablet:mt-[19.72px] mt-[40.75px] mx-auto"
+              />
+
+              <div
+                className="mt-[23.75px] tablet:mt-[16px] tablet:font-variation-customOpt16 text-[20px] 
+                        tablet:text-[16px] flex justify-center tablet:leading-[18.75px] leading-[23.44px] text-[#22281C] font-variation-customOpt20"
+              >
+                Dostava isti dan
+              </div>
+            </div>
+          )}
 
           {/* Second image Container*/}
           {data?.box_two_icon && data?.box_two_text ? (
@@ -73,7 +91,27 @@ const Qualityflowers = ({ data }) => {
                 <div className="px-[4px]">{data?.box_two_text}</div>
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div
+              className="w-[315px] h-[174px] mobile:mx-auto tablet:w-[242.59px] tablet:h-[136.63px] bl bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30]
+                     backdrop-blur border-[2px] border-[#FFFFFF] rounded-[16px]"
+            >
+              <img
+                src="/thumb.png"
+                alt="vehicle"
+                className="w-[60px] h-[60px] tablet:w-[66.18px] 
+                                                                        tablet:h-[65px] tablet:mt-[15.84px] mt-[32px] mx-auto"
+              />
+
+              <div
+                className="mt-[25px] tablet:mt-[16px] flex justify-center tablet:text-[16px] 
+                        tablet:font-variation-customOpt16 text-[20px] tablet:leading-[18.75px] 
+                        leading-[23.44px] text-[#22281C] tablet:font-variation-customOpt16 font-variation-customOpt20"
+              >
+                <div className="px-[4px]">Vedno sveže in kvalitetno cvetje</div>
+              </div>
+            </div>
+          )}
 
           {data?.box_three_icon && data?.box_three_text ? (
             <div

@@ -68,7 +68,7 @@ const SunflowerFlorist = ({ data }) => {
         {/* First detail Container for heading and flower image */}
         <div className="max-w-[596px] w-full mobile:w-full tablet:h-full desktop:h-full mobile:mx-auto items-center flex flex-col">
           <div className="text-[#1E2125] mobile:hidden text-[40px] mt-[58px] tablet:mt-[34px] leading-[46.88px] font-variation-customOpt40">
-            {data?.name}
+            {data?.name || "Cvetličarna Suniflower"}
           </div>
 
           <div className="tablet:flex flex-row w-full justify-between hidden ">
@@ -81,7 +81,11 @@ const SunflowerFlorist = ({ data }) => {
             </button>
 
             <Image
-              src={`${API_BASE_URL}/${data?.logo}`}
+              src={
+                data?.logo
+                  ? `${API_BASE_URL}/${data?.logo}`
+                  : "/suniflo_logo.avif"
+              }
               alt="sunflower_img"
               width={370}
               height={240}
@@ -100,7 +104,11 @@ const SunflowerFlorist = ({ data }) => {
 
           <div className="flex flex-row">
             <Image
-              src={`${API_BASE_URL}/${data?.logo}`}
+              src={
+                data?.logo
+                  ? `${API_BASE_URL}/${data?.logo}`
+                  : "/suniflo_logo.avif"
+              }
               alt="sunflower_img"
               width={370}
               height={240}
@@ -135,15 +143,20 @@ const SunflowerFlorist = ({ data }) => {
 
           {/* Container for websites */}
           <div className="hidden desktop:flex ml-[58px] mt-[13px]">
-            <p className="text-[20px] leading-[23.44px] text-[#1E2125] font-variation-customOpt20">
-              {/* Obiščite našo spletno stran:
-              <Link href="https://www.suniflower.com">
-                <href className="text-[#1E2125] text-[24px] font-semibold  font-variation-customOpt24">
-                  {} {images[currentIndex].Sitelink}
-                </href>
-              </Link> */}
-              {data?.highlightText}
-            </p>
+            {data?.highlightText ? (
+              <p className="text-[20px] leading-[23.44px] text-[#1E2125] font-variation-customOpt20">
+                {data?.highlightText}
+              </p>
+            ) : (
+              <p className="text-[20px] leading-[23.44px] text-[#1E2125] font-variation-customOpt20">
+                Obiščite našo spletno stran:
+                <Link href="https://www.suniflower.com">
+                  <href className="text-[#1E2125] text-[24px] font-semibold  font-variation-customOpt24">
+                    www.suniflower.com
+                  </href>
+                </Link>
+              </p>
+            )}
           </div>
 
           {/* Main Container for mail telephone and timings */}
@@ -154,19 +167,20 @@ const SunflowerFlorist = ({ data }) => {
             {/* Container for telephone mail and other texts */}
             <div className="w-[274px] h-[115px] flex flex-col">
               <div className="text-[#000000] leading-[18.75px] text-[16px] font-variation-customOpt16">
-                {shops[currentIndex]?.shopName}
+                {shops[currentIndex]?.shopName || "Cvetličarna št.1"}
               </div>
 
               <div className="text-[#414141] italic text-[16px] mt-[8px] font-[400px] leading-[24px] tablet:font-variation-customOpt16 desktop:font-variation-customOpt16">
-                {shops[currentIndex]?.address}
+                {shops[currentIndex]?.address ||
+                  "Zidarska ulica 184, Ljubno ob Savinji"}
               </div>
 
               <div className="font-variation-customOpt16 mt-[8px] italic text-[16px] leading-[24px] text-[#414141]">
-                Tel. {shops[currentIndex]?.telephone}
+                Tel. {shops[currentIndex]?.telephone || "012-994-285"}
               </div>
 
               <div className="text-[16px] italic text-[#414141] leading-[24px] mt-[8px] font-variation-customOpt16">
-                Email: {shops[currentIndex]?.email}
+                Email: {shops[currentIndex]?.email || "trgovina@csunflo.com"}
               </div>
             </div>
 
@@ -175,10 +189,23 @@ const SunflowerFlorist = ({ data }) => {
               <div className="text-[#000000] leading-[18.75px] text-[16px] font-variation-customOpt16">
                 Delovni čas
               </div>
-
-              <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
-                {shops[currentIndex]?.workingHours}
-              </div>
+              {shops[currentIndex]?.workingHours ? (
+                <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  {shops[currentIndex]?.workingHours}
+                </div>
+              ) : (
+                <>
+                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                    Pon - Pet: 8:00 -18:00
+                  </div>
+                  <div className="font-variation-customOpt16 mt-[8px] italic text-[16px] leading-[24px] text-[#414141]">
+                    Sobota: 8:00 - 15:00
+                  </div>
+                  <div className="text-[16px] italic text-[#414141] leading-[24px] mt-[8px] font-variation-customOpt16">
+                    Nedelja: Zaprto
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -222,20 +249,23 @@ const SunflowerFlorist = ({ data }) => {
             </div>
           </div>
 
-          <div className="desktop:hidden flex mt-[30px] mobile:mt-[38px]">
-            {/* <p className="text-[20px] mobile:w-[249px] mx-auto leading-[23.44px] text-[#1E2125] font-variation-customOpt20">
+          {data?.highlightText ? (
+            <div className="desktop:hidden flex mt-[30px] mobile:mt-[38px]">
+              {data?.highlightText}
+            </div>
+          ) : (
+            <p className="text-[20px] leading-[23.44px] text-[#1E2125] font-variation-customOpt20">
               Obiščite našo spletno stran:
               <Link href="https://www.suniflower.com">
                 <href className="text-[#1E2125] text-[24px] font-semibold  font-variation-customOpt24">
-                  {} {images[currentIndex].Sitelink}
+                  www.suniflower.com
                 </href>
               </Link>
-            </p> */}
-            {data?.highlightText}
-          </div>
+            </p>
+          )}
 
           <div className="ml-[29px] tablet:mx-auto mobile:mx-auto flex flex-row gap-[16px] w-[176px] h-[48px] tablet:mt-[26px] mobile:mt-[29px] mt-[63px]">
-            {data?.facebook && (
+            {data?.facebook ? (
               <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
                 <Link
                   href={
@@ -254,8 +284,16 @@ const SunflowerFlorist = ({ data }) => {
                   />
                 </Link>
               </div>
+            ) : (
+              <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
+                <Image
+                  src={imgFb}
+                  alt="fb_ico"
+                  className=" w-[20px] h-[20px]"
+                />
+              </div>
             )}
-            {data?.instagram && (
+            {data?.instagram ? (
               <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
                 <Link
                   href={
@@ -273,6 +311,14 @@ const SunflowerFlorist = ({ data }) => {
                     className=" w-[20px] h-[20px]"
                   />
                 </Link>
+              </div>
+            ) : (
+              <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
+                <Image
+                  src={imgInsta}
+                  alt="fb_ico"
+                  className=" w-[20px] h-[20px]"
+                />
               </div>
             )}
 

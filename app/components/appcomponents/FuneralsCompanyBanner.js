@@ -40,7 +40,7 @@ const FuneralsCompanyBanner = ({ data }) => {
           </h1>
           <div className="hidden desktop:flex w-[102px]">
             <div className=" w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white mr-2">
-              {data?.website && (
+              {data?.website ? (
                 <Link
                   href={
                     data.website.startsWith("http://") ||
@@ -59,10 +59,18 @@ const FuneralsCompanyBanner = ({ data }) => {
                     height={24}
                   />
                 </Link>
+              ) : (
+                <Image
+                  src={iconWeb}
+                  className=" h-[24px] w-[24px]"
+                  alt="Facebook Icon"
+                  width={1000}
+                  height={1000}
+                />
               )}
             </div>
             <div className=" w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white">
-              {data?.facebook && (
+              {data?.facebook ? (
                 <Link
                   href={
                     data.facebook.startsWith("http://") ||
@@ -81,6 +89,14 @@ const FuneralsCompanyBanner = ({ data }) => {
                     height={1000}
                   />
                 </Link>
+              ) : (
+                <Image
+                  src={iconFb}
+                  className=" h-[24px] w-[24px]"
+                  alt="Facebook Icon"
+                  width={1000}
+                  height={1000}
+                />
               )}
             </div>
           </div>
@@ -101,7 +117,7 @@ const FuneralsCompanyBanner = ({ data }) => {
               EMAIL
             </div>
             <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-              {data?.email}
+              {data?.email || "javno.podjetje@komunala-trbovlje.si"}
             </div>
           </div>
           <div className="h-6 w-[2px] bg-[#D4D4D4]" />
@@ -121,7 +137,7 @@ const FuneralsCompanyBanner = ({ data }) => {
               WEBSITE
             </div>
             <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-              {data?.website}
+              {data?.website || "www.komunala-trbovlje.si"}
             </div>
           </div>
         </div>
@@ -142,7 +158,7 @@ const FuneralsCompanyBanner = ({ data }) => {
                 WEBSITE
               </div>
               <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-                {data?.website}
+                {data?.website || "www.komunala-trbovlje.si"}
               </div>
             </div>
           </div>
@@ -164,19 +180,19 @@ const FuneralsCompanyBanner = ({ data }) => {
                 EMAIL
               </div>
               <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-                {data?.email}
+                {data?.email || "javno.podjetje@komunala-trbovlje.si"}
               </div>
             </div>
           </div>
           <div className="hidden tablet:flex w-[102px]">
             <div className=" w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white mr-2">
-              {data?.facebook && (
+              {data?.website ? (
                 <Link
                   href={
-                    data.facebook.startsWith("http://") ||
-                    data.facebook.startsWith("https://")
-                      ? data.facebook
-                      : `https://${data.facebook}`
+                    data.website.startsWith("http://") ||
+                    data.website.startsWith("https://")
+                      ? data.website
+                      : `https://${data.website}`
                   }
                   target="_blank"
                   rel="noopener noreferrer"
@@ -184,15 +200,23 @@ const FuneralsCompanyBanner = ({ data }) => {
                   <Image
                     src={iconWeb}
                     className=" h-[24px] w-[24px]"
-                    alt="Facebook Icon"
+                    alt="Website Icon"
                     width={1000}
                     height={1000}
                   />
                 </Link>
+              ) : (
+                <Image
+                  src={iconWeb}
+                  className=" h-[24px] w-[24px]"
+                  alt="Facebook Icon"
+                  width={1000}
+                  height={1000}
+                />
               )}
             </div>
             <div className=" w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white">
-              {data?.facebook && (
+              {data?.facebook ? (
                 <Link
                   href={
                     data.facebook.startsWith("http://") ||
@@ -211,6 +235,14 @@ const FuneralsCompanyBanner = ({ data }) => {
                     height={1000}
                   />
                 </Link>
+              ) : (
+                <Image
+                  src={iconFb}
+                  className=" h-[24px] w-[24px]"
+                  alt="Facebook Icon"
+                  width={1000}
+                  height={1000}
+                />
               )}
             </div>
           </div>
@@ -230,7 +262,7 @@ const FuneralsCompanyBanner = ({ data }) => {
               EMAIL
             </div>
             <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-              {data?.email}
+              {data?.email || "javno.podjetje@komunala-trbovlje.si"}
             </div>
           </div>
 
@@ -239,7 +271,7 @@ const FuneralsCompanyBanner = ({ data }) => {
               WEBSITE
             </div>
             <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-              {data?.website}
+              {data?.website || "www.komunala-trbovlje.si"}
             </div>
           </div>
 
@@ -254,7 +286,7 @@ const FuneralsCompanyBanner = ({ data }) => {
             </div>
             <div className="hidden mobile:flex w-[80px]">
               <div className=" w-9 h-9 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white mr-2">
-                {data?.website && (
+                {data?.website ? (
                   <Link
                     href={
                       data.website.startsWith("http://") ||
@@ -273,10 +305,18 @@ const FuneralsCompanyBanner = ({ data }) => {
                       height={1000}
                     />
                   </Link>
+                ) : (
+                  <Image
+                    src={iconWeb}
+                    className=" h-[24px] w-[24px]"
+                    alt="Facebook Icon"
+                    width={1000}
+                    height={1000}
+                  />
                 )}
               </div>
               <div className=" w-9 h-9 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white">
-                {data?.facebook && (
+                {data?.facebook ? (
                   <Link
                     href={
                       data.facebook.startsWith("http://") ||
@@ -295,6 +335,14 @@ const FuneralsCompanyBanner = ({ data }) => {
                       height={1000}
                     />
                   </Link>
+                ) : (
+                  <Image
+                    src={iconFb}
+                    className=" h-[24px] w-[24px]"
+                    alt="Facebook Icon"
+                    width={1000}
+                    height={1000}
+                  />
                 )}
               </div>
             </div>
@@ -306,10 +354,11 @@ const FuneralsCompanyBanner = ({ data }) => {
         <div className="max-w-[1009px] w-full tablet:w-[597.23px] mobile:w-[296px] flex mobile:flex-col justify-between desktop:px-6 mb-16 mobile:mb-12">
           <div className=" relative desktop:w-[452px] desktop:h-[295px] tablet:w-[276px] tablet:h-[235.81px] flex flex-col justify-center">
             <div className="text-[#1E2125] mobile:text-[28px] text-[40px] font-normal leading-[47px] mobile:leading-[33px] whitespace-nowrap mobile:text-center">
-              {data?.title}
+              {data?.title || "Predstavitev"}
             </div>
             <div className="text-[#414141] text-[16px] font-normal leading-[24px] mt-4 mobile:text-center mobile:mb-10">
-              {data?.description}
+              {data?.description ||
+                " Komunala Trbovlje v okviru pogrebnega zavoda izvaja pogrebno in pokopališko dejavnost. Delovni čas zavoda je od ponedeljka do petka med 7. in 15. uro v letnem času oziroma med 6. in 14. uro v času med 1. 6. in 31. 8."}
             </div>
           </div>
 

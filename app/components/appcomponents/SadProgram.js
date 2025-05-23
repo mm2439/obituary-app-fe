@@ -5,33 +5,59 @@ import React from "react";
 import API_BASE_URL from "@/config/apiConfig";
 import Image from "next/image";
 // 7 October 2024 - bela_ikebana.avif, sopek.avif
+
+const defaultList = [
+  {
+    image: "/bela_ikebana.avif",
+    title: "Čudoviti aranžma št. 1",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 1",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 1",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 1",
+  },
+  {
+    image: "/bela_ikebana.avif",
+    title: "Čudoviti aranžma št. 5 od 80€ naprej",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 6 od 80€ naprej",
+  },
+  {
+    image: "/f3.png",
+    title: "Čudoviti aranžma št. 7 od 40€ naprej",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 8 od 60€ naprej",
+  },
+];
 const SadProgram = ({ data }) => {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(defaultList);
 
   useEffect(() => {
-    if (data?.packages && data?.packages.length > 0) {
-      setList(data.packages);
+    const customPackages = data?.packages || [];
+
+    if (customPackages.length > 8) {
+      setList(customPackages);
+    } else if (customPackages.length > 0) {
+      const updatedList = [...defaultList];
+      for (let i = 0; i < customPackages.length; i++) {
+        updatedList[i] = customPackages[i];
+      }
+      setList(updatedList);
+    } else {
+      setList(defaultList);
     }
   }, [data]);
-
-  // const listForMobile = [
-  //   {
-  //     image: "/bela_ikebana.avif",
-  //     title: "Čudoviti aranžma št. 1",
-  //   },
-  //   {
-  //     image: "/sopek.avif",
-  //     title: "Čudoviti aranžma št. 1",
-  //   },
-  //   {
-  //     image: "/bela_ikebana.avif",
-  //     title: "Čudoviti aranžma št. 1",
-  //   },
-  //   {
-  //     image: "/sopek.avif",
-  //     title: "Čudoviti aranžma št. 1",
-  //   },
-  // ];
 
   return (
     <div className="relative max-w-[1920px] bg-[#F5F7F9] w-full py-16 tablet:py-12 mobile:py-8  overflow-hidden mx-auto justify-center items-center flex ">
@@ -61,7 +87,11 @@ const SadProgram = ({ data }) => {
                   className=" bg-gradient-to-br from-white to-[#ffffff30] border-white border-2 desktop:w-[211px] desktop:h-[295px] w-[292px] h-[295px] flex items-center flex-col rounded-lg shadow-custom-light-dark mobile:hidden"
                 >
                   <Image
-                    src={`${API_BASE_URL}/${item.image}`}
+                    src={
+                      item.image.includes("packageUploads")
+                        ? `${API_BASE_URL}/${item.image}`
+                        : item.image
+                    }
                     alt="flower 1 image"
                     className="w-[119.65px] h-[135.08px] mt-[58.27px]"
                     width={120}
@@ -80,7 +110,11 @@ const SadProgram = ({ data }) => {
                 className=" bg-gradient-to-br from-white to-[#ffffff30] border-white border-2 w-[292px] h-[295px] items-center flex-col rounded-lg shadow-custom-light-dark mobile:flex hidden"
               >
                 <Image
-                  src={`${API_BASE_URL}/${item.image}`}
+                  src={
+                    item.image.includes("packageUploads")
+                      ? `${API_BASE_URL}/${item.image}`
+                      : item.image
+                  }
                   alt="flower 1 image"
                   className="w-[119.65px] h-[135.08px] mt-[58.27px]"
                   width={120}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import API_BASE_URL from "@/config/apiConfig";
 import Image from "next/image";
 const Offer = ({ data }) => {
@@ -30,21 +30,34 @@ const Offer = ({ data }) => {
           image: getImageUrl(data.offer_one_image),
           title: data.offer_one_title,
         }
-      : null,
+      : {
+          image: "/porocna.avif",
+          title: "Poročni aranžmaji",
+        },
     data?.offer_two_image && data?.offer_two_title
       ? {
           image: getImageUrl(data.offer_two_image),
           title: data.offer_two_title,
         }
-      : null,
+      : {
+          image: "/roza_sopek.avif",
+          title: "Rezano cvetje",
+        },
+
     data?.offer_three_image && data?.offer_three_title
       ? {
           image: getImageUrl(data.offer_three_image),
           title: data.offer_three_title,
         }
-      : null,
+      : {
+          image: "/vrtnice.jpg",
+          title: "Žalni maharani",
+        },
   ].filter(Boolean);
 
+  useEffect(() => {
+    console.log(images, "====");
+  }, [images]);
   return (
     <div className="relative max-w-[1920px] bg-[#F5F7F9] py-16 tablet:py-12 mobile:py-8 w-full overflow-hidden flex mx-auto justify-center items-center">
       {/*Main container (child view)*/}
@@ -56,10 +69,12 @@ const Offer = ({ data }) => {
               Naša ponudba
             </div>
             <div className="h-[48px] w-full text-[16px] mobile:h-[96px] text-[#939393] text-center leading-[24px] font-variation-customOpt16 flex desktop:hidden mobile:mt-[1px]">
-              {data?.offer_subtitle}
+              {data?.offer_subtitle ||
+                "Dodate tri stvari iz vaše ponudbe, ki jih želite posebej poudariti Tukaj pod naslovom lahko dopišete tudi poljubni tekst, prodajno sporočilo."}
             </div>
             <div className="text-[16px] text-[#939393] text-center leading-[24px] font-variation-customOpt16 tablet:hidden desktop:flex mobile:hidden">
-              {data?.offer_subtitle}
+              {data?.offer_subtitle ||
+                "Dodate tri stvari iz vaše ponudbe, ki jih želite posebej poudariti"}
             </div>
           </div>
         )}
@@ -94,7 +109,20 @@ const Offer = ({ data }) => {
                 {data?.offer_one_title}
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
+              <Image
+                src={images[0].image}
+                alt={`${data?.offer_one_title}`}
+                width={290}
+                height={345}
+                className="w-[291px] h-[345px] tablet:w-[210px] tablet:h-[289px] mobile:w-[249.96px] mobile:h-[296.35px] mt-[22px] tablet:mt-0 rounded-lg"
+              />
+              <div className="text-[24px] text-[#1E2125] mobile:text-[20px] mobile:font-variation-customOpt20wght400 font-variation-customOpt24 mobile mt-5 mobile:mt-[14px] text-center">
+                {images[0].title}
+              </div>
+            </div>
+          )}
 
           {/*f2 container*/}
 
@@ -111,7 +139,20 @@ const Offer = ({ data }) => {
                 {data?.offer_two_title}
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
+              <Image
+                src={images[1].image}
+                alt={`${data?.offer_one_title}`}
+                width={290}
+                height={345}
+                className="w-[291px] h-[345px] tablet:w-[210px] tablet:h-[289px] mobile:w-[249.96px] mobile:h-[296.35px] mt-[22px] tablet:mt-0 rounded-lg"
+              />
+              <div className="text-[24px] text-[#1E2125] mobile:text-[20px] mobile:font-variation-customOpt20wght400 font-variation-customOpt24 mobile mt-5 mobile:mt-[14px] text-center">
+                {images[1].title}
+              </div>
+            </div>
+          )}
 
           {/*f3 container*/}
           {data?.offer_three_image && data?.offer_three_title ? (
@@ -130,7 +171,20 @@ const Offer = ({ data }) => {
                 {data?.offer_three_title}
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
+              <Image
+                src={images[2].image}
+                alt={`${data?.offer_one_title}`}
+                width={290}
+                height={345}
+                className="w-[291px] h-[345px] tablet:w-[210px] tablet:h-[289px] mobile:w-[249.96px] mobile:h-[296.35px] mt-[22px] tablet:mt-0 rounded-lg"
+              />
+              <div className="text-[24px] text-[#1E2125] mobile:text-[20px] mobile:font-variation-customOpt20wght400 font-variation-customOpt24 mobile mt-5 mobile:mt-[14px] text-center">
+                {images[2].title}
+              </div>
+            </div>
+          )}
         </div>
 
         {/*bottom slider button*/}

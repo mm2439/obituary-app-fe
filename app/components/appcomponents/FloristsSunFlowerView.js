@@ -43,13 +43,28 @@ const FloristsSunFlowerView = ({ data }) => {
                 className="flex mobile:text-[28px] text-[36px] text-[#1E2125] font-variation-customOpt36
                            font-normal mobile:leading-[32.81px] leading-[47px] "
               >
-                {data?.title}
+                {data?.title || "Cvetličana z dolgoletno tradicijo"}
               </h1>
             </div>
             <div className="flex flex-col mt-6">
-              <p className="text-[#414141]  text-[16px] font-variation-customOpt16 font-normal">
-                {data?.description}
-              </p>
+              {data?.description?.trim() ? (
+                <p className="text-[#414141] text-[16px] font-variation-customOpt16 font-normal">
+                  {data.description}
+                </p>
+              ) : (
+                <>
+                  <p className="text-[#414141] text-[16px] font-variation-customOpt16 font-normal">
+                    V Cvetličarni Suniflower, na levem bregu Ljubljanice, že 22
+                    let širimo ljubezen do cvetličarske umetnosti. Nudimo vam
+                    rezano cvetje, lončnice, žalne in poročne aranžmaje,
+                    aranžiranje daril.
+                  </p>
+                  <p className="text-[#414141] mt-[25px] text-[16px] font-variation-customOpt16 font-normal">
+                    Obiščite nas!
+                  </p>
+                </>
+              )}
+
               {/* <p className="text-[#414141] mt-[25px]  text-[16px] font-variation-customOpt16 font-normal">
                 Obiščite nas!
               </p> */}

@@ -39,6 +39,7 @@ function ObituaryHeader({ from, data }) {
                   </div>
                 </div>
               </div>
+
               <div className="mobile:hidden flex items-center h-[53px] ml-[20px] desktop:ml-[49px] desktop:pr-[10px] ">
                 <h
                   className="text-[#414141] 
@@ -46,15 +47,23 @@ function ObituaryHeader({ from, data }) {
                 desktop:text-[32px] desktop:font-variation-customOpt32wght500"
                 >
                   {from === 7
-                    ? `${data?.address} , ${data?.city}`
-                    : `${data?.name}, ${data?.city}`}
+                    ? `${data?.address || "Cvetličarna Suniflower"} , ${
+                        data?.city || "Milano"
+                      }`
+                    : `${data?.name || "Pogrebni zavod"}, ${
+                        data?.city || "Milano"
+                      }`}
                 </h>
               </div>
               <div className="flex h-[50px] flex-col tablet:hidden desktop:hidden ml-[22px] pl-[2px]">
                 <h className="text-[#414141] text-[20px] font-variation-customOpt20 font-normal">
                   {from === 7
-                    ? `${data?.address} , ${data?.city}`
-                    : `${data?.name}, ${data?.city}`}
+                    ? `${data?.address || "Cvetličarna Suniflower"} , ${
+                        data?.city || "Milano"
+                      }`
+                    : `${data?.name || "Pogrebni zavod"}, ${
+                        data?.city || "Milano"
+                      }`}
                 </h>
                 <h className="text-[#939393] text-[16px] font-variation-customOpt20 font-normal">
                   {from === 7 ? "Milano" : "Rome"}
@@ -66,7 +75,7 @@ function ObituaryHeader({ from, data }) {
               >
                 <Image src={telephone_icon} className=" h-[27px] w-[27px] " />
                 <p className="hidden desktop:flex text-[#1E2125] font-normal text-[20px] ml-[12.5px] ">
-                  {data?.phone}
+                  {data?.phone || "1231391093"}
                 </p>
               </div>
             </div>

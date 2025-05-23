@@ -12,7 +12,15 @@ import companyService from "@/services/company-service";
 
 const FuneralCompany = ({ params }) => {
   const { id } = params;
-  const [company, setCompany] = useState(null);
+  const [company, setCompany] = useState({
+    phone: "1231391093",
+    address: "Cvetličarna Suniflower",
+    city: "Milano",
+    name: "Pogrebni zavod",
+    secondary_title: "Naš ponos",
+    secondary_description:
+      " Projekt prenove trboveljskega pokopališča je bil leta 2020 izbran kot primer dobre prakse trajnostnega urbanega razvoja v okviru razpisa Mesta mestom.",
+  });
 
   useEffect(() => {
     getCompany();

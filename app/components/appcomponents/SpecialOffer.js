@@ -4,12 +4,45 @@ import { useEffect, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import API_BASE_URL from "@/config/apiConfig";
 import Image from "next/image";
+const defaultSlides = [
+  {
+    id: 1,
+    title: "Posebna ponudba v avgustu",
+    image: "/sopek_v_vazi.jpg",
+    description:
+      "Visok blok, kjer lahko dodate karkoli, kar bi lahko pritegnilo vaše stranke ali poudarite posebne promocije ali ponudbo pred prazniki, ipd. Da boste lahko povedali kar največ, je opcija tudi več takih blokov, ki se izmenjujejo levo-desno. Enako kot prejšnji blok, si lahko tudi tega skreirate sami in gaprilepite kot sliko.",
+  },
+  {
+    id: 2,
+    title: "Some other heading",
+    image: "/flologo3.avif",
+    description:
+      "Visok blok, kjer lahko dodate karkoli, kar bi lahko pritegnilo vaše stranke ali poudarite posebne promocije ali ponudbo pred prazniki, ipd. Da boste lahko povedali kar največ, je opcija tudi več takih blokov, ki se izmenjujejo levo-desno. Enako kot prejšnji blok, si lahko tudi tega skreirate sami in gaprilepite kot sliko.",
+  },
+  {
+    id: 3,
+    title: "Primo Heading",
+    image: "/flower2.jpeg",
+    description:
+      "Visok blok, kjer lahko dodate karkoli, kar bi lahko pritegnilo vaše stranke ali poudarite posebne promocije ali ponudbo pred prazniki, ipd. Da boste lahko povedali kar največ, je opcija tudi več takih blokov, ki se izmenjujejo levo-desno. Enako kot prejšnji blok, si lahko tudi tega skreirate sami in gaprilepite kot sliko.",
+  },
+];
+
 const SpecialOffer = ({ data }) => {
   const [slides, setSlides] = useState([]);
 
   useEffect(() => {
-    if (data?.slides && data?.slides.length > 0) {
-      setSlides(data?.slides);
+    const customSlides = data?.slides || [];
+    if (customSlides.length > 3) {
+      setSlides(customSlides);
+    } else if (customSlides.length > 0) {
+      const updatedList = [...defaultSlides];
+      for (let i = 0; i < customSlides.length; i++) {
+        updatedList[i] = customSlides[i];
+      }
+      setSlides(updatedList);
+    } else {
+      setSlides(defaultSlides);
     }
   }, [data]);
 
@@ -51,7 +84,11 @@ const SpecialOffer = ({ data }) => {
               <Image
                 width={350}
                 height={350}
-                src={`${API_BASE_URL}/${slides[currentIndex].image}`}
+                src={
+                  slides[currentIndex].image.includes("floristSlideUploads")
+                    ? `${API_BASE_URL}/${slides[currentIndex].image}`
+                    : slides[currentIndex].image
+                }
                 className=" w-[351px] h-[351px] tablet:w-[450px] tablet:h-[411px] mobile:w-[296px] mobile:h-[296px]  rounded"
               />
               {currentIndex > 0 && (

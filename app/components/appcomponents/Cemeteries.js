@@ -1,8 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import API_BASE_URL from "@/config/apiConfig";
-
+const defaultCemeteries = [
+  {
+    image: "/pok_gabrsko2.jpg",
+    name: "Pokopališče",
+    address: "Gabrskem",
+    city: "Trbovlje",
+  },
+  {
+    image: "/place2.png",
+    name: "Pokopališče",
+    address: "Dobovcu",
+    city: "Trbovlje",
+  },
+  {
+    image: "/pok.avif",
+    name: "Pokopališče",
+    address: "Sveti",
+    city: "Planini",
+  },
+];
 const Cemeteries = ({ data }) => {
+  const [cemeteries, setCemeteries] = useState([]);
+  useEffect(() => {
+    const customCemeteries = data?.cemeteries || [];
+
+    if (customCemeteries.length > 3) {
+      setCemeteries(customCemeteries);
+    } else if (customCemeteries.length > 0) {
+      const updatedList = [...defaultCemeteries];
+      for (let i = 0; i < customCemeteries.length; i++) {
+        updatedList[i] = customCemeteries[i];
+      }
+      setCemeteries(updatedList);
+    } else {
+      setCemeteries(defaultCemeteries);
+    }
+  }, [data]);
   return (
     <div className="relative w-full h-[639px] tablet:h-[785px] mobile:h-[510px] overflow-hidden mx-auto flex justify-center items-center bg-[#E0E9F3]">
       <div
@@ -42,13 +77,17 @@ const Cemeteries = ({ data }) => {
                         mobile:w-[300px] mobile:h-[410.75px]"
       >
         {/*Big Image Container*/}
-        {data?.cemeteries && data.cemeteries.length > 0 ? (
+        {cemeteries && cemeteries.length > 0 ? (
           <div className="hidden w-[600px] h-[452px] flex-col desktop:flex">
             {/*Main Image*/}
 
             <Image
               className="flex w-full h-[344.71px] rounded-lg border-[5px] border-[#ffffff]"
-              src={`${API_BASE_URL}/${data.cemeteries[0].image}`}
+              src={
+                cemeteries[0].image.includes("cemetryUploads")
+                  ? `${API_BASE_URL}/${cemeteries[0].image}`
+                  : cemeteries[0].image
+              }
               width={0}
               height={0}
               sizes="100vw"
@@ -62,8 +101,8 @@ const Cemeteries = ({ data }) => {
             {/*Four images container*/}
 
             <div className="flex justify-center gap-2 h-[90px] mt-[24.29px] relative">
-              {data.cemeteries.slice(1, 4).map((cemetery, index, arr) => {
-                const total = data.cemeteries.length;
+              {cemeteries.slice(1, 4).map((cemetery, index, arr) => {
+                const total = cemeteries.length;
                 const extraCount = total - 4;
 
                 const isLastWithExtra = index === 3 && extraCount > 0;
@@ -74,7 +113,11 @@ const Cemeteries = ({ data }) => {
                     className="relative w-[138.58px] h-[78px] rounded-[5px] overflow-hidden"
                   >
                     <Image
-                      src={`${API_BASE_URL}/${cemetery.image}`}
+                      src={
+                        cemetery.image.includes("cemetryUploads")
+                          ? `${API_BASE_URL}/${cemetery.image}`
+                          : cemetery.image
+                      }
                       className="w-full h-full object-cover bg-black"
                       width={140}
                       height={78}
@@ -101,8 +144,8 @@ const Cemeteries = ({ data }) => {
           </div>
 
           <ol className="list-decimal ms-4 flex w-[324px] h-[72px] mt-6 flex-col mobile:w-[294px]">
-            {data?.cemeteries &&
-              data?.cemeteries?.map((cemetery, index) => (
+            {cemeteries &&
+              cemeteries?.map((cemetery, index) => (
                 <li
                   key={index}
                   className="text-[16px] text-[#414141] font-variation-customOpt16 pl-[6px]"
@@ -114,12 +157,16 @@ const Cemeteries = ({ data }) => {
         </div>
 
         {/*This contianer is for tablet for image */}
-        {data?.cemeteries && data.cemeteries.length > 0 ? (
+        {cemeteries && cemeteries.length > 0 ? (
           <div className="flex w-[600px] h-[452px] mobile:w-[299px] mobile:h-[221px] flex-col desktop:hidden tablet:mt-[52px] mobile:mt-5">
             {/*Main Image*/}
             <Image
               className="hidden w-full h-[344.71px] tablet:flex mobile:h-[168.67px] rounded-lg border-[5px] mobile:border-[2.5px] border-[#ffffff]"
-              src={`${API_BASE_URL}/${data.cemeteries[0].image}`}
+              src={
+                cemeteries[0].image.includes("cemetryUploads")
+                  ? `${API_BASE_URL}/${cemeteries[0].image}`
+                  : cemeteries[0].image
+              }
               width={0}
               height={0}
               sizes="100vw"
@@ -133,7 +180,11 @@ const Cemeteries = ({ data }) => {
             {/*main image for mobile*/}
             <Image
               className="hidden mobile:h-[168.67px] mobile:flex rounded-lg mobile:border-[2.5px] border-[#ffffff]"
-              src={`${API_BASE_URL}/${data.cemeteries[0].image}`}
+              src={
+                cemeteries[0].image.includes("cemetryUploads")
+                  ? `${API_BASE_URL}/${cemeteries[0].image}`
+                  : cemeteries[0].image
+              }
               width={0}
               height={0}
               sizes="100vw"
@@ -146,8 +197,8 @@ const Cemeteries = ({ data }) => {
 
             {/*Four images container*/}
             <div className="flex justify-center h-[90px] mt-[24.29px] mobile:mt-2 mobile:w-[299px] mobile:h-[44.95px] gap-[7.99px]">
-              {data.cemeteries.slice(0, 3).map((cemetery, index) => {
-                const total = data.cemeteries.length;
+              {cemeteries.slice(0, 3).map((cemetery, index) => {
+                const total = cemeteries.length;
                 const extraCount = total - 3;
 
                 const isLastWithExtra = index === 2 && extraCount > 0;
@@ -158,7 +209,11 @@ const Cemeteries = ({ data }) => {
                     className="relative w-[138.58px] h-[78px] mobile:w-[68.93px] mobile:h-[44.95px] rounded-[5px] overflow-hidden"
                   >
                     <Image
-                      src={`${API_BASE_URL}/${cemetery.image}`}
+                      src={
+                        cemetery.image.includes("cemetryUploads")
+                          ? `${API_BASE_URL}/${cemetery.image}`
+                          : cemetery.image
+                      }
                       className="w-full h-full object-cover bg-black"
                       width={140}
                       height={78}

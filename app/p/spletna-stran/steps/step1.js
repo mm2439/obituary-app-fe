@@ -20,6 +20,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
 
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     if (data && data !== null) {
       setCompanyName(data.name);
@@ -32,15 +33,14 @@ export default function Step1({ data, onChange, handleStepChange }) {
       setBackground(data.background);
       setCompanyId(data.id);
     }
-    console.log(data, "===============");
   }, [data]);
-  // useEffect(() => {
-  //   const currUser = localStorage.getItem("user");
-  //   if (!currUser) {
-  //     return;
-  //   }
-  //   setUser(JSON.parse(currUser));
-  // }, [router]);
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (!currUser) {
+      return;
+    }
+    setUser(JSON.parse(currUser));
+  }, []);
   const validateFields = () => {
     if (!companyName || !logo || !background) {
       toast.error("All fields are mandatory.");
@@ -58,6 +58,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
       formData.append("facebook", facebook);
       formData.append("email", email);
       formData.append("address", address);
+      formData.append("city", user.city);
       if (logo instanceof File) {
         formData.append("logo", logo);
       }

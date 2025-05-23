@@ -1,13 +1,45 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import icon_cancel from "@/public/icon_cancel.png";
 import icon_plus from "@/public/icon_plus.png";
-
+const defaultQuestions = [
+  {
+    question: "Pogrebna dejavnost",
+    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+  },
+  {
+    question: "Pokopališka dejavnost",
+    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+  },
+  {
+    question: "Urejanje najemnega razmerja",
+    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+  },
+  {
+    question: " 24-urna dežurna služba",
+    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+  },
+];
 const FrequentlyAskedQuestionView = ({ from, data }) => {
   const [visibleIndexes, setVisibleIndexes] = useState({});
+  const [faqs, setFaqs] = useState([]);
+  useEffect(() => {
+    const customFaq = data?.faqs || [];
 
+    if (customFaq.length > 4) {
+      setFaqs(customFaq);
+    } else if (customFaq.length > 0) {
+      const updatedList = [...defaultQuestions];
+      for (let i = 0; i < customFaq.length; i++) {
+        updatedList[i] = customFaq[i];
+      }
+      setFaqs(updatedList);
+    } else {
+      setFaqs(defaultQuestions);
+    }
+  }, [data]);
   return (
     <div
       className={`overflow-hidden relative flex items-center max-w-[1920px]  tablet:max-w-[600px] mobile:max-w-[400px] w-full mx-auto `}
@@ -38,8 +70,8 @@ const FrequentlyAskedQuestionView = ({ from, data }) => {
             )}
           </div>
 
-          {data?.faqs && data?.faqs.length > 0
-            ? data.faqs.map((faq, index) => (
+          {faqs && faqs.length > 0
+            ? faqs.map((faq, index) => (
                 <>
                   <button
                     onClick={() =>
@@ -64,74 +96,6 @@ const FrequentlyAskedQuestionView = ({ from, data }) => {
                   </button>
                   {visibleIndexes[index] && (
                     <div className="flex w-full flex-col mt-4 mb-12 px-14 mobile:px-0 ">
-                      {/* <div
-                        className="font-sourceSerif"
-                        style={{
-                          fontSize: "14px",
-                          lineHeight: "18px",
-                          fontWeight: "400",
-                          color: "#414141",
-                        }}
-                      >
-                        Pogrebna dejavnost obsega:
-                      </div>
-                      <ul className="list-disc ml-5 pl-2">
-                        <li
-                          className="font-sourceSerif"
-                          style={{
-                            fontSize: "14px",
-                            lineHeight: "18px",
-                            fontWeight: "400",
-                            color: "#414141",
-                          }}
-                        >
-                          24-urno dežurno službo,
-                        </li>
-                        <li
-                          className="font-sourceSerif"
-                          style={{
-                            fontSize: "14px",
-                            lineHeight: "18px",
-                            fontWeight: "400",
-                            color: "#414141",
-                          }}
-                        >
-                          prevoz pokojnika/pokojnice (v nadaljevanju: pokojnik),
-                        </li>
-                        <li
-                          className="font-sourceSerif"
-                          style={{
-                            fontSize: "14px",
-                            lineHeight: "18px",
-                            fontWeight: "400",
-                            color: "#414141",
-                          }}
-                        >
-                          pripravo pokojnika,
-                        </li>
-                        <li
-                          className="font-sourceSerif"
-                          style={{
-                            fontSize: "14px",
-                            lineHeight: "18px",
-                            fontWeight: "400",
-                            color: "#414141",
-                          }}
-                        >
-                          upepelitev pokojnika,
-                        </li>
-                        <li
-                          className="font-sourceSerif"
-                          style={{
-                            fontSize: "14px",
-                            lineHeight: "18px",
-                            fontWeight: "400",
-                            color: "#414141",
-                          }}
-                        >
-                          pripravo in izvedbo pogreba.
-                        </li>
-                      </ul> */}
                       {faq.answer}
                     </div>
                   )}

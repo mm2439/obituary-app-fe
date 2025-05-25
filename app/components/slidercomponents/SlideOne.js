@@ -6,7 +6,7 @@ const SlideOne = () => {
    if (breakpoint === "desktop") {
     return (
     <>
-      <div className="bg-[#EEF7FF] text-[#22281C] max-w-[1280px] min-h-[891px]">
+      <div className="bg-[#EEF7FF] text-[#22281C] min-w-[1280px] min-h-[891px]">
         <div className="flex justify-center my-[80px]">
             <div className="mt-[18px] image-container w-1/2 flex justify-end">
                 <img src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />

@@ -1,6 +1,6 @@
 "use client";
 import SlideOne from "../../components/slidercomponents/SlideOne";
-import SlideTwo from "../../components/slidercomponents/slideTwo";
+import SlideTwo from "../../components/slidercomponents/SlideTwo";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -15,8 +15,8 @@ const IpadSlider = ({ data }) => {
   };
 
   return (
-    <section className="h-auto">
-      <div className="relative w-full max-w-screen-xl">
+    <section className="w-[1280px] h-auto overflow-hidden">
+      <div className="relative w-screen">
         <Swiper
           direction="horizontal"
           autoplay={{ delay: 20000 }}
@@ -38,7 +38,7 @@ const IpadSlider = ({ data }) => {
         <button
           onClick={() => swiperInstance?.slidePrev()}
           aria-label="Previous Slide"
-          className="absolute top-1/2 left-2 transform -translate-y-1/2 p-2 z-20 bg-white rounded-full shadow-lg hover:bg-gray-100 transition"
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 p-2 z-20 bg-white rounded-full shadow-lg hover:bg-gray-100 transition"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ const IpadSlider = ({ data }) => {
         <button
           onClick={() => swiperInstance?.slideNext()}
           aria-label="Next Slide"
-          className="absolute top-1/2 right-2 transform -translate-y-1/2 p-2 z-20 bg-white rounded-full shadow-lg hover:bg-gray-100 transition"
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 p-2 z-20 bg-white rounded-full shadow-lg hover:bg-gray-100 transition"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

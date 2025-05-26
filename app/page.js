@@ -244,7 +244,7 @@ export default function Home() {
               href={"/moj-racun"}
               className="mobile:font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 desktop:text-[40px] tablet:text-[40px] mobile:text-[28px]  text-[#1E2125] leading-[46.88px] "
             >
-              Zadnje osmrtnice
+              Zadnje osmrtnice 12
             </Link>
           </div>
           <div
@@ -380,42 +380,43 @@ export default function Home() {
           <IpadSlider />
           <HomePageBox />
           <IphoneView />
-        
-        <div className="w-full bg-black">
-          <div className="relative flex max-w-[1280px] overflow-visible dekstop:h-[284px] tablet:h-[284px] mobile:h-[235px]">
-            <img
-              src="/viola_ozadje.avif"
-              alt="viola_ozadje"
-              className="h-[284px] w-[1280px] object-cover mobile:h-[235px]"
-            />
-            <div className="absolute flex flex-col items-center self-center desktop:h-[143px] desktop:w-[476px] desktop:right-[140px] 
+
+          <div className="w-full bg-black">
+            <div className="relative flex max-w-[1280px] overflow-visible dekstop:h-[284px] tablet:h-[284px] mobile:h-[235px]">
+              <img
+                src="/viola_ozadje.avif"
+                alt="viola_ozadje"
+                className="h-[284px] w-[1280px] object-cover mobile:h-[235px]"
+              />
+              <div
+                className="absolute flex flex-col items-center self-center desktop:h-[143px] desktop:w-[476px] desktop:right-[140px] 
         tablet:h-[127px] tablet:w-[302px] tablet:left-1/2 mobile:left-1/2 mobile:transform mobile:-translate-x-1/2 mobile:h-[113px] mobile:w-[299px]"
-            >
-              <div className="tablet:mb-[32px] desktop:mb-[48px] mobile:mb-[32px]">
-                <div
-                  className="
+              >
+                <div className="tablet:mb-[32px] desktop:mb-[48px] mobile:mb-[32px]">
+                  <div
+                    className="
               mobile:text-[28px]
               text-[40px]  leading-[46.88px] 
               font-normal text-[#FFFFFF]  
                 mobile:leading-[32.81px] whitespace-nowrap"
-                >
-                  Lokalne cvetličarne
+                  >
+                    Lokalne cvetličarne
+                  </div>
                 </div>
+                <Dropdown
+                  label={"Mesto"}
+                  isFromFlower={true}
+                  isFromNotification={false}
+                  isFrom={"mainPage"}
+                  isFromFlowerGreenBgTablet={false}
+                  isFromObituary={false}
+                  data={cityOptions}
+                  onSelect={() => handleCitySelect()}
+                />
               </div>
-              <Dropdown
-                label={"Mesto"}
-                isFromFlower={true}
-                isFromNotification={false}
-                isFrom={"mainPage"}
-                isFromFlowerGreenBgTablet={false}
-                isFromObituary={false}
-                data={cityOptions}
-                onSelect={() => handleCitySelect()}
-              />
             </div>
           </div>
-        </div>
-        <NotificationView />
+          <NotificationView />
         </div>
         <MainOptions />
       </div>

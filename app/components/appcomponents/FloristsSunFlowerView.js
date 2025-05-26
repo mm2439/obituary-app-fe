@@ -10,7 +10,7 @@ const FloristsSunFlowerView = ({ data }) => {
           src={
             data?.background
               ? `${API_BASE_URL}/${data?.background}`
-              : "/pok_gabrsko4.avif"
+              : "/soncnica.avif"
           }
           alt="soncnica"
           width={0}

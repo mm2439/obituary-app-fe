@@ -244,7 +244,7 @@ export default function Home() {
               href={"/moj-racun"}
               className="mobile:font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 desktop:text-[40px] tablet:text-[40px] mobile:text-[28px]  text-[#1E2125] leading-[46.88px] "
             >
-              Zadnje osmrtnice 12
+              Zadnje osmrtnice
             </Link>
           </div>
           <div

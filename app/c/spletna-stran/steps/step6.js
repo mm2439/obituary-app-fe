@@ -7,10 +7,22 @@ import { useEffect, useState } from "react";
 import companyService from "@/services/company-service";
 import shopService from "@/services/shop-service";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 export default function Step6({ data, handleStepChange }) {
   const [openBlock, setOpenBlock] = useState(1);
-  const [shops, setShops] = useState([]);
+  const [shops, setShops] = useState([
+    {
+      index: 1,
+      title: "Podatki o trgovini",
+      isDefaultOpen: true,
+      shopName: "",
+      hours: "",
+      address: "",
+      email: "",
+      telephone: "",
+    },
+  ]);
   const [name, setName] = useState("");
   const [companyId, setCompanyId] = useState(null);
   const [logo, setLogo] = useState(null);
@@ -153,18 +165,22 @@ export default function Step6({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            <div className="inline-flex gap-[8px]">
-              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                Predogled strani
-              </span>
-              <Image
-                src="/external_open.png"
-                alt="Predogled strani"
-                width={20}
-                height={20}
-                className="shrink-0 w-[20px] h-[20px]"
-              />
-            </div>
+            {companyId && (
+              <Link href={`/floristdetails/${companyId}`} target="blank">
+                <div className="inline-flex gap-[8px] cursor-pointer">
+                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                    Predogled strani
+                  </span>
+                  <Image
+                    src="/external_open.png"
+                    alt="Predogled strani"
+                    width={20}
+                    height={20}
+                    className="shrink-0 w-[20px] h-[20px]"
+                  />
+                </div>
+              </Link>
+            )}
           </div>
           <div className="space-y-[8px]">
             <OpenableBlock

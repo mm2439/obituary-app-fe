@@ -8,6 +8,7 @@ import Switch from "../components/Switch";
 import { useEffect, useState } from "react";
 import companyService, { submitStep1Data } from "@/services/company-service";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
@@ -17,6 +18,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
   const [description, setDescription] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [companyId, setCompanyId] = useState(null);
+  const [glassFrameState, setGlassFrameState] = useState(true);
   const [user, setUser] = useState(null);
   const handleSave = async (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
     formData.append("phone", phone);
     formData.append("title", title);
     formData.append("description", description);
+    formData.append("glassFrameState", glassFrameState);
 
     if (selectedImage) {
       formData.append("picture", selectedImage);
@@ -39,6 +42,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
           data.title !== title ||
           data.description !== description ||
           data.phone !== phone ||
+          data.glassFrameState !== glassFrameState ||
           selectedImage instanceof File;
 
         if (hasChanges) {
@@ -66,8 +70,13 @@ export default function Step1({ data, onChange, handleStepChange }) {
       setPhone(data.phone);
       setSelectedImage(data.background);
       setCompanyId(data.id);
+      setGlassFrameState(data.glassFrameState);
     }
   }, [data]);
+
+  const handleSwitchChange = (condition) => {
+    setGlassFrameState(condition);
+  };
 
   return (
     <>
@@ -91,18 +100,22 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   </div>
                 </div>
               </div>
-              <div className="inline-flex gap-[8px]">
-                <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                  Predogled strani
-                </span>
-                <Image
-                  src="/external_open.png"
-                  alt="Predogled strani"
-                  width={20}
-                  height={20}
-                  className="shrink-0 w-[20px] h-[20px]"
-                />
-              </div>
+              {companyId && (
+                <Link href={`/floristdetails/${companyId}`} target="blank">
+                  <div className="inline-flex gap-[8px] cursor-pointer">
+                    <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                      Predogled strani
+                    </span>
+                    <Image
+                      src="/external_open.png"
+                      alt="Predogled strani"
+                      width={20}
+                      height={20}
+                      className="shrink-0 w-[20px] h-[20px]"
+                    />
+                  </div>
+                </Link>
+              )}
             </div>
             <div className="space-y-[8px]">
               <OpenableBlock
@@ -187,7 +200,10 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                     Prikaži steklen okvir
                   </span>
-                  <Switch />
+                  <Switch
+                    onChange={handleSwitchChange}
+                    currentValue={glassFrameState}
+                  />
                   <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                     Izbriši steklen okvir
                   </span>
@@ -198,6 +214,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   </span>
                   <input
                     type="text"
+                    readOnly={glassFrameState === false}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
@@ -211,6 +228,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   <textarea
                     type="text"
                     value={description}
+                    readOnly={glassFrameState === false}
                     onChange={(e) => setDescription(e.target.value)}
                     className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] min-h-[108px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
                     placeholder="V Cvetličarni Suniflower, na levem bregu Ljubljanice, že 22 let širimo ljubezen do cvetličarske umetnosti. Nudimo vam rezano cvetje, lončnice, "
@@ -236,6 +254,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
             )}
             <div className="flex items-center gap-[8px] justify-between w-full">
               <button
+                type="button"
                 onClick={handleSave}
                 className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]"
               >
@@ -243,12 +262,14 @@ export default function Step1({ data, onChange, handleStepChange }) {
               </button>
               <div className="flex items-center gap-[8px]">
                 <button
+                  type="button"
                   className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
                   onClick={() => handleStepChange(1)}
                 >
                   Nazaj
                 </button>
                 <button
+                  type="button"
                   className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
                   onClick={() => {
                     if (companyId === null) {

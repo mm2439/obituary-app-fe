@@ -57,9 +57,12 @@ export default function BackgroundSelector({ setFile }) {
   );
 }
 
-export function BackgroundSelectorStep2() {
+export function BackgroundSelectorStep2({ setFile }) {
   const [selectedBackground, setSelectedBackground] = useState(0);
-
+  const handleChange = (background) => {
+    setSelectedBackground(background.id);
+    setFile(background);
+  };
   const backgrounds = [
     {
       id: 1,
@@ -93,7 +96,7 @@ export function BackgroundSelectorStep2() {
         <div
           key={background.id}
           className="w-[64px] h-[64px] rounded-[4px] overflow-hidden relative"
-          onClick={() => setSelectedBackground(background.id)}
+          onClick={() => handleChange(background)}
         >
           {selectedBackground === background.id && (
             <div className="absolute top-0 left-0 w-full h-full bg-[#00000066] flex items-center justify-center">

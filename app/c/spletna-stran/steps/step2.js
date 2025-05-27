@@ -9,9 +9,29 @@ import ImageSelector from "../components/ImageSelector";
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
+import Link from "next/link";
 
 export default function Step2({ data, handleStepChange }) {
-  const [offers, setOffers] = useState([]);
+  const [offers, setOffers] = useState([
+    {
+      index: 0,
+      isDefaultOpen: true,
+      image: null,
+      title: "",
+    },
+    {
+      index: 1,
+      isDefaultOpen: true,
+      image: null,
+      title: "",
+    },
+    {
+      index: 2,
+      isDefaultOpen: true,
+      image: null,
+      title: "",
+    },
+  ]);
   const [subtitle, setSubtitle] = useState("");
   const [companyId, setCompanyId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,14 +62,12 @@ export default function Step2({ data, handleStepChange }) {
         const title = data[`offer_${getNumberWord(i)}_title`];
         const image = data[`offer_${getNumberWord(i)}_image`];
 
-        if (title || image) {
-          loadedOffers.push({
-            index: i,
-            isDefaultOpen: false,
-            title: title || "",
-            image: image || null,
-          });
-        }
+        loadedOffers.push({
+          index: i,
+          isDefaultOpen: false,
+          title: title || "",
+          image: image || null,
+        });
       }
 
       setOffers(loadedOffers);
@@ -64,18 +82,18 @@ export default function Step2({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
-      const incompleteOffer = offers.find(
-        (offer) => !offer.image || !offer.title.trim() || !subtitle.trim()
-      );
+      // const incompleteOffer = offers.find(
+      //   (offer) => !offer.image || !offer.title.trim() || !subtitle.trim()
+      // );
 
-      if (incompleteOffer) {
-        if (!subtitle.trim()) {
-          toast.error("Enter Offer Subtitle");
-          return;
-        }
-        toast.error("Each offer must have an image and description"); // "Each offer must have an image and description"
-        return;
-      }
+      // if (incompleteOffer) {
+      //   if (!subtitle.trim()) {
+      //     toast.error("Enter Offer Subtitle");
+      //     return;
+      //   }
+      //   toast.error("Each offer must have an image and description"); // "Each offer must have an image and description"
+      //   return;
+      // }
       const formData = new FormData();
       formData.append("offer_subtitle", subtitle);
       offers.forEach((offer, i) => {
@@ -133,18 +151,22 @@ export default function Step2({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            <div className="inline-flex gap-[8px]">
-              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                Predogled strani
-              </span>
-              <Image
-                src="/external_open.png"
-                alt="Predogled strani"
-                width={20}
-                height={20}
-                className="shrink-0 w-[20px] h-[20px]"
-              />
-            </div>
+            {companyId && (
+              <Link href={`/floristdetails/${companyId}`} target="blank">
+                <div className="inline-flex gap-[8px] cursor-pointer">
+                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                    Predogled strani
+                  </span>
+                  <Image
+                    src="/external_open.png"
+                    alt="Predogled strani"
+                    width={20}
+                    height={20}
+                    className="shrink-0 w-[20px] h-[20px]"
+                  />
+                </div>
+              </Link>
+            )}
           </div>
           <div className="space-y-[8px]">
             <div className="space-y-[8px] pb-[28px]">
@@ -169,23 +191,6 @@ export default function Step2({ data, handleStepChange }) {
                 title={`Slike vaše ponudbe ${block.index}`}
               />
             ))}
-            <div className="flex items-center justify-end pt-[8px] pb-[16px]">
-              {offers.length < 3 && (
-                <div
-                  className="inline-flex items-center gap-[8px] cursor-pointer"
-                  onClick={addSliderBlock}
-                >
-                  <img
-                    src="/florist_plus.png"
-                    alt="Dodaj sliko"
-                    className="w-[16px] h-[16px]"
-                  />
-                  <span className="text-[14px] text-[#3C3E41] font-normal leading-[100%]">
-                    DODAJ ŠE ENO SLIKO
-                  </span>
-                </div>
-              )}
-            </div>
           </div>
         </div>
         <div className="space-y-[8px]">
@@ -238,7 +243,8 @@ function SliderBlock({ index, title, offer, onChange }) {
           <div className="text-[14px] text-[#3C3E41] font-normal leading-[24px]">
             Za prvo silo smo nekaj slik že dodali. Svoje prilepi čimprej.
           </div>
-          <BackgroundSelector
+
+          <BackgroundSelectorStep2
             setFile={(file) => {
               const updated = { ...offer, image: file.image };
               console.log(file.image, "============================");

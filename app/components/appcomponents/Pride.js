@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import API_BASE_URL from "@/config/apiConfig";
 const Pride = ({ data }) => {
@@ -76,20 +76,22 @@ const Pride = ({ data }) => {
         </div>
       </div>
 
-      <div
-        className="hidden z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
+      {!data.id && (
+        <div
+          className="hidden z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
                 mobile:mt-[4050px] tablet:mt-[3700px] desktop:mt-[10%] desktop:flex
               "
-      >
-        <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall px-[18px] py-[17px] rounded-[17px] w-[171px] ">
-          <p className="flex mobile:hidden text-[#1E2125] text-[12px] leading-[18px] font-extralight">
-            Koristne informacije za uporabnike. Sami napišete najbolj pogosta
-            vprašanja in nanje odgovorite. <br />
-            <br />
-            Enako tudi gumb ‘’Kaj storiti, ko se zgodi’’
-          </p>
+        >
+          <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall px-[18px] py-[17px] rounded-[17px] w-[171px] ">
+            <p className="flex mobile:hidden text-[#1E2125] text-[12px] leading-[18px] font-extralight">
+              Koristne informacije za uporabnike. Sami napišete najbolj pogosta
+              vprašanja in nanje odgovorite. <br />
+              <br />
+              Enako tudi gumb ‘’Kaj storiti, ko se zgodi’’
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

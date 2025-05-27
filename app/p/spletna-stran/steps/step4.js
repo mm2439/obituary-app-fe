@@ -9,6 +9,7 @@ import Switch from "../components/Switch";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
+import Link from "next/link";
 
 export default function Step4({ data, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
@@ -88,18 +89,22 @@ export default function Step4({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            <div className="inline-flex gap-[8px]">
-              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                Predogled strani
-              </span>
-              <Image
-                src="/external_open.png"
-                alt="Predogled strani"
-                width={20}
-                height={20}
-                className="shrink-0 w-[20px] h-[20px]"
-              />
-            </div>
+            {companyId && (
+              <Link href={`/funeralcompany/${companyId}`} target="blank">
+                <div className="inline-flex gap-[8px] cursor-pointer">
+                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                    Predogled strani
+                  </span>
+                  <Image
+                    src="/external_open.png"
+                    alt="Predogled strani"
+                    width={20}
+                    height={20}
+                    className="shrink-0 w-[20px] h-[20px]"
+                  />
+                </div>
+              </Link>
+            )}
           </div>
           <div className="space-y-[8px]">
             <div className="space-y-[16px]">

@@ -11,10 +11,20 @@ import { useState, useEffect } from "react";
 import Switch from "../components/Switch";
 import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
+import Link from "next/link";
 
 export default function Step4({ data, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
-  const [boxes, setBoxes] = useState([]);
+  const [boxes, setBoxes] = useState([
+    {
+      index: 1,
+      isDefaultOpen: true,
+      text: "",
+      icon: null,
+    },
+  ]);
+  const [image, setImage] = useState(null);
+  const [showBackground, setShowBackground] = useState(true);
 
   const addSliderBlock = () => {
     setBoxes([...boxes, { index: boxes.length + 1 }]);
@@ -27,15 +37,18 @@ export default function Step4({ data, handleStepChange }) {
   };
   const handleSubmit = async () => {
     try {
-      const incompleteBoxes = boxes.find(
-        (box) => !box.icon || !box.text.trim()
-      );
+      // const incompleteBoxes = boxes.find(
+      //   (box) => !box.icon || !box.text.trim()
+      // );
 
-      if (incompleteBoxes) {
-        console.log(boxes);
-        toast.error("Each box must have an image and title");
-        return;
-      }
+      // if (incompleteBoxes) {
+      //   console.log(boxes);
+      //   toast.error("Each box must have an image and title");
+      //   return;
+      // }
+
+      await updateCompany();
+
       const formData = new FormData();
       formData.append("companyId", companyId);
       boxes.forEach((box, i) => {
@@ -61,6 +74,17 @@ export default function Step4({ data, handleStepChange }) {
     }
   };
 
+  const updateCompany = async () => {
+    if (image === null) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append("boxBackgroundImage", image);
+    formData.append("showBoxBackground", showBackground);
+
+    const response = await companyService.updateCompany(formData, companyId);
+  };
+
   const getNumberWord = (num) => {
     const words = ["one", "two", "three"];
     return words[num - 1] || "";
@@ -76,20 +100,25 @@ export default function Step4({ data, handleStepChange }) {
         const text = data[`box_${getNumberWord(i)}_text`];
         const icon = data[`box_${getNumberWord(i)}_icon`];
 
-        if (text || icon) {
-          loadedBoxes.push({
-            index: i,
-            isDefaultOpen: false,
-            text: text,
-            icon: icon,
-          });
-        }
+        loadedBoxes.push({
+          index: i,
+          isDefaultOpen: false,
+          text: text || "",
+          icon: icon || null,
+        });
       }
 
       setBoxes(loadedBoxes);
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log(showBackground, "show background");
+    console.log(image, "show image");
+  }, [image, showBackground]);
+  const handleSwitchChange = (condition) => {
+    setShowBackground(condition);
+  };
   return (
     <>
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
@@ -111,18 +140,22 @@ export default function Step4({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            <div className="inline-flex gap-[8px]">
-              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                Predogled strani
-              </span>
-              <Image
-                src="/external_open.png"
-                alt="Predogled strani"
-                width={20}
-                height={20}
-                className="shrink-0 w-[20px] h-[20px]"
-              />
-            </div>
+            {companyId && (
+              <Link href={`/floristdetails/${companyId}`} target="blank">
+                <div className="inline-flex gap-[8px] cursor-pointer">
+                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                    Predogled strani
+                  </span>
+                  <Image
+                    src="/external_open.png"
+                    alt="Predogled strani"
+                    width={20}
+                    height={20}
+                    className="shrink-0 w-[20px] h-[20px]"
+                  />
+                </div>
+              </Link>
+            )}
           </div>
           <div className="space-y-[8px]">
             {boxes.map((block) => (
@@ -152,7 +185,7 @@ export default function Step4({ data, handleStepChange }) {
               </div>
             )}
           </div>
-          {/* <div className="space-y-[28px]">
+          <div className="space-y-[28px]">
             <div className="flex items-center justify-center">
               <button className="bg-gradient-to-b from-[#0D94E8] to-[#1860A3] text-[#FFFFFF] font-[800] leading-[24px] text-[20px] py-[7px] px-[30px] rounded-[4px]">
                 ALI
@@ -160,21 +193,29 @@ export default function Step4({ data, handleStepChange }) {
             </div>
             <div className="space-y-[8px]">
               <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
-                Dodaj svojo sliko  <span className="text-[#ACAAAA] text-[14px]">(ki naj zamenja ta ozek blok; idealno 1280 x 420)</span>
+                Dodaj svojo sliko{" "}
+                <span className="text-[#ACAAAA] text-[14px]">
+                  (ki naj zamenja ta ozek blok; idealno 1280 x 420)
+                </span>
               </div>
-              <ImageSelector />
+              <ImageSelector
+                setFile={(file) => setImage(file)}
+                inputId={"boxes-bg-image"}
+              />
               <div className="flex items-center justify-center gap-[22px] py-[9px]">
                 <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
-                  Dodaj svojo sliko  
+                  Dodaj svojo sliko
                 </span>
-                <Switch />
+                <Switch
+                  onChange={handleSwitchChange}
+                  currentValue={showBackground}
+                />
                 <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                   Prikaži svojo sliko
                 </span>
               </div>
             </div>
-            
-          </div> */}
+          </div>
         </div>
         <div className="space-y-[8px]">
           <div className="flex items-center gap-[8px] justify-between w-full">

@@ -8,9 +8,31 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import faqService from "@/services/faq-service";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
 
 export default function Step5({ data, handleStepChange }) {
-  const [faqs, setFaqs] = useState([]);
+  const [faqs, setFaqs] = useState([
+    {
+      index: 1,
+      question: "",
+      answer: "",
+    },
+    {
+      index: 2,
+      question: "",
+      answer: "",
+    },
+    {
+      index: 3,
+      question: "",
+      answer: "",
+    },
+    {
+      index: 4,
+      question: "",
+      answer: "",
+    },
+  ]);
   const [companyId, setCompanyId] = useState(null);
   const [user, setUser] = useState(null);
   const router = useRouter();
@@ -30,7 +52,17 @@ export default function Step5({ data, handleStepChange }) {
           index: index + 1,
           updated: false,
         }));
-        setFaqs(updatedFaqs);
+
+        const paddedFaqs = [...updatedFaqs];
+
+        while (paddedFaqs.length < 4) {
+          paddedFaqs.push({
+            index: paddedFaqs.length + 1,
+            answer: "",
+          });
+        }
+
+        setFaqs(paddedFaqs);
       }
     }
   }, [data]);
@@ -61,11 +93,11 @@ export default function Step5({ data, handleStepChange }) {
   };
   const handleSubmit = async () => {
     try {
-      if (!validateFields()) return;
+      // if (!validateFields()) return;
 
-      const faqsToSend = faqs.filter((faq) => {
-        return !faq.id || (faq.id && faq.updated);
-      });
+      const faqsToSend = faqs
+        .filter((faq) => faq.question.trim() !== "" && faq.answer.trim() !== "")
+        .filter((faq) => !faq.id || (faq.id && faq.updated));
 
       const payload = {
         companyId,
@@ -119,18 +151,22 @@ export default function Step5({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            <div className="inline-flex gap-[8px]">
-              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                Predogled strani
-              </span>
-              <Image
-                src="/external_open.png"
-                alt="Predogled strani"
-                width={20}
-                height={20}
-                className="shrink-0 w-[20px] h-[20px]"
-              />
-            </div>
+            {companyId && (
+              <Link href={`/funeralcompany/${companyId}`} target="blank">
+                <div className="inline-flex gap-[8px] cursor-pointer">
+                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                    Predogled strani
+                  </span>
+                  <Image
+                    src="/external_open.png"
+                    alt="Predogled strani"
+                    width={20}
+                    height={20}
+                    className="shrink-0 w-[20px] h-[20px]"
+                  />
+                </div>
+              </Link>
+            )}
           </div>
           <div className="space-y-[8px]">
             {faqs.map((block) => (

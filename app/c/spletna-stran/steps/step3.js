@@ -8,9 +8,35 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import packageService from "@/services/pacakge-service";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 export default function Step3({ data, handleStepChange }) {
-  const [packages, setPackages] = useState([]);
+  const [packages, setPackages] = useState([
+    {
+      index: 1,
+      title: "",
+      price: "",
+      image: null,
+    },
+    {
+      index: 2,
+      title: "",
+      price: "",
+      image: null,
+    },
+    {
+      index: 3,
+      title: "",
+      price: "",
+      image: null,
+    },
+    {
+      index: 4,
+      title: "",
+      price: "",
+      image: null,
+    },
+  ]);
   const [companyId, setCompanyId] = useState(null);
 
   useEffect(() => {
@@ -22,7 +48,18 @@ export default function Step3({ data, handleStepChange }) {
           ...item,
           index: index + 1,
         }));
-        setPackages(updatedPackages);
+        const paddedPackages = [...updatedPackages];
+
+        while (paddedPackages.length < 4) {
+          paddedPackages.push({
+            index: paddedPackages.length + 1,
+            title: "",
+            price: "",
+            image: null,
+          });
+        }
+
+        setPackages(paddedPackages);
       }
     }
   }, [data]);
@@ -45,21 +82,28 @@ export default function Step3({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
-      const incompletePackage = packages.find(
-        (currPackage) =>
-          !currPackage.price.trim() ||
-          !currPackage.title.trim() ||
-          !currPackage.image
-      );
+      // const incompletePackage = packages.find(
+      //   (currPackage) =>
+      //     !currPackage.price.trim() ||
+      //     !currPackage.title.trim() ||
+      //     !currPackage.image
+      // );
 
-      if (incompletePackage) {
-        toast.error("Each package must have an image,price and description");
-        return;
-      }
+      // if (incompletePackage) {
+      //   toast.error("Each package must have an image,price and description");
+      //   return;
+      // }
       const formData = new FormData();
       formData.append("companyId", companyId);
 
       packages.forEach((currentPackage, index) => {
+        if (
+          !currentPackage.price.trim() &&
+          !currentPackage.title.trim() &&
+          !currentPackage.image
+        ) {
+          return;
+        }
         const originalPackage = data.packages?.find(
           (c) => c.id === currentPackage.id
         );
@@ -119,18 +163,22 @@ export default function Step3({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            <div className="inline-flex gap-[8px]">
-              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                Predogled strani
-              </span>
-              <Image
-                src="/external_open.png"
-                alt="Predogled strani"
-                width={20}
-                height={20}
-                className="shrink-0 w-[20px] h-[20px]"
-              />
-            </div>
+            {companyId && (
+              <Link href={`/floristdetails/${companyId}`} target="blank">
+                <div className="inline-flex gap-[8px] cursor-pointer">
+                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                    Predogled strani
+                  </span>
+                  <Image
+                    src="/external_open.png"
+                    alt="Predogled strani"
+                    width={20}
+                    height={20}
+                    className="shrink-0 w-[20px] h-[20px]"
+                  />
+                </div>
+              </Link>
+            )}
           </div>
           <div className="space-y-[8px]">
             <div className="space-y-[8px] pb-[28px]">

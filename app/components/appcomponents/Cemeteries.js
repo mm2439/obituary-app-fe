@@ -23,7 +23,9 @@ const defaultCemeteries = [
 ];
 const Cemeteries = ({ data }) => {
   const [cemeteries, setCemeteries] = useState([]);
+  const [companyId, setCompanyId] = useState(null);
   useEffect(() => {
+    setCompanyId(data.id);
     const customCemeteries = data?.cemeteries || [];
 
     if (customCemeteries.length > 3) {
@@ -40,35 +42,39 @@ const Cemeteries = ({ data }) => {
   }, [data]);
   return (
     <div className="relative w-full h-[639px] tablet:h-[785px] mobile:h-[510px] overflow-hidden mx-auto flex justify-center items-center bg-[#E0E9F3]">
-      <div
-        className="flex  z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
+      {companyId === null && (
+        <>
+          <div
+            className="flex  z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
                 mobile:mt-[5%] tablet:mt-[-35%] desktop:mt-[-35%] mobile:hidden
               "
-      >
-        <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall  px-[18px] py-[17px] rounded-[17px] w-[171px]">
-          <p className="flex  text-[#1E2125] text-[12px] leading-[18px] font-extralight">
-            Vnesete vsa pokopališča s katerimi upravljate, vključno s tistimi,
-            kjer se že dolga leta ne opravljajo več pokopi.
-          </p>
-        </div>
-      </div>
+          >
+            <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall  px-[18px] py-[17px] rounded-[17px] w-[171px]">
+              <p className="flex  text-[#1E2125] text-[12px] leading-[18px] font-extralight">
+                Vnesete vsa pokopališča s katerimi upravljate, vključno s
+                tistimi, kjer se že dolga leta ne opravljajo več pokopi.
+              </p>
+            </div>
+          </div>
 
-      <div
-        className="flex z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
+          <div
+            className="flex z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
                 mobile:mt-[35%] tablet:mt-[35%] desktop:mt-[35%] tablet:hidden
               "
-      >
-        <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall px-[18px] py-[17px] rounded-[17px] w-[171px]">
-          <p className="flex mobile:hidden text-[#1E2125] text-[12px] leading-[18px] font-extralight">
-            Še nekaj dodatnega prostora za predstavitev, kak poudarek,
-            zanimivost, morda kaj na kar ste posebej ponosni.
-          </p>
-          <p className="hidden mobile:flex text-[#1E2125] text-[12px] leading-[18px] font-extralight">
-            Vnesete vsa pokopališča s katerimi upravljate, vključno s tistimi,
-            kjer se že dolga leta ne opravljajo več pokopi.
-          </p>
-        </div>
-      </div>
+          >
+            <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall px-[18px] py-[17px] rounded-[17px] w-[171px]">
+              <p className="flex mobile:hidden text-[#1E2125] text-[12px] leading-[18px] font-extralight">
+                Še nekaj dodatnega prostora za predstavitev, kak poudarek,
+                zanimivost, morda kaj na kar ste posebej ponosni.
+              </p>
+              <p className="hidden mobile:flex text-[#1E2125] text-[12px] leading-[18px] font-extralight">
+                Vnesete vsa pokopališča s katerimi upravljate, vključno s
+                tistimi, kjer se že dolga leta ne opravljajo več pokopi.
+              </p>
+            </div>
+          </div>
+        </>
+      )}
       {/*Main container*/}
       <div
         className="flex  pt-1 mobile:pt-0 desktop:pt-0 tablet:flex-col mobile:flex-col

@@ -46,41 +46,46 @@ const FuneralCompany = ({ params }) => {
           <Pride data={company} />
           <FrequentlyAskedQuestionView data={company} from={"2"} />
         </div>
-        <div className="flex z-[50] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end mobile:mt-[49px] tablet:mt-[43px] desktop:mt-[93px]">
-          <div className="flex shadow-custom-dark-dark-box-image-wall bg-[#FFFFFF] self-end  px-[18px] py-[17px] rounded-[17px] w-[171px] tablet:w-[171px] desktop:w-[171px]">
-            <p className="flex tablet:hidden desktop:hidden text-[#1E2125] text-[12px] leading-[18px] font-extralight ">
-              Op. Oglejte si to isto stran na računalniku ali vsaj na tablici,
-              kjer je več prostora za komentarje.
-            </p>
-            <p className="mobile:hidden flex text-[#1E2125] text-[12px] leading-[18px] font-extralight">
-              V zgornji vrstici menija je vaše ime, vključno s priročnim gumbom
-              za direktno klicanje s telefona, brez odtipkavanja številke.
-            </p>
-          </div>
-        </div>
-        <div
-          className="flex  z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
+        {company === null && (
+          <>
+            <div className="flex z-[50] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end mobile:mt-[49px] tablet:mt-[43px] desktop:mt-[93px]">
+              <div className="flex shadow-custom-dark-dark-box-image-wall bg-[#FFFFFF] self-end  px-[18px] py-[17px] rounded-[17px] w-[171px] tablet:w-[171px] desktop:w-[171px]">
+                <p className="flex tablet:hidden desktop:hidden text-[#1E2125] text-[12px] leading-[18px] font-extralight ">
+                  Op. Oglejte si to isto stran na računalniku ali vsaj na
+                  tablici, kjer je več prostora za komentarje.
+                </p>
+                <p className="mobile:hidden flex text-[#1E2125] text-[12px] leading-[18px] font-extralight">
+                  V zgornji vrstici menija je vaše ime, vključno s priročnim
+                  gumbom za direktno klicanje s telefona, brez odtipkavanja
+                  številke.
+                </p>
+              </div>
+            </div>
+            <div
+              className="flex  z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
                 mobile:mt-[675px] tablet:mt-[514px] desktop:mt-[520px]
               "
-        >
-          <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall  px-[18px] py-[17px] rounded-[17px] w-[171px]">
-            <p className="flex  text-[#1E2125] text-[12px] leading-[18px] font-extralight">
-              Vaši kontaktni podatki in osnovna predstavitev.
-            </p>
-          </div>
-        </div>
-        <div
-          className="flex  z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
+            >
+              <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall  px-[18px] py-[17px] rounded-[17px] w-[171px]">
+                <p className="flex  text-[#1E2125] text-[12px] leading-[18px] font-extralight">
+                  Vaši kontaktni podatki in osnovna predstavitev.
+                </p>
+              </div>
+            </div>
+            <div
+              className="flex  z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
                 mobile:mt-[2280px] tablet:mt-[875px] desktop:mt-[1000px]
               "
-        >
-          <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall  px-[18px] py-[17px] rounded-[17px] w-[171px]">
-            <p className="flex  text-[#1E2125] text-[12px] leading-[18px] font-extralight">
-              Vse osmrtnice iz vašega kraja so avtomatsko osveževane. Enako
-              pogrebi spodaj.
-            </p>
-          </div>
-        </div>
+            >
+              <div className="flex bg-[#FFFFFF] self-end  shadow-custom-dark-dark-box-image-wall  px-[18px] py-[17px] rounded-[17px] w-[171px]">
+                <p className="flex  text-[#1E2125] text-[12px] leading-[18px] font-extralight">
+                  Vse osmrtnice iz vašega kraja so avtomatsko osveževane. Enako
+                  pogrebi spodaj.
+                </p>
+              </div>
+            </div>
+          </>
+        )}
         {/* <div
           className="flex  z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
                 mobile:mt-[1770px] tablet:mt-[3150px] desktop:mt-[3030px] mobile:hidden

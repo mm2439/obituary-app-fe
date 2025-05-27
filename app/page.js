@@ -20,7 +20,6 @@ import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
 import regionsAndCities from "@/utils/regionAndCities";
 import MainOptions from "./components/appcomponents/MainOptions";
-import SlideTwo from "./components/slidercomponents/SlideTwo";
 import HomePageBox from "./components/appcomponents/HomePageBox";
 import IpadSlider from "./components/appcomponents/IpadSlider";
 export default function Home() {
@@ -375,7 +374,8 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* <IpadSlider /> */}
+        </div>
+
 
           <IpadSlider />
           <HomePageBox />
@@ -417,7 +417,6 @@ export default function Home() {
             </div>
           </div>
           <NotificationView />
-        </div>
         <MainOptions />
       </div>
     </Layout>

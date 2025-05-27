@@ -9,6 +9,7 @@ export const useBreakpoint = () => {
       const width = window.innerWidth;
       if (width < 768) return setBreakpoint("mobile");
       if (width < 1024) return setBreakpoint("tablet");
+      if (width < 1280) return setBreakpoint("laptop");
       setBreakpoint("desktop");
     };
 

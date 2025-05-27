@@ -416,13 +416,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-<<<<<<< HEAD
           <NotificationView />
-        </div>
-=======
-        </div>
-        <NotificationView />
->>>>>>> a576439 (Updated Figma Desktops Design)
         <MainOptions />
       </div>
     </Layout>

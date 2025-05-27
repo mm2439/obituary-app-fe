@@ -19,7 +19,7 @@ const IpadSlider = ({ data }) => {
       <div className="relative w-screen">
         <Swiper
           direction="horizontal"
-          autoplay={{ delay: 3000 }}
+          autoplay={{ delay: 4000 }}
           loop={true}
           modules={[Autoplay]}
           className="w-full"

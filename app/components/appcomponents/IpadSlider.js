@@ -15,17 +15,17 @@ const IpadSlider = ({ data }) => {
   };
 
   return (
-    <section className="w-[1280px] h-auto overflow-hidden">
+    <section className="w-auto h-auto overflow-hidden">
       <div className="relative w-screen">
         <Swiper
           direction="horizontal"
-          autoplay={{ delay: 20000 }}
+          autoplay={{ delay: 3000 }}
           loop={true}
           modules={[Autoplay]}
           className="w-full"
           onSlideChange={handleSlideChange}
-          onSwiper={setSwiperInstance}
-        >
+          onSwiper={setSwiperInstance}>
+
           <SwiperSlide>
             <SlideTwo currentIndex={currentIndex} />
           </SwiperSlide>
@@ -33,50 +33,6 @@ const IpadSlider = ({ data }) => {
             <SlideOne currentIndex={currentIndex} />
           </SwiperSlide>
         </Swiper>
-
-        {/* Left Arrow */}
-        <button
-          onClick={() => swiperInstance?.slidePrev()}
-          aria-label="Previous Slide"
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 p-2 z-20 bg-white rounded-full shadow-lg hover:bg-gray-100 transition"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-800"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-
-        {/* Right Arrow */}
-        <button
-          onClick={() => swiperInstance?.slideNext()}
-          aria-label="Next Slide"
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 p-2 z-20 bg-white rounded-full shadow-lg hover:bg-gray-100 transition"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-800"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
       </div>
     </section>
   );

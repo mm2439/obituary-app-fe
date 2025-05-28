@@ -22,6 +22,8 @@ import regionsAndCities from "@/utils/regionAndCities";
 import MainOptions from "./components/appcomponents/MainOptions";
 import HomePageBox from "./components/appcomponents/HomePageBox";
 import IpadSlider from "./components/appcomponents/IpadSlider";
+import SlideOne from "./components/slidercomponents/SlideOne";
+import SlideTwo from "./components/slidercomponents/SlideTwo";
 export default function Home() {
   // 17 September 2024
   const arrPlace = [
@@ -306,7 +308,11 @@ export default function Home() {
             >
               <MagnifyingGlassIcon className="w-5 h-5 text-white hidden desktop:block" />
             </div>
+
           </div>
+
+
+
           <div className="flex desktop:hidden h-[48px] mt-4 w-[296px] tablet:w-[292px] bg-[#414141] rounded-[8px] justify-center items-center ">
             <div
               style={{
@@ -373,11 +379,11 @@ export default function Home() {
               </div>
             </Link>
           </div>
-
-        </div>
-
+       
+             </div>
 
           <IpadSlider />
+
           <HomePageBox />
           <IphoneView />
 
@@ -417,7 +423,9 @@ export default function Home() {
             </div>
           </div>
           <NotificationView />
+
         <MainOptions />
+
       </div>
     </Layout>
   );

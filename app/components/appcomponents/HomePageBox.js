@@ -29,10 +29,7 @@ const HomePageBox = () => {
                 na vrhu strani.
                 </p>
 
-               <button class="text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]" style={{
-                  background: "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
-                  boxShadow: "-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280",
-                }}
+               <button class="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]"
               >
                 Prijavi se
               </button>
@@ -63,11 +60,7 @@ const HomePageBox = () => {
                 na vrhu strani.
                 </p>
 
-               <button class="text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]" style={{
-                  background: "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
-                  boxShadow: "-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280",
-                }}
-              >
+               <button class="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
                 Prijavi se
               </button>
             </div>
@@ -79,27 +72,27 @@ const HomePageBox = () => {
 // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-     <div className="bg-[#ffffff] text-[#f1f5f7] h-auto">
-        <div className="py-[100px] flex flex-col items-center gap-[40px]">
+     <div className="bg-[#ffffff] text-[#f1f5f7] h-auto w-full">
+        <div className="py-[80px] flex flex-col items-center">
             
             <div className="text-container w-fit">
                 <span className="text-[#3090D5] text-[24px]">Priročno</span>
-                <h2 className="text-[#414141] text-[40px] mt-[16px]">1 klik do lokalnih informacij</h2>
+                <h2 className="text-[#414141] text-[40px] mt-[8px] leading-[100%]">1 klik do lokalnih informacij</h2>
                 <p className="text-[#414141] text-[16px] mt-[16px]">Vsak dan. Vzame samo nekaj sekund. Nenehno osveževano. <br /> Brez vsakodnevnega iskanja po imenikih. </p>
-                <p className="text-[#414141] text-[16px] mt-[16px]">Op. Moraš biti prijavljen, da zazna, kateri kraj si izbral. </p>
+                <p className="text-[#3C3E41] text-[16px] mt-[32px]">Op. Moraš biti prijavljen, da zazna, kateri kraj si izbral. </p>
 
             </div>
-            <div className="image-container">
+            <div className="image-container mt-[38px]">
                 <img src="/mobile-cards/mobile-export.png" alt="iPad Landscape" />
             </div>
 
-            <p className="text-[#414141] flex items-center gap-2">
+            <p className="text-[#414141] flex items-center gap-2 mt-[20px]">
                 Poišči lokacijsko ikonico
                 <span>
                     <img src="/mobile-cards/loc-icon.png" alt="" className="w-4 h-4 inline-block" />
                 </span>
                 na vrhu strani.
-                </p>
+            </p>
         </div>
       </div>
     );
@@ -108,19 +101,19 @@ const HomePageBox = () => {
   // === Mobile Layout ===
   return (
     <div className="bg-[#ffffff] text-[#f1f5f7] h-auto">
-        <div className="py-[100px] flex flex-col items-center gap-[20px]">
+        <div className="py-[54px] flex flex-col items-center">
             
-            <div className="text-container w-fit">
-                <span className="text-[#3090D5] text-[24px]">Priročno</span>
-                <h2 className="text-[#414141] text-[40px] mt-[16px]">1 klik do lokalnih informacij</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px]">Vsak dan. Vzame samo nekaj sekund. Nenehno osveževano. <br /> Brez vsakodnevnega iskanja po imenikih. </p>
+            <div className="text-container px-[24px] flex justify-center flex-col">
+                <span className="text-[#3090D5] text-[20px]">Priročno</span>
+                <h2 className="text-[#414141] text-[28px] mt-[8px] leading-[100%]">1 klik do lokalnih informacij</h2>
+                <p className="text-[#3C3E41] text-[16px] mt-[29px]">Vsak dan. Vzame samo nekaj sekund. Nenehno osveževano. <br /> Brez vsakodnevnega iskanja po imenikih. </p>
                 
             </div>
-            <div className="image-container">
-                <img src="/mobile-cards/mobile-export.png" alt="iPad Landscape" />
+            <div className="image-container mt-[32px]">
+                <img className="w-[350px] h-[350px]" src="/mobile-cards/mobile-export.png" alt="iPad Landscape" />
             </div>
 
-            <p className="text-[#414141] flex items-center gap-2">
+            <p className="text-[#414141] flex items-center gap-2 mt-[11px]">
                 Poišči lokacijsko ikonico
                 <span>
                     <img src="/mobile-cards/loc-icon.png" alt="" className="w-4 h-4 inline-block" />

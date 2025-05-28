@@ -24,17 +24,18 @@ export default function Step1({ data, onChange, handleStepChange }) {
 
   useEffect(() => {
     if (data && data !== null) {
-      setCompanyName(data.name);
-      setFacebook(data.facebook);
-      setAddress(data.address);
-      setEmail(data.email);
-      setPhone(data.phone);
-      setWebsite(data.website);
-      setLogo(data.logo);
-      setBackground(data.background);
-      setCompanyId(data.id);
+      if (data.name !== null) setCompanyName(data.name);
+      if (data.facebook !== null) setFacebook(data.facebook);
+      if (data.address !== null) setAddress(data.address);
+      if (data.email !== null) setEmail(data.email);
+      if (data.phone !== null) setPhone(data.phone);
+      if (data.website !== null) setWebsite(data.website);
+      if (data.logo !== null) setLogo(data.logo);
+      if (data.background !== null) setBackground(data.background);
+      if (data.id !== null) setCompanyId(data.id);
     }
   }, [data]);
+
   useEffect(() => {
     const currUser = localStorage.getItem("user");
     if (!currUser) {
@@ -51,25 +52,30 @@ export default function Step1({ data, onChange, handleStepChange }) {
     return true;
   };
   const handleSubmit = async () => {
-    if (!validateFields()) return;
+    // if (!validateFields()) return;
 
     try {
       const formData = new FormData();
-      formData.append("name", companyName);
-      formData.append("facebook", facebook);
-      formData.append("email", email);
-      formData.append("address", address);
-      formData.append("city", user.city);
+
+      // Append only if value is not null or undefined
+      if (companyName != null) formData.append("name", companyName);
+      if (facebook != null) formData.append("facebook", facebook);
+      if (email != null) formData.append("email", email);
+      if (address != null) formData.append("address", address);
+      if (user?.city != null) formData.append("city", user.city);
+      if (phone != null) formData.append("phone", phone);
+      if (website != null) formData.append("website", website);
+
       if (logo instanceof File) {
         formData.append("logo", logo);
       }
+
       if (background instanceof File) {
         formData.append("picture", background);
       }
 
-      formData.append("phone", phone);
-      formData.append("website", website);
       let response;
+
       if (companyId !== null) {
         const hasChanges =
           (data && data.name !== companyName) ||
@@ -80,29 +86,31 @@ export default function Step1({ data, onChange, handleStepChange }) {
           data.website !== website ||
           logo instanceof File ||
           background instanceof File;
+
         if (hasChanges) {
           response = await companyService.updateCompany(formData, companyId);
-
-          toast.success("Changes Applied Succesfully");
+          toast.success("Changes Applied Successfully");
         } else {
-          toast.error("No Changes Found");
-          return;
+          // toast.error("No Changes Found");
+          return true;
         }
-      } else if (companyId === null) {
+      } else {
         response = await companyService.createCompany(formData, "funeral");
-
-        toast.success("Company Created Succesfully");
+        toast.success("Company Created Successfully");
       }
 
       onChange(response.company);
+      return true;
     } catch (error) {
       console.error("Error Creating Funeral Company:", error);
       toast.error(
         error?.response?.data?.error ||
           "Failed to create company. Please try again."
       );
+      return false;
     }
   };
+
   return (
     <>
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
@@ -297,15 +305,15 @@ export default function Step1({ data, onChange, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => {
+                onClick={async () => {
                   if (openedBlock === 1) {
                     setOpenedBlock(2);
                   } else {
-                    if (companyId === null) {
-                      toast.error("Please complete first step");
-                      return;
+                    const success = await handleSubmit();
+                    console.log(success, "=============");
+                    if (success) {
+                      handleStepChange(2);
                     }
-                    handleStepChange(2);
                   }
                 }}
               >

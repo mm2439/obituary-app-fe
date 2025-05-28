@@ -20,17 +20,30 @@ export default function Step1({ data, onChange, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
   const [glassFrameState, setGlassFrameState] = useState(true);
   const [user, setUser] = useState(null);
-  const handleSave = async (e) => {
-    e.preventDefault();
+  const handleSave = async () => {
     const formData = new FormData();
 
-    formData.append("address", companyName);
-    formData.append("phone", phone);
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("glassFrameState", glassFrameState);
+    if (companyName != null) {
+      formData.append("address", companyName);
+    }
 
-    if (selectedImage) {
+    if (phone != null) {
+      formData.append("phone", phone);
+    }
+
+    if (title != null) {
+      formData.append("title", title);
+    }
+
+    if (description != null) {
+      formData.append("description", description);
+    }
+
+    if (glassFrameState != null) {
+      formData.append("glassFrameState", glassFrameState);
+    }
+
+    if (selectedImage instanceof File) {
       formData.append("picture", selectedImage);
     }
 
@@ -49,16 +62,18 @@ export default function Step1({ data, onChange, handleStepChange }) {
           response = await companyService.updateCompany(formData, companyId);
           toast.success("Changes Applied Successfully");
         } else {
-          toast.error("No Changes Found");
-          return;
+          return true;
         }
-      } else if (companyId === null) {
+      } else {
         response = await companyService.createCompany(formData, "florist");
         toast.success("Company Created Successfully");
       }
+
       onChange(response.company);
+      return true;
     } catch (err) {
       console.error("Failed to create company:", err);
+      return false;
     }
   };
 
@@ -83,7 +98,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
         Blue Daisy Florist, London
       </div>
-      <form method="POST" enctype="multipart/form-data">
+      <div>
         <div className="min-h-full flex flex-col justify-between gap-[16px] relative">
           <div className="space-y-[43px]">
             <div className="flex justify-between items-center">
@@ -271,12 +286,11 @@ export default function Step1({ data, onChange, handleStepChange }) {
                 <button
                   type="button"
                   className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                  onClick={() => {
-                    if (companyId === null) {
-                      toast.error("Please Complete First Step");
-                      return;
+                  onClick={async () => {
+                    const success = await handleSave();
+                    if (success) {
+                      handleStepChange(2);
                     }
-                    handleStepChange(2);
                   }}
                 >
                   Naslednji korak
@@ -285,7 +299,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
             </div>
           </div>
         </div>
-      </form>
+      </div>
       <div className="w-full">
         <img
           src="/florist/1.png"

@@ -116,12 +116,14 @@ export default function Step2({ data, handleStepChange }) {
       const response = await companyService.updateCompany(formData, companyId);
       toast.success("Company Updated Successfully");
       console.log(response);
+      return true;
     } catch (error) {
       console.error("Error:", error);
       toast.error(
         error?.response?.data?.error ||
           "Failed to update company. Please try again."
       );
+      return false;
     }
   };
 
@@ -211,7 +213,12 @@ export default function Step2({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => handleStepChange(3)}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(3);
+                  }
+                }}
               >
                 Naslednji korak
               </button>

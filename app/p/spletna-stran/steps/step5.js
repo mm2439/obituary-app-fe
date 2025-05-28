@@ -106,8 +106,10 @@ export default function Step5({ data, handleStepChange }) {
       const response = await faqService.createFaq(payload);
 
       toast.success("Faq's Updated Successfully");
+      return true;
     } catch (error) {
       console.log("Error while submitting form:", error);
+      return false;
     }
   };
 
@@ -213,7 +215,12 @@ export default function Step5({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => handleStepChange(6)}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(6);
+                  }
+                }}
               >
                 Naslednji korak
               </button>

@@ -43,19 +43,26 @@ export default function Step5({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
-      const incompleteSlide = slides.find(
-        (slide) =>
-          !slide.title.trim() || !slide.description.trim() || !slide.image
-      );
+      // const incompleteSlide = slides.find(
+      //   (slide) =>
+      //     !slide.title.trim() || !slide.description.trim() || !slide.image
+      // );
 
-      if (incompleteSlide) {
-        toast.error("Each Slide must have an image,title and description");
-        return;
-      }
+      // if (incompleteSlide) {
+      //   toast.error("Each Slide must have an image,title and description");
+      //   return;
+      // }
       const formData = new FormData();
       formData.append("companyId", companyId);
 
-      slides.forEach((slide, index) => {
+      const nonEmptySlides = slides.filter(
+        (slide) =>
+          slide.title.trim() !== "" &&
+          slide.description.trim() !== "" &&
+          slide.image !== null
+      );
+
+      nonEmptySlides.forEach((slide, index) => {
         const originalSlide = data.slides?.find((c) => c.id === slide.id);
 
         // Append default fields
@@ -84,11 +91,14 @@ export default function Step5({ data, handleStepChange }) {
         console.log(`${pair[0]}:`, pair[1]);
       }
 
-      const response = await slideService.createSlide(formData);
-      toast.success("Florist Slides Updated Successfully");
-      console.log(response);
+      if (nonEmptySlides.length > 0) {
+        const response = await slideService.createSlide(formData);
+        toast.success("Florist Slides Updated Successfully");
+      }
+      return true;
     } catch (error) {
       console.log(error);
+      return false;
     }
   };
 
@@ -193,7 +203,12 @@ export default function Step5({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => handleStepChange(6)}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(6);
+                  }
+                }}
               >
                 Naslednji korak
               </button>

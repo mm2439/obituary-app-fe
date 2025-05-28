@@ -56,18 +56,22 @@ export default function Step6({ data, handleStepChange }) {
   const handleBCSubmit = async () => {
     try {
       const formData = new FormData();
-      formData.append("name", name);
-      formData.append("companyId", companyId);
-      formData.append("highlightText", highlightText);
-      formData.append("facebook", facebook);
-      formData.append("logo", logo);
-      formData.append("instagram", instagram);
+
+      if (name) formData.append("name", name);
+      if (companyId) formData.append("companyId", companyId);
+      if (highlightText) formData.append("highlightText", highlightText);
+      if (facebook) formData.append("facebook", facebook);
+      if (logo) formData.append("logo", logo);
+      if (instagram) formData.append("instagram", instagram);
 
       const response = await companyService.updateCompany(formData, companyId);
       toast.success("Company Updated Successfully");
+
       console.log(response);
+      return true;
     } catch (error) {
       console.log(error);
+      return false;
     }
   };
 
@@ -91,19 +95,27 @@ export default function Step6({ data, handleStepChange }) {
 
   const handleShopSubmit = async () => {
     try {
-      if (!validateFields()) return;
+      // if (!validateFields()) return;
 
       const shopsToSend = shops.filter((shop) => {
-        return !shop.id || (shop.id && shop.updated);
+        const isEmpty =
+          !shop.shopName?.trim() &&
+          !shop.address?.trim() &&
+          !shop.telephone?.trim() &&
+          !shop.email?.trim() &&
+          !shop.hours?.trim();
+
+        return !isEmpty && (!shop.id || shop.updated);
       });
 
       const data = {
         companyId,
         shops: shopsToSend,
       };
-
+      await handlePublish();
       const response = await shopService.createShop(data);
-      toast.success("Shops Updated Successfully");
+      toast.success("Shops Created,Company Sent For Approval Successfully");
+
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -113,14 +125,12 @@ export default function Step6({ data, handleStepChange }) {
   const handlePublish = async () => {
     try {
       if (data && data.status === "DRAFT") {
-        toast.error("Company is already sent for approval");
         return;
       }
       const formData = new FormData();
       formData.append("status", "DRAFT");
 
       const response = await companyService.updateCompany(formData, companyId);
-      toast.success("Company Sent For Approval Successfully");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -346,7 +356,7 @@ export default function Step6({ data, handleStepChange }) {
                   if (openBlock === 1) {
                     setOpenBlock(2);
                   } else {
-                    handlePublish();
+                    handleShopSubmit();
                     handleStepChange(6);
                   }
                 }}
@@ -373,9 +383,12 @@ export default function Step6({ data, handleStepChange }) {
                   </button>
                   <button
                     className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                    onClick={() => {
+                    onClick={async () => {
                       if (openBlock === 1) {
-                        setOpenBlock(2);
+                        const success = await handleBCSubmit();
+                        if (success) {
+                          setOpenBlock(2);
+                        }
                       }
                     }}
                   >

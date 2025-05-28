@@ -51,7 +51,12 @@ export default function Step4({ data, handleStepChange }) {
 
       const formData = new FormData();
       formData.append("companyId", companyId);
-      boxes.forEach((box, i) => {
+
+      const nonEmptyBoxes = boxes.filter(
+        (box) => box.text.trim() !== "" && box.icon !== null
+      );
+
+      nonEmptyBoxes.forEach((box, i) => {
         const boxNumber = i + 1;
 
         formData.append(`box_${getNumberWord(boxNumber)}_text`, box.text);
@@ -61,16 +66,23 @@ export default function Step4({ data, handleStepChange }) {
       for (let [key, value] of formData.entries()) {
         console.log(`${key}:`, value);
       }
-      const response = await companyService.updateCompany(formData, companyId);
+      if (nonEmptyBoxes.length > 0) {
+        const response = await companyService.updateCompany(
+          formData,
+          companyId
+        );
 
-      toast.success("Company updated Successfully");
-      console.log(response);
+        toast.success("Company updated Successfully");
+      }
+
+      return true;
     } catch (error) {
       console.error("Error:", error);
       toast.error(
         error?.response?.data?.error ||
           "Failed to update company. Please try again."
       );
+      return false;
     }
   };
 
@@ -79,7 +91,10 @@ export default function Step4({ data, handleStepChange }) {
       return;
     }
     const formData = new FormData();
-    formData.append("boxBackgroundImage", image);
+    if (image !== null) {
+      formData.append("boxBackgroundImage", image);
+    }
+
     formData.append("showBoxBackground", showBackground);
 
     const response = await companyService.updateCompany(formData, companyId);
@@ -235,7 +250,12 @@ export default function Step4({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => handleStepChange(5)}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(5);
+                  }
+                }}
               >
                 Naslednji korak
               </button>

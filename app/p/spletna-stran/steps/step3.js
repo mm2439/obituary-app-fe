@@ -11,7 +11,14 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 
 export default function Step3({ data, handleStepChange }) {
-  const [cemetries, setCemetries] = useState([]);
+  const [cemetries, setCemetries] = useState([
+    {
+      index: 1,
+      name: "",
+      address: "",
+      image: null,
+    },
+  ]);
   const [companyId, setCompanyId] = useState(null);
   const [user, setUser] = useState(null);
   const router = useRouter();
@@ -43,7 +50,6 @@ export default function Step3({ data, handleStepChange }) {
         name: "",
         address: "",
         image: null,
-        city: user.city,
       },
     ]);
   };
@@ -55,19 +61,25 @@ export default function Step3({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
-      const incompleteCemetries = cemetries.find(
-        (cemetery) =>
-          !cemetery.name.trim() || !cemetery.address.trim() || !cemetery.image
-      );
+      // const incompleteCemetries = cemetries.find(
+      //   (cemetery) =>
+      //     !cemetery.name.trim() || !cemetery.address.trim() || !cemetery.image
+      // );
 
-      if (incompleteCemetries) {
-        toast.error("Each package must have an name,address and image");
-        return;
-      }
+      // if (incompleteCemetries) {
+      //   toast.error("Each CEmetery must have an name,address and image");
+      //   return false;
+      // }
       const formData = new FormData();
       formData.append("companyId", companyId);
+      const nonEmptyCemeteries = cemetries.filter(
+        (cemetery) =>
+          cemetery.name.trim() !== "" &&
+          cemetery.address.trim() !== "" &&
+          cemetery.image !== null
+      );
 
-      cemetries.forEach((cemetery, index) => {
+      nonEmptyCemeteries.forEach((cemetery, index) => {
         const originalCemetery = data.cemeteries?.find(
           (c) => c.id === cemetery.id
         );
@@ -75,7 +87,7 @@ export default function Step3({ data, handleStepChange }) {
         // Append default fields
         formData.append(`cemeteries[${index}][name]`, cemetery.name);
         formData.append(`cemeteries[${index}][address]`, cemetery.address);
-        formData.append(`cemeteries[${index}][city]`, cemetery.city);
+        formData.append(`cemeteries[${index}][city]`, user.city);
 
         // If image is selected, append it
         if (cemetery.image) {
@@ -100,11 +112,15 @@ export default function Step3({ data, handleStepChange }) {
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
-
-      const response = await cemetryService.createCemetry(formData);
-      toast.success("Cemetries Updated Successfully");
+      if (nonEmptyCemeteries.length > 0) {
+        const response = await cemetryService.createCemetry(formData);
+        toast.success("Cemetries Updated Successfully");
+      }
+      return true;
     } catch (error) {
       console.log(error);
+      toast.error("Some Error Occured");
+      return false;
     }
   };
 
@@ -203,7 +219,12 @@ export default function Step3({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => handleStepChange(4)}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(4);
+                  }
+                }}
               >
                 Naslednji korak
               </button>

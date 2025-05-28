@@ -96,14 +96,14 @@ export default function Step3({ data, handleStepChange }) {
       const formData = new FormData();
       formData.append("companyId", companyId);
 
-      packages.forEach((currentPackage, index) => {
-        if (
-          !currentPackage.price.trim() &&
-          !currentPackage.title.trim() &&
-          !currentPackage.image
-        ) {
-          return;
-        }
+      const nonEmptyPackages = packages.filter(
+        (currPackage) =>
+          currPackage.title.trim() !== "" &&
+          currPackage.price.trim() !== "" &&
+          currPackage.image !== null
+      );
+
+      nonEmptyPackages.forEach((currentPackage, index) => {
         const originalPackage = data.packages?.find(
           (c) => c.id === currentPackage.id
         );
@@ -133,13 +133,15 @@ export default function Step3({ data, handleStepChange }) {
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
+      if (nonEmptyPackages.length > 0) {
+        const response = await packageService.createPackage(formData);
+        toast.success("Packages Updated Successfully");
+      }
 
-      const response = await packageService.createPackage(formData);
-      toast.success("Packages Updated Successfully");
-
-      console.log(response);
+      return true;
     } catch (error) {
       console.log(error);
+      return false;
     }
   };
   return (
@@ -238,7 +240,12 @@ export default function Step3({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => handleStepChange(4)}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(4);
+                  }
+                }}
               >
                 Naslednji korak
               </button>

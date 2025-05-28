@@ -46,12 +46,18 @@ export default function Step4({ data, handleStepChange }) {
     return true;
   };
   const handleSubmit = async () => {
-    if (!validateFields()) return;
+    // if (!validateFields()) return false;
 
     try {
       const formData = new FormData();
-      formData.append("secondary_title", secondaryTitle);
-      formData.append("secondary_description", secondaryDescription);
+
+      if (secondaryTitle != null) {
+        formData.append("secondary_title", secondaryTitle);
+      }
+
+      if (secondaryDescription != null) {
+        formData.append("secondary_description", secondaryDescription);
+      }
 
       if (secondaryImage instanceof File) {
         formData.append("secondary_image", secondaryImage);
@@ -60,14 +66,17 @@ export default function Step4({ data, handleStepChange }) {
       const response = await companyService.updateCompany(formData, companyId);
       toast.success("Company Updated Successfully");
       console.log(response);
+      return true;
     } catch (error) {
       console.error("Error:", error);
       toast.error(
         error?.response?.data?.error ||
           "Failed to update company. Please try again."
       );
+      return false;
     }
   };
+
   return (
     <>
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
@@ -168,7 +177,12 @@ export default function Step4({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => handleStepChange(5)}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(5);
+                  }
+                }}
               >
                 Naslednji korak
               </button>

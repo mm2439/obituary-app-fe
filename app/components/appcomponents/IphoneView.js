@@ -6,11 +6,7 @@ const IphoneView = () => {
    if (breakpoint === "desktop") {
     return (
 <div
-  className="relative overflow-hidden text-[#22281C] min-w-[1281px] h-[739px] backdrop-blur-[212.9px]"
-  style={{
-    background: "linear-gradient(135deg, rgba(255, 255, 255, 0.1), #F4C46A26)",
-  }}
->
+  className="bg-[url('/gradient_ozadje.avif')] bg-cover relative overflow-hidden text-[#22281C] min-w-[1281px] h-[739px] backdrop-blur-[212.9px]">
   {/* Large Top Center Circle */}
   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-[#F4C46A26] opacity-30 rounded-full z-10"></div>
 
@@ -48,11 +44,7 @@ const IphoneView = () => {
   if (breakpoint === "laptop") {
     return (
 <div
-  className="relative overflow-hidden text-[#22281C] min-w-[1280px] h-[739px] backdrop-blur-[212.9px]"
-  style={{
-    background: "linear-gradient(135deg, rgba(255, 255, 255, 0.1), #F4C46A26)",
-  }}
->
+  className="bg-[url('/gradient_ozadje.avif')] bg-cover relative overflow-hidden text-[#22281C] min-w-[1280px] h-[739px] backdrop-blur-[212.9px]">
   {/* Large Top Center Circle */}
   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-[#F4C46A26] opacity-30 rounded-full z-10"></div>
 
@@ -89,50 +81,46 @@ const IphoneView = () => {
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-       <div className="text-[#22281C] h-auto" style={{
-        background: 'linear-gradient(180deg, rgba(182, 236, 236, 0.09) 0%, rgba(190, 244, 244, 0) 100%)',
-      }}>
+       <div className="bg-[url('/gradient_ozadje.avif')] bg-cover text-[#22281C] h-auto">
         <div className="py-[79px]">
             <div className="image-container w-[560px] text-center mx-auto">
-                <h2 className="text-[40px] mt-[16px]">Obveščanje o pogrebu</h2>
-                <p className="text-[#414141] text-[16px] mt-[30px]">V težkih trenutkih je včasih lažje poslati ali deliti po socialnih omrežjih,   kot obveščati vsakega posebej. </p>
-                <p className="text-[#414141] text-[16px] mt-[30px]">Digitalna obvestila o pogrebu za pošiljanje naprej preko mobilnega telefona lahko brezplačno prevzamete v vaši lokalni cvetličarni (ki jo najdete na naših straneh) in s pošiljanjem naprej lahko začnete takoj. Obvestila so tudi lep in trajni spomin. </p>
-               <p className="text-[#414141] text-[16px] mt-[16px]">Enako vam cvetličarne podarjajo tudi digitalne kartice Sožalje, Zahvala in tudi mesečnega Skrbnika, nekatere pa tudi možnost vpisa osmrtnice.
+                <h2 className="text-[40px] mb-[-32px] p-0 leading-[100%]">Obveščanje o pogrebu</h2>
+                <p className="text-[#3C3E41] text-[16px] mt-[49px]">V težkih trenutkih je včasih lažje poslati ali deliti po socialnih omrežjih,   kot obveščati vsakega posebej. </p>
+                <p className="text-[#3C3E41] text-[16px] mt-[30px]">Digitalna obvestila o pogrebu za pošiljanje naprej preko mobilnega telefona lahko brezplačno prevzamete v vaši lokalni cvetličarni (ki jo najdete na naših straneh) in s pošiljanjem naprej lahko začnete takoj. Obvestila so tudi lep in trajni spomin. </p>
+               <p className="text-[#3C3E41] text-[16px] mt-[16px]">Enako vam cvetličarne podarjajo tudi digitalne kartice Sožalje, Zahvala in tudi mesečnega Skrbnika, nekatere pa tudi možnost vpisa osmrtnice.
 Op. Na naši strani mi teh kartic in mesečnega Skrbnika ne ponujamo. </p>
             </div>
-            <div className="text-container mt-[20px] flex justify-center">
+            <div className="text-container mt-[36px] flex justify-center">
                 <img src="/mobile-cards/iphone.png" alt="iPad Landscape" />
             </div>
-              <div className="inner-div mt-[40px] text-center">
+              <div className="inner-div mt-[45px] text-center">
                  <h3 className="text-[#22281C] text-[20px] font-medium">BREZPLAČNO v vaši cvetličarni.</h3>
                </div> 
         </div>
       </div>
     );
   }
-
-  // === Mobile Layout ===
+   if (breakpoint === "mobile") {
   return (
-       <div className="text-[#22281C] h-auto" style={{
-        background: 'linear-gradient(180deg, rgba(182, 236, 236, 0.09) 0%, rgba(190, 244, 244, 0) 100%)',
-      }}>
-        <div className="py-[79px]">
-            <div className="image-container w-[560px] text-center mx-auto">
-                <h2 className="text-[40px] mt-[16px]">Obveščanje o pogrebu</h2>
-                <p className="text-[#414141] text-[16px] mt-[30px]">V težkih trenutkih je včasih lažje poslati ali deliti po socialnih omrežjih,   kot obveščati vsakega posebej. </p>
-                <p className="text-[#414141] text-[16px] mt-[30px]">Digitalna obvestila o pogrebu za pošiljanje naprej preko mobilnega telefona lahko brezplačno prevzamete v vaši lokalni cvetličarni (ki jo najdete na naših straneh) in s pošiljanjem naprej lahko začnete takoj. Obvestila so tudi lep in trajni spomin. </p>
-               <p className="text-[#414141] text-[16px] mt-[16px]">Enako vam cvetličarne podarjajo tudi digitalne kartice Sožalje, Zahvala in tudi mesečnega Skrbnika, nekatere pa tudi možnost vpisa osmrtnice.
-Op. Na naši strani mi teh kartic in mesečnega Skrbnika ne ponujamo. </p>
+       <div className="bg-[url('/gradient_ozadje.avif')] bg-cover text-[#22281C] h-auto">
+        <div className="py-[54px]">
+            <div className="image-container w-[325px] text-center mx-auto">
+                <h2 className="text-[28px] p-0 leading-[100%]">Obveščanje o pogrebu</h2>
+                <p className="text-[#3C3E41] text-[16px] mt-[25px]">V težkih trenutkih je včasih lažje poslati ali deliti po socialnih omrežjih,   kot obveščati vsakega posebej. </p>
+                <p className="text-[#3C3E41] text-[16px] mt-[30px]">Digitalna obvestila o pogrebu, sožalja, zahvale lahko brezplačno prevzamete v vaši lokalni cvetličarni (ki jo najdete na naših straneh) in s pošiljanjem naprej lahko začnete takoj.  </p>
+               <p className="text-[#3C3E41] text-[16px] mt-[16px]">Op. Na naši strani mi teh kartic ne ponujamo. </p>
             </div>
-            <div className="text-container mt-[20px] flex justify-center">
+            <div className="text-container mt-[36px] flex justify-center">
                 <img src="/mobile-cards/iphone.png" alt="iPad Landscape" />
             </div>
-              <div className="inner-div mt-[40px] text-center">
+              <div className="inner-div mt-[45px] text-center">
                  <h3 className="text-[#22281C] text-[20px] font-medium">BREZPLAČNO v vaši cvetličarni.</h3>
                </div> 
         </div>
       </div>
   );
+
+}
 };
 
 export default IphoneView;

@@ -1,38 +1,43 @@
 "use client";
 import SlideOne from "../../components/slidercomponents/SlideOne";
 import SlideTwo from "../../components/slidercomponents/SlideTwo";
-import { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/swiper-bundle.css";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import { useEffect, useState } from "react";
 
 const IpadSlider = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [swiperInstance, setSwiperInstance] = useState(null);
 
-  const handleSlideChange = (swiper) => {
-    setCurrentIndex(swiper.realIndex);
-  };
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
+    slides: { perView: 1 },
+    mode: "snap",
+    slideChanged(slider) {
+      setCurrentIndex(slider.track.details.rel);
+    },
+    created(slider) {
+      setCurrentIndex(slider.track.details.rel);
+    },
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      instanceRef.current?.next();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [instanceRef]);
 
   return (
     <section className="w-auto h-auto overflow-hidden">
       <div className="relative w-screen">
-        <Swiper
-          direction="horizontal"
-          autoplay={{ delay: 4000 }}
-          loop={true}
-          modules={[Autoplay]}
-          className="w-full"
-          onSlideChange={handleSlideChange}
-          onSwiper={setSwiperInstance}>
-
-          <SwiperSlide>
+        <div ref={sliderRef} className="keen-slider w-full">
+          <div className="keen-slider__slide w-full">
             <SlideTwo currentIndex={currentIndex} />
-          </SwiperSlide>
-          <SwiperSlide>
+          </div>
+          <div className="keen-slider__slide w-full">
             <SlideOne currentIndex={currentIndex} />
-          </SwiperSlide>
-        </Swiper>
+          </div>
+        </div>
       </div>
     </section>
   );

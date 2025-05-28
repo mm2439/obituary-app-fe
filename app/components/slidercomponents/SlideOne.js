@@ -80,16 +80,16 @@ const SlideOne = () => {
   if (breakpoint === "mobile") {
   return (
       <div className="bg-[#EEF7FF] text-[#22281C] h-auto">
-        <div className="p-[69px] text-center">
+        <div className="py-[69px] text-center">
            
-            <div className="text-center text-container mx-auto w-[464px]">
+            <div className="text-center text-container mx-auto w-[303px]">
                 <h2 className="text-[28px]">Žalna stran</h2>
                 <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, 
                     izrečemo sožalje in prižgemo virtualno svečko.  </p>
                 <p className="text-[20px] font-medium mt-[39px]">Vse navedeno je BREZPLAČNO.</p>
           
             </div>
-             <div className="image-container flex justify-center mt-[57px]">
+             <div className="image-container flex justify-center">
                 <img src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
             </div>
             <button class="px-[25px] rounded-[8px] py-[12px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">

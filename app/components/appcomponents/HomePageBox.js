@@ -99,21 +99,22 @@ const HomePageBox = () => {
   }
 
   // === Mobile Layout ===
-  return (
-    <div className="bg-[#ffffff] text-[#f1f5f7] h-auto">
-        <div className="py-[54px] flex flex-col items-center">
+ if (breakpoint === "mobile") {
+    return (
+    <div className="bg-[#ffffd] text-[#f1f5f7] h-auto">
+        <div className="py-[54px] flex flex-col">
             
-            <div className="text-container px-[24px] flex justify-center flex-col">
+            <div className="text-container flex justify-center flex-col w-[350px] mx-auto mx-auto">
                 <span className="text-[#3090D5] text-[20px]">Priročno</span>
                 <h2 className="text-[#414141] text-[28px] mt-[8px] leading-[100%]">1 klik do lokalnih informacij</h2>
                 <p className="text-[#3C3E41] text-[16px] mt-[29px]">Vsak dan. Vzame samo nekaj sekund. Nenehno osveževano. <br /> Brez vsakodnevnega iskanja po imenikih. </p>
                 
             </div>
-            <div className="image-container mt-[32px]">
+            <div className="image-container mt-[32px] mx-auto">
                 <img className="w-[350px] h-[350px]" src="/mobile-cards/mobile-export.png" alt="iPad Landscape" />
             </div>
 
-            <p className="text-[#414141] flex items-center gap-2 mt-[11px]">
+            <p className="text-[#414141] flex items-center gap-2 mt-[11px] text-[16px] w-[313px] mx-auto">
                 Poišči lokacijsko ikonico
                 <span>
                     <img src="/mobile-cards/loc-icon.png" alt="" className="w-4 h-4 inline-block" />
@@ -121,11 +122,12 @@ const HomePageBox = () => {
                 na vrhu strani.
                 </p>
 
-            <p className="text-[#414141] text-[16px] px-[10px] text-center ">Op. Moraš biti prijavljen, da zazna, kateri kraj si izbral. </p>
+            <p className="text-[#414141] text-[14px] mt-[8px] w-[350px] mx-auto">Op. Moraš biti prijavljen, da zazna, kateri kraj si izbral. </p>
 
         </div>
       </div>
   );
+}
 };
 
 export default HomePageBox;

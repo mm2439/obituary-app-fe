@@ -382,9 +382,8 @@ export default function Home() {
        
              </div>
 
-          {/* <IpadSlider /> */}
-          <SlideOne />
-          <SlideTwo />
+          <IpadSlider />
+
           <HomePageBox />
           <IphoneView />
 

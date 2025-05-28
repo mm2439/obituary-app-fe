@@ -8,7 +8,7 @@ const SlideTwo = () => {
   // === Desktop Layout ===
   if (breakpoint === "desktop") {
     return (
-     <div className="bg-[#F8EDE3] text-[#22281C] w-full h-[970px]">
+     <div className="bg-[#F7F2ED] text-[#22281C] w-full h-[970px]">
         <div className="flex justify-center p-[179px]">
             <div className="text-container w-[560px]">
                 <h2 className="text-[40px] leading-[100%] h-[73px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
@@ -37,7 +37,7 @@ const SlideTwo = () => {
 
 if (breakpoint === "laptop") {
     return (
-     <div className="bg-[#F8EDE3] text-[#22281C] w-[1280px]">
+     <div className="bg-[#F7F2ED] text-[#22281C] w-[1280px]">
         <div className="flex justify-center p-[179px]">
             <div className="text-container w-[560px]">
                 <h2 className="text-[40px] leading-[100%] h-[73px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
@@ -67,7 +67,7 @@ if (breakpoint === "laptop") {
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-      <div className="bg-[#F8EDE3] h-auto text-[#22281C] p-[64px] flex justify-center">
+      <div className="bg-[#F7F2ED] h-auto text-[#22281C] p-[64px] flex justify-center">
          <div className="image-container w-[560px]">
                 <h2 className="text-center text-[40px] mt-[16px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
                 <p className="text-[#414141] text-[16px] mt-[30px]">Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba, ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je lahko Skrbnik. </p>
@@ -95,9 +95,9 @@ if (breakpoint === "laptop") {
   // === Mobile Layout ===
   if (breakpoint === "mobile") {
   return (
-    <div className="bg-[#F8EDE3] h-auto text-[#22281C] py-[69px] flex justify-center text-center">
+    <div className="bg-[#F7F2ED] h-auto text-[#22281C] py-[69px] flex justify-center text-center">
          <div className="image-container w-[560px]">
-                <h2 className="text-center text-[40px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
+                <h2 className="text-center text-[28px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
                 <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba, ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je lahko Skrbnik. Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo številnih dodatnih vsebin celotni družini, prijateljem in znancem ter na ta način omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali.</p>
 
               <img className="mt-[33px] mx-auto" src="/mobile-cards/slider-mobile.png" alt="iPad Landscape" />

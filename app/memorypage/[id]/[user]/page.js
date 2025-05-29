@@ -169,6 +169,7 @@ const MemoryPage = ({ params }) => {
             data={obituary?.Photos}
           />
         )}
+        <MobileCards data={obituary} />
 
         <Condolences
           set_Id={setSelect_Id}

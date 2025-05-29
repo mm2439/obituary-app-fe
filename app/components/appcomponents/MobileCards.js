@@ -10,7 +10,7 @@ import Card5 from "../mobile-cards/card5";
 const MobileCards = ({ data }) => {
   return (
     <div className="flex  items-center justify-center">
-      <Card1 data={data} />
+      <Card1 data={data} canDownload={true} />
       <Card2 />
       <Card3 data={data} />
       <Card4 />

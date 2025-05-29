@@ -8,7 +8,7 @@ const IphoneView = () => {
    if (breakpoint === "desktop") {
     return (
 <div
-  className="bg-[url('/gradient_ozadje.avif')] bg-cover relative overflow-hidden text-[#22281C] min-w-[1281px] h-[739px] backdrop-blur-[212.9px]">
+  className="bg-[url('/gradient_ozadje.avif')] bg-cover relative overflow-hidden text-[#22281C] min-w-[1281px] h-[739px] backdrop-blur-[212.9px] border border-solid" style={{ borderColor: '#36556C33' }}>
   {/* Large Top Center Circle */}
   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-[#F4C46A26] opacity-30 rounded-full z-10"></div>
 

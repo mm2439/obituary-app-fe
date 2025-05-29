@@ -28,7 +28,7 @@ const IpadSlider = ({ data }) => {
   }, [instanceRef]);
 
   return (
-    <section className="w-auto h-auto overflow-hidden">
+    <section className="w-auto h-auto overflow-hidden border-y border-solid" style={{ borderColor: '#36556C33' }}>
       <div className="relative w-screen">
         <div ref={sliderRef} className="keen-slider w-full">
           <div className="keen-slider__slide w-full">

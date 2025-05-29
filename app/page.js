@@ -12,9 +12,7 @@ import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import {
-  LocalQuickReview,
-  LocalQuickReviewModal,
-} from "./components/appcomponents/LocalQuickReview";
+  LocalQuickReview, LocalQuickReviewModal } from "./components/appcomponents/LocalQuickReview";
 import MegaMenu from "./components/appcomponents/MegaMenuMain";
 import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
@@ -371,9 +369,6 @@ export default function Home() {
           tablet:h-[43px] tablet:w-[97px]
           desktop:h-12 desktop:w-[125px]"
             >
-              {/* <div className="hidden desktop:flex font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
-              Prikaži več
-            </div> */}
               <div className="flex font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
                 Naprej
               </div>
@@ -383,21 +378,17 @@ export default function Home() {
              </div>
 
           <IpadSlider />
-
           <HomePageBox />
           <IphoneView />
 
-          <div className="w-full bg-black">
-            <div className="relative flex max-w-[1280px] overflow-visible dekstop:h-[284px] tablet:h-[284px] mobile:h-[235px]">
+          <div className="w-full bg-black mx-auto">
+            <div className="relative flex max-w-[1280px] mx-auto justify-center overflow-visible dekstop:h-[284px] tablet:h-[284px] mobile:h-[235px]">
               <img
                 src="/viola_ozadje.avif"
                 alt="viola_ozadje"
-                className="h-[284px] w-[1280px] object-cover mobile:h-[235px]"
+                className="h-[284px] w-[1280px] object-cover object-center mobile:h-[235px]"
               />
-              <div
-                className="absolute flex flex-col items-center self-center desktop:h-[143px] desktop:w-[476px] desktop:right-[140px] 
-        tablet:h-[127px] tablet:w-[302px] tablet:left-1/2 mobile:left-1/2 mobile:transform mobile:-translate-x-1/2 mobile:h-[113px] mobile:w-[299px]"
-              >
+              <div className="absolute flex flex-col items-center self-center desktop:h-[143px] desktop:w-[476px] desktop:right-[140px] tablet:h-[127px] tablet:w-[302px] tablet:left-1/2 mobile:left-1/2 mobile:transform mobile:-translate-x-1/2 mobile:h-[113px] mobile:w-[299px]">
                 <div className="tablet:mb-[32px] desktop:mb-[48px] mobile:mb-[32px]">
                   <div
                     className="

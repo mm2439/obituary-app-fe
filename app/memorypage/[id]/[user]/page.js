@@ -16,6 +16,7 @@ import Image from "next/image";
 import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
 import AnnouncementBlock from "../../../components/appcomponents/AnnouncementBlock";
+import MobileCards from "../../../components/appcomponents/MobileCards";
 
 const MemoryPage = ({ params }) => {
   const { id, user } = params;

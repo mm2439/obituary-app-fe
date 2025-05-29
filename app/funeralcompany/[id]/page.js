@@ -41,7 +41,7 @@ const FuneralCompany = ({ params }) => {
         <div className="flex flex-col mx-auto w-full desktop:bg-[#F5F7F9] bg-white">
           <FuneralsCompanyBanner data={company} />
           <LastObituariesList />
-          <FuneralInFewDays />
+          <FuneralInFewDays data={company} />
           <Cemeteries data={company} />
           <Pride data={company} />
           <FrequentlyAskedQuestionView data={company} from={"2"} />

@@ -6,14 +6,14 @@ const SlideOne = () => {
    if (breakpoint === "desktop") {
     return (
     <>
-      <div className="bg-[#EEF7FF] text-[#22281C] w-full h-[891px]">
+      <div className="bg-[#f1f6fd] text-[#22281C] w-full h-[891px]">
         <div className="flex justify-center my-[80px]">
             <div className="mt-[18px] image-container w-1/2 flex justify-end">
                 <img className="h-[761.1px]" src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
             </div>
             <div className="text-container w-1/2 pl-[35px] pt-[179px]">
                 <h2 className="text-[40px] font-normal">Žalna stran</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, 
+                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, <br/>
                     izrečemo sožalje in prižgemo virtualno svečko.  </p>
                 <p className="text-[20px] font-medium mt-[16px]">Vse navedeno je BREZPLAČNO.</p>
                 
@@ -31,14 +31,14 @@ const SlideOne = () => {
    if (breakpoint === "laptop") {
     return (
     <>
-      <div className="bg-[#EEF7FF] text-[#22281C] w-[1280px] h-[891px]">
+      <div className="bg-[#f1f6fd] text-[#22281C] w-[1280px] h-[891px]">
         <div className="flex justify-center my-[80px]">
             <div className="mt-[18px] image-container w-1/2 flex justify-end">
                 <img className="h-[761.1px]" src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
             </div>
             <div className="text-container w-1/2 pl-[35px] pt-[179px]">
                 <h2 className="text-[40px] font-normal">Žalna stran</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, 
+                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, <br />
                     izrečemo sožalje in prižgemo virtualno svečko.  </p>
                 <p className="text-[20px] font-medium mt-[16px]">Vse navedeno je BREZPLAČNO.</p>
                 
@@ -55,12 +55,12 @@ const SlideOne = () => {
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-       <div className="bg-[#EEF7FF] text-[#22281C] h-auto">
+       <div className="bg-[#f1f6fd] text-[#22281C] h-auto">
         <div className="p-[64px] text-center">
            
             <div className="text-center text-container mx-auto pl-[35px] w-[464px]">
                 <h2 className="text-[40px]">Žalna stran</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, 
+                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, <br/>
                     izrečemo sožalje in prižgemo virtualno svečko.  </p>
                 <p className="text-[20px] font-medium mt-[39px]">Vse navedeno je BREZPLAČNO.</p>
           
@@ -79,12 +79,12 @@ const SlideOne = () => {
   // === Mobile Layout ===
   if (breakpoint === "mobile") {
   return (
-      <div className="bg-[#EEF7FF] text-[#22281C] h-auto">
+      <div className="bg-[#f1f6fd] text-[#22281C] h-auto">
         <div className="py-[69px] text-center">
            
             <div className="text-center text-container mx-auto w-[303px]">
                 <h2 className="text-[28px]">Žalna stran</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, 
+                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, <br/>
                     izrečemo sožalje in prižgemo virtualno svečko.  </p>
                 <p className="text-[20px] font-medium mt-[39px]">Vse navedeno je BREZPLAČNO.</p>
           

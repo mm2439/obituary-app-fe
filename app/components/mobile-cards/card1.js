@@ -84,7 +84,7 @@ const Card1 = ({ data, isAssigned }) => {
               alt="Mario"
             />
             <br />
-            <img src="/mobile-cards/V spomin.png" alt="V spomin" />
+           <h2  className="text-[#fff] font-greatVibes text-[36px] font-normal leading-[30px] tracking-[0px]">V spomin</h2>
           </div>
 
           <div className="name-year-container">

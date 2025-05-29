@@ -153,7 +153,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                   >
                     <Image
                       src={
-                        data.image
+                        data?.image
                           ? `${API_BASE_URL}/${data.image}`
                           : data.gender === "Male"
                           ? "/img_profile.png"
@@ -774,19 +774,21 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                             desktop:w-[517px] desktop:pl-[22px] desktop:pr-[17px]
                              border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
                 >
-                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  w-full">
+                  <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  w-full">
                     QR koda do te strani
-                    </div>
-                    <div className="flex items-end justify-end gap-[10px]">
-                      <span className="text-[16px] text-[#414141] font-variation-customOpt12 font-normal">Klikni za povečavo</span>
-                      <Image
-                        src={"/qr_demo.png"}
-                        alt="Slika"
-                        width={72}
-                        height={72}
-                        className=""
-                      />
-                    </div>
+                  </div>
+                  <div className="flex items-end justify-end gap-[10px]">
+                    <span className="text-[16px] text-[#414141] font-variation-customOpt12 font-normal">
+                      Klikni za povečavo
+                    </span>
+                    <Image
+                      src={"/qr_demo.png"}
+                      alt="Slika"
+                      width={72}
+                      height={72}
+                      className=""
+                    />
+                  </div>
                 </div>
 
                 <div

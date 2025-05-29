@@ -8,10 +8,10 @@ const createObituary = async (formData: FormData) => {
   return response.data;
 };
 
- const getObituaryById = async (obituaryId: any) => {
-    const response = await axios.get(`/obituary?obituaryId=${obituaryId}`);
-    return response.data || null;
-  };
+const getObituaryById = async (obituaryId: any) => {
+  const response = await axios.get(`/obituary?obituaryId=${obituaryId}`);
+  return response.data || null;
+};
 
 const getObituary = async (queryParams?: {
   city?: string;
@@ -69,9 +69,9 @@ const updateObituary = async (id: string, formData: FormData) => {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
-  } catch (error: unknown) {
+  } catch (error) {
     console.error("Error updating obituary:", error);
-    throw new Error("Network error or no response");
+    throw error;
   }
 };
 

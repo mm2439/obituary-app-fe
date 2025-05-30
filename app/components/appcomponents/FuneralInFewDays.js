@@ -11,7 +11,7 @@ const FuneralInFewDays = () => {
   const [endDateFunerals, setEndDateFunerals] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
 
-  const [city, setCity] = useState(data?.city);
+  const [city, setCity] = useState("Trbovlje");
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -151,8 +151,14 @@ const FuneralInFewDays = () => {
     const endOfEndDay = new Date(endDate);
     endOfEndDay.setHours(23, 59, 59, 999);
 
+    console.log(startOfDay.toISOString(), "----- start day");
+    console.log(endOfDay.toISOString(), "----- end of start day");
+    console.log(startOfEndDay.toISOString(), "----- start of end day");
+    console.log(endOfEndDay.toISOString(), "----- end of end day");
+
     data.forEach((funeral) => {
       const funeralTimestamp = new Date(funeral.funeralTimestamp);
+      console.log(funeralTimestamp.toISOString(), "----- actual funeral date");
 
       // Check if funeral timestamp falls within startDate range
       if (funeralTimestamp >= startOfDay && funeralTimestamp <= endOfDay) {

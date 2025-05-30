@@ -9,9 +9,8 @@ import DatePicker from "react-datepicker";
 import { getYear, getMonth } from "date-fns";
 import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
-import { useParams } from "next/navigation";
+import { useParams } from 'next/navigation';
 import ModalDropBox from "./ModalDropBox";
-import API_BASE_URL from "@/config/apiConfig";
 
 const AddObituary = ({ set_Id, setModal }) => {
   const router = useRouter();
@@ -40,7 +39,7 @@ const AddObituary = ({ set_Id, setModal }) => {
     useState(false);
   const [openEventTimePicker, setOpenEventTimePicker] = useState(null);
   const [isDeathReportConfirmed, setIsDeathReportConfirmed] = useState(false);
-
+  const [uploadedDeathReport, setUploadedDeathReport] = useState(null);
   const [loading, setLoading] = useState(false);
   const [dataExists, setDataExists] = useState(false);
   const { id } = useParams();
@@ -88,110 +87,105 @@ const AddObituary = ({ set_Id, setModal }) => {
       router.push("/registrationpage");
     } else {
       const parsedUser = JSON.parse(storedUser);
-      console.log(parsedUser, "ParsedUser");
+      console.log(parsedUser, "ParsedUser")
       setUser(parsedUser);
       fetchObituary(id);
     }
   }, [router]);
 
-  const fetchObituary = async (orbituaryId) => {
+const fetchObituary = async (orbituaryId) => {
+  try {
+    setLoading(true);
+    const response = await obituaryService.getObituaryById(orbituaryId);
+    
+    console.log("Response Variable: ", response);
+    
+    if (!response) return;
+
+    setDataExists(true);
+
     try {
-      setLoading(true);
-      const response = await obituaryService.getObituaryById(orbituaryId);
-
-      console.log("Response Variable: ", response);
-
-      if (!response) return;
-
-      setDataExists(true);
-
-      try {
-        setInputValueName(response.name || "");
-        setInputValueSirName(response.sirName || "");
-        setInputValueEnd(response.location || "");
-        setSelectedRegion(response.region || "");
-        setSelectedCity(response.city || "");
-        setInputValueGender(response.gender || "");
-        setUploadedImage(`${API_BASE_URL}/${response.image}`);
-      } catch (err) {
-        console.error("Error setting basic info state:", err);
-        // toast.error("Failed to set basic obituary information.");
-      }
-
-      try {
-        console.log("Birthdate: ", response.birthDate);
-        setBirthDate(response.birthDate ? new Date(response.birthDate) : null);
-        setDeathDate(response.deathDate ? new Date(response.deathDate) : null);
-      } catch (err) {
-        console.error("Error setting birth/death dates:", err);
-        toast.error("Failed to parse birth or death date.");
-      }
-
-      try {
-        setInputValueFuneralEnd(response.funeralLocation || "");
-        setInputValueFuneralCemetery(response.funeralCemetery || "");
-        setFuneralDate(
-          response.funeralTimestamp ? new Date(response.funeralTimestamp) : null
-        );
-
-        if (response.funeralTimestamp) {
-          const funeralDate = new Date(response.funeralTimestamp);
-          setSelecteFuneralHour(funeralDate.getHours());
-          setSelectedFuneralMinute(funeralDate.getMinutes());
-        }
-      } catch (err) {
-        console.error("Error setting funeral info:", err);
-        toast.error("Failed to set funeral details.");
-      }
-
-      let parsedEvents = [];
-
-      try {
-        parsedEvents =
-          typeof response.events === "string"
-            ? JSON.parse(response.events)
-            : response.events;
-      } catch (e) {
-        console.error("Failed to parse events:", e);
-        toast.error("Invalid events format.");
-        return;
-      }
-
-      if (parsedEvents && parsedEvents.length > 0) {
-        setEvents(
-          parsedEvents.map((event) => ({
-            eventName: event.eventName || "",
-            eventLocation: event.eventLocation || "",
-            eventDate: event.eventDate ? new Date(event.eventDate) : null,
-            eventHour: event.eventHour || null,
-            eventMinute: event.eventMinute || null,
-          }))
-        );
-      } else {
-        setEvents([
-          {
-            eventName: "",
-            eventLocation: "",
-            eventDate: null,
-            eventHour: null,
-            eventMinute: null,
-          },
-        ]);
-      }
-
-      try {
-        setIsDeathReportConfirmed(response.deathReportExists || false);
-      } catch (err) {
-        console.error("Error confirming death report:", err);
-        toast.error("Failed to update death report status.");
-      }
-    } catch (error) {
-      console.error("Error fetching obituary:", error);
-      toast.error("Failed to load obituary data.");
-    } finally {
-      setLoading(false);
+      setInputValueName(response.name || "");
+      setInputValueSirName(response.sirName || "");
+      setInputValueEnd(response.location || "");
+      setSelectedRegion(response.region || "");
+      setSelectedCity(response.city || "");
+      setInputValueGender(response.gender || "");
+      setUploadedImage(response.image);
+      setUploadedDeathReport(response.deathReport);
+    } catch (err) {
+      console.error("Error setting basic info state:", err);
+      // toast.error("Failed to set basic obituary information.");
     }
-  };
+
+    try {
+      console.log("Birthdate: ", response.birthDate);
+      setBirthDate(response.birthDate ? new Date(response.birthDate) : null);
+      setDeathDate(response.deathDate ? new Date(response.deathDate) : null);
+    } catch (err) {
+      console.error("Error setting birth/death dates:", err);
+      toast.error("Failed to parse birth or death date.");
+    }
+
+    try {
+      setInputValueFuneralEnd(response.funeralLocation || "");
+      setInputValueFuneralCemetery(response.funeralCemetery || "");
+      setFuneralDate(response.funeralTimestamp ? new Date(response.funeralTimestamp) : null);
+
+      if (response.funeralTimestamp) {
+        const funeralDate = new Date(response.funeralTimestamp);
+        setSelecteFuneralHour(funeralDate.getHours());
+        setSelectedFuneralMinute(funeralDate.getMinutes());
+      }
+    } catch (err) {
+      console.error("Error setting funeral info:", err);
+      toast.error("Failed to set funeral details.");
+    }
+
+    let parsedEvents = [];
+
+    try {
+      parsedEvents = typeof response.events === 'string' 
+        ? JSON.parse(response.events) 
+        : response.events;
+    } catch (e) {
+      console.error("Failed to parse events:", e);
+      toast.error("Invalid events format.");
+      return;
+    }
+
+if (parsedEvents && parsedEvents.length > 0) {
+  setEvents(parsedEvents.map(event => ({
+    eventName: event.eventName || "",
+    eventLocation: event.eventLocation || "",
+    eventDate: event.eventDate ? new Date(event.eventDate) : null,
+    eventHour: event.eventHour || null,
+    eventMinute: event.eventMinute || null
+  })));
+} else {
+  setEvents([{
+    eventName: "",
+    eventLocation: "",
+    eventDate: null,
+    eventHour: null,
+    eventMinute: null
+  }]);
+}
+
+    try {
+      setIsDeathReportConfirmed(response.deathReportExists || false);
+    } catch (err) {
+      console.error("Error confirming death report:", err);
+      toast.error("Failed to update death report status.");
+    }
+
+  } catch (error) {
+    console.error("Error fetching obituary:", error);
+    toast.error("Failed to load obituary data.");
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -270,6 +264,13 @@ const AddObituary = ({ set_Id, setModal }) => {
     setIsDeathReportConfirmed(!isDeathReportConfirmed);
   };
 
+  const handleDeathReportUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setUploadedDeathReport(file);
+    }
+  };
+
   const validateFields = () => {
     const fullNameLength =
       (inputValueName?.length || 0) + (inputValueSirName?.length || 0);
@@ -293,106 +294,118 @@ const AddObituary = ({ set_Id, setModal }) => {
       return false;
     }
 
+    if (!isDeathReportConfirmed) {
+      toast.error("You must confirm the death report exists.");
+      return false;
+    }
+
+    if (!uploadedDeathReport && user?.role !== "funeral_company") {
+      toast.error("Death report is mandatory for non-funeral company users.");
+      return false;
+    }
+
     return true;
   };
 
-  const handleSubmit = async () => {
-    if (!validateFields()) return;
+const handleSubmit = async () => {
+  if (!validateFields()) return;
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const formData = new FormData();
+    const formData = new FormData();
 
-      const formattedBirthDate = birthDate
-        ? birthDate.toISOString().split("T")[0]
-        : null;
-      const formattedDeathDate = deathDate
-        ? deathDate.toISOString().split("T")[0]
-        : null;
+    const formattedBirthDate = birthDate
+      ? birthDate.toISOString().split("T")[0]
+      : null;
+    const formattedDeathDate = deathDate
+      ? deathDate.toISOString().split("T")[0]
+      : null;
 
-      const fullName = `${inputValueName} ${inputValueSirName}`;
-      const obituaryText =
-        inputValueGender === "Male"
-          ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
-          : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.`;
+    const fullName = `${inputValueName} ${inputValueSirName}`;
+    const obituaryText =
+      inputValueGender === "Male"
+        ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
+        : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.`;
 
-      let formattedFuneralTimestamp = null;
-      if (
-        funeralDate &&
-        selectedFuneralHour !== null &&
-        selectedFuneralMinute !== null
-      ) {
-        formattedFuneralTimestamp = new Date(
-          funeralDate.getFullYear(),
-          funeralDate.getMonth(),
-          funeralDate.getDate(),
-          selectedFuneralHour,
-          selectedFuneralMinute
-        ).toISOString();
-      }
-
-      formData.append("name", inputValueName);
-      formData.append("sirName", inputValueSirName);
-      formData.append("location", inputValueEnd);
-      formData.append("region", selectedRegion);
-      formData.append("city", selectedCity);
-      formData.append("gender", inputValueGender);
-      formData.append("birthDate", formattedBirthDate);
-      formData.append("deathDate", formattedDeathDate);
-      formData.append("funeralLocation", inputValueFuneralEnd);
-      formData.append("funeralCemetery", inputValueFuneralCemetery);
-      if (formattedFuneralTimestamp) {
-        formData.append("funeralTimestamp", formattedFuneralTimestamp);
-      }
-      formData.append("deathReportExists", isDeathReportConfirmed);
-      formData.append("events", JSON.stringify(events));
-      formData.append("obituary", obituaryText);
-
-      if (uploadedPicture) {
-        formData.append("picture", uploadedPicture);
-      }
-
-      let response;
-
-      response = await obituaryService.updateObituary(id, formData);
-      toast.success("Obituary updated successfully!");
-
-      if (response?.error) {
-        toast.error(
-          response.error || "Something went wrong. Please try again!"
-        );
-        return;
-      }
-
-      const responseDeathDate = new Date(response.deathDate);
-      const deathDateFormatted = `${responseDeathDate
-        .getDate()
-        .toString()
-        .padStart(2, "0")}${(responseDeathDate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}${responseDeathDate
-        .getFullYear()
-        .toString()
-        .slice(2)}`;
-
-      router.push(
-        `/memorypage/${response.id}/${response.name}_${response.sirName}_${deathDateFormatted}`
-      );
-    } catch (error) {
-      if (error?.response?.status === 404) {
-        toast.error("You cannot update other company's obituary");
-      } else {
-        console.error("Error creating obituary:", error);
-        toast.error(
-          error?.response?.data?.error ||
-            "Failed to create obituary. Please try again."
-        );
-      }
-    } finally {
-      setLoading(false);
+    let formattedFuneralTimestamp = null;
+    if (
+      funeralDate &&
+      selectedFuneralHour !== null &&
+      selectedFuneralMinute !== null
+    ) {
+      formattedFuneralTimestamp = new Date(
+        funeralDate.getFullYear(),
+        funeralDate.getMonth(),
+        funeralDate.getDate(),
+        selectedFuneralHour,
+        selectedFuneralMinute
+      ).toISOString();
     }
-  };
+
+    formData.append("name", inputValueName);
+    formData.append("sirName", inputValueSirName);
+    formData.append("location", inputValueEnd);
+    formData.append("region", selectedRegion);
+    formData.append("city", selectedCity);
+    formData.append("gender", inputValueGender);
+    formData.append("birthDate", formattedBirthDate);
+    formData.append("deathDate", formattedDeathDate);
+    formData.append("funeralLocation", inputValueFuneralEnd);
+    formData.append("funeralCemetery", inputValueFuneralCemetery);
+    if (formattedFuneralTimestamp) {
+      formData.append("funeralTimestamp", formattedFuneralTimestamp);
+    }
+    formData.append("deathReportExists", isDeathReportConfirmed);
+    formData.append("events", JSON.stringify(events));
+    formData.append("obituary", obituaryText);
+
+    if (uploadedPicture) {
+      formData.append("picture", uploadedPicture);
+    }
+    if (uploadedDeathReport) {
+      formData.append("deathReport", uploadedDeathReport);
+    }
+
+    let response;
+
+    if (dataExists) {
+      response = await obituaryService.updateObituary(user.id, formData);
+      toast.success("Obituary updated successfully!");
+    } else {
+      response = await obituaryService.createObituary(formData);
+      toast.success("Obituary created successfully!");
+    }
+
+    if (response?.error) {
+      toast.error(response.error || "Something went wrong. Please try again!");
+      return;
+    }
+
+    const responseDeathDate = new Date(response.deathDate);
+    const deathDateFormatted = `${responseDeathDate
+      .getDate()
+      .toString()
+      .padStart(2, "0")}${(responseDeathDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}${responseDeathDate
+      .getFullYear()
+      .toString()
+      .slice(2)}`;
+
+    router.push(
+      `/memorypage/${response.id}/${response.name}_${response.sirName}_${deathDateFormatted}`
+    );
+  } catch (error) {
+    console.error("Error creating obituary:", error);
+    toast.error(
+      error?.response?.data?.error ||
+        "Failed to create obituary. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   const [startDecade, setStartDecade] = useState(1950);
 
@@ -419,7 +432,7 @@ const AddObituary = ({ set_Id, setModal }) => {
       {/* Container for top texts */}
       <div className=" mx-auto desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[79px] h-auto">
         <div className="text-[40px] mobile:text-[32px] mobile:font-variation-customOpt32 font-normal font-variation-customOpt40 text-center leading-[44px] text-[#1E2125]">
-          Posodobi osmrtnico
+          Dodaj osmrtnico
         </div>
       </div>
 
@@ -1671,6 +1684,85 @@ const AddObituary = ({ set_Id, setModal }) => {
                 </div>
               </div>
 
+              <div className="flex mobile:hidden mt-16 flex-row  gap-4 ">
+                <div
+                  className="relative w-10 h-8 cursor-pointer"
+                  onClick={toggleCheckbox}
+                >
+                  <div className="absolute inset-0 border-[1px] border-[#6D778E]"></div>
+                  {isDeathReportConfirmed && (
+                    <div className="absolute inset-[3px] bg-[#0A85C2]"></div>
+                  )}
+                </div>
+
+                <div className="flex flex-col mt-1 space-y-1">
+                  <div className="text-[16px] text-[#1E2125] leading-[22px] font-normal">
+                    Potrdi, da Poročilo o smrti obstaja{" "}
+                  </div>
+                  <div className="text-[14px] text-[#ACAAAA] font-normal">
+                    (pogrebna podjetja samo potrdijo; drugi ga morajo nujno
+                    priložiti, sicer osmrtnica ne bo objavljena)
+                  </div>
+                </div>
+              </div>
+
+              <div className="hidden mobile:flex mt-12 justiy-center gap-4 flex-col">
+                <div className="flex flex-row  items-center">
+                  <div
+                    className="relative w-6 h-6 cursor-pointer"
+                    onClick={toggleCheckbox}
+                  >
+                    <div className="absolute inset-0 border-[1px] border-[#6D778E]"></div>
+                    {isDeathReportConfirmed && (
+                      <div className="absolute inset-[3px] bg-[#0A85C2]"></div>
+                    )}
+                  </div>
+
+                  <div className="text-[16px] text-[#1E2125] leading-[22px] font-normal">
+                    Potrdi, da Poročilo o smrti obstaja{" "}
+                  </div>
+                </div>
+
+                <div className="text-[14px] mt-1 text-[#ACAAAA] font-normal">
+                  (pogrebna podjetja samo potrdijo; drugi ga morajo nujno
+                  priložiti, sicer osmrtnica ne bo objavljena)
+                </div>
+              </div>
+
+              {/* {!uploadedDeathReport && ( */}
+                <div className="flex py-3 px-6 mobile:py-3 mt-8 mobile:px-4 w-[250px] mobile:w-full rounded-lg border-[2px] border-[#6D778E42] bg-gradient-to-br to-[#FFFFFF] from-[#FFFFFF30] mobile:items-center mobile:justify-center">
+                  <label
+                    htmlFor="death-report-upload"
+                    className="flex flex-row space-x-2 cursor-pointer"
+                  >
+                    <Image
+                      src="/icon_plus_round.png"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5"
+                      alt="add button icon"
+                    />
+                    <div className="flex text-[16px] text-[#1E2125] self-start mobile:self-start ">
+                      Prilepi Poročilo o smrti
+                    </div>
+                    <input
+                      id="death-report-upload"
+                      type="file"
+                      accept=".pdf,.doc,.docx,.jpg,.png"
+                      className="hidden"
+                      onChange={handleDeathReportUpload}
+                    />
+                  </label>
+                </div>
+              {/* )} */}
+
+              {uploadedDeathReport && (
+                <div className="mt-4 text-[#1E2125] text-[14px]">
+                  <span className="font-bold">Uploaded File:</span>{" "}
+                  {uploadedDeathReport.name}
+                </div>
+              )}
+
               <div className="flex flex-row w-full space-x-8 mobile:space-y-2 mobile:space-x-0 mobile:flex-col  mt-16 mobile:mt-12">
                 <div
                   onClick={() => setActiveDivType("KORAK 2")}
@@ -1686,7 +1778,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                       : "bg-gradient-to-b from-[#0d94e8] to-[#1860a3] text-[#ffffff]" // Enabled styles
                   }`}
                 >
-                  {loading ? "Shranjujem..." : "Posodobi podatke"}
+                  {loading ? "Shranjujem..." : "Objavi novo osmrtnico"}
                 </div>
               </div>
             </div>

@@ -1,45 +1,20 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import icon_cancel from "@/public/icon_cancel.png";
 import icon_plus from "@/public/icon_plus.png";
-const defaultQuestions = [
-  {
-    question: "Pogrebna dejavnost",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    question: "Pokopališka dejavnost",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    question: "Urejanje najemnega razmerja",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    question: " 24-urna dežurna služba",
-    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-];
-const FrequentlyAskedQuestionView = ({ from, data }) => {
-  const [visibleIndexes, setVisibleIndexes] = useState({});
-  const [faqs, setFaqs] = useState([]);
-  useEffect(() => {
-    const customFaq = data?.faqs || [];
 
-    if (customFaq.length > 4) {
-      setFaqs(customFaq);
-    } else if (customFaq.length > 0) {
-      const updatedList = [...defaultQuestions];
-      for (let i = 0; i < customFaq.length; i++) {
-        updatedList[i] = customFaq[i];
-      }
-      setFaqs(updatedList);
-    } else {
-      setFaqs(defaultQuestions);
-    }
-  }, [data]);
+const FrequentlyAskedQuestionView = ({ from }) => {
+  const [isVisiblefirstQuestionView, setIsVisiblefirstQuestionView] =
+    useState(true);
+  const [isVisibleSecondQuestionView, setIsVisibleSecondQuestionView] =
+    useState(false);
+  const [isVisibleThirdQuestionView, setIsVisibleThirdQuestionView] =
+    useState(false);
+  const [isVisibleFourthQuestionView, setIsVisibleFourthQuestionView] =
+    useState(false);
+
   return (
     <div
       className={`overflow-hidden relative flex items-center max-w-[1920px]  tablet:max-w-[600px] mobile:max-w-[400px] w-full mx-auto `}
@@ -70,42 +45,385 @@ const FrequentlyAskedQuestionView = ({ from, data }) => {
             )}
           </div>
 
-          {faqs && faqs.length > 0
-            ? faqs.map((faq, index) => (
-                <>
-                  <button
-                    onClick={() =>
-                      setVisibleIndexes((prev) => ({
-                        ...prev,
-                        [index]: !prev[index],
-                      }))
-                    }
-                    className=" flex w-full justify-between items-center mt-8 h-12 border-t border-t-[#D4D4D4] px-6 mobile:px-0 "
-                  >
-                    <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-6 text-[#1E2125] text-center">
-                      {faq.question}
-                    </div>
+          <button
+            onClick={() => {
+              setIsVisiblefirstQuestionView(!isVisiblefirstQuestionView);
+              setIsVisibleSecondQuestionView(false);
+              setIsVisibleThirdQuestionView(false);
+              setIsVisibleFourthQuestionView(false);
+            }}
+            className=" flex w-full justify-between items-center mt-8 h-12 border-t border-t-[#D4D4D4] px-6 mobile:px-0 "
+          >
+            <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-6 text-[#1E2125] text-center">
+              Pogrebna dejavnost
+            </div>
 
-                    <Image
-                      src={visibleIndexes[index] ? icon_cancel : icon_plus}
-                      className=" h-[12.5px] w-[12.5px]"
-                      alt="cross Icon"
-                      width={1000}
-                      height={1000}
-                    />
-                  </button>
-                  {visibleIndexes[index] && (
-                    <div className="flex w-full flex-col mt-4 mb-12 px-14 mobile:px-0 ">
-                      {faq.answer}
-                    </div>
-                  )}
-                </>
-              ))
-            : null}
+            <Image
+              src={isVisiblefirstQuestionView ? icon_cancel : icon_plus}
+              className=" h-[12.5px] w-[12.5px]"
+              alt="cross Icon"
+              width={1000}
+              height={1000}
+            />
+          </button>
+
+          {isVisiblefirstQuestionView && (
+            <div className="flex w-full flex-col mt-4 mb-12 px-14 mobile:px-0 ">
+              <div
+                className="font-sourceSerif"
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "18px",
+                  fontWeight: "400",
+                  color: "#414141",
+                }}
+              >
+                Pogrebna dejavnost obsega:
+              </div>
+              <ul className="list-disc ml-5 pl-2">
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  24-urno dežurno službo,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  prevoz pokojnika/pokojnice (v nadaljevanju: pokojnik),
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  pripravo pokojnika,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  upepelitev pokojnika,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  pripravo in izvedbo pogreba.
+                </li>
+              </ul>
+            </div>
+          )}
+          <button
+            onClick={() => {
+              setIsVisiblefirstQuestionView(false);
+              setIsVisibleSecondQuestionView(!isVisibleSecondQuestionView);
+              setIsVisibleThirdQuestionView(false);
+              setIsVisibleFourthQuestionView(false);
+            }}
+            className=" flex w-full justify-between items-center  h-12 border-t border-t-[#D4D4D4] px-6 mobile:px-0"
+          >
+            <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-6 text-[#1E2125] text-center">
+              Pokopališka dejavnost
+            </div>
+
+            <Image
+              src={isVisibleSecondQuestionView ? icon_cancel : icon_plus}
+              className=" h-[12.5px] w-[12.5px]"
+              alt="cross Icon"
+              width={1000}
+              height={1000}
+            />
+          </button>
+          {isVisibleSecondQuestionView && (
+            <div className="flex w-full flex-col mt-4 mb-12 px-14 mobile:px-0 ">
+              <div
+                className="font-sourceSerif"
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "18px",
+                  fontWeight: "400",
+                  color: "#414141",
+                }}
+              >
+                Pogrebna dejavnost obsega:
+              </div>
+              <ul className="list-disc ml-5 pl-2">
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  24-urno dežurno službo,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  prevoz pokojnika/pokojnice (v nadaljevanju: pokojnik),
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  pripravo pokojnika,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  upepelitev pokojnika,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  pripravo in izvedbo pogreba.
+                </li>
+              </ul>
+            </div>
+          )}
+
+          <button
+            onClick={() => {
+              setIsVisiblefirstQuestionView(false);
+              setIsVisibleSecondQuestionView(false);
+              setIsVisibleThirdQuestionView(!isVisibleThirdQuestionView);
+              setIsVisibleFourthQuestionView(false);
+            }}
+            className=" flex w-full justify-between items-center  h-12 border-t border-t-[#D4D4D4] px-6 mobile:px-0"
+          >
+            <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-6 text-[#1E2125] text-center">
+              Urejanje najemnega razmerja
+            </div>
+
+            <Image
+              src={isVisibleThirdQuestionView ? icon_cancel : icon_plus}
+              className=" h-[12.5px] w-[12.5px]"
+              alt="cross Icon"
+              width={1000}
+              height={1000}
+            />
+          </button>
+          {isVisibleThirdQuestionView && (
+            <div className="flex w-full flex-col mt-4 mb-12 px-14 mobile:px-0 ">
+              <div
+                className="font-sourceSerif"
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "18px",
+                  fontWeight: "400",
+                  color: "#414141",
+                }}
+              >
+                Pogrebna dejavnost obsega:
+              </div>
+              <ul className="list-disc ml-5 pl-2">
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  24-urno dežurno službo,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  prevoz pokojnika/pokojnice (v nadaljevanju: pokojnik),
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  pripravo pokojnika,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  upepelitev pokojnika,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  pripravo in izvedbo pogreba.
+                </li>
+              </ul>
+            </div>
+          )}
+
+          <button
+            onClick={() => {
+              setIsVisiblefirstQuestionView(false);
+              setIsVisibleSecondQuestionView(false);
+              setIsVisibleThirdQuestionView(false);
+              setIsVisibleFourthQuestionView(!isVisibleFourthQuestionView);
+            }}
+            className=" flex w-full justify-between items-center  h-12 border-t border-t-[#D4D4D4] border-b border-b-[#D4D4D4] px-6 mobile:px-0"
+          >
+            <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-6 text-[#1E2125] text-center">
+              24-urna dežurna služba
+            </div>
+
+            <Image
+              src={isVisibleFourthQuestionView ? icon_cancel : icon_plus}
+              className=" h-[12.5px] w-[12.5px]"
+              alt="cross Icon"
+              width={1000}
+              height={1000}
+            />
+          </button>
+          {isVisibleFourthQuestionView && (
+            <div className="flex w-full flex-col mt-4 px-14 mobile:px-0 ">
+              <div
+                className="font-sourceSerif"
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "18px",
+                  fontWeight: "400",
+                  color: "#414141",
+                }}
+              >
+                Pogrebna dejavnost obsega:
+              </div>
+              <ul className="list-disc ml-5 pl-2">
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  24-urno dežurno službo,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  prevoz pokojnika/pokojnice (v nadaljevanju: pokojnik),
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  pripravo pokojnika,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  upepelitev pokojnika,
+                </li>
+                <li
+                  className="font-sourceSerif"
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    fontWeight: "400",
+                    color: "#414141",
+                  }}
+                >
+                  pripravo in izvedbo pogreba.
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* <div
+      <div
         className="flex  z-[45] absolute desktop:w-[1200px] tablet:w-[680px] mobile:w-[360px] justify-end
                 mobile:mt-[5%] tablet:mt-[5%] desktop:mt-[12%]  desktop:me-[50%] desktop:left-36
               "
@@ -124,7 +442,7 @@ const FrequentlyAskedQuestionView = ({ from, data }) => {
             uporabnikom in vam.
           </p>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

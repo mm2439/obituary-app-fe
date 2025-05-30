@@ -15,7 +15,7 @@ const Card5 = () => {
 
       <div className="inner-container mt-[66px]">
         <div className="img-container flex justify-center">
-          <h2  className="font-greatVibes text-[75px] font-normal text-center align-middle" style={{ color: '#935559' }}>Hvala</h2>
+          <img src="/mobile-cards/Hvala.png" alt="Mario" />
         </div>
       </div>
 
@@ -27,12 +27,12 @@ const Card5 = () => {
 
           <div className="name-year-container text-[#935559] mt-[22px]">
           <h1 className="text-center text-[18px] font-normal">V spomin</h1>
-          <h2  className="font-greatVibes text-[34px] font-normal text-center align-middle mt-[15px]" style={{ color: '#935559' }}>Mario Danilo Primo</h2>
+          <img className="mx-auto mt-[15px]" src="/mobile-cards/Mario Danilo Primo-card-5.png" alt="" />
           <p className="tracking-[2px] text-center mx-auto mt-[21px] text-[18px]">14.01.1948 - 21.05.2025</p>
         </div>
 
-        <div className="mt-[23px]">
-          <img src="/mobile-cards/tool-bar.png" alt="" className="w-full" />
+        <div className="mt-[75px]">
+         <img src="/mobile-cards/tool-bar.png" alt="" className="w-full" />
         </div>
 
     </div>

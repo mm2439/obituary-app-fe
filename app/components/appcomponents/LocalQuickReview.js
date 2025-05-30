@@ -10,7 +10,7 @@ const LocalQuickReview = ({setIsLocalQuickModalVisible}) => {
           <div className="flex justify-end">
             <img src={"./circle_cross.png"} alt="Close" className="w-[70px] h-[70px] cursor-pointer" onClick={() => setIsLocalQuickModalVisible(false)} />
           </div>
-          <h4 className="text-[28px] leading-[32px] tracking-[0%] text-center mx-auto max-w-[330px] text-[#3C3E41]">LOKALNO  -  HITRI PREGLED</h4>
+          <h4 className="text-[28px] leading-[32px] tracking-[0%] text-center mx-auto max-w-[350px] text-[#3C3E41]">LOKALNO  -  HITRI PREGLED</h4>
           <div className="w-[330px] mx-auto text-end text-[#1860A3] text-[18px] leading-[32px] underline font-bold">z enim samim klikom</div>
 
           <div className="mt-[47px] bg-[#FFFFFF] rounded-t-[17px] rounded-b-[24px] w-[338px] mx-auto pb-[28px] border-[1px] border-[#0A85C2]">
@@ -25,9 +25,17 @@ const LocalQuickReview = ({setIsLocalQuickModalVisible}) => {
               <img src={"./pencil.png"} alt="Edit" className="w-[18px] h-[18px] cursor-pointer" />
             </div>
 
-            <div className="space-y-[19px] px-[16px] py-[29px]">
-              <div className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
+            <div className="space-y-[19px] px-[16px] py-[29px]" >
+              <div 
+                className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]" 
+                style={{
+                  background: '#e4e8ef',
+                  backgroundClip: 'padding-box',
+                  borderImageSlice: 1,
+                  borderImageSource: 'linear-gradient(91.95deg, rgba(255, 255, 255, 0.4) -4.26%, rgba(255, 255, 255, 0) 107.52%)' ,
+                  boxShadow: '5px 5px 10px 0px #A6ABBD, -5px -5px 10px 0px #FAFBFF',
+                }}
+              >
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">7</h4>
@@ -46,7 +54,16 @@ const LocalQuickReview = ({setIsLocalQuickModalVisible}) => {
                   />
                 </div>
               </div>
-              <div className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]">
+              <div 
+                className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]" 
+                style={{
+                  background: '#e4e8ef',
+                  backgroundClip: 'padding-box',
+                  borderImageSlice: 1,
+                  borderImageSource: 'linear-gradient(91.95deg, rgba(255, 255, 255, 0.4) -4.26%, rgba(255, 255, 255, 0) 107.52%)' ,
+                  boxShadow: '5px 5px 10px 0px #A6ABBD, -5px -5px 10px 0px #FAFBFF',
+                }}
+              >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
@@ -86,9 +103,7 @@ const LocalQuickReview = ({setIsLocalQuickModalVisible}) => {
 
           <div className="text-[#3C3E41] text-[16px] leading-[20px] font-normal max-w-[324px] mx-auto mt-[40px]">
             Mesto izbereš v svojem uporabniškem računu.
-            <br />
             Moraš biti prijavljen, da zazna tvojo nastavitev.
-            <br />
             Brez vsakodnevnega iskanja po imenikih.
           </div>
 
@@ -126,8 +141,16 @@ const LocalQuickReviewModal = ({setIsLocalQuickModalVisible}) => {
             </div>
 
             <div className="space-y-[19px] px-[16px] py-[29px]">
-              <div className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
+              <div 
+                className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]" 
+                style={{
+                  background: '#e4e8ef',
+                  backgroundClip: 'padding-box',
+                  borderImageSlice: 1,
+                  borderImageSource: 'linear-gradient(91.95deg, rgba(255, 255, 255, 0.4) -4.26%, rgba(255, 255, 255, 0) 107.52%)' ,
+                  boxShadow: '5px 5px 10px 0px #A6ABBD, -5px -5px 10px 0px #FAFBFF',
+                }}
+              >
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">7</h4>
@@ -146,8 +169,16 @@ const LocalQuickReviewModal = ({setIsLocalQuickModalVisible}) => {
                   />
                 </div>
               </div>
-              <div className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
+              <div 
+                className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]" 
+                style={{
+                  background: '#e4e8ef',
+                  backgroundClip: 'padding-box',
+                  borderImageSlice: 1,
+                  borderImageSource: 'linear-gradient(91.95deg, rgba(255, 255, 255, 0.4) -4.26%, rgba(255, 255, 255, 0) 107.52%)' ,
+                  boxShadow: '5px 5px 10px 0px #A6ABBD, -5px -5px 10px 0px #FAFBFF',
+                }}
+              >
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">5</h4>

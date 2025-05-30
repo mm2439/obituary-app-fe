@@ -117,23 +117,9 @@ const Registration = () => {
       toast.success(response.message || "Login successful!");
 
       if (isDesktop) {
-        if (response?.user?.role === "User") {
-          router.push("/moj-racun");
-        } else if (
-          response?.user?.role === "Florist" ||
-          response?.user?.role === "Funeral"
-        ) {
-          router.push("/c/menu");
-        }
-      } else if (!isDesktop) {
-        if (response?.user?.role === "User") {
-          router.push("/user-accounts-dashboard");
-        } else if (
-          response?.user?.role === "Florist" ||
-          response?.user?.role === "Funeral"
-        ) {
-          router.push("/c/menu");
-        }
+        router.push("/moj-racun");
+      } else {
+        router.push("/user-accounts-dashboard");
       }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");

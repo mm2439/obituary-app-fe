@@ -7,8 +7,6 @@ import Link from "next/link";
 import DropdownWithCustomDesign from "./DropdownWithSearch";
 import obituaryService from "@/services/obituary-service";
 import Select from "react-select";
-import cardService from "@/services/card-service";
-import toast from "react-hot-toast";
 
 const OrbetoryFormComp = ({ showForms, focusInput }) => {
   const [selectedBtn, setSelectedBtn] = useState(0);
@@ -17,9 +15,6 @@ const OrbetoryFormComp = ({ showForms, focusInput }) => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedObituary, setSelectedObituary] = useState(null);
   const [inputValue, setInputValue] = useState("");
-  const [cardSelected, setCardSelected] = useState(null);
-  const [email, setEmail] = useState("");
-
   const [debouncedValue, setDebouncedValue] = useState("");
 
   const getObituaries = async (query) => {
@@ -36,11 +31,9 @@ const OrbetoryFormComp = ({ showForms, focusInput }) => {
     value: item.id,
     label: `${item.name} ${item.sirName}`,
   }));
-  const handleChange = (selectedOption) => {
-    setSelectedObituary(selectedOption);
-    console.log("Selected Obituary:", selectedOption);
+  const handleChange = (selected) => {
+    console.log(selected);
   };
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedValue(inputValue);
@@ -55,72 +48,6 @@ const OrbetoryFormComp = ({ showForms, focusInput }) => {
   }, [debouncedValue]);
   const handleInputChange = (input) => {
     setInputValue(input);
-  };
-  const cards = [
-    {
-      value: 1,
-      label: `Card 1`,
-    },
-    {
-      value: 2,
-      label: `Card 2`,
-    },
-    ,
-    {
-      value: 3,
-      label: `Card 3`,
-    },
-    ,
-    {
-      value: 4,
-      label: `Card 4`,
-    },
-    ,
-    {
-      value: 5,
-      label: `Card 5`,
-    },
-  ];
-  const handleCardChange = (selectedOption) => {
-    setCardSelected(selectedOption);
-    console.log("Selected card:", selectedOption);
-  };
-
-  const submitMobileCard = async () => {
-    try {
-      if (!validateData()) return;
-
-      const response = await cardService.assignCard({
-        obituaryId: selectedObituary.value,
-        cardId: cardSelected.value,
-        email,
-      });
-      toast.success("Card is sent to user");
-    } catch (error) {
-      if (error?.response?.status === 404) {
-        toast.error("No Such User Found");
-      } else if (error?.response?.status === 409) {
-        toast.error("User already has this card");
-      } else {
-        toast.error("Some Error Occured");
-      }
-    }
-  };
-
-  const validateData = () => {
-    if (!selectedObituary) {
-      toast.error("Please select an obituary.");
-      return false;
-    }
-    if (!cardSelected) {
-      toast.error("Please select a card.");
-      return false;
-    }
-    if (!email || !email.trim()) {
-      toast.error("Please enter an email.");
-      return false;
-    }
-    return true;
   };
 
   return (
@@ -395,118 +322,54 @@ const OrbetoryFormComp = ({ showForms, focusInput }) => {
         {selectedBtn === 2 ? (
           <div className="mt-[50px]">
             <div>
-              <div className="w-full mx-auto">
-                <Select
-                  options={data} // Use flattened options without grouping
-                  onChange={handleChange}
-                  onInputChange={handleInputChange}
-                  value={
-                    selectedObituary
-                      ? obituaries.find(
-                          (option) => option.id === selectedObituary
-                        )
-                      : null
-                  }
-                  inputValue={inputValue}
-                  placeholder={"Select Obituary"}
-                  isSearchable
-                  filterOption={(option, inputValue) =>
-                    option.label
-                      .toLowerCase()
-                      .startsWith(inputValue.toLowerCase())
-                  }
-                  styles={{
-                    control: (base) => ({
-                      ...base,
-                      backgroundColor: `none`,
-                      border: "1px solid #d4d4d4", // Light gray border
-                      boxShadow: "none", // Remove default shadow
-                      borderRadius: "4px",
-                      "&:hover": { borderColor: "#105ccf" }, // Change border on hover
-                      minHeight: "36px", // Match the dropdown height in the image
-                    }),
-                    dropdownIndicator: (base) => ({
-                      ...base,
-                      color: "#7d7d7d", // Arrow color
-                      "&:hover": { color: "#808080" }, // Arrow hover color
-                    }),
-                    indicatorSeparator: () => ({
-                      display: "none", // Remove the separator line
-                    }),
-                    menu: (base) => ({
-                      ...base,
-                      borderRadius: "4px", // Rounded menu
-                      marginTop: "2px", // Minimal gap
-                      zIndex: 10,
-                    }),
-                    option: (base, { isFocused }) => ({
-                      ...base,
-                      backgroundColor: isFocused ? "#e8f5f4" : "#fff", // Highlight on hover
-                      color: "#333", // Text color
-                      cursor: "pointer",
-                    }),
-                    singleValue: (base) => ({
-                      ...base,
-                      color: "#105CCF",
-                      fontSize: "18px",
-                    }),
-                  }}
-                />
-              </div>
+              <input
+                placeholder="Vpiši ime pokojnika / ce"
+                className="w-full h-[48px] bg-transparent focus:outline-none placeholder:font-sourcesans placeholder:text-[16px] placeholder:font-normal placeholder:leading-[24px] placeholder:text-[#848484] text-[#123597] font-medium text-[18px] leading-[24px] m-[0]
+                mobile:placeholder:text-[14px] mobile:text-[14px]"
+              />
+              <div className="w-full h-[1px] bg-[rgba(212,_212,_212,_1)]"></div>
             </div>
 
-            <div className="w-full mx-auto my-5">
-              <Select
-                options={cards}
-                onChange={handleCardChange}
-                value={cardSelected}
-                placeholder="Izberi predlogo"
-                styles={{
-                  control: (base) => ({
-                    ...base,
-                    backgroundColor: `none`,
-                    border: "1px solid #d4d4d4", // Light gray border
-                    boxShadow: "none", // Remove default shadow
-                    borderRadius: "4px",
-                    "&:hover": { borderColor: "#105ccf" }, // Change border on hover
-                    minHeight: "36px", // Match the dropdown height in the image
-                  }),
-                  dropdownIndicator: (base) => ({
-                    ...base,
-                    color: "#7d7d7d", // Arrow color
-                    "&:hover": { color: "#808080" }, // Arrow hover color
-                  }),
-                  indicatorSeparator: () => ({
-                    display: "none", // Remove the separator line
-                  }),
-                  menu: (base) => ({
-                    ...base,
-                    borderRadius: "4px", // Rounded menu
-                    marginTop: "2px", // Minimal gap
-                    zIndex: 10,
-                  }),
-                  option: (base, { isFocused }) => ({
-                    ...base,
-                    backgroundColor: isFocused ? "#e8f5f4" : "#fff", // Highlight on hover
-                    color: "#333", // Text color
-                    cursor: "pointer",
-                  }),
-                  singleValue: (base) => ({
-                    ...base,
-                    color: "#105CCF",
-                    fontSize: "18px",
-                  }),
-                }}
-              />
+            <div
+              onClick={() => {
+                setShowSelect(!showSelect);
+              }}
+              className="relative cursor-pointer w-full h-[36px] border-b-[1px]  border-b-[rgba(212,212,212,1)] mt-[30px]"
+            >
+              <div className="h-[30px]">
+                <p
+                  className="font-sourcesans text-[16px] font-normal leading-[24px] text-[#848484] m-[0]
+                 mobile:text-[14px]"
+                >
+                  Izberi predlogo
+                </p>
+              </div>
+
+              <div className="absolute -top-[4px] right-[15px]">
+                <Image
+                  src={"/icon_dropDown.png"}
+                  height={28}
+                  width={28}
+                  className="h-[28px] w-[28px]"
+                />
+              </div>
+
+              {showSelect ? (
+                <div className="h-auto w-full bg-[#ffffff] rounded-[12px] p-[5px] absolute top-[25px] z-10">
+                  <li className="font-sourcesans text-[16px] font-normal leading-[24px] text-[#848484] m-[0]">
+                    Option1
+                  </li>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="mt-[15px]">
               <input
                 placeholder="Vpiši e-pošto uporabnika"
-                className="w-full h-[48px] bg-transparent focus:outline-none placeholder:font-sourcesans placeholder:text-[16px] placeholder:font-normal placeholder:leading-[24px] placeholder:text-[#848484] text-[#105CCF] font-medium text-[18px] leading-[24px] m-[0]
-                mobile:placeholder:text-[14px] mobile:text-[14px] px-3"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                className="w-full h-[48px] bg-transparent focus:outline-none placeholder:font-sourcesans placeholder:text-[16px] placeholder:font-normal placeholder:leading-[24px] placeholder:text-[#848484] text-[#123597] font-medium text-[18px] leading-[24px] m-[0]
+                mobile:placeholder:text-[14px] mobile:text-[14px]"
               />
               <div className="w-full h-[1px] bg-[rgba(212,_212,_212,_1)]"></div>
             </div>
@@ -530,7 +393,6 @@ const OrbetoryFormComp = ({ showForms, focusInput }) => {
                tablet:font-normal
                mobile:font-normal
                "
-              onClick={submitMobileCard}
             >
               POŠLJI
             </button>

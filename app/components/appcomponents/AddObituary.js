@@ -86,92 +86,86 @@ const AddObituary = ({ set_Id, setModal }) => {
       router.push("/registrationpage");
     } else {
       const parsedUser = JSON.parse(storedUser);
-      console.log(parsedUser, "ParsedUser");
+      console.log(parsedUser, "ParsedUser")
     }
   }, [router]);
 
-  const fetchUserObituary = async (userId) => {
-    try {
-      setLoading(true);
-      const response = await obituaryService.getObituaryByUser(userId);
+const fetchUserObituary = async (userId) => {
+  try {
+    setLoading(true);
+    const response = await obituaryService.getObituaryByUser(userId);
+    
+    if (response) {
+      setDataExists(true);
+      setInputValueName(response.name || "");
+      setInputValueSirName(response.sirName || "");
+      setInputValueEnd(response.location || "");
+      setSelectedRegion(response.region || "");
+      setSelectedCity(response.city || "");
+      setInputValueGender(response.gender || "");
+      setUploadedImage(response.image);
+      setUploadedDeathReport(response.deathReport); 
+      setDeathReportFilePath(response.deathReport)
 
-      if (response) {
-        setDataExists(true);
-        setInputValueName(response.name || "");
-        setInputValueSirName(response.sirName || "");
-        setInputValueEnd(response.location || "");
-        setSelectedRegion(response.region || "");
-        setSelectedCity(response.city || "");
-        setInputValueGender(response.gender || "");
-        setUploadedImage(response.image);
-        setUploadedDeathReport(response.deathReport);
-        setDeathReportFilePath(response.deathReport);
-
-        console.log("Image Response", `/${response.image}`);
-
-        // Dates
-        setBirthDate(response.birthDate ? new Date(response.birthDate) : null);
-        setDeathDate(response.deathDate ? new Date(response.deathDate) : null);
-
-        // Funeral information
-        setInputValueFuneralEnd(response.funeralLocation || "");
-        setInputValueFuneralCemetery(response.funeralCemetery || "");
-        setFuneralDate(
-          response.funeralTimestamp ? new Date(response.funeralTimestamp) : null
-        );
-
-        // Funeral time
-        if (response.funeralTimestamp) {
-          const funeralDate = new Date(response.funeralTimestamp);
-          setSelecteFuneralHour(funeralDate.getHours());
-          setSelectedFuneralMinute(funeralDate.getMinutes());
-        }
-
-        // Events
-        if (response.events && response.events.length > 0) {
-          setEvents(
-            response.events.map((event) => ({
-              eventName: event.eventName || "",
-              eventLocation: event.eventLocation || "",
-              eventDate: event.eventDate ? new Date(event.eventDate) : null,
-              eventHour: event.eventHour || null,
-              eventMinute: event.eventMinute || null,
-            }))
-          );
-        } else {
-          setEvents([
-            {
-              eventName: "",
-              eventLocation: "",
-              eventDate: null,
-              eventHour: null,
-              eventMinute: null,
-            },
-          ]);
-        }
-
-        // Death report
-        setIsDeathReportConfirmed(response.deathReportExists || false);
-
-        // Images
-        if (response.image) {
-          setUploadedImage(response.image);
-          // If you need to maintain the File object for updates, you might need additional logic
-        }
-
-        // Death report file (if stored as URL)
-        if (response.deathReport) {
-          // You might need to fetch the actual file or just show that it exists
-          setUploadedDeathReport(response.deathReport); // Mock file object
-        }
+      console.log("Image Response", `/${response.image}`)
+      
+      // Dates
+      setBirthDate(response.birthDate ? new Date(response.birthDate) : null);
+      setDeathDate(response.deathDate ? new Date(response.deathDate) : null);
+      
+      // Funeral information
+      setInputValueFuneralEnd(response.funeralLocation || "");
+      setInputValueFuneralCemetery(response.funeralCemetery || "");
+      setFuneralDate(response.funeralTimestamp ? new Date(response.funeralTimestamp) : null);
+      
+      // Funeral time
+      if (response.funeralTimestamp) {
+        const funeralDate = new Date(response.funeralTimestamp);
+        setSelecteFuneralHour(funeralDate.getHours());
+        setSelectedFuneralMinute(funeralDate.getMinutes());
       }
-    } catch (error) {
-      console.error("Error fetching obituary:", error);
-      toast.error("Failed to load your obituary data");
-    } finally {
-      setLoading(false);
+      
+      // Events
+      if (response.events && response.events.length > 0) {
+        setEvents(response.events.map(event => ({
+          eventName: event.eventName || "",
+          eventLocation: event.eventLocation || "",
+          eventDate: event.eventDate ? new Date(event.eventDate) : null,
+          eventHour: event.eventHour || null,
+          eventMinute: event.eventMinute || null
+        })));
+      } else {
+        setEvents([{
+          eventName: "",
+          eventLocation: "",
+          eventDate: null,
+          eventHour: null,
+          eventMinute: null
+        }]);
+      }
+      
+      // Death report
+      setIsDeathReportConfirmed(response.deathReportExists || false);
+      
+      // Images
+      if (response.image) {
+        setUploadedImage(response.image);
+        // If you need to maintain the File object for updates, you might need additional logic
+      }
+      
+      // Death report file (if stored as URL)
+      if (response.deathReport) {
+        // You might need to fetch the actual file or just show that it exists
+        setUploadedDeathReport(response.deathReport); // Mock file object
+      }
     }
-  };
+  } catch (error) {
+    console.error("Error fetching obituary:", error);
+    toast.error("Failed to load your obituary data");
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -353,16 +347,17 @@ const AddObituary = ({ set_Id, setModal }) => {
       if (uploadedDeathReport) {
         formData.append("deathReport", uploadedDeathReport);
       }
-      let response;
-      if (dataExists) {
-        // Update existing obituary
-        response = await obituaryService.updateObituary(user.id, formData);
-        toast.success("Obituary updated successfully!");
-      } else {
-        // Create new obituary
-        response = await obituaryService.createObituary(formData);
-        toast.success("Obituary created successfully!");
-      }
+    
+    if (dataExists) {
+      // Update existing obituary
+      response = await obituaryService.updateObituary(user.id, formData);
+      toast.success("Obituary updated successfully!");
+    } else {
+      // Create new obituary
+      response = await obituaryService.createObituary(formData);
+      toast.success("Obituary created successfully!");
+    }
+
 
       if (response.error) {
         toast.error(
@@ -1721,30 +1716,30 @@ const AddObituary = ({ set_Id, setModal }) => {
               </div>
 
               {/* {!uploadedDeathReport && ( */}
-              <div className="flex py-3 px-6 mobile:py-3 mt-8 mobile:px-4 w-[250px] mobile:w-full rounded-lg border-[2px] border-[#6D778E42] bg-gradient-to-br to-[#FFFFFF] from-[#FFFFFF30] mobile:items-center mobile:justify-center">
-                <label
-                  htmlFor="death-report-upload"
-                  className="flex flex-row space-x-2 cursor-pointer"
-                >
-                  <Image
-                    src="/icon_plus_round.png"
-                    width={20}
-                    height={20}
-                    className="w-5 h-5"
-                    alt="add button icon"
-                  />
-                  <div className="flex text-[16px] text-[#1E2125] self-start mobile:self-start ">
-                    Prilepi Poročilo o smrti
-                  </div>
-                  <input
-                    id="death-report-upload"
-                    type="file"
-                    accept=".pdf,.doc,.docx,.jpg,.png"
-                    className="hidden"
-                    onChange={handleDeathReportUpload}
-                  />
-                </label>
-              </div>
+                <div className="flex py-3 px-6 mobile:py-3 mt-8 mobile:px-4 w-[250px] mobile:w-full rounded-lg border-[2px] border-[#6D778E42] bg-gradient-to-br to-[#FFFFFF] from-[#FFFFFF30] mobile:items-center mobile:justify-center">
+                  <label
+                    htmlFor="death-report-upload"
+                    className="flex flex-row space-x-2 cursor-pointer"
+                  >
+                    <Image
+                      src="/icon_plus_round.png"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5"
+                      alt="add button icon"
+                    />
+                    <div className="flex text-[16px] text-[#1E2125] self-start mobile:self-start ">
+                      Prilepi Poročilo o smrti
+                    </div>
+                    <input
+                      id="death-report-upload"
+                      type="file"
+                      accept=".pdf,.doc,.docx,.jpg,.png"
+                      className="hidden"
+                      onChange={handleDeathReportUpload}
+                    />
+                  </label>
+                </div>
               {/* )} */}
 
               {uploadedDeathReport && (

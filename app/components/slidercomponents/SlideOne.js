@@ -6,18 +6,21 @@ const SlideOne = () => {
    if (breakpoint === "desktop") {
     return (
     <>
-      <div className="bg-[#f1f6fd] text-[#22281C] w-full h-[891px]">
+      <div className="bg-[#EEF7FF] text-[#22281C] max-w-[1280px] min-h-[891px]">
         <div className="flex justify-center my-[80px]">
             <div className="mt-[18px] image-container w-1/2 flex justify-end">
-                <img className="h-[761.1px]" src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
+                <img src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
             </div>
             <div className="text-container w-1/2 pl-[35px] pt-[179px]">
                 <h2 className="text-[40px] font-normal">Žalna stran</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, <br/>
+                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, 
                     izrečemo sožalje in prižgemo virtualno svečko.  </p>
                 <p className="text-[20px] font-medium mt-[16px]">Vse navedeno je BREZPLAČNO.</p>
                 
-                <button class="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] px-[25px] py-[12px] rounded-[8px] mt-[81px] max-w-[169px]">
+                <button class="px-[25px] py-[12px] mt-[81px] max-w-[169px]" style={{
+                  background: "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
+                  boxShadow: "-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280",
+                }}>
                 Več o žalni strani
               </button>
             </div>
@@ -27,78 +30,60 @@ const SlideOne = () => {
   );
 };
 
-// Laptop Breakpoint
-   if (breakpoint === "laptop") {
-    return (
-    <>
-      <div className="bg-[#f1f6fd] text-[#22281C] w-[1280px] h-[891px]">
-        <div className="flex justify-center my-[80px]">
-            <div className="mt-[18px] image-container w-1/2 flex justify-end">
-                <img className="h-[761.1px]" src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
-            </div>
-            <div className="text-container w-1/2 pl-[35px] pt-[179px]">
-                <h2 className="text-[40px] font-normal">Žalna stran</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, <br />
-                    izrečemo sožalje in prižgemo virtualno svečko.  </p>
-                <p className="text-[20px] font-medium mt-[16px]">Vse navedeno je BREZPLAČNO.</p>
-                
-                <button class="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] px-[25px] py-[12px] rounded-[8px] mt-[81px] max-w-[169px]">
-                Več o žalni strani
-              </button>
-            </div>
-        </div>
-      </div>
-    </>
-  );
-};
 
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-       <div className="bg-[#f1f6fd] text-[#22281C] h-auto">
-        <div className="p-[64px] text-center">
+       <div className="bg-[#EEF7FF] text-[#22281C] h-auto">
+        <div className="p-[70px] text-center ">
            
-            <div className="text-center text-container mx-auto pl-[35px] w-[464px]">
-                <h2 className="text-[40px]">Žalna stran</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, <br/>
+            <div className="text-center text-container w-auto pl-[35px] pt-[180px]">
+                <h2 className="text-[40px] mt-[16px]">Žalna stran</h2>
+                <p className="text-[#414141] text-[16px] mt-[16px]">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, 
                     izrečemo sožalje in prižgemo virtualno svečko.  </p>
-                <p className="text-[20px] font-medium mt-[39px]">Vse navedeno je BREZPLAČNO.</p>
+                <p className="text-[20px] font-medium mt-[16px]">Vse navedeno je BREZPLAČNO.</p>
           
             </div>
-             <div className="image-container flex justify-center mt-[35px]">
-                <img className="h-[761.1px]" src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
+             <div className="image-container flex justify-center">
+                <img className="" src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
             </div>
-            <button class="px-[25px] rounded-[8px] py-[12px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
+            <button class="px-[25px] py-[12px]" style={{
+                  background: "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
+                  boxShadow: "-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280",
+                }}
+              >
                 Več o žalni strani
-            </button>
+              </button>
         </div>
       </div>
     );
   }
 
   // === Mobile Layout ===
-  if (breakpoint === "mobile") {
   return (
-      <div className="bg-[#f1f6fd] text-[#22281C] h-auto">
-        <div className="py-[69px] text-center">
+     <div className="bg-[#EEF7FF] text-[#22281C] h-auto">
+        <div className="py-[70px] text-center ">
            
-            <div className="text-center text-container mx-auto w-[303px]">
-                <h2 className="text-[28px]">Žalna stran</h2>
-                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, <br/>
+            <div className="text-center text-container w-auto pl-[35px] pt-[180px]">
+                <h2 className="text-[40px] mt-[16px]">Žalna stran</h2>
+                <p className="text-[#414141] text-[16px] mt-[16px]">Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, 
                     izrečemo sožalje in prižgemo virtualno svečko.  </p>
-                <p className="text-[20px] font-medium mt-[39px]">Vse navedeno je BREZPLAČNO.</p>
+                <p className="text-[20px] font-medium mt-[16px]">Vse navedeno je BREZPLAČNO.</p>
           
             </div>
              <div className="image-container flex justify-center">
-                <img src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
+                <img className="" src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
             </div>
-            <button class="px-[25px] rounded-[8px] py-[12px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
+            <button class="px-[25px] py-[12px]" style={{
+                  background: "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
+                  boxShadow: "-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280",
+                }}
+              >
                 Več o žalni strani
-            </button>
+              </button>
         </div>
       </div>
   );
-}
 };
 
 

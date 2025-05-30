@@ -4,132 +4,18 @@ import Image from "next/image";
 import OpenableBlock from "../components/OpenAbleBlock";
 import { BackgroundSelectorStep2 } from "../components/BackgroundSelector";
 import ImageSelector from "../components/ImageSelector";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import faqService from "@/services/faq-service";
-import { toast } from "react-hot-toast";
-import Link from "next/link";
+import { useState } from "react";
 
-export default function Step5({ data, handleStepChange }) {
-  const [faqs, setFaqs] = useState([
-    {
-      index: 1,
-      question: "",
-      answer: "",
-    },
-    {
-      index: 2,
-      question: "",
-      answer: "",
-    },
-    {
-      index: 3,
-      question: "",
-      answer: "",
-    },
-    {
-      index: 4,
-      question: "",
-      answer: "",
-    },
-  ]);
-  const [companyId, setCompanyId] = useState(null);
-  const [user, setUser] = useState(null);
-  const router = useRouter();
-  useEffect(() => {
-    const currUser = localStorage.getItem("user");
-    if (!currUser) {
-      return;
-    }
-    setUser(JSON.parse(currUser));
-  }, [router]);
-  useEffect(() => {
-    if (data && data !== null) {
-      setCompanyId(data.id);
-      if (data.faqs && data.faqs.length > 0) {
-        const updatedFaqs = data.faqs.map((faq, index) => ({
-          ...faq,
-          index: index + 1,
-          updated: false,
-        }));
-
-        const paddedFaqs = [...updatedFaqs];
-
-        while (paddedFaqs.length < 4) {
-          paddedFaqs.push({
-            index: paddedFaqs.length + 1,
-            answer: "",
-          });
-        }
-
-        setFaqs(paddedFaqs);
-      }
-    }
-  }, [data]);
-
-  useEffect(() => {
-    console.log(faqs);
-  }, [data]);
-
-  const handleFaqChange = (index, updatedFaq) => {
-    const updatedFaqs = [...faqs];
-    updatedFaqs[index] = {
-      ...updatedFaq,
-      updated: true,
-    };
-    setFaqs(updatedFaqs);
-  };
-  const validateFields = () => {
-    const hasEmpty = faqs.some(
-      (faq) => faq.question.trim() === "" || faq.answer.trim() === ""
-    );
-
-    if (hasEmpty) {
-      toast.error("Please fill in all FAQ questions and answers.");
-      return false;
-    }
-
-    return true;
-  };
-  const handleSubmit = async () => {
-    try {
-      // if (!validateFields()) return;
-
-      const faqsToSend = faqs
-        .filter((faq) => faq.question.trim() !== "" && faq.answer.trim() !== "")
-        .filter((faq) => !faq.id || (faq.id && faq.updated));
-
-      const payload = {
-        companyId,
-        faqs: faqsToSend,
-      };
-      const response = await faqService.createFaq(payload);
-
-      toast.success("Faq's Updated Successfully");
-      return true;
-    } catch (error) {
-      console.log("Error while submitting form:", error);
-      return false;
-    }
-  };
-
+export default function Step5({ handleStepChange }) {
   const [sliderBlocks, setSliderBlocks] = useState([
     {
-      index: 1,
-      question: "",
-      answer: "",
+      id: 1,
+      isDefaultOpen: true,
     },
   ]);
 
   const addSliderBlock = () => {
-    setFaqs([
-      ...faqs,
-      {
-        index: faqs.length + 1,
-        question: "",
-        answer: "",
-      },
-    ]);
+    setSliderBlocks([...sliderBlocks, { id: sliderBlocks.length + 1 }]);
   };
 
   return (
@@ -153,31 +39,25 @@ export default function Step5({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            {companyId && (
-              <Link href={`/funeralcompany/${companyId}`} target="blank">
-                <div className="inline-flex gap-[8px] cursor-pointer">
-                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                    Predogled strani
-                  </span>
-                  <Image
-                    src="/external_open.png"
-                    alt="Predogled strani"
-                    width={20}
-                    height={20}
-                    className="shrink-0 w-[20px] h-[20px]"
-                  />
-                </div>
-              </Link>
-            )}
+            <div className="inline-flex gap-[8px]">
+              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                Predogled strani
+              </span>
+              <Image
+                src="/external_open.png"
+                alt="Predogled strani"
+                width={20}
+                height={20}
+                className="shrink-0 w-[20px] h-[20px]"
+              />
+            </div>
           </div>
           <div className="space-y-[8px]">
-            {faqs.map((block) => (
+            {sliderBlocks.map((block) => (
               <SliderBlock
-                key={block.index}
-                index={block.index}
-                title={`Vprašanje ${block.index}`}
-                faq={block}
-                onChange={handleFaqChange}
+                key={block.id}
+                index={block.id}
+                title={`Vprašanje ${block.id}`}
               />
             ))}
             <div className="flex items-center justify-end pt-[8px] pb-[16px]">
@@ -199,11 +79,7 @@ export default function Step5({ data, handleStepChange }) {
         </div>
         <div className="space-y-[8px]">
           <div className="flex items-center gap-[8px] justify-between w-full">
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]"
-            >
+            <button className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]">
               Shrani
             </button>
             <div className="flex items-center gap-[8px]">
@@ -215,12 +91,7 @@ export default function Step5({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={async () => {
-                  const success = await handleSubmit();
-                  if (success) {
-                    handleStepChange(6);
-                  }
-                }}
+                onClick={() => handleStepChange(6)}
               >
                 Naslednji korak
               </button>
@@ -239,11 +110,8 @@ export default function Step5({ data, handleStepChange }) {
   );
 }
 
-function SliderBlock({ index, title, faq, onChange }) {
+function SliderBlock({ index, title }) {
   const [isDefaultOpen, setIsDefaultOpen] = useState(index === 1);
-  const handleChange = (e) => {
-    onChange(index - 1, { ...faq, [e.target.name]: e.target.value });
-  };
   return (
     <OpenableBlock isDefaultOpen={isDefaultOpen} title={title} index={index}>
       <div className="space-y-[16px]">
@@ -253,11 +121,8 @@ function SliderBlock({ index, title, faq, onChange }) {
           </label>
           <input
             type="text"
-            name="question"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
             placeholder="Kaj storiti, ko se zgodi"
-            value={faq.question}
-            onChange={handleChange}
           />
         </div>
         <div className="space-y-[8px]">
@@ -266,11 +131,8 @@ function SliderBlock({ index, title, faq, onChange }) {
           </label>
           <textarea
             type="text"
-            name="answer"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] placeholder:leading-[100%] leading-[24px] min-h-[160px]"
             placeholder="SMRT NA DOMU Svojci umrlega morajo o smrti na domu na območju občine Trbovlje  obvestiti organ, ki na tem področju opravlja mrliško pregledno službo (dežurni zdravnik preglednik: 03 56 52 605). Mrliški preglednik opravi mrliški pregled in izda potrebno dokumentacijo  – potrdilo o opravljenem mrliškem pregledu. Po mrliškem pregledu svojci pokojnega pokličejo pogrebno službo Komunale Trbovlje na 041 599 742,  da se "
-            value={faq.answer}
-            onChange={handleChange}
           />
         </div>
       </div>

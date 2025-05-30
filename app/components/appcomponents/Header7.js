@@ -4,7 +4,7 @@ import iconMenu from "@/public/icon_menu_black.png";
 import back_icon from "@/public/back_icon.png";
 import telephone_icon from "@/public/telephone_icon.png";
 
-function ObituaryHeader({ from, data }) {
+function ObituaryHeader({from}) {
   return (
     <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 ">
       <div className=" flex w-full justify-center">
@@ -39,43 +39,32 @@ function ObituaryHeader({ from, data }) {
                   </div>
                 </div>
               </div>
-
               <div className="mobile:hidden flex items-center h-[53px] ml-[20px] desktop:ml-[49px] desktop:pr-[10px] ">
                 <h
                   className="text-[#414141] 
                 tablet:text-[28px] tablet:font-variation-customOpt28 tablet:font-normal
                 desktop:text-[32px] desktop:font-variation-customOpt32wght500"
                 >
-                  {from === 7
-                    ? `${data?.address || "Cvetličarna Suniflower"} , ${
-                        data?.city || "Milano"
-                      }`
-                    : `${data?.name || "Pogrebni zavod"}, ${
-                        data?.city || "Milano"
-                      }`}
+                   
+                  { from === 7 ? "Cvetličarna Suniflower, Milano" : "Pogrebni zavod Trbovlje" }
                 </h>
               </div>
               <div className="flex h-[50px] flex-col tablet:hidden desktop:hidden ml-[22px] pl-[2px]">
                 <h className="text-[#414141] text-[20px] font-variation-customOpt20 font-normal">
-                  {from === 7
-                    ? `${data?.address || "Cvetličarna Suniflower"} , ${
-                        data?.city || "Milano"
-                      }`
-                    : `${data?.name || "Pogrebni zavod"}, ${
-                        data?.city || "Milano"
-                      }`}
+                  
+                  {from === 7 ? "Cvetličarna Suniflower" : "Pogrebni zavod Trbovlje"}
                 </h>
                 <h className="text-[#939393] text-[16px] font-variation-customOpt20 font-normal">
                   {from === 7 ? "Milano" : "Rome"}
                 </h>
               </div>
               <div
-                className="mobile:hidden  flex   ml-4 tablet:ml-6 h-[52px] w-[52px] tablet:justify-center desktop:h-[48px] desktop:w-[200px] items-center
+                className="mobile:hidden  flex  ml-4 tablet:ml-6 h-[52px] w-[52px] tablet:justify-center desktop:h-[48px] desktop:w-[200px] items-center
                bg-[#72C6DD10] border-2 border-[#0A85C2] desktop:pl-[25.5px] rounded-lg shadow-custom-light-dark "
               >
                 <Image src={telephone_icon} className=" h-[27px] w-[27px] " />
                 <p className="hidden desktop:flex text-[#1E2125] font-normal text-[20px] ml-[12.5px] ">
-                  {data?.phone || "1231391093"}
+                  {from === 7 ? "055-083-916" : "041-599-742"}
                 </p>
               </div>
             </div>

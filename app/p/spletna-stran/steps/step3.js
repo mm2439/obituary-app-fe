@@ -7,18 +7,9 @@ import ImageSelector from "../components/ImageSelector";
 import { useState, useEffect } from "react";
 import cemetryService from "@/services/cemetry-service";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import Link from "next/link";
 
 export default function Step3({ data, handleStepChange }) {
-  const [cemetries, setCemetries] = useState([
-    {
-      index: 1,
-      name: "",
-      address: "",
-      image: null,
-    },
-  ]);
+  const [cemetries, setCemetries] = useState([]);
   const [companyId, setCompanyId] = useState(null);
   const [user, setUser] = useState(null);
   const router = useRouter();
@@ -32,14 +23,6 @@ export default function Step3({ data, handleStepChange }) {
   useEffect(() => {
     if (data && data !== null) {
       setCompanyId(data.id);
-
-      if (data.cemeteries && data.cemeteries.length > 0) {
-        const updatedCemetries = data.cemeteries.map((cemetry, index) => ({
-          ...cemetry,
-          index: index + 1,
-        }));
-        setCemetries(updatedCemetries);
-      }
     }
   }, [data]);
   const addSliderBlock = () => {
@@ -50,6 +33,7 @@ export default function Step3({ data, handleStepChange }) {
         name: "",
         address: "",
         image: null,
+        city: user.city,
       },
     ]);
   };
@@ -61,66 +45,24 @@ export default function Step3({ data, handleStepChange }) {
 
   const handleSubmit = async () => {
     try {
-      // const incompleteCemetries = cemetries.find(
-      //   (cemetery) =>
-      //     !cemetery.name.trim() || !cemetery.address.trim() || !cemetery.image
-      // );
-
-      // if (incompleteCemetries) {
-      //   toast.error("Each CEmetery must have an name,address and image");
-      //   return false;
-      // }
       const formData = new FormData();
       formData.append("companyId", companyId);
-      const nonEmptyCemeteries = cemetries.filter(
-        (cemetery) =>
-          cemetery.name.trim() !== "" &&
-          cemetery.address.trim() !== "" &&
-          cemetery.image !== null
-      );
 
-      nonEmptyCemeteries.forEach((cemetery, index) => {
-        const originalCemetery = data.cemeteries?.find(
-          (c) => c.id === cemetery.id
-        );
-
-        // Append default fields
+      cemetries.forEach((cemetery, index) => {
         formData.append(`cemeteries[${index}][name]`, cemetery.name);
         formData.append(`cemeteries[${index}][address]`, cemetery.address);
-        formData.append(`cemeteries[${index}][city]`, user.city);
-
-        // If image is selected, append it
+        formData.append(`cemeteries[${index}][city]`, cemetery.city);
         if (cemetery.image) {
           formData.append(`cemeteries[${index}][image]`, cemetery.image);
         }
-
-        // Check if this cemetery already exists
-        if (cemetery.id) {
-          const nameChanged =
-            originalCemetery && cemetery.name !== originalCemetery.name;
-          const addressChanged =
-            originalCemetery && cemetery.address !== originalCemetery.address;
-          const imageChanged = cemetery.image instanceof File;
-
-          if (nameChanged || addressChanged || imageChanged) {
-            formData.append(`cemeteries[${index}][updated]`, true);
-          }
-          formData.append(`cemeteries[${index}][id]`, cemetery.id); // Always include ID for updates
-        }
       });
-
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1]);
       }
-      if (nonEmptyCemeteries.length > 0) {
-        const response = await cemetryService.createCemetry(formData);
-        toast.success("Cemetries Updated Successfully");
-      }
-      return true;
+      const response = await cemetryService.createCemetry(formData);
+      console.log(response);
     } catch (error) {
       console.log(error);
-      toast.error("Some Error Occured");
-      return false;
     }
   };
 
@@ -145,22 +87,18 @@ export default function Step3({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            {companyId && (
-              <Link href={`/funeralcompany/${companyId}`} target="blank">
-                <div className="inline-flex gap-[8px] cursor-pointer">
-                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                    Predogled strani
-                  </span>
-                  <Image
-                    src="/external_open.png"
-                    alt="Predogled strani"
-                    width={20}
-                    height={20}
-                    className="shrink-0 w-[20px] h-[20px]"
-                  />
-                </div>
-              </Link>
-            )}
+            <div className="inline-flex gap-[8px]">
+              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                Predogled strani
+              </span>
+              <Image
+                src="/external_open.png"
+                alt="Predogled strani"
+                width={20}
+                height={20}
+                className="shrink-0 w-[20px] h-[20px]"
+              />
+            </div>
           </div>
           <div className="space-y-[8px]">
             <p className="text-[14px] text-[#6D778E] font-normal leading-[20px] pb-[18px]">
@@ -219,12 +157,7 @@ export default function Step3({ data, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={async () => {
-                  const success = await handleSubmit();
-                  if (success) {
-                    handleStepChange(4);
-                  }
-                }}
+                onClick={() => handleStepChange(4)}
               >
                 Naslednji korak
               </button>
@@ -267,12 +200,7 @@ function SliderBlock({ index, title, cemetery, onChange }) {
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             ...ali izberi eno izmed naših nevtralnih
           </label>
-          <BackgroundSelector
-            setFile={(file) => {
-              const updated = { ...cemetery, image: file.image };
-              onChange(index - 1, updated);
-            }}
-          />
+          <BackgroundSelector />
         </div>
         <div className="space-y-[8px] pt-[22px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

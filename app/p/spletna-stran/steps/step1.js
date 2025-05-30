@@ -6,7 +6,6 @@ import ImageSelector from "../components/ImageSelector";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
-import Link from "next/link";
 
 export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
@@ -19,30 +18,27 @@ export default function Step1({ data, onChange, handleStepChange }) {
   const [logo, setLogo] = useState(null);
   const [background, setBackground] = useState(null);
   const [companyId, setCompanyId] = useState(null);
-
   const [user, setUser] = useState(null);
-
   useEffect(() => {
     if (data && data !== null) {
-      if (data.name !== null) setCompanyName(data.name);
-      if (data.facebook !== null) setFacebook(data.facebook);
-      if (data.address !== null) setAddress(data.address);
-      if (data.email !== null) setEmail(data.email);
-      if (data.phone !== null) setPhone(data.phone);
-      if (data.website !== null) setWebsite(data.website);
-      if (data.logo !== null) setLogo(data.logo);
-      if (data.background !== null) setBackground(data.background);
-      if (data.id !== null) setCompanyId(data.id);
+      setCompanyName(data.name);
+      setFacebook(data.facebook);
+      setAddress(data.address);
+      setEmail(data.email);
+      setPhone(data.phone);
+      setWebsite(data.website);
+      setLogo(data.logo);
+      setBackground(data.background);
+      setCompanyId(data.id);
     }
   }, [data]);
-
-  useEffect(() => {
-    const currUser = localStorage.getItem("user");
-    if (!currUser) {
-      return;
-    }
-    setUser(JSON.parse(currUser));
-  }, []);
+  // useEffect(() => {
+  //   const currUser = localStorage.getItem("user");
+  //   if (!currUser) {
+  //     return;
+  //   }
+  //   setUser(JSON.parse(currUser));
+  // }, [router]);
   const validateFields = () => {
     if (!companyName || !logo || !background) {
       toast.error("All fields are mandatory.");
@@ -52,65 +48,36 @@ export default function Step1({ data, onChange, handleStepChange }) {
     return true;
   };
   const handleSubmit = async () => {
-    // if (!validateFields()) return;
+    if (!validateFields()) return;
 
     try {
       const formData = new FormData();
-
-      // Append only if value is not null or undefined
-      if (companyName != null) formData.append("name", companyName);
-      if (facebook != null) formData.append("facebook", facebook);
-      if (email != null) formData.append("email", email);
-      if (address != null) formData.append("address", address);
-      if (user?.city != null) formData.append("city", user.city);
-      if (phone != null) formData.append("phone", phone);
-      if (website != null) formData.append("website", website);
-
+      formData.append("name", companyName);
+      formData.append("facebook", facebook);
+      formData.append("email", email);
+      formData.append("address", address);
       if (logo instanceof File) {
         formData.append("logo", logo);
       }
-
       if (background instanceof File) {
         formData.append("picture", background);
       }
 
-      let response;
+      formData.append("phone", phone);
+      formData.append("website", website);
 
-      if (companyId !== null) {
-        const hasChanges =
-          (data && data.name !== companyName) ||
-          data.facebook !== facebook ||
-          data.email !== email ||
-          data.address !== address ||
-          data.phone !== phone ||
-          data.website !== website ||
-          logo instanceof File ||
-          background instanceof File;
+      const response = await companyService.createCompany(formData, "funeral");
 
-        if (hasChanges) {
-          response = await companyService.updateCompany(formData, companyId);
-          toast.success("Changes Applied Successfully");
-        } else {
-          // toast.error("No Changes Found");
-          return true;
-        }
-      } else {
-        response = await companyService.createCompany(formData, "funeral");
-        toast.success("Company Created Successfully");
-      }
-
-      onChange(response.company);
-      return true;
+      console.log(response);
+      onChange(response.funeralCompany);
     } catch (error) {
       console.error("Error Creating Funeral Company:", error);
       toast.error(
         error?.response?.data?.error ||
           "Failed to create company. Please try again."
       );
-      return false;
     }
   };
-
   return (
     <>
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
@@ -132,22 +99,18 @@ export default function Step1({ data, onChange, handleStepChange }) {
                 </div>
               </div>
             </div>
-            {companyId && (
-              <Link href={`/funeralcompany/${companyId}`} target="blank">
-                <div className="inline-flex gap-[8px] cursor-pointer">
-                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                    Predogled strani
-                  </span>
-                  <Image
-                    src="/external_open.png"
-                    alt="Predogled strani"
-                    width={20}
-                    height={20}
-                    className="shrink-0 w-[20px] h-[20px]"
-                  />
-                </div>
-              </Link>
-            )}
+            <div className="inline-flex gap-[8px]">
+              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                Predogled strani
+              </span>
+              <Image
+                src="/external_open.png"
+                alt="Predogled strani"
+                width={20}
+                height={20}
+                className="shrink-0 w-[20px] h-[20px]"
+              />
+            </div>
           </div>
           <div className="space-y-[8px]">
             <OpenableBlock
@@ -305,15 +268,11 @@ export default function Step1({ data, onChange, handleStepChange }) {
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={async () => {
+                onClick={() => {
                   if (openedBlock === 1) {
                     setOpenedBlock(2);
                   } else {
-                    const success = await handleSubmit();
-                    console.log(success, "=============");
-                    if (success) {
-                      handleStepChange(2);
-                    }
+                    handleStepChange(2);
                   }
                 }}
               >

@@ -14,26 +14,17 @@ import companyService from "@/services/company-service";
 export default function SpletnaStran() {
   const [step, setStep] = useState(1);
   const [company, setCompany] = useState(null);
-  const [user, setUser] = useState(null);
 
   const handleStepChange = (step) => {
     setStep(step);
   };
   useEffect(() => {
-    const currUser = localStorage.getItem("user");
-    if (currUser) {
-      setUser(JSON.parse(currUser));
-    }
+    getCompany();
   }, []);
-  useEffect(() => {
-    if (user) {
-      getCompany();
-    }
-  }, [user]);
 
   const getCompany = async () => {
     try {
-      const response = await companyService.getFuneralCompany({ id: user.id });
+      const response = await companyService.getCompany();
       console.log(response);
       if (response.company === null) {
         return;
@@ -76,7 +67,7 @@ export default function SpletnaStran() {
     {
       id: 5,
       title: "Izberi sliko",
-      component: <Step5 data={company} handleStepChange={handleStepChange} />,
+      component: <Step5 handleStepChange={handleStepChange} />,
     },
     {
       id: 6,

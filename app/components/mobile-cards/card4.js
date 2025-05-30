@@ -21,11 +21,11 @@ const Card4 = () => {
 
       <div className="text-container py-1 mt-[58px]">
         <div className="img-container flex justify-center">
-          <h2  className="font-greatVibes text-[64px] font-normal leading-[30px] tracking-[0px] text-center align-middle lowercase" style={{ color: '#36556C' }}>iSKRENO SOŽALJE</h2>
+          <img src="/mobile-cards/text-4-card.png" alt="Mario" />
         </div>
       </div>
 
-        <div className="mt-[103px]">
+        <div className="mt-[68px]">
          <img src="/mobile-cards/tool-bar.png" alt="" className="w-full" />
         </div>
 

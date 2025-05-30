@@ -134,7 +134,6 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                tablet:w-[525px]
                desktop:w-[1089px]  
                desktop:h-[auto]    
-       
                "
         >
           <div className="flex  flex-col desktop:flex-row w-[100%] relative">
@@ -143,31 +142,43 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                 <div className="flex  flex-col w-[100%]  items-center  desktop:sticky top-[115px]">
                   <div className="hidden desktop:flex h-[30px]" />
                   <div className=" ">
-                    <div className="text-[64px]   text-[#414141] font-greatVibes font-normal ">
+                    <div className="text-[64px] text-[#414141] font-greatVibes font-normal text" style={{
+                        textShadow: '0px 1px 1px #000000, 0px 4px 4px #00000040'
+                      }}>
                       V spomin
                     </div>
                   </div>
-                  <div
-                    className=" mt-[40px] 
-                            rounded-xl shadow-custom-light-dark-box-image p-1 bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
-                  >
-                    <Image
-                      src={
-                        data?.image
-                          ? `${API_BASE_URL}/${data.image}`
-                          : data.gender === "Male"
-                          ? "/img_profile.png"
-                          : "/woman.png"
-                      }
-                      alt="Slika"
-                      width={1000}
-                      height={1000}
-                      className="
-                                    h-[266.87px] w-[195px] 
-                                    tablet:h-[266.87px] tablet:w-[195px] 
-                                    desktop:h-[266.87px]  desktop:w-[195px] 
-                                    rounded-lg"
-                    />
+                  <div 
+                    className="mt-[40px] flex items-center justify-center overflow-hidden rounded-[8px]"
+                    style={{
+                      boxShadow: '-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF'
+                    }}>
+                    <div
+                      className="bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
+                      style={{
+                        border: '4px solid',
+                        borderImageSource: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
+                        borderImageSlice: 1,
+                      }}
+                    >
+                      <Image
+                        src={
+                          data.image
+                            ? `${API_BASE_URL}/${data.image}`
+                            : data.gender === "Male"
+                            ? "/img_profile.png"
+                            : "/woman.png"
+                        }
+                        alt="Slika"
+                        width={1000}
+                        height={1000}
+                        className="
+                                      h-[266.87px] w-[195px] 
+                                      tablet:h-[266.87px] tablet:w-[195px] 
+                                      desktop:h-[266.87px]  desktop:w-[195px] 
+                                      rounded-lg"
+                      />
+                    </div>
                   </div>
                   <div className="flex flex-col justify-center mt-[50px]">
                     <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[40px]">
@@ -199,7 +210,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                       </div>
                     </div>
                     <div className="flex flex-col w-[100%] mt-[40px] tablet:[31px] desktop:mt-[30px] h-auto ">
-                      <p className="text-[24px] text-[#414141] font-normal font-greatVibes text-center">
+                      <p className="text-[24px] text-[#414141] font-normal font-greatVibes text-center mb-[72px]">
                         {data?.verse
                           ? data?.verse
                           : "The song is ended but the melody lingers on."}
@@ -325,13 +336,16 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             </div>
             <div className="flex w-[100%]    desktop:mt-0 desktop:w-[50%]   ">
               <div className="flex flex-col w-[100%]   desktop:items-end ">
-                <div className="hidden desktop:flex h-[70px] w-full" />
+                <div className="hidden desktop:flex h-[35px] w-full" />
                 <div
                   className="flex-col 
                   pt-4 w-[100%] mobile:px-[21px] mobile:pb-[19px]
                   tablet:px-[22px] tablet:pb-[15px]
-                  desktop:w-[517px]   desktop:pl-[22px] desktop:pr-[17px]
-                  border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                  desktop:w-[517px] desktop:pl-[22px] desktop:pr-[17px] bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                  style={{
+                    background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
+                    boxShadow: '-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280'
+                  }}
                 >
                   <div className="flex items-center h-[39px] ">
                     <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
@@ -375,7 +389,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                     set_Id("14");
                     setModal(true);
                   }}
-                  className="flex cursor-pointer self-end mt-[13px] pr-[7px] tablet:pr-[9px] tablet:mt-6 desktop:mt-6 h-[14px] tablet:h-[16px] desktop:h-[16px] items-center desktop:pr-[20px]"
+                  className="flex cursor-pointer self-end mt-[13px] pr-[7px] tablet:pr-[9px] tablet:mt-6 desktop:mt-6 h-[14px] tablet:h-[16px] desktop:h-[16px] items-center desktop:pr-[20px] tablet:mb-[26px] mobile:mb-[26px] "
                 >
                   {/* {user && data.User && user.id === data.User.id && (
                     <> */}
@@ -386,7 +400,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                     height={12}
                     className=""
                   />
-                  <p className="text-[12px] text-[#414141] font-variation-customOpt12 font-normal ml-[10px] ">
+                  <p className="text-[12px] text-[#414141] font-variation-customOpt12 font-normal ml-[10px]">
                     Spremeni / dopolni podatke na strani
                   </p>
                   {/* </>
@@ -431,10 +445,13 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                     .sort((a, b) => a.timestamp - b.timestamp).length > 0 && (
                     <div
                       className="flex-col w-[100%] pt-4 
-         mobile:px-[21px]  mobile:pb-[25px] 
-          tablet:pb-[23px]  tablet:px-[22px]                          
-          desktop:w-[517px]  desktop:pb-[14px] desktop:pl-[22px] desktop:pr-[17px]
-              border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]  "
+                      mobile:px-[21px]  mobile:pb-[25px] 
+                      tablet:pb-[23px]  tablet:px-[22px]                          
+                      desktop:w-[517px]  desktop:pb-[14px] desktop:pl-[22px] desktop:pr-[17px] shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                      style={{
+                        background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
+                        boxShadow: '-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280'
+                      }}
                     >
                       <div className="flex  h-[38px] items-center">
                         <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
@@ -612,19 +629,22 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
 
                 <div
                   className={`
-                 
                   flex-col     
-                          pt-4       
-                          pl-[22px] pr-[18px]  
-                          tablet:mt-6 w-[100%]                       
-                            desktop:w-[517px]   desktop:pl-[22px] desktop:pr-[14px]
-                            border-2 border-white shadow-custom-light-dark-box 
-                            bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]
-                              ${
-                                parsedEvents.length === 90
-                                  ? "desktop:mt-2"
-                                  : "desktop:mt-[21px]"
-                              }  `}
+                  pt-4       
+                  pl-[22px] pr-[18px]  
+                  tablet:mt-6 w-[100%]                       
+                  desktop:w-[517px]   desktop:pl-[22px] desktop:pr-[14px]
+                  bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]
+                  ${
+                    parsedEvents.length === 90
+                      ? "desktop:mt-2"
+                      : "desktop:mt-[24px]"
+                  }
+                  `}
+                  style={{
+                    background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
+                    boxShadow: '-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280'
+                  }}
                 >
                   <div
                     className="flex flex-col tablet:flex-row desktop:flex-row tablet:justify-between 
@@ -646,7 +666,11 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                       onClick={() => {
                         burnCandle();
                       }}
-                      className="flex cursor-pointer h-[62px] w-[62px] items-center justify-center border-[2px] border-[#B9DFF2] rounded-full bg-white"
+                      className="flex cursor-pointer h-[62px] w-[62px] items-center justify-center border-[#B9DFF2] rounded-full"
+                      style={{
+                        background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
+                        boxShadow: '-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280'
+                      }}
                     >
                       <Image
                         src={"/candle.png"}
@@ -672,10 +696,10 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                 </div>
 
                 <div
-                  className={`hidden tablet:flex desktop:flex self-end ${
+                  className={`flex self-end ${
                     parsedEvents.length === 90
-                      ? "tablet:mt-2 desktop:mt-[10px]"
-                      : "tablet:mt-4 desktop:mt-[22px]"
+                      ? "tablet:mt-2 desktop:mt-[10px] mobile:mt-[10px]"
+                      : "tablet:mt-4 desktop:mt-[28px] mobile:mt-[28px]"
                   } desktop:h-[0px] items-center desktop:pr-[20px]`}
                 >
                   {false && (
@@ -703,8 +727,11 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                             py-4      
                             pl-[21px] pr-[28px]
                             w-[100%] tablet:px-4 
-                            desktop:w-[517px] desktop:pl-[22px] desktop:pr-[17px]
-                            border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                            desktop:w-[517px] desktop:pl-[22px] desktop:pr-[17px] shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                  style={{
+                    background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
+                    boxShadow: '-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280'
+                  }}
                 >
                   <div className="flex items-center  h-[39px]">
                     <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
@@ -767,28 +794,31 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
 
                 <div
                   className="flex-col
-                            mt-[21px]
+                            mt-[24px]
+                            mobile:mt-[28px]
                             py-4      
                             pl-[21px] pr-[28px]
                             w-[100%] tablet:px-4 
                             desktop:w-[517px] desktop:pl-[22px] desktop:pr-[17px]
-                             border-2 border-white shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                             shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                  style={{
+                    background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
+                    boxShadow: '-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280'
+                  }}
                 >
-                  <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  w-full">
+                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  w-full">
                     QR koda do te strani
-                  </div>
-                  <div className="flex items-end justify-end gap-[10px]">
-                    <span className="text-[16px] text-[#414141] font-variation-customOpt12 font-normal">
-                      Klikni za povečavo
-                    </span>
-                    <Image
-                      src={"/qr_demo.png"}
-                      alt="Slika"
-                      width={72}
-                      height={72}
-                      className=""
-                    />
-                  </div>
+                    </div>
+                    <div className="flex items-end justify-end gap-[10px]">
+                      <span className="text-[16px] text-[#414141] font-variation-customOpt12 font-normal">Klikni za povečavo</span>
+                      <Image
+                        src={"/qr_demo.png"}
+                        alt="Slika"
+                        width={72}
+                        height={72}
+                        className=""
+                      />
+                    </div>
                 </div>
 
                 <div
@@ -814,9 +844,9 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
         </div>
       </div>
       {/* <div className="w-full bg-gradient-to-br from-[#ECF0F3] to-[#F2F6F9] pb-10"> */}
-      <div className="w-full pb-10 desktop:pb-14 ">
+      <div className="w-full pb-10">
         <div className="flex flex-col w-full items-center mt-[98.33px] tablet:mt-[109.33px] desktop:mt-[123px] ">
-          <div className="flex flex-col w-full items-center">
+          {/* <div className="flex flex-col w-full items-center">
             <div className=" ">
               <div className=" relative h-[120px] w-[110.77px] mx-auto overflow-hidden rounded-xl">
                 <iframe
@@ -839,13 +869,14 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                 Prižgi svečko v spomin
               </p>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-col w-full items-center mt-[98px] tablet:mt-[109px] desktop:mt-[140px] ">
-            <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px]">
+            <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative">
               <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
                 Žalna knjiga
               </div>
+              <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px] text-end">22</div>
             </div>
             <div
               className="flex items-center mt-4 h-6 cursor-pointer"
@@ -874,46 +905,257 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
           </div>
         </div>
       </div>
-      {data?.Dedications && data?.Dedications.length > 0 ? null : (
-        <div
-          className="ml-auto mr-[14px] mb-10 desktop:mr-[18%] flex items-center cursor-pointer "
-          onClick={() => {
-            set_Id("13");
-            setModal(true);
-          }}
-        >
-          <Image
-            src={"/round_add.png"}
-            alt="Slika"
-            width={100}
-            height={100}
-            className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
-          />
-          <p className="text-[14px] text-[#414141] font-variation-customOpt12 font-normal">
-            Dodaj posvetilo
-          </p>
+
+      <div className="w-full pb-[150px]">
+        <div className="flex flex-col w-full items-center">
+          <div className="flex flex-col w-full items-center mt-[100px] ">
+            <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative mobile:mb-[16px]">
+              <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
+              Posvetilo
+              </div>
+              <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px]">22</div>
+            </div>
+            <div
+              className="flex items-center mt-4 h-6 cursor-pointer"
+              onClick={() => {
+                set_Id("13");
+                setModal(true);
+              }}
+            >
+              <p className="text-[16px] text-[#414141] font-variation-customOpt16 font-normal text-center mobile:w-[306px] mobile:mx-auto">
+              Delite zgodbe, čarobne trenutke, morda biografijo, zadnji pozdrav 
+              </p>
+            </div>
+          </div>
+          {data?.Dedications && data?.Dedications.length > 0 ? null : (
+            <div
+              className="mt-[30px] w-[720px] mobile:w-[321px] mx-auto flex items-center justify-end cursor-pointer mb-[18px] px-[10px]"
+              onClick={() => {
+                set_Id("13");
+                setModal(true);
+              }}
+            >
+              <Image
+                src={"/round_add.png"}
+                alt="Slika"
+                width={100}
+                height={100}
+                className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
+              />
+              <p className="text-[14px] text-[#414141] font-variation-customOpt12 font-normal">
+                Dodaj posvetilo
+              </p>
+            </div>
+          )}
+          <div className="hidden items-end justify-start gap-[7px] mobile:flex w-[321px] px-[15px]">
+              <p className="text-[14px] leading-[14px] font-variation-customOpt16 font-normal text-[#36556CE5]">
+                Marija Smrekar
+              </p>
+              <p className="text-[12px] leading-[12px] font-variation-customOpt16 font-normal text-[#36556CE5]">
+                15.01.2024
+              </p>
+            </div>
+          <ContentSlider />
         </div>
-      )}
-      {data?.Photos && data?.Photos.length > 0 ? null : (
-        <div
-          className="ml-auto mr-[14px] desktop:mr-[18%] flex items-center cursor-pointer "
-          onClick={() => {
-            set_Id("6");
-            setModal(true);
-          }}
-        >
-          <Image
-            src={"/round_add.png"}
-            alt="Slika"
-            width={100}
-            height={100}
-            className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
-          />
-          <p className="text-[14px]  text-[#414141] font-variation-customOpt12 font-normal">
-            Dodaj fotografije
-          </p>
+      </div>
+      <div className="w-full pb-[150px]">
+        <div className="flex flex-col w-full items-center">
+          <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative">
+            <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
+              Nepozabni trenutki
+            </div>
+            <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px]">22</div>
+          </div>
+
+          <button
+            className="flex cursor-pointer self-center tablet:self-start desktop:self-start items-center justify-center flex-col gap-[2px] border-2 rounded-[4px] border-[#FFFFFF] w-[165px] h-[60px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30] z-20 mx-auto mt-[47px] tablet:hidden mobile:hidden mb-[30px]"
+            style={{
+              boxShadow: '3px 3px 18px 0px #00000040'
+            }}
+          >
+            <Image
+              src={"/memory_page_plus_icon.png"}
+              alt="Slika"
+              width={20}
+              height={20}
+              className=""
+            />
+            <p className="text-[16px] text-[#1E2125] font-variation-customOpt16 font-normal">
+              Dodaj svoje ime
+            </p>
+          </button>
+          <button
+            className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]"
+          >
+            <Image
+              src={"/memory_page_plus_icon.png"}
+              alt="Slika"
+              width={16}
+              height={16}
+              className=""
+            />
+            Dodaj Sliko
+          </button>
+
+          <div className="overflow-hidden w-full">
+            <div className="flex gap-[5px] w-[1024px] tablet:w-[800px] mobile:w-[406px] mobile:h-[150px] mobile:gap-0 mx-auto">
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+            </div>
+            <div className="hidden tablet:flex mobile:flex gap-[5px] w-[1024px] mobile:h-[150px] tablet:w-[800px] mobile:w-[406px] mobile:gap-0 mx-auto">
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+              <Image src={"/person.png"} alt="Slika" width={200} height={200} className="" />
+            </div>
+          </div>
         </div>
-      )}
+      </div>
+
+      <div className="w-[1024px] tablet:w-[678.78px]   mobile:w-[341px] h-auto  flex flex-col items-center ">
+        <div className="flex flex-row h-[47px] items-center relative">
+          <div className="font-variation-customOpt40 text-[40px] leading-[46.88px] mr-[8px] mobile:text-[28px] mobile:leading-[32.9px] mobile:font-variation-customOpt28 text-[#1E2125] ">
+            Sožalja
+          </div>
+          <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-29px]">22</div>
+        </div>
+
+        <button
+            className="flex cursor-pointer self-center tablet:self-start desktop:self-start items-center justify-center flex-col gap-[2px] border-2 rounded-[4px] border-[#FFFFFF] w-[165px] h-[60px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30] z-20 mx-auto mt-[47px] mb-[48px] tablet:hidden mobile:hidden"
+            style={{
+              boxShadow: '3px 3px 18px 0px #00000040'
+            }}
+          >
+            <Image
+              src={"/memory_page_plus_icon.png"}
+              alt="Slika"
+              width={20}
+              height={20}
+              className=""
+            />
+            <p className="text-[16px] text-[#1E2125] font-variation-customOpt16 font-normal">
+            Dodaj Sožalje
+            </p>
+        </button>
+
+        <button
+            className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]"
+          >
+            <Image
+              src={"/memory_page_plus_icon.png"}
+              alt="Slika"
+              width={16}
+              height={16}
+              className=""
+            />
+            Dodaj Sliko
+          </button>
+
+        <div className="w-[824px] tablet:w-[629px] mobile:w-[321px] mobile:grid-cols-1 mx-auto grid grid-cols-2 gap-[24px]">
+          <div className="flex flex-col gap-[27px]">
+            <div className="bg-white rounded-[3px] text-[16px] text-[#414141]"
+            style={{
+              boxShadow: '5px 5px 10px 0px #C2C2C280'
+            }}
+            >
+              <div className="px-[17px] pt-[14px] pb-[28px]">
+                Rest in peace my friend
+              </div>
+              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
+                <div className="flex items-end gap-[4px]">
+                  <span className="text-[16px] leading-none">Z.J.</span>
+                  <span className="text-[12px] leading-none">sosed</span>
+                </div>
+                <span className="text-[12px] leading-none">11.12.2023</span>
+              </div>
+            </div>
+            <div className="bg-white rounded-[3px] text-[16px] text-[#414141]"
+            style={{
+              boxShadow: '5px 5px 10px 0px #C2C2C280'
+            }}
+            >
+              <div className="px-[17px] pt-[14px] pb-[28px]">
+              Deepest sympathies for your loss.
+              </div>
+              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
+                <div className="flex items-end gap-[4px]">
+                  <span className="text-[16px] leading-none">Zoltan</span>
+                </div>
+                <span className="text-[12px] leading-none">11.12.2023</span>
+              </div>
+            </div>
+            <div className="bg-white rounded-[3px] text-[16px] text-[#414141]"
+            style={{
+              boxShadow: '5px 5px 10px 0px #C2C2C280'
+            }}
+            >
+              <div className="px-[17px] pt-[14px] pb-[28px]">
+              I’m deeply sorry for your loss. May you find comfort in the love of those around you and strength in cherished memories. My thoughts and prayers are with you during this difficult time. Please know I’m here  for you.
+              </div>
+              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
+                <div className="flex items-end gap-[4px]">
+                  <span className="text-[16px] leading-none">Jane Fonda</span>
+                  <span className="text-[12px] leading-none">Friend</span>
+                </div>
+                <span className="text-[12px] leading-none">11.12.2023</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-[27px]">
+            <div className="bg-white rounded-[3px] text-[16px] text-[#414141]"
+            style={{
+              boxShadow: '5px 5px 10px 0px #C2C2C280'
+            }}
+            >
+              <div className="px-[17px] pt-[14px] pb-[28px]">
+              Heartbroken for your loss. Please know I’m here for you. Wishing you courage and healing in the days ahead.
+              </div>
+              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
+                <div className="flex items-end gap-[4px]">
+                  <span className="text-[16px] leading-none">Alexandra Sanchez </span>
+                </div>
+                <span className="text-[12px] leading-none">11.12.2023</span>
+              </div>
+            </div>
+            <div className="bg-white rounded-[3px] text-[16px] text-[#414141]"
+            style={{
+              boxShadow: '5px 5px 10px 0px #C2C2C280'
+            }}
+            >
+              <div className="px-[17px] pt-[14px] pb-[28px]">
+              R.I.P.
+              </div>
+              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
+                <div className="flex items-end gap-[4px]">
+                  <span className="text-[16px] leading-none">Armando G.</span>
+                  <span className="text-[12px] leading-none">Friend</span>
+                </div>
+                <span className="text-[12px] leading-none">11.12.2023</span>
+              </div>
+            </div>
+            <div className="bg-white rounded-[3px] text-[16px] text-[#414141]"
+            style={{
+              boxShadow: '5px 5px 10px 0px #C2C2C280'
+            }}
+            >
+              <div className="px-[17px] pt-[14px] pb-[28px]">
+              Sorry for your loss.
+              </div>
+              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
+                <div className="flex items-end gap-[4px]">
+                  <span className="text-[16px] leading-none">Father</span>
+                </div>
+                <span className="text-[12px] leading-none">11.12.2023</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <Image src={"/memory_down.png"} alt="Slika" width={74} height={74} className="mt-[24px] mb-[71px] mx-auto" />
+      </div>
     </div>
   );
 };
@@ -923,13 +1165,13 @@ const UserCircles = ({ onTextClick, onCircle, users }) => {
     <div className="flex flex-col tablet:flex-row desktop:flex-row ">
       <button
         onClick={onTextClick}
-        className="flex cursor-pointer self-center tablet:self-start desktop:self-start items-center justify-center flex-col border-2 rounded-[100px]  border-[#FFFFFF] w-[165px] h-[64px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30] z-20"
+        className="flex cursor-pointer self-center tablet:self-start desktop:self-start items-center justify-center flex-col gap-[2px] border-2 rounded-[100px] border-[#FFFFFF] w-[165px] h-[60px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30] z-20"
       >
         <Image
-          src={"/placeholder2.png"}
+          src={"/memory_page_plus_icon.png"}
           alt="Slika"
-          width={24}
-          height={24}
+          width={20}
+          height={20}
           className=""
         />
         <p className="text-[16px] text-[#1E2125] font-variation-customOpt16 font-normal">
@@ -1043,5 +1285,51 @@ const gradientStyles = [
     class: "bg-gradient-to-br from-[#B2E6E380] to-[#FFFFFF30] border-[#B2E6E3]",
   },
 ];
+
+const ContentSlider = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  return (
+    <div className="flex w-full items-center mt-[10px] gap-[38px] justify-center relative px-[10px]">
+      <Image src={"/memory_slider_left.png"} alt="Slika" width={74} height={74} className="tablet:absolute tablet:z-10 tablet:left-0 tablet:top-1/2 tablet:-translate-y-1/2 mobile:hidden" />
+      <div className="flex flex-col gap-[10px] w-[720px] mobile:w-[321px] h-[370px] mobile:h-auto overflow-hidden rounded-[3px] relative pt-[38px] mobile:py-[40px] mobile:px-[35px]">
+        <Image src={"/memory_paper_slider.jpg"} alt="Slika" width={720} height={370} className="absolute top-0 left-0 object-cover w-full h-full" />
+        <div className="w-[522px] mobile:w-[255px] relative mx-auto">
+          <div className="flex justify-between items-center gap-[10px]">
+            <h3 className="text-[40px] mobile:text-[24px] font-greatVibes font-normal text-[#1E2125]" 
+            style={{
+              textShadow: '0px 1px 1px #000000, 0px 4px 4px #00000040'
+            }}>Dragi moj Mario</h3>
+            <div className="flex flex-col items-end justify-end gap-[7px] mobile:hidden">
+              <p className="text-[14px] leading-[14px] font-variation-customOpt16 font-normal text-[#36556CE5]">
+                Marija Smrekar
+              </p>
+              <p className="text-[12px] leading-[12px] font-variation-customOpt16 font-normal text-[#36556CE5]">
+                15.01.2024
+              </p>
+            </div>
+          </div>
+          <p 
+            className="text-[16px] leading-[24px] font-normal text-[#1E2125] mt-[19px]"
+            style={{
+              background: 'linear-gradient(180deg, #414141 76.56%, rgba(166, 166, 167, 0.1) 96.35%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              textFillColor: 'transparent',
+            }}
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore. <br /><br />
+
+            Coredolor sit amet, consectetur adipiscing elit, sed do eiusmod incididunt ut labore Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore Ansectetur elit.
+          </p>
+          <p className="text-end text-[12px] leading-[100%] font-regular text-[#36556CB2]  mt-[26px]">
+            Odpri naprej
+          </p>
+        </div>
+      </div>
+      <Image src={"/memory_slider_right.png"} alt="Slika" width={74} height={74} className="tablet:absolute tablet:z-10 tablet:right-0 tablet:top-1/2 tablet:-translate-y-1/2 mobile:hidden" />
+    </div>
+  )
+}
 
 export default MemorialPageTopComp;

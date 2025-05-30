@@ -146,7 +146,7 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
         company: inputValueCompany,
         region: selectedRegion,
         city: selectedCity,
-        role: activeDivtype === "Cvetličarne" ? "Florist" : "Funeral",
+        role: activeDivtype === "Cvetličarne" ? "Florist" : "Funeral Company",
       };
 
       const response = await userService.registerUser(payload);

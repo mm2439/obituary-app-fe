@@ -1,6 +1,6 @@
 "use client";
 import SlideOne from "../../components/slidercomponents/SlideOne";
-import SlideTwo from "../../components/slidercomponents/slideTwo";
+import SlideTwo from "../../components/slidercomponents/SlideTwo";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -15,9 +15,8 @@ const IpadSlider = ({ data }) => {
   };
 
   return (
-    <section
-      className={`h-auto`}>
-       <div className="relative w-full max-w-screen-xl">
+    <section className={`h-auto`}>
+      <div className="relative w-full max-w-screen-xl">
         <Swiper
           direction="horizontal"
           autoplay={{ delay: 20000 }}
@@ -49,7 +48,11 @@ const IpadSlider = ({ data }) => {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
 
@@ -67,7 +70,11 @@ const IpadSlider = ({ data }) => {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </button>
       </div>

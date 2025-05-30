@@ -11,13 +11,16 @@ import PopUp from "@/app/components/appcomponents/popup";
 import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import {LocalQuickReview, LocalQuickReviewModal} from "./components/appcomponents/LocalQuickReview";
+import {
+  LocalQuickReview,
+  LocalQuickReviewModal,
+} from "./components/appcomponents/LocalQuickReview";
 import MegaMenu from "./components/appcomponents/MegaMenuMain";
 import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
 import regionsAndCities from "@/utils/regionAndCities";
 import MainOptions from "./components/appcomponents/MainOptions";
-import SlideTwo from "./components/slidercomponents/slideTwo";
+import SlideTwo from "./components/slidercomponents/SlideTwo";
 import HomePageBox from "./components/appcomponents/HomePageBox";
 import IpadSlider from "./components/appcomponents/IpadSlider";
 export default function Home() {
@@ -48,7 +51,8 @@ export default function Home() {
   const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] =
     useState(false);
   const [isMemoralPopupVisible, setIsMemoralPopupVisible] = useState(false);
-  const [isLocalQuickReviewModalVisible, setIsLocalQuickReviewModalVisible] = useState(false);
+  const [isLocalQuickReviewModalVisible, setIsLocalQuickReviewModalVisible] =
+    useState(false);
   const allRegionsOption = {
     place: "- Pokaži vse regije - ",
     id: "allRegions",
@@ -416,7 +420,6 @@ export default function Home() {
           </div>
           <NotificationView />
         </div>
-
 
         {/* <IpadView data={arrIpadData} /> */}
         <IphoneView />

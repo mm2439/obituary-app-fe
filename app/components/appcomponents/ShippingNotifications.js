@@ -1,14 +1,23 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
 
 const images = [
-  "/memory_demo/1.png",
-  "/memory_demo/2.png",
-  "/memory_demo/3.png",
-  "/memory_demo/4.png",
-  "/memory_demo/5.png",
+  "/image_carousel_1.avif",
+  "/image_carousel_2.avif",
+  "/image_carousel_3.avif",
+  "/image_carousel_4.jpg",
+  "/image_carousel_5.avif",
+  "/image_carousel_1.avif",
+  "/image_carousel_2.avif",
+  "/image_carousel_3.avif",
+  "/image_carousel_4.jpg",
+  "/image_carousel_5.avif",
+  "/image_carousel_1.avif",
+  "/image_carousel_2.avif",
+  "/image_carousel_3.avif",
+  "/image_carousel_4.jpg",
+  "/image_carousel_5.avif",
 ];
 
 const ShippingNotifications = ({ set_Id, setModal }) => {
@@ -79,7 +88,7 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
             key={index}
             src={image}
             alt={`Slide ${index}`}
-            className={`relative hidden desktop:inline object-cover my-auto h-[300px] w-[156px] ml-4 rounded shadow-custom-light-dark-box-image-wall `}
+            className={`relative object-cover my-auto h-[300px] w-[156px] ml-4 rounded shadow-custom-light-dark-box-image-wall `}
           />
         ) : null}
       </>
@@ -87,24 +96,25 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
   };
 
   return (
-    <div className="relative bg-[url('../public/pisano_ozadje.avif')]  bg-cover border-t-[1px] border-[#0F0671]  py-24 tablet:py[65px] w-full overflow-hidden mx-auto justify-center items-center flex flex-col"
-    >
-      <div className="max-w-[1000px] tablet:w-[700px] w-full flex flex-row mobile:flex-col gap-[77px] tablet:gap-[50px] mobile:gap-[39px] justify-evenly mobile:px-7">
-        <div className="w-[368.5px] tablet:w-[347px] shrink-0 mobile:pl-0 mobile:w-full mx-3 mobile:mx-0 mobile:text-center  ">
-          <div className="text-[40px] leading-[100%] mobile:text-[28px] mobile:leading-[33px] whitespace-nowrap font-normal text-[#1E2125]">
+    <div className="relative bg-[url('../public/pisano_ozadje.avif')]  bg-cover border-t-[1px] border-b-[1px]  py-24 w-full overflow-hidden mx-auto justify-center items-center flex flex-col rounded-t-[16px] mt-[37px] shadow-[-5px_-5px_10px_0px_#FFFFFF]">
+      <div className="max-w-[1280px] w-full flex flex-row mobile:flex-col justify-evenly mobile:px-7">
+        <div className="w-[368.5px] mobile:pl-0 pl-[25px] mobile:w-full mx-3 mobile:mx-0 mobile:text-center  ">
+          <div className="text-[32px] leading-[47px] mobile:text-[28px] mobile:leading-[33px] whitespace-nowrap font-normal text-[#1E2125]">
             Obvestila za pošiljanje
           </div>
-          <div className="text-[16px] leading-6 mt-4 font-normal text-[#414141]">
-          Prenesite si že pripravljena obvestila za pošiljanje naprej po emailu ali preko mobilnega telefona. <br/> <br />
-          Predloge dobite brezplačno pri vašem cvetličarju, ki je v našem imeniku in s pošiljanjem naprej lahko začnete takoj.   
+          <div className="text-base leading-6 mt-4 font-normal text-[#414141]">
+            Prenesite si že pripravljena obvestila za pošiljanje naprej po
+            emailu ali preko mobilnega telefona. Predloge dobite brezplačno pri
+            vašem cvetličarju, ki je v našem imeniku in s pošiljanjem naprej
+            lahko začnete takoj. Cena predlog preko naše strani je sicer 10€.
           </div>
-          <div className="text-[20px] font-normal text-[#0977AE] mt-[65px] mobile:mt-[30px]">
+          <div className="text-[20px] font-normal text-[#0977AE] mt-10">
             Obvestilo o pogrebu
           </div>
-          <div className="text-[20px] font-normal text-[#0977AE] mt-2">
+          <div className="text-[20px] font-normal text-[#0977AE] mt-6">
             Zahvala
           </div>
-          <div className="text-[20px] font-normal text-[#0977AE] mt-2">
+          <div className="text-[20px] font-normal text-[#0977AE] mt-6">
             Vabilo
           </div>
           <div className=" mobile:hidden flex flex-row items-end mt-20 mobile:justify-center whitespace-nowrap">
@@ -118,7 +128,7 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
             </div>
           </div>
         </div>
-        <div className="relative flex w-full desktop:ml-10 flex-col">
+        <div className="relative flex w-full tablet:ml-5 desktop:ml-10  flex-col">
           <div
             ref={widthDivRef}
             style={{
@@ -133,51 +143,34 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
             ref={heightDivRef}
             className="flex absolute desktop:right-0 tablet:right-0 flex-col"
           >
-            <div className="relative  flex-1  flex flex-row mobile:justify-center">
+            <div className="relative  flex-1  flex flex-row mobile:my-7  ">
               {images.map((image, index) => (
                 <ImageSliderBlock image={image} index={index} key={index} />
               ))}
             </div>
+            <div className="flex h-full absolute items-center">
+              <div className="flex w-[260px] justify-between">
+                <button
+                  className="h-16 w-12 rounded-r-full shadow-custom-light-dark-with-white-button bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] flex justify-center items-center"
+                  onClick={handlePrev}
+                >
+                  <ChevronLeftIcon
+                    className="h-6 w-6 mobile:w-4 mobile:h-4 text-black"
+                    aria-hidden="true"
+                  />
+                </button>
 
-            <div className="flex justify-center items-center gap-[58px] tablet:gap-[20px] mobile:gap-[10px] mobile:my-[20px] desktop:ml-[350px] desktop:translate-y-[-100%] tablet:mt-[27px]">
-              <button
-                className="flex justify-center items-center h-[74px] w-[74px] "
-                onClick={handlePrev}
-              >
-                <Image src="/memory_demo_left.png" alt="arrow-left" width={74} height={74} />
-              </button>
-              <div className="inline-flex flex-row gap-[10px] desktop:hidden">
-                {images.map((image, index) => (
-                  <>
-                    {
-                      index === currentIndex ? (
-                        <div className="w-[16px] h-[16px] bg-white rounded-full"
-                        style={{
-                          background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
-                          boxShadow: '5px 5px 10px 0px #C2C2C280, -5px -5px 10px 0px #FFFFFF'
-                        }}
-                        >
-                          
-                        </div>
-                      ) : <div className="w-[16px] h-[16px] bg-white rounded-full"
-                      style={{
-                        background: 'linear-gradient(113.63deg, #C3C6C8 0%, #E3E5E5 100%)'
-                      }}
-                      >
-                          
-                      </div>
-                    }
-                  </>
-                ))}
+                <button
+                  className="h-16 w-12 rounded-l-full shadow-custom-light-dark-with-white-button bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] flex justify-center items-center"
+                  onClick={handleNext}
+                >
+                  <ChevronRightIcon
+                    className="h-6 w-6 mobile:w-4 mobile:h-4 text-black"
+                    aria-hidden="true"
+                  />
+                </button>
               </div>
-              <button
-                className="flex justify-center items-center h-[74px] w-[74px]"
-                onClick={handleNext}
-              >
-                <Image src="/memory_demo_right.png" alt="arrow-right" width={74} height={74} />
-              </button>
             </div>
-              
             <div className="mobile:flex hidden flex-row items-end mt-5 mobile:justify-center whitespace-nowrap">
               <div
                 onClick={() => {

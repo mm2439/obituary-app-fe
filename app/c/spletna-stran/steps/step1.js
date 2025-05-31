@@ -5,40 +5,92 @@ import OpenableBlock from "../components/OpenAbleBlock";
 import BackgroundSelector from "../components/BackgroundSelector";
 import ImageSelector from "../components/ImageSelector";
 import Switch from "../components/Switch";
-import { useState } from "react";
-import { submitStep1Data } from "@/services/company-service";
+import { useEffect, useState } from "react";
+import companyService, { submitStep1Data } from "@/services/company-service";
+import toast from "react-hot-toast";
+import Link from "next/link";
 
-export default function Step1({ handleStepChange }) {
+export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
-  const [companyNameOrAddress, setCompanyNameOrAddress] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [phone, setPhone] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleImageSelect = (imageFile) => {
-    setSelectedImage(imageFile);
-  };
-
-  const handleSave = async (e) => {
-    e.preventDefault();
+  const [companyId, setCompanyId] = useState(null);
+  const [glassFrameState, setGlassFrameState] = useState(true);
+  const [user, setUser] = useState(null);
+  const handleSave = async () => {
     const formData = new FormData();
 
-    formData.append("companyNameOrAddress", companyNameOrAddress);
-    formData.append("phone", phone);
-    formData.append("title", title);
-    formData.append("description", description);
+    if (companyName != null) {
+      formData.append("address", companyName);
+    }
 
-    if (selectedImage) {
+    if (phone != null) {
+      formData.append("phone", phone);
+    }
+
+    if (title != null) {
+      formData.append("title", title);
+    }
+
+    if (description != null) {
+      formData.append("description", description);
+    }
+
+    if (glassFrameState != null) {
+      formData.append("glassFrameState", glassFrameState);
+    }
+
+    if (selectedImage instanceof File) {
       formData.append("picture", selectedImage);
     }
 
     try {
-      const result = await submitStep1Data(formData);
-      console.log("Saved successfully:", result);
+      let response;
+      if (companyId !== null) {
+        const hasChanges =
+          (data && data.address !== companyName) ||
+          data.title !== title ||
+          data.description !== description ||
+          data.phone !== phone ||
+          data.glassFrameState !== glassFrameState ||
+          selectedImage instanceof File;
+
+        if (hasChanges) {
+          response = await companyService.updateCompany(formData, companyId);
+          toast.success("Changes Applied Successfully");
+        } else {
+          return true;
+        }
+      } else {
+        response = await companyService.createCompany(formData, "florist");
+        toast.success("Company Created Successfully");
+      }
+
+      onChange(response.company);
+      return true;
     } catch (err) {
-      console.error("Failed to save step 1:", err);
+      console.error("Failed to create company:", err);
+      return false;
     }
+  };
+
+  useEffect(() => {
+    if (data && data !== null) {
+      setCompanyName(data.address);
+      setTitle(data.title);
+      setDescription(data.description);
+      setPhone(data.phone);
+      setSelectedImage(data.background);
+      setCompanyId(data.id);
+      setGlassFrameState(data.glassFrameState);
+    }
+  }, [data]);
+
+  const handleSwitchChange = (condition) => {
+    setGlassFrameState(condition);
   };
 
   return (
@@ -46,7 +98,7 @@ export default function Step1({ handleStepChange }) {
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
         Blue Daisy Florist, London
       </div>
-      <form method="POST" enctype="multipart/form-data">
+      <div>
         <div className="min-h-full flex flex-col justify-between gap-[16px] relative">
           <div className="space-y-[43px]">
             <div className="flex justify-between items-center">
@@ -63,18 +115,22 @@ export default function Step1({ handleStepChange }) {
                   </div>
                 </div>
               </div>
-              <div className="inline-flex gap-[8px]">
-                <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                  Predogled strani
-                </span>
-                <Image
-                  src="/external_open.png"
-                  alt="Predogled strani"
-                  width={20}
-                  height={20}
-                  className="shrink-0 w-[20px] h-[20px]"
-                />
-              </div>
+              {companyId && (
+                <Link href={`/floristdetails/${companyId}`} target="blank">
+                  <div className="inline-flex gap-[8px] cursor-pointer">
+                    <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                      Predogled strani
+                    </span>
+                    <Image
+                      src="/external_open.png"
+                      alt="Predogled strani"
+                      width={20}
+                      height={20}
+                      className="shrink-0 w-[20px] h-[20px]"
+                    />
+                  </div>
+                </Link>
+              )}
             </div>
             <div className="space-y-[8px]">
               <OpenableBlock
@@ -91,8 +147,8 @@ export default function Step1({ handleStepChange }) {
                   </span>
                   <input
                     type="text"
-                    value={companyNameOrAddress}
-                    onChange={(e) => setCompanyNameOrAddress(e.target.value)}
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
                     className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
                     placeholder="Cvetličarna Suniflower, Milano"
                   />
@@ -136,7 +192,10 @@ export default function Step1({ handleStepChange }) {
                   <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                     Ime cvetličarne oz podjetja in kraj
                   </span>
-                  <ImageSelector onImageSelect={handleImageSelect} />
+                  <ImageSelector
+                    setFile={(file) => setSelectedImage(file)}
+                    inputId="florist-company-picture"
+                  />
                 </div>
                 <div className="text-center text-[14px] leading-[24px] text-[#3C3E41] pt-[5px] pb-[10px]">
                   --------------
@@ -156,7 +215,10 @@ export default function Step1({ handleStepChange }) {
                   <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                     Prikaži steklen okvir
                   </span>
-                  <Switch />
+                  <Switch
+                    onChange={handleSwitchChange}
+                    currentValue={glassFrameState}
+                  />
                   <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                     Izbriši steklen okvir
                   </span>
@@ -167,7 +229,7 @@ export default function Step1({ handleStepChange }) {
                   </span>
                   <input
                     type="text"
-                    maxLength={25}
+                    readOnly={glassFrameState === false}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
@@ -181,7 +243,7 @@ export default function Step1({ handleStepChange }) {
                   <textarea
                     type="text"
                     value={description}
-                    maxLength={220}
+                    readOnly={glassFrameState === false}
                     onChange={(e) => setDescription(e.target.value)}
                     className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] min-h-[108px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
                     placeholder="V Cvetličarni Suniflower, na levem bregu Ljubljanice, že 22 let širimo ljubezen do cvetličarske umetnosti. Nudimo vam rezano cvetje, lončnice, "
@@ -207,6 +269,7 @@ export default function Step1({ handleStepChange }) {
             )}
             <div className="flex items-center gap-[8px] justify-between w-full">
               <button
+                type="button"
                 onClick={handleSave}
                 className="bg-[#3DA34D] text-[#FFFFFF] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px]"
               >
@@ -214,14 +277,21 @@ export default function Step1({ handleStepChange }) {
               </button>
               <div className="flex items-center gap-[8px]">
                 <button
+                  type="button"
                   className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
                   onClick={() => handleStepChange(1)}
                 >
                   Nazaj
                 </button>
                 <button
+                  type="button"
                   className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                  onClick={() => handleStepChange(2)}
+                  onClick={async () => {
+                    const success = await handleSave();
+                    if (success) {
+                      handleStepChange(2);
+                    }
+                  }}
                 >
                   Naslednji korak
                 </button>
@@ -229,7 +299,7 @@ export default function Step1({ handleStepChange }) {
             </div>
           </div>
         </div>
-      </form>
+      </div>
       <div className="w-full">
         <img
           src="/florist/1.png"

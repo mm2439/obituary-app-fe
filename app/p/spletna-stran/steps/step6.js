@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
+import Link from "next/link";
 
 export default function Step6({ data, handleStepChange }) {
   const [openBlock, setOpenBlock] = useState(1);
@@ -66,22 +67,56 @@ export default function Step6({ data, handleStepChange }) {
     return true;
   };
   const handleSubmit = async () => {
-    if (!validateFields()) return;
+    // if (!validateFields()) return;
 
     try {
       const formData = new FormData();
-      formData.append("workingHours", workingHours);
-      formData.append("emergencyPhone", emergencyPhone);
-      formData.append("working_hour_highlight_text", workingHourHighlightText);
+
+      if (workingHours != null) {
+        formData.append("workingHours", workingHours);
+      }
+
+      if (emergencyPhone != null) {
+        formData.append("emergencyPhone", emergencyPhone);
+      }
+
+      if (workingHourHighlightText != null) {
+        formData.append(
+          "working_hour_highlight_text",
+          workingHourHighlightText
+        );
+      }
 
       const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Company Updated Successfully");
       console.log(response);
+      return true;
     } catch (error) {
       console.error("Error:", error);
       toast.error(
         error?.response?.data?.error ||
           "Failed to update company. Please try again."
       );
+      return false;
+    }
+  };
+
+  const handlePublish = async () => {
+    try {
+      if (data && data.status === "DRAFT") {
+        toast.error("Company is already sent for approval");
+        return false;
+      }
+      const formData = new FormData();
+      formData.append("status", "DRAFT");
+
+      const response = await companyService.updateCompany(formData, companyId);
+      toast.success("Company Sent For Approval Successfully");
+      return true;
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      return false;
     }
   };
 
@@ -106,18 +141,22 @@ export default function Step6({ data, handleStepChange }) {
                 </div>
               </div>
             </div>
-            <div className="inline-flex gap-[8px]">
-              <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                Predogled strani
-              </span>
-              <Image
-                src="/external_open.png"
-                alt="Predogled strani"
-                width={20}
-                height={20}
-                className="shrink-0 w-[20px] h-[20px]"
-              />
-            </div>
+            {companyId && (
+              <Link href={`/funeralcompany/${companyId}`} target="blank">
+                <div className="inline-flex gap-[8px] cursor-pointer">
+                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
+                    Predogled strani
+                  </span>
+                  <Image
+                    src="/external_open.png"
+                    alt="Predogled strani"
+                    width={20}
+                    height={20}
+                    className="shrink-0 w-[20px] h-[20px]"
+                  />
+                </div>
+              </Link>
+            )}
           </div>
           <div className="space-y-[8px]">
             <OpenableBlock
@@ -201,10 +240,14 @@ export default function Step6({ data, handleStepChange }) {
             </div>
             <button
               className="bg-gradient-to-b from-[#F916D6] to-[#9D208A] text-[#FFFFFF] font-semibold leading-[24px] text-[20px] py-[12px] px-[66px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-              onClick={() => {
+              onClick={async () => {
                 if (openBlock === 1) {
-                  setOpenBlock(2);
+                  const success = await handleSubmit();
+                  if (success) {
+                    setOpenBlock(2);
+                  }
                 } else {
+                  handlePublish();
                   handleStepChange(6);
                 }
               }}

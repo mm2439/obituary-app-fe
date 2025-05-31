@@ -20,6 +20,46 @@ export default function ImageFullView({
   data,
 }) {
   const [scrollBehavior, setScrollBehavior] = useState("outside");
+
+  // 7 October 2024 - sivo_ozadje.jpg
+  // const images = [
+  //   { url: "/coming_soon.avif", lable: "K" },
+  //   // { url: "/flower3.jpeg", lable: "N" },
+  //   { url: "/sivo_ozadje.jpg", lable: "P" },
+  //   { url: "/image_carousel_1.avif", lable: "S" },
+  //   { url: "/image_carousel_2.avif", lable: "L" },
+  //   { url: "/lila_cvet.avif", lable: "K" },
+  //   { url: "/cvetje.avif", lable: "K" },
+  //   { url: "/zasava_1.jpeg", lable: "N" },
+  //   { url: "/ozadje_mobile.jpg", lable: "P" },
+  //   { url: "/user5.jpeg", lable: "S" },
+  //   { url: "/user7.jpeg", lable: "L" },
+  //   { url: "/new.jpg", lable: "K" },
+  //   { url: "/coming_soon.avif", lable: "K" },
+  //   // { url: "/flower3.jpeg", lable: "N" },
+  //   { url: "/sivo_ozadje.jpg", lable: "P" },
+  //   { url: "/image_carousel_1.avif", lable: "S" },
+  //   { url: "/image_carousel_2.avif", lable: "L" },
+  //   { url: "/lila_cvet.avif", lable: "K" },
+  //   { url: "/cvetje.avif", lable: "K" },
+  //   { url: "/zasava_1.jpeg", lable: "N" },
+  //   { url: "/ozadje_mobile.jpg", lable: "P" },
+  //   { url: "/user5.jpeg", lable: "S" },
+  //   { url: "/user7.jpeg", lable: "L" },
+  //   { url: "/new.jpg", lable: "K" },
+  //   { url: "/coming_soon.avif", lable: "K" },
+  //   // { url: "/flower3.jpeg", lable: "N" },
+  //   { url: "/sivo_ozadje.jpg", lable: "P" },
+  //   { url: "/image_carousel_1.avif", lable: "S" },
+  //   { url: "/image_carousel_2.avif", lable: "L" },
+  //   { url: "/lila_cvet.avif", lable: "K" },
+  //   { url: "/cvetje.avif", lable: "K" },
+  //   { url: "/zasava_1.jpeg", lable: "N" },
+  //   { url: "/ozadje_mobile.jpg", lable: "P" },
+  //   { url: "/user5.jpeg", lable: "S" },
+  //   { url: "/user7.jpeg", lable: "L" },
+  //   { url: "/new.jpg", lable: "K" },
+  // ];
   const [swiperInstance, setSwiperInstance] = useState(null);
   return (
     <Modal

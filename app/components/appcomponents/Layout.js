@@ -12,18 +12,24 @@ import { useState } from "react";
 import PopUp from "@/app/components/appcomponents/popup";
 import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
 import { LocalQuickReview } from "@/app/components/appcomponents/LocalQuickReview";
-import MemoryHeader from "./MemoryHeader";
 
-const Layout = ({ children, from, forFooter, isMegaMenuVisible, megaMenu = {} }) => {
+const Layout = ({
+  data = {},
+  children,
+  from,
+  forFooter,
+  isMegaMenuVisible,
+  megaMenu = {},
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
 
   const OnDrawerButtonClicked = (item) => {
     console.log(item.name);
   };
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
-  const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] = useState(false);
+  const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] =
+    useState(false);
 
   return (
     <div>
@@ -37,13 +43,16 @@ const Layout = ({ children, from, forFooter, isMegaMenuVisible, megaMenu = {} })
         </div>
       ) : null}
       {from == "1" ? (
-        <Header isMegaMenuVisible={isMegaMenuVisible} onMenuCLick={megaMenu} from={from} />
- 
+        <Header
+          isMegaMenuVisible={isMegaMenuVisible}
+          onMenuCLick={megaMenu}
+          from={from}
+        />
       ) : from == "5" ? (
-        <Header7 from={5} />
-      ) : from == "7" ? (<Header7 from={7} />) 
-      : from == "3" ? (<MemoryHeader />)
-      : (
+        <Header7 data={data} from={5} />
+      ) : from == "7" ? (
+        <Header7 data={data} from={7} />
+      ) : (
         <>
           {from == "2" ? <div className="flex  h-[45px]" /> : null}
           <ObituaryHeader from={from} />
@@ -71,7 +80,7 @@ const Layout = ({ children, from, forFooter, isMegaMenuVisible, megaMenu = {} })
 
       <main className="flex bg-[#F5F7F9]">{children}</main>
       {forFooter == "company" ? (
-        <CompanyFooter />
+        <CompanyFooter data={data} />
       ) : forFooter == "memorypage" ? null : (
         <Footer />
       )}

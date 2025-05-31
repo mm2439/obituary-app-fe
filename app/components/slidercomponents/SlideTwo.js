@@ -1,8 +1,4 @@
 "use client";
-import Image from "next/image";
-import ipadImage from "@/public/spominska_tab.avif";
-import ipadImageTablet from "@/public/spominska_tablica1.avif";
-import ipadImageMobile from "@/public/tablica_mobi.avif";
 import { useBreakpoint } from "../../hooks/useBreakpoint"
 
 const SlideTwo = () => {
@@ -11,10 +7,10 @@ const SlideTwo = () => {
   // === Desktop Layout ===
   if (breakpoint === "desktop") {
     return (
-     <div className="bg-[#F8EDE3] text-[#22281C] max-w-[1280px] min-h-[979px]">
+     <div className="bg-[#F8EDE366] text-[#22281C] w-full h-[970px]">
         <div className="flex justify-center p-[179px]">
             <div className="text-container w-[560px]">
-                <h2 className="text-[40px] leading-[100%] h-[73px]">Spominska stran <span className="text-[#de222e]">s skrbnikom</span></h2>
+                <h2 className="text-[40px] leading-[100%] h-[73px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
                 <p className="text-[#414141] text-[16px] mt-[16px]">Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba, ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je lahko Skrbnik. </p>
                 <p className="text-[#414141] text-[16px] mt-[16px]">Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo številnih dodatnih vsebin celotni družini, prijateljem in znancem ter na ta način omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali. </p>
                <div className="inner-div mt-[77px]">
@@ -23,10 +19,36 @@ const SlideTwo = () => {
                </div> 
                <div className="btn-container px-[89px]">
 
-               <button class="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px]" style={{
-                  background: "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
-                  boxShadow: "-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280",
-                }}
+               <button class="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
+              >
+                Več o Skrbniku
+              </button>
+
+               </div>
+            </div>
+            <div className="img-container">
+                <img className="mx-[111px]" src="/mobile-cards/slider-mobile.png" alt="iPad Landscape" />
+            </div>
+        </div>
+      </div>
+    );
+  }
+
+if (breakpoint === "laptop") {
+    return (
+     <div className="bg-[#F8EDE366] text-[#22281C] w-[1280px]">
+        <div className="flex justify-center p-[179px]">
+            <div className="text-container w-[560px]">
+                <h2 className="text-[40px] leading-[100%] h-[73px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
+                <p className="text-[#414141] text-[16px] mt-[16px]">Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba, ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je lahko Skrbnik. </p>
+                <p className="text-[#414141] text-[16px] mt-[16px]">Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo številnih dodatnih vsebin celotni družini, prijateljem in znancem ter na ta način omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali. </p>
+               <div className="inner-div mt-[77px]">
+                 <h3 className="text-[#22281C] text-[24px] font-medium">Spomini niso večni</h3>
+                <p className="text-[#414141] text-[16px] mt-[8px]">Prehitro nam uidejo, čarobni trenutki se pozabijo, slike zbledijo. Povežimo spomine na naše najdražje v celoto v digitalni obliki in jih ohranimo za vedno. </p>
+               </div> 
+               <div className="btn-container px-[89px]">
+
+               <button class="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
               >
                 Več o Skrbniku
               </button>
@@ -44,13 +66,13 @@ const SlideTwo = () => {
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-      <div className="bg-[#F8EDE3] h-auto text-[#22281C] p-[64px] flex justify-center">
+      <div className="bg-[#F8EDE366] h-auto text-[#22281C] p-[64px] flex justify-center">
          <div className="image-container w-[560px]">
-                <h2 className="text-center text-[40px] mt-[16px]">Spominska stran <span className="text-[#de222e]">s skrbnikom</span></h2>
+                <h2 className="text-center text-[40px] mt-[16px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
                 <p className="text-[#414141] text-[16px] mt-[30px]">Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba, ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je lahko Skrbnik. </p>
                 <p className="text-[#414141] text-[16px] mt-[16px]">Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo številnih dodatnih vsebin celotni družini, prijateljem in znancem ter na ta način omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali. </p>
-               <div className="inner-div mt-[80px]">
-                 <h3 className="text-[#22281C] text-[24px] font-medium mt-[16px]">Spomini niso večni</h3>
+               <div className="inner-div mt-[79px]">
+                 <h3 className="text-[#22281C] text-[24px] font-medium]">Spomini niso večni</h3>
                 <p className="mt-[16px]">Prehitro nam uidejo, čarobni trenutki se pozabijo, slike zbledijo. Povežimo spomine na naše najdražje v celoto v digitalni obliki in jih ohranimo za vedno. </p>
                </div> 
 
@@ -58,10 +80,7 @@ const SlideTwo = () => {
 
                <div className="btn-container text-center">
 
-               <button class="px-[25px] py-[12px] mt-[44px]" style={{
-                  background: "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
-                  boxShadow: "-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280",
-                }}
+               <button class="px-[25px] py-[12px] rounded-[8px] mt-[44px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
               >
                 Več o Skrbniku
               </button>
@@ -73,34 +92,32 @@ const SlideTwo = () => {
   }
 
   // === Mobile Layout ===
+  if (breakpoint === "mobile") {
   return (
-    <div className="bg-[#F8EDE3] h-auto text-[#22281C] py-[64px] flex justify-center text-center">
+    <div className="bg-[#F8EDE366] h-auto text-[#22281C] py-[69px] flex justify-center text-center">
          <div className="image-container w-[560px]">
-                <h2 className="text-center text-[40px] mt-[16px]">Spominska stran <span className="text-[#de222e]">s skrbnikom</span></h2>
-                <p className="text-[#414141] text-[16px] mt-[30px]">Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba, ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je lahko Skrbnik. </p>
-                <p className="text-[#414141] text-[16px] mt-[16px]">Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo številnih dodatnih vsebin celotni družini, prijateljem in znancem ter na ta način omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali. </p>
+                <h2 className="text-center text-[28px]">Spominska stran <span className="text-[#de222e] font-medium">s skrbnikom</span></h2>
+                <p className="text-[#414141] text-[16px] mt-[16px] leading-6">Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba, ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je lahko Skrbnik. Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo številnih dodatnih vsebin celotni družini, prijateljem in znancem ter na ta način omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali.</p>
 
               <img className="mt-[33px] mx-auto" src="/mobile-cards/slider-mobile.png" alt="iPad Landscape" />
 
-               <div className="btn-container text-center">
+               <div className="btn-container text-center mt-[22px]">
 
-               <button class="px-[25px] py-[12px] mt-[44px]" style={{
-                  background: "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
-                  boxShadow: "-5px -5px 10px 0px #FFFFFF, 5px 5px 10px 0px #C2C2C280",
-                }}
+               <button class="px-[25px] py-[12px] rounded-[8px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
               >
                 Več o Skrbniku
               </button>
                </div>
 
-                <div className="inner-div mt-[80px]">
+                <div className="inner-div mt-[54px]">
                  <h3 className="text-[#22281C] text-[24px] font-medium mt-[16px]">Spomini niso večni</h3>
-                <p className="mt-[16px]">Prehitro nam uidejo, čarobni trenutki se pozabijo, slike zbledijo. Povežimo spomine na naše najdražje v celoto v digitalni obliki in jih ohranimo za vedno. </p>
+                <p className="mt-[16px]">Prehitro nam uidejo, čarobni trenutki se pozabijo, slike zbledijo. <br/> Povežimo spomine na naše najdražje v celoto v digitalni obliki in jih ohranimo za vedno. </p>
                </div> 
             </div>
        
       </div>
   );
+}
 };
 
 export default SlideTwo;

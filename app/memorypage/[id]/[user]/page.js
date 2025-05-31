@@ -16,6 +16,7 @@ import Image from "next/image";
 import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
 import AnnouncementBlock from "../../../components/appcomponents/AnnouncementBlock";
+import MobileCards from "../../../components/appcomponents/MobileCards";
 
 const MemoryPage = ({ params }) => {
   const { id, user } = params;
@@ -130,8 +131,7 @@ const MemoryPage = ({ params }) => {
   }, []);
   return (
     <Layout from={"3"} forFooter={"memorypage"}>
-      <div className="flex flex-1 flex-col mx-auto bg-[#ecf0f3] relative pt-[20px] max-w-[100vw] overflow-x-hidden">
-        <Image src={"/memory_page_bg.png"} alt="" width={1280} height={1091} className="absolute top-0 left-0 w-full" />
+      <div className="flex flex-1 flex-col mx-auto bg-[#ecf0f3] ">
         <ModalLibrary
           isShowModal={isShowModal}
           setIsShowModal={setIsShowModal}
@@ -169,12 +169,13 @@ const MemoryPage = ({ params }) => {
             data={obituary?.Photos}
           />
         )}
+        <MobileCards data={obituary} />
 
-        {/* <Condolences
+        <Condolences
           set_Id={setSelect_Id}
           setModal={setIsShowModal}
           data={obituary?.Condolences}
-        /> */}
+        />
         <AnnouncementBlock />
 
         <ShippingNotifications

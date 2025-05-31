@@ -8,7 +8,7 @@ const MemoralPopup = ({setIsMemoralPopupVisible}) => {
           <div className="flex justify-end mb-[20px] mobile:mb-[10px]">
             <img src={"./arrow_back_icon.png"} alt="Close" className="w-[70px] h-[70px] cursor-pointer" onClick={() => setIsMemoralPopupVisible(false)} />
           </div>
-          <div className="px-[33px] pt-[36px] pb-[50px] mobile:pl-[14px] mobile:pr-[10px] mobile:pt-[40px] mobile:pb-[36px] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-[2px] border-[1px] border-[#0A85C2] shadow-md shadow-black/40 w-[520px] mobile:w-[334px] mx-auto space-y-[20px]">
+          <div className="px-[33px] pt-[36px] pb-[50px] mobile:pl-[14px] mobile:pr-[28px] mobile:pt-[40px] mobile:pb-[36px] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-[2px] border-[1px] border-[#0A85C2] shadow-md shadow-black/40 w-[520px] mobile:w-[334px] mx-auto space-y-[20px]">
             <h1 className="text-[#F3F3F3] text-[24px] mobile:text-[20px] leading-[30px] font-medium">
             Spominske strani se dodajo med tvoje bližnje, ko na njih sodeluješ
             </h1>

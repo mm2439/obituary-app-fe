@@ -15,13 +15,34 @@ const Card3 = () => {
 
       <div className="inner-container mt-[34px] py-1">
         <div className="img-container py-5 flex justify-center">
-          <img src="/mobile-cards/V spomin(1).png" alt="Mario" />
+                    <h2
+            className="font-greatVibes text-[48px] font-normal text-center leading-[36px] text-transparent bg-clip-text"
+            style={{
+              backgroundImage:
+                'linear-gradient(to bottom, #F8EDE3 40%, rgba(0, 0, 0, 0.25) 100%)',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '0px 3px 3px rgba(0, 0, 0, 0.25)',
+            }}
+          >
+            V spomin
+          </h2>
         </div>
       </div>
 
       <div className="text-containe mt-[108px]">
          <div className="img-container py-5 flex flex-col align-middle">
-          <img className="w-[320px] mx-auto" src="/mobile-cards/Mario Danilo Primo.png" alt="Mario" />
+          <h2
+            className="text-[40px] font-normal text-center leading-[36px] text-transparent bg-clip-text"
+            style={{
+              backgroundImage:
+                'linear-gradient(to bottom, #F8EDE3 40%, rgba(0, 0, 0, 0.25) 100%)',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '0px 3px 3px rgba(0, 0, 0, 0.25)',
+            }}
+          >
+            Mario Danilo Primo
+          </h2>
+
           <p style={{ letterSpacing: '3px' }} className="text-[#F8EDE3] mx-auto mt-[34px] text-[18px] font-light">14.01.1948 - 21.05.2025</p>
         </div>
       </div>
@@ -32,7 +53,7 @@ const Card3 = () => {
           <p className="text-center mx-auto mt-3 text-[18px] mt-[0px]">Pokopališče v Gabrskem</p>
         </div>
 
-         <div className="mt-[27px]">
+         <div className="mt-[108px]">
          <img src="/mobile-cards/tool-bar.png" alt="" className="w-full" />
         </div>
     </div>

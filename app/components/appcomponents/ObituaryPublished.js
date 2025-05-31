@@ -5,18 +5,40 @@ import { format } from "date-fns";
 
 const ObituaryPublished = ({ set_Id, setModal, data }) => {
   return (
-    <div className=" mobile:h-[263px] mx-auto border-t-[1px] border-b-[1px] border-[#DCE4E4] tablet:h-[311px] h-[418px] w-full flex items-center overflow-hidden bg-[#FFFAF826]">
+    <>
+    <div className="mx-auto border-t-[1px] border-b-[1px] border-[#DCE4E4] w-full flex items-center overflow-hidden bg-[#FFFAF826] py-[68px]">
       {/* Main Container */}
-      <div className="max-w-[1042] w-full h-[303px] flex flex-col justify-center items-center">
+      <div className="max-w-[1042] w-full flex flex-col justify-center items-center">
         {/* Container for first details */}
         {/* <div className="desktop:w-[993px] h-[128px] flex flex-row mobile:w-full mobile:mr-[32px] mobile:ml-[32px] mobile:flex-col mobile:h-[202px] bg-blue-500 tablet:w-[534px] tablet:mx-auto justify-between"> */}
         <div
-          className="desktop:w-[993px] h-[128px] flex flex-row tablet:w-[534px] tablet:mx-auto justify-between 
+          className="desktop:w-[993px] h-[128px] flex flex-row tablet:w-[639px] tablet:mx-auto justify-between 
         mobile:w-full mobile:px-[32px] mobile:flex-col mobile:h-[202px]"
         >
           {/* First row details */}
           <div className="desktop:w-[496px] tablet:w-[496px] h-full flex flex-col items-start">
-            <div className="block tablet:hidden mobile:hidden text-[16px] text-[#1E2125] leading-[18.75px] font-variation-customOpt16 ml-[2px]">
+            <div className="block text-[16px] text-[#36556C] leading-[100%] mb-[16px]">
+              Osmrtnica objavljena dne 18.04.2025 preko:
+            </div>
+            <div className="block text-[16px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
+              Edwards Funeral Chapel Inc
+            </div>
+            <div className="block text-[14px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
+            Their address
+            </div>
+            <div className="block text-[14px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
+            Tel. 660-277-3218
+            </div>
+            <div className="block text-[14px] text-[#36556C] leading-[100%] mobile:hidden">
+            www.link to their page on our website
+            </div>
+            <div className="text-[16px] text-[#1E2125] leading-[100%] mb-[12px] hidden mobile:block">
+            Name of funeral company
+            </div>
+            <div className="text-[14px] text-[#1E2125] leading-[100%] mb-[16px] hidden mobile:block">
+            Spletna stran
+            </div>
+            {/* <div className="block tablet:hidden mobile:hidden text-[16px] text-[#1E2125] leading-[18.75px] font-variation-customOpt16 ml-[2px]">
               This obituary was published on{" "}
               {data && data.createdTimestamp
                 ? format(new Date(data.createdTimestamp), "dd.MM.yyyy")
@@ -52,12 +74,12 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
             </div>
             <div className="desktop:hidden tablet:block mobile:block text-[12px] font-variation-customOpt12 text-[#414141]">
               {(data && data.User && data.User.pageLink) || ""}
-            </div>
+            </div> */}
           </div>
 
           {/* Second row details */}
-          <div className="desktop:w-[496px] tablet:w-[496px] h-full flex flex-col items-end">
-            <div className="desktop:mr-[18px] tablet::mr-[18px] mobile:mt-[-7px] text-[12px] text-[#414141] leading-[14.06px] flex tablet:hidden flex-row">
+          <div className="desktop:w-[496px] tablet:w-[496px] h-full flex flex-col items-end mobile:mt-[15px]">
+            <div className="desktop:mr-[18px] tablet:mr-[18px] text-[12px] text-[#414141] leading-[14.06px] flex tablet:mb-[34px] mb-[24px] flex-row mobile:mb-[10px]">
               <div className="mr-[8px] ml-[6px]">
                 <Image
                   src={imgFlag}
@@ -74,10 +96,14 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
                 Sporoči napake
               </div>
             </div>
-            <div className="leading-[16.41px] text-[14px] text-[#414141] desktop:mt-[24px] mobile:mt-[16px] tablet:mt-[8px] desktop:mr-[4px] tablet:mr-[4px]">
-              Last changes:
+            <div className="leading-[] text-[12px] text-[#414141] desktop:mt-[24px] mobile:mt-[8px] tablet:mt-[8px] desktop:mr-[4px] tablet:mr-[4px] text-end">
+            <span className="text-[14px]">Zadnje spremembe:</span> <br />
+            Žalna knjiga: Alfred G. 21.12.2023<br />
+            Sožalje: Ahmed Omar G. 17.12.2023<br />
+            Posvetilo: G.K., 15.12.2023 <br />
+
             </div>
-            {data && data?.MemoryLogs?.length > 0
+            {/* {data && data?.MemoryLogs?.length > 0
               ? data?.MemoryLogs?.map((item, index) => (
                   <div
                     key={index}
@@ -105,29 +131,26 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
                 />
               </div>
               <div className="mt-[1px] ">Sporoči napake</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="max-w-[1041px] w-full desktop:mt-[94px] tablet:mt-[31.33px] mobile:mt-10 flex flex-col items-center">
-          <div className="text-[#1E2125] text-[20px] mobile:text-[18px] mobile:font-variation-customOpt14 mobile:w-[300px] leading-[23.44px] font-variation-customOpt40 text-center">
-            Želite biti obveščeni o spremembah na tej spominski strani?
-          </div>
-
-          <div className="text-center hidden desktop:flex w-[620px] text-[12px] mt-[16px] text-[#414141] leading-[14.06px] font-variation-customOpt12">
-            Vpišite se v Žalno knjigo, izrazite sožalje in vse spremembe bodo
-            redno beležene v vašem uporabniškem računu, hkrati pa boste po
-            spletni pošti še pravočasno obveščeni tudi o prihajajočih obletnicah
-            pokojne(ga).
-          </div>
-
-          <div className="text-center flex desktop:hidden w-[620px] mobile:w-full mobile:mt-6 mobile:px-[50px] text-[12px] mobile:text-[14px] mt-[16px] text-[#414141] leading-[14.06px] font-variation-customOpt12">
-            Vpišite se v Žalno knjigo, izrazite sožalje in vse spremembe bodo
-            redno beležene v vašem uporabniškem računu.
+            </div> */}
           </div>
         </div>
       </div>
     </div>
+    <div className="w-full flex flex-col items-center bg-[#083545] text-[#F3F3F3] py-[29px]">
+          <div className="text-[20px] mobile:text-[18px] mobile:font-variation-customOpt14 mobile:w-[300px] leading-[23.44px] font-variation-customOpt40 text-center text-[#C6E4EF]"
+          style={{
+            textShadow: "0px 10px 0px 0px #D8A800"
+          }}>
+            Želite biti obveščeni o spremembah na tej spominski strani?
+          </div>
+
+          <div className="text-center text-[12px] mt-[16px] text-[#F3F3F3] leading-[14.06px] font-variation-customOpt12 mobile:mx-[15px]">
+          Vpišite se v Žalno knjigo, izrazite sožalje ali drugače sodelujte in ta stran bo uvrščena med vaše bližnje.  <br/>
+          Vse spremembe bodo redno beležene v vašem uporabniškem računu, hkrati pa boste po spletni pošti še pravočasno obveščeni tudi o prihajajočih obletnicah pokojne(ga). 
+
+          </div>
+        </div>
+    </>
   );
 };
 

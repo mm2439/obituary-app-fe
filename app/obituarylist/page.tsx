@@ -11,7 +11,7 @@ import FloristsComp from "../components/appcomponents/FloristsComp";
 
 const ObituaryList = () => {
   return (
-    <Layout isMegaMenuVisible={false} from={"2"} forFooter={""}>
+    <Layout megaMenu={""} isMegaMenuVisible={false} from={"2"} forFooter={""}>
       <div className="flex flex-col mx-auto bg-[#F5F7F9] w-full">
         <ObituaryListBanner image={"/cvetje.avif"} label={"Osmrtnice"} />
         <ObituaryListComponent />

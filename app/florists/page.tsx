@@ -1,4 +1,3 @@
-
 import React from "react";
 import Layout from "../components/appcomponents/Layout";
 import ObituaryListBanner from "../components/appcomponents/ObituaryListBanner";
@@ -9,15 +8,12 @@ import FloristList from "../components/appcomponents/FloristList";
 
 const FloristsListPage = () => {
   return (
-    <Layout from={"2"} forFooter={''} isMegaMenuVisible={false}>
+    <Layout from={"2"} megaMenu={""} forFooter={""} isMegaMenuVisible={false}>
       <div className="flex flex-col mx-auto bg-[#F5F7F9] border-b-[1px] border-[#D4D4D4] w-full">
-        <ObituaryListBanner
-          image={"/roza_ozadje.avif"}
-          label={"Cvetličarne"}
-        />
+        <ObituaryListBanner image={"/roza_ozadje.avif"} label={"Cvetličarne"} />
         <FloristList />
-        <LocalFloristCompo/>
-        
+        <LocalFloristCompo />
+
         <FloristsFlower />
         <SponsorComponent />
       </div>
@@ -26,4 +22,3 @@ const FloristsListPage = () => {
 };
 
 export default FloristsListPage;
-

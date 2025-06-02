@@ -68,11 +68,11 @@ const SadProgram = ({ data }) => {
           <div className="text-[40px] mt-[-8px] text-[#1E2125] mobile:text-[32px] mobile:font-variation-customOpt32 font-variation-customOpt40">
             Žalni program
           </div>
-          <div className="text-[16px] text-[#939393] font-variation-customOpt16 leading-[24px] mt-[11px]">
+          {/* <div className="text-[16px] text-[#939393] font-variation-customOpt16 leading-[24px] mt-[11px]">
             Dodate osem produktov iz vaše ponudbe in dodate pod njimi svoje
             tekste. Seveda ni nujno, da so vsi produkti iz žalnega programa.
             Tudi naslov lahko poimenujete drugače.
-          </div>
+          </div> */}
         </div>
 
         {/*Contianer for grid*/}
@@ -134,10 +134,10 @@ const SadProgram = ({ data }) => {
         </div>
 
         {/*Bottom text Contianer*/}
-        <div className="mx-auto w-[485px] h-[42px] text-[14px] text-[#414141] font-variation-customOpt14 text-center leading-[21px] mt-[38px] desktop:flex hidden">
+        {/* <div className="mx-auto w-[485px] h-[42px] text-[14px] text-[#414141] font-variation-customOpt14 text-center leading-[21px] mt-[38px] desktop:flex hidden">
           Ko kliknete na nek produkt se odpre forma preko katere nas lahko
           kontaktirate, odgovorili vam bomo v najkrajšem času.
-        </div>
+        </div> */}
       </div>
     </div>
   );

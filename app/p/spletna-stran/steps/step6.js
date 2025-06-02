@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
 import Link from "next/link";
 
-export default function Step6({ data, handleStepChange }) {
+export default function Step6({ data, onChange, handleStepChange }) {
   const [openBlock, setOpenBlock] = useState(1);
   const [companyId, setCompanyId] = useState(null);
   const [user, setUser] = useState(null);
@@ -88,6 +88,7 @@ export default function Step6({ data, handleStepChange }) {
       }
 
       const response = await companyService.updateCompany(formData, companyId);
+      onChange(response.company);
       toast.success("Company Updated Successfully");
       console.log(response);
       return true;
@@ -111,6 +112,7 @@ export default function Step6({ data, handleStepChange }) {
       formData.append("status", "DRAFT");
 
       const response = await companyService.updateCompany(formData, companyId);
+      onChange(response.company);
       toast.success("Company Sent For Approval Successfully");
       return true;
       console.log(response);

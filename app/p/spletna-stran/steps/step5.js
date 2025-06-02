@@ -10,7 +10,7 @@ import faqService from "@/services/faq-service";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 
-export default function Step5({ data, handleStepChange }) {
+export default function Step5({ data, onChange, handleStepChange }) {
   const [faqs, setFaqs] = useState([
     {
       index: 1,
@@ -59,6 +59,7 @@ export default function Step5({ data, handleStepChange }) {
           paddedFaqs.push({
             index: paddedFaqs.length + 1,
             answer: "",
+            question: "",
           });
         }
 
@@ -94,7 +95,7 @@ export default function Step5({ data, handleStepChange }) {
   const handleSubmit = async () => {
     try {
       // if (!validateFields()) return;
-
+      console.log(faqs);
       const faqsToSend = faqs
         .filter((faq) => faq.question.trim() !== "" && faq.answer.trim() !== "")
         .filter((faq) => !faq.id || (faq.id && faq.updated));
@@ -104,6 +105,8 @@ export default function Step5({ data, handleStepChange }) {
         faqs: faqsToSend,
       };
       const response = await faqService.createFaq(payload);
+      const updatedCompany = { ...data, faqs: response.faqs };
+      onChange(updatedCompany);
 
       toast.success("Faq's Updated Successfully");
       return true;

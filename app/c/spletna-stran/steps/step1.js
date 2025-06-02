@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
-  const [companyName, setCompanyName] = useState("");
+  const [heading, setHeading] = useState("");
   const [phone, setPhone] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -23,8 +23,8 @@ export default function Step1({ data, onChange, handleStepChange }) {
   const handleSave = async () => {
     const formData = new FormData();
 
-    if (companyName != null) {
-      formData.append("address", companyName);
+    if (heading != null) {
+      formData.append("heading", heading);
     }
 
     if (phone != null) {
@@ -51,7 +51,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
       let response;
       if (companyId !== null) {
         const hasChanges =
-          (data && data.address !== companyName) ||
+          (data && data.address !== heading) ||
           data.title !== title ||
           data.description !== description ||
           data.phone !== phone ||
@@ -60,12 +60,14 @@ export default function Step1({ data, onChange, handleStepChange }) {
 
         if (hasChanges) {
           response = await companyService.updateCompany(formData, companyId);
+
           toast.success("Changes Applied Successfully");
         } else {
           return true;
         }
       } else {
         response = await companyService.createCompany(formData, "florist");
+
         toast.success("Company Created Successfully");
       }
 
@@ -79,7 +81,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
 
   useEffect(() => {
     if (data && data !== null) {
-      setCompanyName(data.address);
+      setHeading(data.heading);
       setTitle(data.title);
       setDescription(data.description);
       setPhone(data.phone);
@@ -147,8 +149,8 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   </span>
                   <input
                     type="text"
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
+                    value={heading}
+                    onChange={(e) => setHeading(e.target.value)}
                     className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
                     placeholder="Cvetličarna Suniflower, Milano"
                   />
@@ -231,6 +233,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
                     type="text"
                     readOnly={glassFrameState === false}
                     value={title}
+                    maxLength={25}
                     onChange={(e) => setTitle(e.target.value)}
                     className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
                     placeholder="Cvetličarna z dolgoletno tradicijo"
@@ -243,6 +246,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   <textarea
                     type="text"
                     value={description}
+                    maxLength={250}
                     readOnly={glassFrameState === false}
                     onChange={(e) => setDescription(e.target.value)}
                     className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] min-h-[108px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"

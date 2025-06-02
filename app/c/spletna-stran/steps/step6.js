@@ -9,7 +9,7 @@ import shopService from "@/services/shop-service";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-export default function Step6({ data, handleStepChange }) {
+export default function Step6({ data, onChange, handleStepChange }) {
   const [openBlock, setOpenBlock] = useState(1);
   const [shops, setShops] = useState([
     {
@@ -42,6 +42,9 @@ export default function Step6({ data, handleStepChange }) {
         address: "",
         email: "",
         telephone: "",
+        secondaryHours: "",
+        tertiaryHours: "",
+        quaternaryHours: "",
       },
     ]);
   };
@@ -65,6 +68,7 @@ export default function Step6({ data, handleStepChange }) {
       if (instagram) formData.append("instagram", instagram);
 
       const response = await companyService.updateCompany(formData, companyId);
+      onChange(response.company);
       toast.success("Company Updated Successfully");
 
       console.log(response);
@@ -114,6 +118,11 @@ export default function Step6({ data, handleStepChange }) {
       };
       await handlePublish();
       const response = await shopService.createShop(data);
+      const updatedCompany = {
+        ...data,
+        shops: response.shops,
+      };
+      onChange(updatedCompany);
       toast.success("Shops Created,Company Sent For Approval Successfully");
 
       console.log(response);
@@ -131,6 +140,7 @@ export default function Step6({ data, handleStepChange }) {
       formData.append("status", "DRAFT");
 
       const response = await companyService.updateCompany(formData, companyId);
+      onChange(response.company);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -145,7 +155,8 @@ export default function Step6({ data, handleStepChange }) {
     setInstagram(data.instagram);
     setLogo(data.logo);
 
-    if (data.shops && data.shops.length > 0) {
+    if (data?.shops && data?.shops?.length > 0) {
+      console.log(data.shops, "===================");
       const updatedShops = data.shops.map((shop, index) => ({
         ...shop,
         index: index + 1,
@@ -438,7 +449,7 @@ function SliderBlock({
       openBlock={openBlock === 2}
       handleOpenBlock={() => setOpenBlock(2)}
     >
-      <div className="space-y-[16px]">
+      <div className="space-y-[16px] ">
         <div className="space-y-[8px]">
           <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Ime cvetličarne
@@ -491,16 +502,65 @@ function SliderBlock({
             onChange={handleChange}
           />
         </div>
+
         <div className="space-y-[8px]">
           <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Delovni čas
           </div>
+          <small className="text-[#6D778E] text-[14px] font-normal ">
+            Pišite dneve skupaj (na voljo so samo 4 vrstice) npr Pon-Pet
+            9:00-17:00 ali Pon, Tor, Čet 10:00 do 18:00
+          </small>
+        </div>
+        <div className="space-y-[8px] ms-2">
+          <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
+            Prva vrstica
+          </div>
           <input
             type="text"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
-            placeholder="Kopiraj-prilepi delovni čas po dnevih; glej primer"
+            placeholder="Pon - Pet: 8:00 - 17:30"
             name="hours"
             value={shop.hours}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="space-y-[8px] ms-2">
+          <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
+            Druga vrstica
+          </div>
+          <input
+            type="text"
+            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+            placeholder="Sobota: 7:30 - 14:00"
+            name="secondaryHours"
+            value={shop.secondaryHours}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="space-y-[8px] ms-2">
+          <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
+            Tretja vrstica
+          </div>
+          <input
+            type="text"
+            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+            placeholder="Nedelja: Zaprto"
+            name="tertiaryHours"
+            value={shop.tertiaryHours}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="space-y-[8px] ms-2">
+          <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
+            Četrta vrstica
+          </div>
+          <input
+            type="text"
+            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+            placeholder="Dodaj samo če je potrebno"
+            name="quaternaryHours"
+            value={shop.quaternaryHours}
             onChange={handleChange}
           />
         </div>

@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
 import Link from "next/link";
 
-export default function Step4({ data, handleStepChange }) {
+export default function Step4({ data, onChange, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
   const [user, setUser] = useState(null);
   const [secondaryTitle, setSecondaryTitle] = useState(null);
@@ -64,6 +64,7 @@ export default function Step4({ data, handleStepChange }) {
       }
 
       const response = await companyService.updateCompany(formData, companyId);
+      onChange(response.company);
       toast.success("Company Updated Successfully");
       console.log(response);
       return true;

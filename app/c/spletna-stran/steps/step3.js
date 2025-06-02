@@ -10,7 +10,7 @@ import packageService from "@/services/pacakge-service";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-export default function Step3({ data, handleStepChange }) {
+export default function Step3({ data, onChange, handleStepChange }) {
   const [packages, setPackages] = useState([
     {
       index: 1,
@@ -135,6 +135,12 @@ export default function Step3({ data, handleStepChange }) {
       }
       if (nonEmptyPackages.length > 0) {
         const response = await packageService.createPackage(formData);
+        const updatedCompany = {
+          ...data,
+          packages: response.packages,
+        };
+
+        onChange(updatedCompany);
         toast.success("Packages Updated Successfully");
       }
 

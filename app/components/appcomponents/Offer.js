@@ -64,17 +64,15 @@ const Offer = ({ data }) => {
       <div className="flex w-[1085px]  tablet:w-[666.5px] mobile:w-[287.76px] items-center flex-col">
         {/*Header container*/}
         {images.length > 0 && (
-          <div className="flex w-[537px] h-[103px] tablet:w-[488.57px] mobile:w-[296px] mobile:h-[142px] items-center flex-col">
+          <div className="flex w-[537px] h-[70px] tablet:w-[488.57px] mobile:w-[296px] mobile:h-[142px] items-center flex-col">
             <div className="text-[40px] mobile:text-[32px] text-[#000000] font-variation-customOpt40 mobile:font-variation-customOpt32 mt-[-6px] mobile:mt-[-18px]">
               Naša ponudba
             </div>
             <div className="h-[48px] w-full text-[16px] mobile:h-[96px] text-[#939393] text-center leading-[24px] font-variation-customOpt16 flex desktop:hidden mobile:mt-[1px]">
-              {data?.offer_subtitle ||
-                "Dodate tri stvari iz vaše ponudbe, ki jih želite posebej poudariti Tukaj pod naslovom lahko dopišete tudi poljubni tekst, prodajno sporočilo."}
+              {data?.offer_subtitle}
             </div>
             <div className="text-[16px] text-[#939393] text-center leading-[24px] font-variation-customOpt16 tablet:hidden desktop:flex mobile:hidden">
-              {data?.offer_subtitle ||
-                "Dodate tri stvari iz vaše ponudbe, ki jih želite posebej poudariti"}
+              {data?.offer_subtitle}
             </div>
           </div>
         )}
@@ -97,7 +95,7 @@ const Offer = ({ data }) => {
           )}
 
           {data?.offer_one_image && data?.offer_one_title ? (
-            <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
+            <div className="flex me-8 w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
               <Image
                 src={images[0].image}
                 alt={`${data?.offer_one_title}`}
@@ -110,7 +108,7 @@ const Offer = ({ data }) => {
               </div>
             </div>
           ) : (
-            <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
+            <div className="flex me-8 w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
               <Image
                 src={images[0].image}
                 alt={`${data?.offer_one_title}`}
@@ -127,7 +125,7 @@ const Offer = ({ data }) => {
           {/*f2 container*/}
 
           {data?.offer_two_image && data?.offer_two_title ? (
-            <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full desktop:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark desktop:rounded-lg flex-col items-center ml-10 tablet:ml-[18px] mobile:hidden">
+            <div className="flex me-8  w-[355px] h-[455px] tablet:w-[210px] tablet:h-full desktop:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark desktop:rounded-lg flex-col items-center ml-10 tablet:ml-[18px] mobile:hidden">
               <Image
                 src={images[1].image}
                 alt={`${data?.offer_two_title}`}
@@ -140,7 +138,7 @@ const Offer = ({ data }) => {
               </div>
             </div>
           ) : (
-            <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
+            <div className="flex me-8 w-[355px] h-[455px] tablet:w-[210px] tablet:h-full mobile:h-[390px] desktop:bg-gradient-to-r mobile:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark mobile:shadow-custom-light-dark mobile:rounded-lg desktop:rounded-lg flex-col items-center mobile:hidden">
               <Image
                 src={images[1].image}
                 alt={`${data?.offer_one_title}`}
@@ -156,7 +154,7 @@ const Offer = ({ data }) => {
 
           {/*f3 container*/}
           {data?.offer_three_image && data?.offer_three_title ? (
-            <div className="flex w-[355px] h-[455px] tablet:w-[210px] tablet:h-full desktop:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark desktop:rounded-lg flex-col items-center ml-10 tablet:ml-[18px] mobile:hidden">
+            <div className="flex   w-[355px] h-[455px] tablet:w-[210px] tablet:h-full desktop:bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] desktop:shadow-custom-light-dark desktop:rounded-lg flex-col items-center ml-10 tablet:ml-[18px] mobile:hidden">
               <Image
                 src={images[2].image}
                 alt={`${data?.offer_three_title}`}

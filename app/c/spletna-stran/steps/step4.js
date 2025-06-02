@@ -13,7 +13,7 @@ import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
 import Link from "next/link";
 
-export default function Step4({ data, handleStepChange }) {
+export default function Step4({ data, onChange, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
   const [boxes, setBoxes] = useState([
     {
@@ -24,7 +24,9 @@ export default function Step4({ data, handleStepChange }) {
     },
   ]);
   const [image, setImage] = useState(null);
-  const [showBackground, setShowBackground] = useState(true);
+  const [showBackground, setShowBackground] = useState(
+    data?.showBoxBackground || false
+  );
 
   const addSliderBlock = () => {
     setBoxes([...boxes, { index: boxes.length + 1 }]);
@@ -47,10 +49,12 @@ export default function Step4({ data, handleStepChange }) {
       //   return;
       // }
 
-      await updateCompany();
-
       const formData = new FormData();
+      if (image !== null) {
+        formData.append("boxBackgroundImage", image);
+      }
       formData.append("companyId", companyId);
+      formData.append("showBoxBackground", showBackground);
 
       const nonEmptyBoxes = boxes.filter(
         (box) => box.text.trim() !== "" && box.icon !== null
@@ -71,6 +75,7 @@ export default function Step4({ data, handleStepChange }) {
           formData,
           companyId
         );
+        onChange(response.company);
 
         toast.success("Company updated Successfully");
       }
@@ -86,19 +91,20 @@ export default function Step4({ data, handleStepChange }) {
     }
   };
 
-  const updateCompany = async () => {
-    if (image === null) {
-      return;
-    }
-    const formData = new FormData();
-    if (image !== null) {
-      formData.append("boxBackgroundImage", image);
-    }
+  // const updateCompany = async () => {
+  //   if (image === null) {
+  //     return;
+  //   }
+  //   const formData = new FormData();
+  //   if (image !== null) {
+  //     formData.append("boxBackgroundImage", image);
+  //   }
 
-    formData.append("showBoxBackground", showBackground);
+  //   formData.append("showBoxBackground", showBackground);
 
-    const response = await companyService.updateCompany(formData, companyId);
-  };
+  //   const response = await companyService.updateCompany(formData, companyId);
+  //   onChange(response.company);
+  // };
 
   const getNumberWord = (num) => {
     const words = ["one", "two", "three"];
@@ -111,7 +117,7 @@ export default function Step4({ data, handleStepChange }) {
 
       const loadedBoxes = [];
 
-      for (let i = 1; i <= 3; i++) {
+      for (let i = 1; i <= 2; i++) {
         const text = data[`box_${getNumberWord(i)}_text`];
         const icon = data[`box_${getNumberWord(i)}_icon`];
 
@@ -182,7 +188,7 @@ export default function Step4({ data, handleStepChange }) {
                 onChange={handleBoxChange}
               />
             ))}
-            {boxes.length < 3 && (
+            {boxes.length < 2 && (
               <div className="flex items-center justify-end pt-[8px] pb-[16px]">
                 <div
                   className="inline-flex items-center gap-[8px] cursor-pointer"
@@ -194,7 +200,7 @@ export default function Step4({ data, handleStepChange }) {
                     className="w-[16px] h-[16px]"
                   />
                   <span className="text-[14px] text-[#3C3E41] font-normal leading-[100%]">
-                    DODAJ ŠE DODATNE (največ 3)
+                    DODAJ ŠE DODATNE (največ 2)
                   </span>
                 </div>
               </div>
@@ -219,7 +225,7 @@ export default function Step4({ data, handleStepChange }) {
               />
               <div className="flex items-center justify-center gap-[22px] py-[9px]">
                 <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
-                  Dodaj svojo sliko
+                  Prikaži obstoječ dizajn
                 </span>
                 <Switch
                   onChange={handleSwitchChange}
@@ -288,7 +294,7 @@ function SliderBlock({ index, title, box, onChange }) {
       title={title}
       index={index}
       hasDeleteButton={true}
-      helpText="(največ 3)"
+      helpText="(največ 2)"
     >
       <div className="space-y-[16px]">
         <div className="space-y-[8px]">

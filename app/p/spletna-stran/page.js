@@ -61,27 +61,57 @@ export default function SpletnaStran() {
     {
       id: 2,
       title: "Izberi sliko",
-      component: <Step2 data={company} handleStepChange={handleStepChange} />,
+      component: (
+        <Step2
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
     {
       id: 3,
       title: "Izberi sliko",
-      component: <Step3 data={company} handleStepChange={handleStepChange} />,
+      component: (
+        <Step3
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
     {
       id: 4,
       title: "Izberi sliko",
-      component: <Step4 data={company} handleStepChange={handleStepChange} />,
+      component: (
+        <Step4
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
     {
       id: 5,
       title: "Izberi sliko",
-      component: <Step5 data={company} handleStepChange={handleStepChange} />,
+      component: (
+        <Step5
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
     {
       id: 6,
       title: "Izberi sliko",
-      component: <Step6 data={company} handleStepChange={handleStepChange} />,
+      component: (
+        <Step6
+          data={company}
+          onChange={handleCompanyChange}
+          handleStepChange={handleStepChange}
+        />
+      ),
     },
   ];
 

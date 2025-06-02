@@ -6,7 +6,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
 import { useRouter } from "next/navigation";
-const FuneralInFewDays = () => {
+const FuneralInFewDays = ({ data }) => {
   const [startDateFunerals, setStartDateFunerals] = useState([]);
   const [endDateFunerals, setEndDateFunerals] = useState([]);
   const [isMobile, setIsMobile] = useState(false);

@@ -189,10 +189,21 @@ const SunflowerFlorist = ({ data }) => {
               <div className="text-[#000000] leading-[18.75px] text-[16px] font-variation-customOpt16">
                 Delovni čas
               </div>
-              {shops[currentIndex]?.workingHours ? (
-                <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
-                  {shops[currentIndex]?.workingHours}
-                </div>
+              {shops[currentIndex]?.hours ? (
+                <>
+                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                    {shops[currentIndex]?.hours}
+                  </div>
+                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                    {shops[currentIndex]?.secondaryHours}
+                  </div>
+                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                    {shops[currentIndex]?.tertiaryHours}
+                  </div>
+                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                    {shops[currentIndex]?.quaternaryHours}
+                  </div>
+                </>
               ) : (
                 <>
                   <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">

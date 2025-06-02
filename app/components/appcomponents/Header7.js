@@ -47,27 +47,19 @@ function ObituaryHeader({ from, data }) {
                 desktop:text-[32px] desktop:font-variation-customOpt32wght500"
                 >
                   {from === 7
-                    ? `${data?.address || "Cvetličarna Suniflower"} , ${
-                        data?.city || "Milano"
-                      }`
-                    : `${data?.name || "Pogrebni zavod"}, ${
-                        data?.city || "Milano"
-                      }`}
+                    ? `${data?.heading || "Cvetličarna Suniflower"}`
+                    : `${data?.heading || "Pogrebni zavod"}`}
                 </h>
               </div>
               <div className="flex h-[50px] flex-col tablet:hidden desktop:hidden ml-[22px] pl-[2px]">
                 <h className="text-[#414141] text-[20px] font-variation-customOpt20 font-normal">
                   {from === 7
-                    ? `${data?.address || "Cvetličarna Suniflower"} , ${
-                        data?.city || "Milano"
-                      }`
-                    : `${data?.name || "Pogrebni zavod"}, ${
-                        data?.city || "Milano"
-                      }`}
+                    ? `${data?.heading || "Cvetličarna Suniflower"}`
+                    : `${data?.heading || "Pogrebni zavod"}`}
                 </h>
-                <h className="text-[#939393] text-[16px] font-variation-customOpt20 font-normal">
+                {/* <h className="text-[#939393] text-[16px] font-variation-customOpt20 font-normal">
                   {from === 7 ? "Milano" : "Rome"}
-                </h>
+                </h> */}
               </div>
               <div
                 className="mobile:hidden  flex   ml-4 tablet:ml-6 h-[52px] w-[52px] tablet:justify-center desktop:h-[48px] desktop:w-[200px] items-center

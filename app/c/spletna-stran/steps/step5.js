@@ -9,7 +9,7 @@ import slideService from "@/services/slides-service";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-export default function Step5({ data, handleStepChange }) {
+export default function Step5({ data, onChange, handleStepChange }) {
   const [slides, setSlides] = useState([
     {
       index: 1,
@@ -93,6 +93,8 @@ export default function Step5({ data, handleStepChange }) {
 
       if (nonEmptySlides.length > 0) {
         const response = await slideService.createSlide(formData);
+        const updatedCompany = { ...data, slides: response.slides };
+        onChange(updatedCompany);
         toast.success("Florist Slides Updated Successfully");
       }
       return true;
@@ -258,6 +260,7 @@ function SliderBlock({ index, title, slide, onChange }) {
             placeholder="Posebna ponudba v avgustu"
             value={slide.title}
             name="title"
+            maxLength={25}
             onChange={handleChange}
           />
         </div>
@@ -270,6 +273,7 @@ function SliderBlock({ index, title, slide, onChange }) {
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px] min-h-[108px]"
             placeholder="Visok blok, kjer lahko dodamo karkoli, kar bi lahko pritegnilo vaše stranke ali poudarite posebne promocije ali ponudbo med prazniki, ipd. "
             value={slide.description}
+            maxLength={220}
             name="description"
             onChange={handleChange}
           />

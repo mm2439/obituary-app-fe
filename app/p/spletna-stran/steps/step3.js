@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-export default function Step3({ data, handleStepChange }) {
+export default function Step3({ data, onChange, handleStepChange }) {
   const [cemetries, setCemetries] = useState([
     {
       index: 1,
@@ -114,6 +114,11 @@ export default function Step3({ data, handleStepChange }) {
       }
       if (nonEmptyCemeteries.length > 0) {
         const response = await cemetryService.createCemetry(formData);
+        const updateCompany = {
+          ...data,
+          cemeteries: response.cemeteries,
+        };
+        onChange(updateCompany);
         toast.success("Cemetries Updated Successfully");
       }
       return true;

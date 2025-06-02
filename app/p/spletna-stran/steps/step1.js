@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
-  const [companyName, setCompanyName] = useState(null);
+  const [heading, setHeading] = useState(null);
   const [facebook, setFacebook] = useState(null);
   const [address, setAddress] = useState(null);
   const [email, setEmail] = useState(null);
@@ -24,7 +24,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
 
   useEffect(() => {
     if (data && data !== null) {
-      if (data.name !== null) setCompanyName(data.name);
+      if (data.heading !== null) setHeading(data.heading);
       if (data.facebook !== null) setFacebook(data.facebook);
       if (data.address !== null) setAddress(data.address);
       if (data.email !== null) setEmail(data.email);
@@ -44,7 +44,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
     setUser(JSON.parse(currUser));
   }, []);
   const validateFields = () => {
-    if (!companyName || !logo || !background) {
+    if (!heading || !logo || !background) {
       toast.error("All fields are mandatory.");
       return false;
     }
@@ -58,7 +58,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
       const formData = new FormData();
 
       // Append only if value is not null or undefined
-      if (companyName != null) formData.append("name", companyName);
+      if (heading != null) formData.append("heading", heading);
       if (facebook != null) formData.append("facebook", facebook);
       if (email != null) formData.append("email", email);
       if (address != null) formData.append("address", address);
@@ -78,7 +78,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
 
       if (companyId !== null) {
         const hasChanges =
-          (data && data.name !== companyName) ||
+          (data && data.name !== heading) ||
           data.facebook !== facebook ||
           data.email !== email ||
           data.address !== address ||
@@ -89,6 +89,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
 
         if (hasChanges) {
           response = await companyService.updateCompany(formData, companyId);
+          onChange(response.company);
           toast.success("Changes Applied Successfully");
         } else {
           // toast.error("No Changes Found");
@@ -96,6 +97,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
         }
       } else {
         response = await companyService.createCompany(formData, "funeral");
+
         toast.success("Company Created Successfully");
       }
 
@@ -175,8 +177,8 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   type="text"
                   className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
                   placeholder="Pogrebni zavod Trbovlje"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
+                  value={heading}
+                  onChange={(e) => setHeading(e.target.value)}
                 />
               </div>
               <div className="space-y-[8px]">

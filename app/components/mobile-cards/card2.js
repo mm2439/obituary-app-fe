@@ -3,7 +3,7 @@ import React from "react";
 const Card2 = () => {
   return (
     <div
-      className="w-[360px] bg-[#fff] h-[720px] rounded-xl shadow-md overflow-hidden text-white"
+      className="w-[360px] bg-[#fff] h-[720px] shadow-md overflow-hidden text-white"
       style={{ fontFamily: "Roboto Flex"}}
     >
       <div className="flex justify-between items-center px-4 py-4 text-sm font-semibold">

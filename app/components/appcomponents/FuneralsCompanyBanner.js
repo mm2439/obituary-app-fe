@@ -11,7 +11,9 @@ const FuneralsCompanyBanner = ({ data }) => {
       <Image
         src={
           data?.background
-            ? `${API_BASE_URL}/${data?.background}`
+            ? data.background.includes("companyUploads")
+              ? `${API_BASE_URL}/${data.background}`
+              : data.background
             : "/pok_gabrsko4.avif"
         }
         alt="pok_gabrsko"

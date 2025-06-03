@@ -43,8 +43,8 @@ export default function Step1({ data, onChange, handleStepChange }) {
       formData.append("glassFrameState", glassFrameState);
     }
 
-    if (selectedImage instanceof File) {
-      formData.append("picture", selectedImage);
+    if (selectedImage instanceof File || typeof selectedImage === "string") {
+      formData.append("background", selectedImage);
     }
 
     try {
@@ -189,7 +189,11 @@ export default function Step1({ data, onChange, handleStepChange }) {
                     naknadno.
                   </span>
                 </div>
-                <BackgroundSelector />
+                <BackgroundSelector
+                  setFile={(file) => {
+                    setSelectedImage(file.image);
+                  }}
+                />
                 <div className="space-y-[8px]">
                   <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                     Ime cvetličarne oz podjetja in kraj

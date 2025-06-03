@@ -9,7 +9,9 @@ const FloristsSunFlowerView = ({ data }) => {
         <Image
           src={
             data?.background
-              ? `${API_BASE_URL}/${data?.background}`
+              ? data.background.includes("companyUploads")
+                ? `${API_BASE_URL}/${data.background}`
+                : data.background
               : "/soncnica.avif"
           }
           alt="soncnica"

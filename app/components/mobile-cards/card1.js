@@ -55,8 +55,8 @@ const Card1 = ({ data, isAssigned }) => {
       <div
         ref={cardRef}
         className="w-[360px] bg-[#3b3b3b] h-[720px] shadow-md overflow-hidden text-white"
-        style={{ fontFamily: "'Roboto Flex', sans-serif" }}
-      >
+        style={{ fontFamily: "'Roboto Flex', sans-serif" }}>
+
         <div className="flex justify-between items-center px-4 py-4 text-sm font-semibold">
           <span className="ml-3">9:41</span>
           <div className="flex space-x-1 text-xs">
@@ -67,8 +67,8 @@ const Card1 = ({ data, isAssigned }) => {
           </div>
         </div>
 
-        <div className="ml-[35px] py-1">
-          <div className="py-5 h-[188px]">
+        <div className="ml-[35px] mt-[13.35px]">
+          <div className="h-[188px]">
             <img
               src={`${API_BASE_URL}/${data?.image}`}
               className="w-auto max-h-[188px]"
@@ -103,7 +103,7 @@ const Card1 = ({ data, isAssigned }) => {
           </div>
         </div>
 
-        <div className="mt-[47px]">
+        <div className="mt-[56px]">
           <img
             src="/mobile-cards/tool-bar.png"
             alt="Toolbar"

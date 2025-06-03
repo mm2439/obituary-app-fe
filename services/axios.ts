@@ -17,6 +17,9 @@ axiosInstance.interceptors.request.use(
     if (refreshtoken) {
       config.headers["refresh-token"] = refreshtoken;
     }
+    config.headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+    config.headers["Pragma"] = "no-cache";
+    config.headers["Expires"] = "0";
     return config;
   },
   (error) => {

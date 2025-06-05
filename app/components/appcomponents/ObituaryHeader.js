@@ -3,11 +3,14 @@ import Image from "next/image";
 import React from "react";
 import logo from "@/public/app_logo.png";
 import iconMenu from "@/public/icon_menu_black.png";
+import iconMainUser from "@/public/promouser.png";
 import iconUser from "@/public/icon_user_black.png";
 import omr from "@/public/omr.png";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function ObituaryHeader({ from }) {
+  const pathname = usePathname();
   return (
     // <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 ">
     <header
@@ -29,11 +32,11 @@ function ObituaryHeader({ from }) {
                     w-full h-full
                      "
           >
-            {from == "2" ? null : (
+            {/* {from == "2" ? null : (
               <div className="flex tablet:hidden desktop:hidden">
                 <Image src={iconUser} className="h-6 w-6" />
               </div>
-            )}
+            )} */}
             <Link href={"/"} className="flex tablet:hidden desktop:hidden">
               <Image
                 src={logo}
@@ -54,29 +57,29 @@ function ObituaryHeader({ from }) {
             </Link>
             <div className="flex">
               <div className="hidden tablet:flex desktop:flex tablet:mr-[30px] desktop:mr-[60px]">
-                <ul className="flex items-center space-x-[15px] desktop:space-x-[27px] ">
+                <ul className="flex items-center gap-[40px] tablet:gap-[16px]">
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
                     <Link
                       href={"/obituarylist"}
                       className=" text-[#1E2125] font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
                     >
-                      Osmrtnice
+                      Začetna
                     </Link>
                   </li>
-                  <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px]  items-center">
+                  <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
                     <Link
                       href={"#"}
-                      className="text-[#1E2125] font-normal  hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
+                      className="text-[#1E2125] font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
                     >
-                      Pogrebi
+                      Cvetličarne
                     </Link>
                   </li>
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center ">
                     <Link
                       href={"/obituarylist"}
-                      className="text-[#1E2125] font-normal  hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
+                      className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${pathname == "/funeralpromo" ? "!text-[#0A85C2] underline" : "text-[#1E2125]"}`}
                     >
-                      Spominske
+                      Pogrebna p.
                     </Link>
                   </li>
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center ">
@@ -84,23 +87,19 @@ function ObituaryHeader({ from }) {
                       href={"/florists"}
                       className="text-[#1E2125] font-normal  hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
                     >
-                      Cvetličarne
+                      Priložnost
                     </Link>
                   </li>
                 </ul>
               </div>
-              {/* <Image
-                src={iconMenu}
-                className="
-                             h-5 w-6 tablet:h-[26.67px] tablet:w-[32px] desktop:h-[26.67px] desktop:w-[30.73px] 
-                             "
-              /> */}
-
               <Image
                 src={iconMenu}
-                className="
-                              h-5 w-6 tablet:h-8 tablet:w-8 desktop:h-8 desktop:w-8 
-                             "
+                className="mobile:block hidden h-[20px] w-[20px]"
+              />
+
+              <Image
+                src={iconMainUser}
+                className="h-5 w-6 tablet:hidden mobile:hidden desktop:h-[30px] desktop:w-[30px]"
               />
             </div>
           </div>

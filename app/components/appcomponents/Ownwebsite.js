@@ -12,7 +12,7 @@ const ownWebsite = () => {
             <div className='flex w-[669px] h-[172px] tablet:h-[247px] tablet:w-[600px] mobile:w-[297px] mobile:h-[271px] mx-auto flex-col'>
 
                 <div className='flex h-[102px] tablet:h-[150px] mobile:h-[147px] flex-col'>
-                    <div className='text-[40px] text-[#3C3E41] font-variation-customOpt40 mobile:text-[28px] mobile:font-variation-customOpt28 mobile:text-center mt-[-6px] tablet:mt-[2px] mobile:mt-0 tablet:text-center leading-[48px]'>Spletno stran si sami izdelate v 20 minutah</div>
+                    <div className='text-[40px] text-[#3C3E41] font-variation-customOpt40 mobile:text-[28px] mobile:font-variation-customOpt28 mobile:text-center mt-[-6px] tablet:mt-[2px] mobile:mt-0 tablet:text-center leading-[48px]'>Spletno stran si sami izdelate v 30 minutah</div>
                     <div className='text-[24px] text-[#3C3E41] mobile:text-[20px] mobile:font-variation-customOpt20wght400 text-center font-variation-customOpt24 font-bold mt-2 mobile:mt-[11px]'>Bolj enostavno ne gre</div>
                 </div>
 

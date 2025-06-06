@@ -8,6 +8,7 @@ const DropdownWithCustomDesign = ({
   onSelectCity,
   selectedRegion,
   selectedCity,
+  isDisabled = false,
 }) => {
   const flattenedOptions = Object.keys(regionsAndCities)
     .flatMap((region) =>
@@ -55,6 +56,7 @@ const DropdownWithCustomDesign = ({
         filterOption={(option, inputValue) =>
           option.label.toLowerCase().startsWith(inputValue.toLowerCase())
         }
+        isDisabled={isDisabled}
         styles={{
           control: (base) => ({
             ...base,

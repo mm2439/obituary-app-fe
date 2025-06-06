@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import { getYear, getMonth } from "date-fns";
 import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
-
+import cemetryService from "@/services/cemetry-service";
 import ModalDropBox from "./ModalDropBox";
 
 const AddObituary = ({ set_Id, setModal }) => {
@@ -89,90 +89,41 @@ const AddObituary = ({ set_Id, setModal }) => {
       console.log(parsedUser, "ParsedUser");
     }
   }, [router]);
+  const [cemeteries, setCemeteries] = useState([]);
+  useEffect(() => {
+    console.log(inputValueFuneralCemetery, "=================");
+  }, [inputValueFuneralCemetery]);
+  const funeralCemeteryOptions = [
+    ...(cemeteries?.map((item) => ({
+      value: item.id,
+      place: `${item.name}`,
+    })) || []),
+    {
+      value: "pokopalisce",
+      place: "Pokopališče",
+    },
+  ];
 
-  const fetchUserObituary = async (userId) => {
+  const selectedCemeteryLabel =
+    funeralCemeteryOptions.find(
+      (cemetery) => cemetery.value === inputValueFuneralCemetery
+    )?.place || "";
+
+  useEffect(() => {
+    if (selectedCity.trim() !== "") {
+      getCemeteries(selectedCity);
+    }
+  }, [selectedCity]);
+  const getCemeteries = async (query) => {
     try {
-      setLoading(true);
-      const response = await obituaryService.getObituaryByUser(userId);
-
-      if (response) {
-        setDataExists(true);
-        setInputValueName(response.name || "");
-        setInputValueSirName(response.sirName || "");
-        setInputValueEnd(response.location || "");
-        setSelectedRegion(response.region || "");
-        setSelectedCity(response.city || "");
-        setInputValueGender(response.gender || "");
-        setUploadedImage(response.image);
-        setUploadedDeathReport(response.deathReport);
-        setDeathReportFilePath(response.deathReport);
-
-        console.log("Image Response", `/${response.image}`);
-
-        // Dates
-        setBirthDate(response.birthDate ? new Date(response.birthDate) : null);
-        setDeathDate(response.deathDate ? new Date(response.deathDate) : null);
-
-        // Funeral information
-        setInputValueFuneralEnd(response.funeralLocation || "");
-        setInputValueFuneralCemetery(response.funeralCemetery || "");
-        setFuneralDate(
-          response.funeralTimestamp ? new Date(response.funeralTimestamp) : null
-        );
-
-        // Funeral time
-        if (response.funeralTimestamp) {
-          const funeralDate = new Date(response.funeralTimestamp);
-          setSelecteFuneralHour(funeralDate.getHours());
-          setSelectedFuneralMinute(funeralDate.getMinutes());
-        }
-
-        // Events
-        if (response.events && response.events.length > 0) {
-          setEvents(
-            response.events.map((event) => ({
-              eventName: event.eventName || "",
-              eventLocation: event.eventLocation || "",
-              eventDate: event.eventDate ? new Date(event.eventDate) : null,
-              eventHour: event.eventHour || null,
-              eventMinute: event.eventMinute || null,
-            }))
-          );
-        } else {
-          setEvents([
-            {
-              eventName: "",
-              eventLocation: "",
-              eventDate: null,
-              eventHour: null,
-              eventMinute: null,
-            },
-          ]);
-        }
-
-        // Death report
-        setIsDeathReportConfirmed(response.deathReportExists || false);
-
-        // Images
-        if (response.image) {
-          setUploadedImage(response.image);
-          // If you need to maintain the File object for updates, you might need additional logic
-        }
-
-        // Death report file (if stored as URL)
-        if (response.deathReport) {
-          // You might need to fetch the actual file or just show that it exists
-          setUploadedDeathReport(response.deathReport); // Mock file object
-        }
-      }
+      let queryParams = {};
+      queryParams.city = query;
+      const response = await cemetryService.getCemeteries(queryParams);
+      setCemeteries(response.cemetries);
     } catch (error) {
-      console.error("Error fetching obituary:", error);
-      toast.error("Failed to load your obituary data");
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -189,10 +140,6 @@ const AddObituary = ({ set_Id, setModal }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  const funeralCemeteryOptions = [
-    { place: "Test Cemetery 1", id: "Test Cemetery 1" },
-  ];
 
   const handleRegionSelect = (item) => {
     setSelectedRegion(item);
@@ -223,7 +170,7 @@ const AddObituary = ({ set_Id, setModal }) => {
   };
 
   const handleFuneralCemeterySelect = (item) => {
-    setInputValueFuneralCemetery(item.place);
+    setInputValueFuneralCemetery(item.value);
   };
 
   const togglePicker = (type) => {
@@ -339,7 +286,7 @@ const AddObituary = ({ set_Id, setModal }) => {
 
       formData.append("birthDate", formattedBirthDate);
       formData.append("deathDate", formattedDeathDate);
-      formData.append("funeralLocation", inputValueFuneralEnd);
+      formData.append("funeralLocation", selectedCity);
       formData.append("funeralCemetery", inputValueFuneralCemetery);
       formattedFuneralTimestamp &&
         formData.append("funeralTimestamp", formattedFuneralTimestamp);
@@ -892,13 +839,8 @@ const AddObituary = ({ set_Id, setModal }) => {
               </div>
 
               <div className="flex w-full gap-9 mobile:gap-5 mobile:flex-col">
-                <div className="flex w-[231px] mobile:w-full py-2 justify-between border-b-[1px] border-[#D4D4D4]">
-                  <DropdownWithSearch
-                    placeholder="Kraj"
-                    onSelectRegion={() => console.log("Region selected")}
-                    onSelectCity={handleFuneralEndSelect}
-                    selectedCity={inputValueFuneralEnd}
-                  />
+                <div className="flex w-[231px] mobile:w-full py-2 justify-between border-b-[1px] text-[#105CCF] border-[#D4D4D4]">
+                  {selectedCity}
                 </div>
 
                 <div className="flex w-[231px] mobile:w-full py-2 justify-between border-b-[1px] border-[#D4D4D4]">
@@ -906,7 +848,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                     label="Izberi pokopališče"
                     isFromObituary={"obituaryform"}
                     data={funeralCemeteryOptions}
-                    selectedValue={inputValueFuneralCemetery}
+                    selectedValue={selectedCemeteryLabel}
                     onSelect={handleFuneralCemeterySelect}
                   />
                 </div>

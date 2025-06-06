@@ -10,7 +10,7 @@ import Select from "react-select";
 import cardService from "@/services/card-service";
 import toast from "react-hot-toast";
 
-const OrbetoryFormComp = ({ showForms, focusInput }) => {
+const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
   const [selectedBtn, setSelectedBtn] = useState(0);
   const [obituaries, setObituaries] = useState([]);
   const [search, setSearch] = useState(null);
@@ -523,10 +523,22 @@ const OrbetoryFormComp = ({ showForms, focusInput }) => {
                 Mobi kartica.
               </p>
             </div>
+            <button
+              type="button"
+              className="mt-[53px]  me-4 w-[25%] h-[48px] rounded-[8px] border-[2px] border-[#0A85C2] bg-[linear-gradient(180deg,_#DFF6FB_0%,_#82D9EB_100%)]   font-sourcesans text-[16px]  font-medium leading-[24px]  text-[rgba(22,_72,_120,_0.8)] m-[0]
+               tablet:font-normal
+               mobile:font-normal
+               "
+              onClick={() => {
+                setModalVisible();
+              }}
+            >
+              Vpiši pogreb
+            </button>
 
             <button
               type="button"
-              className="mt-[53px] w-full h-[48px] rounded-[8px] bg-[linear-gradient(180deg,_#0D94E8_0%,_#1860A3_100%)]   font-sourcesans text-[16px] font-medium leading-[24px] text-[#ffffff] m-[0]
+              className="mt-[53px] w-[70%] h-[48px] rounded-[8px] bg-[linear-gradient(180deg,_#0D94E8_0%,_#1860A3_100%)]   font-sourcesans text-[16px] font-medium leading-[24px] text-[#ffffff] m-[0]
                tablet:font-normal
                mobile:font-normal
                "

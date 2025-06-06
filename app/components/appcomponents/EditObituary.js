@@ -12,6 +12,7 @@ import obituaryService from "@/services/obituary-service";
 import { useParams } from "next/navigation";
 import ModalDropBox from "./ModalDropBox";
 import API_BASE_URL from "@/config/apiConfig";
+import cemetryService from "@/services/cemetry-service";
 
 const AddObituary = ({ set_Id, setModal }) => {
   const router = useRouter();
@@ -97,13 +98,14 @@ const AddObituary = ({ set_Id, setModal }) => {
   const fetchObituary = async (orbituaryId) => {
     try {
       setLoading(true);
-      const response = await obituaryService.getObituaryById(orbituaryId);
+      const result = await obituaryService.getObituaryById(orbituaryId);
 
-      console.log("Response Variable: ", response);
+      console.log("Response Variable: ", result);
 
-      if (!response) return;
+      if (!result) return;
 
       setDataExists(true);
+      const response = result.obituaries[0];
 
       try {
         setInputValueName(response.name || "");
@@ -129,7 +131,7 @@ const AddObituary = ({ set_Id, setModal }) => {
 
       try {
         setInputValueFuneralEnd(response.funeralLocation || "");
-        setInputValueFuneralCemetery(response.funeralCemetery || "");
+        setInputValueFuneralCemetery(response.Cemetry?.id || "pokopalisce");
         setFuneralDate(
           response.funeralTimestamp ? new Date(response.funeralTimestamp) : null
         );
@@ -209,9 +211,41 @@ const AddObituary = ({ set_Id, setModal }) => {
     };
   }, []);
 
+  const [cemeteries, setCemeteries] = useState([]);
+  useEffect(() => {
+    console.log(inputValueFuneralCemetery, "=================");
+  }, [inputValueFuneralCemetery]);
   const funeralCemeteryOptions = [
-    { place: "Test Cemetery 1", id: "Test Cemetery 1" },
+    ...(cemeteries?.map((item) => ({
+      value: item.id,
+      place: `${item.name}`,
+    })) || []),
+    {
+      value: "pokopalisce",
+      place: "Pokopališče",
+    },
   ];
+
+  const selectedCemeteryLabel =
+    funeralCemeteryOptions.find(
+      (cemetery) => cemetery.value === inputValueFuneralCemetery
+    )?.place || "";
+
+  useEffect(() => {
+    if (selectedCity.trim() !== "") {
+      getCemeteries(selectedCity);
+    }
+  }, [selectedCity]);
+  const getCemeteries = async (query) => {
+    try {
+      let queryParams = {};
+      queryParams.city = query;
+      const response = await cemetryService.getCemeteries(queryParams);
+      setCemeteries(response.cemetries);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleRegionSelect = (item) => {
     setSelectedRegion(item);
@@ -237,12 +271,8 @@ const AddObituary = ({ set_Id, setModal }) => {
     setInputValueGender(event.target.value);
   };
 
-  const handleFuneralEndSelect = (item) => {
-    setInputValueFuneralEnd(item);
-  };
-
   const handleFuneralCemeterySelect = (item) => {
-    setInputValueFuneralCemetery(item.place);
+    setInputValueFuneralCemetery(item.value);
   };
 
   const togglePicker = (type) => {
@@ -888,13 +918,8 @@ const AddObituary = ({ set_Id, setModal }) => {
               </div>
 
               <div className="flex w-full gap-9 mobile:gap-5 mobile:flex-col">
-                <div className="flex w-[231px] mobile:w-full py-2 justify-between border-b-[1px] border-[#D4D4D4]">
-                  <DropdownWithSearch
-                    placeholder="Kraj"
-                    onSelectRegion={() => console.log("Region selected")}
-                    onSelectCity={handleFuneralEndSelect}
-                    selectedCity={inputValueFuneralEnd}
-                  />
+                <div className="flex w-[231px] mobile:w-full py-2 justify-between border-b-[1px] text-[#105CCF] border-[#D4D4D4]">
+                  {selectedCity}
                 </div>
 
                 <div className="flex w-[231px] mobile:w-full py-2 justify-between border-b-[1px] border-[#D4D4D4]">
@@ -902,7 +927,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                     label="Izberi pokopališče"
                     isFromObituary={"obituaryform"}
                     data={funeralCemeteryOptions}
-                    selectedValue={inputValueFuneralCemetery}
+                    selectedValue={selectedCemeteryLabel}
                     onSelect={handleFuneralCemeterySelect}
                   />
                 </div>

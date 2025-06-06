@@ -2,18 +2,29 @@
 
 import Image from "next/image";
 import logo from "@/public/app_big_logo.png";
+import logo2 from "@/public/footer_logo.png";
 import iconFb from "@/public/icon_facebook.png";
 import mobFb from "@/public/fb_mob.png";
 import { useState } from "react";
-
+import { usePathname } from "next/navigation";
 import BottomSlider from "../authcomponents/BottomSlider";
 import BottomSliderForTabAndMob from "../authcomponents/BottomSliderForTabAndMob";
 import { LocalQuickReviewModal } from "./LocalQuickReview";
 import MemoralPopup from "./MemoralPopup";
+import Link from "next/link";
+
+const promoPathname = [
+  "/funeralpromo",
+  "/floristspromo",
+  "/memorypromo",
+  "/keeperpromo"
+]
 
 export default function Footer() {
   const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] = useState(false);
   const [isMemoralPopupVisible, setIsMemoralPopupVisible] = useState(false);
+
+  const pathname = usePathname();
 
   const handleLocalQuickModalVisible = () => {
     setIsLocalQuickModalVisible(!isLocalQuickModalVisible);
@@ -21,6 +32,42 @@ export default function Footer() {
 
   const handleMemoralPopupVisible = () => {
     setIsMemoralPopupVisible(!isMemoralPopupVisible);
+  }
+
+  if(promoPathname.includes(pathname)) {
+    return (
+      <div className="bg-[#E0E9F399] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[35px] pb-[23px]">
+        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto">
+          <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] mobile:hidden" />
+          <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
+            <Link href="/" className="text-[#1860A3] underline">Začetna</Link>
+            <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
+            <Link href="/" className="text-[#1860A3] underline">Cvetličarne</Link>
+            <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
+            <Link href="/" className="text-[#1860A3] underline">Pogrebna</Link>
+            <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
+            <Link href="/" className="text-[#1860A3] underline">Priložnost</Link>
+          </div>
+        </div>
+        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] mx-auto bg-[#D4D4D4] h-[1px] mt-[22px]"></div>
+        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto mt-[22px]">
+          <div className="flex flex-col">
+          <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] hidden mobile:flex mb-[5px]" />
+
+          <span className="text-[12px] text-[#1E2125] font-normal leading-[24px] mobile:text-[#3C3E41B2]">© 2025 Vse pravice zadržane</span>
+          </div>
+          <div className="inline-flex gap-[30px] mobile:gap-[16px]">
+            <Link href="/" className="text-[#1860A3] underline w-[65px] text-[14px]">Pišite nam</Link>
+            <Link href="/" className="">
+              <Image src={"/promo_footer_facebook.png"} width={18} height={18} alt="Facebook Icon" />
+            </Link>
+            <Link href="/" className="">
+              <Image src={"/promo_footer_instagram.png"} width={18} height={18} alt="Instagram Icon" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (

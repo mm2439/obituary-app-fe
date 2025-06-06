@@ -7,10 +7,10 @@ export default function KickStart() {
           <Image src="/funeral-promo-footer.png" alt="KickStart" width={94} height={94} />
           <div className="flex gap-[25px] flex-col justify-between">
               <div className="flex flex-col w-full mt-[10px]">
-                <div className="text-[40px] text-[#3C3E41] font-variation-customOpt40 text-center leading-[48px]">
+                <div className="text-[40px] mobile:text-[28px] text-[#3C3E41] font-variation-customOpt40 text-center leading-[48px]">
                 Kaj zdaj, kako naj začnem?
                 </div>
-                <div className="text-[22px] text-[#3C3E41] font-bold mt-[5px] font-variation-customOpt24 text-center leading-[48px]">
+                <div className="text-[22px] mobile:text-[20px] text-[#3C3E41] font-bold mt-[5px] font-variation-customOpt24 text-center leading-[48px]">
                 Pogosta vprašanja in preprosti napotki
                 </div>
               </div>

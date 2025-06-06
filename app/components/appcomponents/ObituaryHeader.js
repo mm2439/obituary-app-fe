@@ -85,7 +85,7 @@ function ObituaryHeader({ from }) {
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center ">
                     <Link
                       href={"/florists"}
-                      className="text-[#1E2125] font-normal  hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
+                      className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${pathname == "/floristspromo" ? "!text-[#0A85C2] underline" : "text-[#1E2125]"}`}
                     >
                       Priložnost
                     </Link>

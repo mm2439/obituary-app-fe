@@ -8,7 +8,7 @@ const FreeTrial = () => {
                 <div className='max-w-[1086px] w-full py-[65px] desktop:py-[105px] tablet:py-[75px] flex flex-col items-center'>
                     <div className='w-[471px] mobile:w-[288px] mobile:text-center flex flex-col items-center'>
                         <div className='text-[40px] mobile:text-[28px] mobile:leading-[40px]  leading-[48px] mobile:font-variation-customOpt28 font-variation-customOpt40 text-[#3C3E41]'>
-                        50 dni brezplačnega testiranja
+                        45 dni brezplačnega testiranja
                         </div>
 
                         <div className='text-[24px] mobile:text-[20px] mobile:leading-[40px] leading-[48px] mobile:font-variation-customOpt20 font-variation-customOpt24 font-bold text-[#3C3E41]'>

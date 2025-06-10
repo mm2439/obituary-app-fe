@@ -57,7 +57,7 @@ const Dropdown = ({
             : isFromFlower
             ? "relative bg-white hover:ring-2 border-[#7C7C7C] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full pl-[23.8px] pr-[23.5px] cursor-pointer tablet:h-[48px] mobile:h-[48px]"
             : isFromObituary === "obituaryform"
-            ? "relative flex flex-1 items-center justify-between h-full px-[15px] mobile:h-5 mobile:bg-transparent mobile:border-b-2 mobile:boder-[#D4D4D4] border-[1px] border-[#d4d4d4] bg-[#F1FFFE] hover:ring-2 w-full"
+            ? "relative flex flex-1 items-center justify-between h-full px-[15px] mobile:h-5 mobile:bg-transparent mobile:border-b-2 mobile:boder-[#D4D4D4] bg-[#F1FFFE] hover:ring-2 w-full"
             : isFromFlowerGreenBgTablet
             ? "relative bg-white hover:ring-2 border-[#7C7C7C] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full pl-[23.8px] desktop:h-[48px] pr-[23.5px] cursor-pointer tablet:h-[48px] tablet:w-full mobile:h-[48px]"
             : "relative bg-white hover:ring-2 border-[#7C7C7C] border rounded-lg shadow-sm flex flex-1  items-center justify-between h-full pl-[15.8px] pr-[10.5px] desktop:pr-[15.5px] cursor-pointer"
@@ -83,7 +83,6 @@ const Dropdown = ({
               lineHeight: "24px",
               fontWeight: 400,
               color: "#808080",
-
               fontVariationSettings: "'opsz' 16",
             }}
           >

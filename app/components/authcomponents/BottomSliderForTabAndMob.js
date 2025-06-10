@@ -60,9 +60,9 @@ const BottomSliderForTabAndMob = ({ data }) => {
               </div>
             </SwiperSlide>
           ))} */}
-          {data.map((id, index) => (
+          {data.map(({ id }) => (
             <SwiperSlide
-              key={index}
+              key={id}
               className="flex items-end justify-center pr-[-1px] "
             >
               <div

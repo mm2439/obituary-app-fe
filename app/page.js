@@ -12,9 +12,7 @@ import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import {
-  LocalQuickReview,
-  LocalQuickReviewModal,
-} from "./components/appcomponents/LocalQuickReview";
+  LocalQuickReview, LocalQuickReviewModal } from "./components/appcomponents/LocalQuickReview";
 import MegaMenu from "./components/appcomponents/MegaMenuMain";
 import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
@@ -175,6 +173,7 @@ export default function Home() {
       top: 0,
     });
     setShowMegaMenu(!showMegaMenu);
+    // setShowContent(!showContent)
   };
 
   useEffect(() => {
@@ -307,7 +306,10 @@ export default function Home() {
             >
               <MagnifyingGlassIcon className="w-5 h-5 text-white hidden desktop:block" />
             </div>
+
           </div>
+
+
 
           <div className="flex desktop:hidden h-[48px] mt-4 w-[296px] tablet:w-[292px] bg-[#414141] rounded-[8px] justify-center items-center ">
             <div
@@ -372,47 +374,49 @@ export default function Home() {
               </div>
             </Link>
           </div>
-        </div>
+       
+             </div>
 
-        <IpadSlider />
-        <HomePageBox />
-        <IphoneView />
+          <IpadSlider />
+          <HomePageBox />
+          <IphoneView />
 
-        <div className="w-full bg-black mx-auto">
-          <div className="relative flex max-w-[1280px] mx-auto justify-center overflow-visible dekstop:h-[284px] tablet:h-[284px] mobile:h-[235px]">
-            <img
-              src="/viola_ozadje.avif"
-              alt="viola_ozadje"
-              className="h-[284px] w-[1280px] object-cover object-center mobile:h-[235px]"
-            />
-            <div className="absolute flex flex-col items-center self-center desktop:h-[143px] desktop:w-[476px] desktop:right-[140px] tablet:h-[127px] tablet:w-[302px] tablet:left-1/2 mobile:left-1/2 mobile:transform mobile:-translate-x-1/2 mobile:h-[113px] mobile:w-[299px]">
-              <div className="tablet:mb-[32px] desktop:mb-[48px] mobile:mb-[32px]">
-                <div
-                  className="
+          <div className="w-full bg-black mx-auto">
+            <div className="relative flex max-w-[1280px] mx-auto justify-center overflow-visible dekstop:h-[284px] tablet:h-[284px] mobile:h-[235px]">
+              <img
+                src="/viola_ozadje.avif"
+                alt="viola_ozadje"
+                className="h-[284px] w-[1280px] object-cover object-center mobile:h-[235px]"
+              />
+              <div className="absolute flex flex-col items-center self-center desktop:h-[143px] desktop:w-[476px] desktop:right-[140px] tablet:h-[127px] tablet:w-[302px] tablet:left-1/2 mobile:left-1/2 mobile:transform mobile:-translate-x-1/2 mobile:h-[113px] mobile:w-[299px]">
+                <div className="tablet:mb-[32px] desktop:mb-[48px] mobile:mb-[32px]">
+                  <div
+                    className="
               mobile:text-[28px]
               text-[40px]  leading-[46.88px] 
               font-normal text-[#FFFFFF]  
                 mobile:leading-[32.81px] whitespace-nowrap"
-                >
-                  Lokalne cvetličarne
+                  >
+                    Lokalne cvetličarne
+                  </div>
                 </div>
+                <Dropdown
+                  label={"Mesto"}
+                  isFromFlower={true}
+                  isFromNotification={false}
+                  isFrom={"mainPage"}
+                  isFromFlowerGreenBgTablet={false}
+                  isFromObituary={false}
+                  data={cityOptions}
+                  onSelect={() => handleCitySelect()}
+                />
               </div>
-              <Dropdown
-                label={"Mesto"}
-                isFromFlower={true}
-                isFromNotification={false}
-                isFrom={"mainPage"}
-                isFromFlowerGreenBgTablet={false}
-                isFromObituary={false}
-                data={cityOptions}
-                onSelect={() => handleCitySelect()}
-              />
             </div>
           </div>
-        </div>
-        <NotificationView />
+          <NotificationView />
 
         <MainOptions />
+
       </div>
     </Layout>
   );

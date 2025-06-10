@@ -55,12 +55,15 @@ const Card1 = ({ data, isAssigned }) => {
       <div
         ref={cardRef}
         className="w-[360px] bg-[#3b3b3b] h-[720px] shadow-md overflow-hidden text-white"
-        style={{ fontFamily: "'Roboto Flex', sans-serif" }}
-      >
+        style={{ fontFamily: "'Roboto Flex', sans-serif" }}>
+
         <div className="flex justify-between items-center px-4 py-4 text-sm font-semibold">
           <span className="ml-3">9:41</span>
           <div className="flex space-x-1 text-xs">
-            <img src="/mobile-cards/mini.png" alt="Status Icons" />
+            <img
+              src="/mobile-cards/mini.png"
+              alt="Status Icons"
+            />
           </div>
         </div>
 
@@ -72,10 +75,10 @@ const Card1 = ({ data, isAssigned }) => {
             />
           </div>
 
-          <br />
-          <h2 className="text-[#fff] font-greatVibes text-[36px] font-normal leading-[30px] tracking-[0px]">
-            V spomin
-          </h2>
+            <br />
+            <h2 className="text-[#fff] font-greatVibes text-[36px] font-normal leading-[30px] tracking-[0px]">
+              V spomin
+            </h2>
 
           <div>
             <h1 className="text-[42px] text-[#D89B1C] font-medium h-[96px]">
@@ -92,9 +95,9 @@ const Card1 = ({ data, isAssigned }) => {
               {dayName} ob {time}
             </h1>
             <p className="mt-3">{formatDate(data?.funeralTimestamp)}</p>
-            {data?.funeralLocation && data?.Cemetry?.funeralCemetery && (
+            {data?.funeralLocation && data?.funeralCemetery && (
               <p>
-                {data?.Cemetry?.funeralCemetery} v {data?.funeralLocation}
+                {data?.funeralCemetery} v {data?.funeralLocation}
               </p>
             )}
           </div>

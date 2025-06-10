@@ -600,7 +600,6 @@ const Modals = ({
         break;
       case 12:
         set_Id("invite_admin");
-
         break;
       // default:
       //   set_Id("");
@@ -1191,7 +1190,6 @@ const Modals = ({
           </div>
         </div>
       ) : null}
-
       {select_id == "add_music" ? (
         <div className="flex flex-col w-full  ">
           <div

@@ -71,7 +71,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
       }
 
       if (background instanceof File) {
-        formData.append("background", background);
+        formData.append("picture", background);
       }
 
       let response;

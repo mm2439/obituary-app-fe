@@ -21,17 +21,12 @@ const OpeningDate = () => {
         {/*text container for desktop*/}
         <div className="mx-auto w-[1085px] absolute h-[243px] justify-end hidden desktop:flex">
           {/*blur container*/}
-          <div className="flex w-[526px] h-[243px] flex-col justify-center items-center rounded-[16px] bg-gradient-to-r from-[#FFFFFF] to-[#FFFFFF30]"
-            style={{
-              border: '2px solid #EDF1F3',
-              backdropFilter: 'blur(64px)',
-            }}
-          >
+          <div className="flex w-[526px] h-[243px] flex-col justify-center items-center rounded-lg border-2 border-[#FFFFFF] backdrop-blur-md bg-gradient-to-r from-[#FFFFFF] to-[#FFFFFF30]">
             {/*text container inside*/}
             <div className="flex  h-[174px] flex-col justify-between">
               <div className="flex flex-col w-full h-[102px]">
                 <div className="text-[40px] text-[#3C3E41] font-variation-customOpt40 text-center mt-[-5px]">
-                Uradna otvoritev je 15. junija
+                  Uradna otvoritev je 15.oktobra
                 </div>
                 <div className="text-[24px] text-[#3C3E41] font-bold mt-[3px] font-variation-customOpt24 text-center">
                   Izdelajte svojo spletno stran še pravočasno
@@ -40,12 +35,9 @@ const OpeningDate = () => {
 
               <Link
                 href={"/companyregistrationpage"}
-                className="w-[250px] h-[53px] rounded-full text-white justify-center items-center self-center shadow-custom-light-dark bg-gradient-to-b from-[#0D94E8] to-[#1860A3] hidden desktop:flex"
-                style={{
-                  boxShadow: '0px 4px 5px 0px #00000038, 0px 2px 3px 0px #00000073',
-                }}
+                className="w-[122px] h-[48px] rounded-lg text-black justify-center items-center self-center shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] hidden desktop:flex"
               >
-                Sodelujmo
+                Začni zdaj
               </Link>
             </div>
           </div>

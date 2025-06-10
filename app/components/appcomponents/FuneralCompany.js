@@ -11,11 +11,6 @@ const FuneralCompanies = () => {
             <div className='flex w-[611px] flex-col'>
                 <h1 className='text-[40px] text-[#3C3E41] font-variation-customOpt40 mt-[56px] w-[707px]'>Celovite rešitve za pogrebna podjetja</h1>
                 <div className='text-[24px] text-[#3C3E41] font-variation-customOpt24 font-bold mt-4'>Vaša nova spletna stran</div>
-                <button className='w-[140px] h-[48px] flex items-center justify-center text-[16px] leading-[24px] font-normal text-[#000000] bg-[#BCD7F4] mt-[95px] rounded-[8px]'
-                style={{
-                  boxShadow: '5px 5px 10px 0px #C2C2C280',
-                }}
-                >Primer strani</button>  
             </div>
             
             {/*image container*/}

@@ -165,3 +165,4 @@ Thumbs.db
 obituaryUploads/
 #sql file
 init.sql
+.vercel

@@ -8,6 +8,7 @@ import NotJustObituaries from "../components/appcomponents/NotJustObituaries";
 import DirectoryEntry from "../components/appcomponents/DirectoryEntry";
 import FrequentlyAskedQuestionView from "../components/appcomponents/FrequentlyAskedQuestionView";
 import OfficialOpening from "../components/appcomponents/OfficialOpening";
+import KickStart from "../components/appcomponents/KickStart";
 
 const Floristspromo = () => {
     return (
@@ -20,10 +21,12 @@ const Floristspromo = () => {
                 <RegisterComp />
                 <NotJustObituaries />
                 <DirectoryEntry />
-                <div className="flex w-full mobile:bg-[#E0E9F3] bg-[#FFFFFF]">
+                {/* <div className="flex w-full mobile:bg-[#E0E9F3] bg-[#FFFFFF]">
                     <FrequentlyAskedQuestionView from={"8"} />
-                </div>
+                </div> */}
                 <OfficialOpening />
+                <KickStart />
+
             </div>
         </Layout>
     );

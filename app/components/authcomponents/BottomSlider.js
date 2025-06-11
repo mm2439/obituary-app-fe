@@ -1,5 +1,5 @@
 // 16 September 2024
-"use client"
+"use client";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -7,13 +7,15 @@ import "swiper/swiper-bundle.css";
 
 const BottomSlider = ({ data }) => {
   // 16 September 2024
-  const [bgColor, setBgColor] = useState("bg-gradient-to-r from-gray-700 to-blue-900");
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [bgColor, setBgColor] = useState(
+    "bg-gradient-to-r from-gray-700 to-blue-900"
+  );
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   // 16 September 2024
   const handleSlideChange = (swiper) => {
     const currentSlide = swiper.realIndex; // Get the current slide index
-    setCurrentIndex(swiper.realIndex)
+    setCurrentIndex(swiper.realIndex);
     // Change background color based on the active slide index
     if (currentSlide === 1) {
       setBgColor("bg-gradient-to-r from-[#451808] to-[#45180886]"); // Change to blue for second slide
@@ -41,25 +43,31 @@ const BottomSlider = ({ data }) => {
           modules={[Autoplay, Pagination]}
           className="h-[71px] w-full"
           // 16 September 2024
-          onSlideChange={handleSlideChange}>
-          
-          {data.map(({ id }) => (
+          onSlideChange={handleSlideChange}
+        >
+          {data.map((item, index) => (
             <SwiperSlide
-              key={id}
-              className="flex items-end justify-center pr-[-1px] ">
-               
-              <div className={`${bgColor} text-white 
-              h-[71px] w-[600px] rounded-b-lg flex flex-row  items-center justify-between pl-[24.2px] mobile:pr-[10.16px] tablet:pr-[24.16px] desktop:pr-[17.16px]`}>
+              key={index}
+              className="flex items-end justify-center pr-[-1px] "
+            >
+              <div
+                className={`${bgColor} text-white 
+              h-[71px] w-[600px] rounded-b-lg flex flex-row  items-center justify-between pl-[24.2px] mobile:pr-[10.16px] tablet:pr-[24.16px] desktop:pr-[17.16px]`}
+              >
                 <div className="">
                   <div className="font-variation-customOpt16wght700 font-bold  text-[16px] tracking-[0.3px]">
-                    
-                    {currentIndex === 0 ? "Imate cvetličarno?" : currentIndex === 1 ? "Brezplačni skrbnik" : "Brezplačne MOBI predloge"}
-                    </div>
+                    {currentIndex === 0
+                      ? "Imate cvetličarno?"
+                      : currentIndex === 1
+                      ? "Brezplačni skrbnik"
+                      : "Brezplačne MOBI predloge"}
+                  </div>
                   <p className="font-variation-customOpt12 text-[12px] font-normal">
-                   
-                  {currentIndex === 0 ? "Otvoritvena akcija BREZ RIZIKA pravkar poteka. Sodelujmo!" : 
-                  currentIndex === 1 ? "Podarjajo vam ga cvetličarne in pogrebna podjetja. Povprašajte jih!" : 
-                  "Podarjajo vam jih cvetličarne. Enako tudi Posvetilo, Zadnji klic."}
+                    {currentIndex === 0
+                      ? "Otvoritvena akcija BREZ RIZIKA pravkar poteka. Sodelujmo!"
+                      : currentIndex === 1
+                      ? "Podarjajo vam ga cvetličarne in pogrebna podjetja. Povprašajte jih!"
+                      : "Podarjajo vam jih cvetličarne. Enako tudi Posvetilo, Zadnji klic."}
                   </p>
                 </div>
                 <div className="flex w-[140.17px] h-[34px] items-center justify-center rounded-lg bg-[#CAF0F8] transition-colors hover:bg-blue-200">
@@ -78,14 +86,14 @@ const BottomSlider = ({ data }) => {
         .custom-pagination {
           position: absolute;
           z-index: 50;
-          transform: translateY(-50%);        
+          transform: translateY(-50%);
           gap: 5px;
-          left:40px;
+          left: 40px;
         }
         .customx-pagination {
-        position: absolute;
+          position: absolute;
           z-index: 50;
-          right: 5px;      
+          right: 5px;
           gap: 5px;
         }
         .custom-bullet {

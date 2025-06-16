@@ -201,23 +201,6 @@ const changePostStatus = async (data: any) => {
   }
 };
 
-////change post status
-const assignKeeper = async (data: any) => {
-  try {
-    const endpoint = `/keeper/`;
-    const response = await axios.post(endpoint, data);
-
-    return response.data;
-  } catch (error: any) {
-    if (error.response) {
-      console.error("API Error:", error.response.data);
-      throw error.response;
-    } else {
-      console.error("Network error:", error);
-      throw new Error("Network error or no response");
-    }
-  }
-};
 //add report
 const addReport = async (id: string, data: any) => {
   try {
@@ -267,6 +250,17 @@ const getMemoryLogs = async (id: number) => {
 const getLogs = async () => {
   try {
     const endpoint = `/obituary/logs/`;
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Getting Logs:", error);
+    throw new Error("Network error or no response");
+  }
+};
+
+const getGiftLogs = async () => {
+  try {
+    const endpoint = `/logs/gifts/logs`;
     const response = await axios.get(endpoint);
     return response.data;
   } catch (error: unknown) {
@@ -333,6 +327,7 @@ const getCompanyLogs = async () => {
 const obituaryService = {
   getObituaryById,
   createObituary,
+  getGiftLogs,
   getObituary,
   getMemory,
   getFunerals,
@@ -345,7 +340,7 @@ const obituaryService = {
   burnCandle,
   fetchPendingPosts,
   changePostStatus,
-  assignKeeper,
+
   addReport,
   getLogs,
   getMemories,

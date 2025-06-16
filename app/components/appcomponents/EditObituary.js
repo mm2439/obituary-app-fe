@@ -130,10 +130,12 @@ const AddObituary = ({ set_Id, setModal }) => {
       }
 
       try {
-        setInputValueFuneralEnd(response.funeralLocation || "");
+        setInputValueFuneralEnd(response?.funeralLocation || "");
         setInputValueFuneralCemetery(response.Cemetry?.id || "pokopalisce");
         setFuneralDate(
-          response.funeralTimestamp ? new Date(response.funeralTimestamp) : null
+          response?.funeralTimestamp
+            ? new Date(response?.funeralTimestamp)
+            : null
         );
 
         if (response.funeralTimestamp) {
@@ -212,9 +214,7 @@ const AddObituary = ({ set_Id, setModal }) => {
   }, []);
 
   const [cemeteries, setCemeteries] = useState([]);
-  useEffect(() => {
-    console.log(inputValueFuneralCemetery, "=================");
-  }, [inputValueFuneralCemetery]);
+
   const funeralCemeteryOptions = [
     ...(cemeteries?.map((item) => ({
       value: item.id,
@@ -371,7 +371,9 @@ const AddObituary = ({ set_Id, setModal }) => {
       formData.append("birthDate", formattedBirthDate);
       formData.append("deathDate", formattedDeathDate);
       formData.append("funeralLocation", inputValueFuneralEnd);
-      formData.append("funeralCemetery", inputValueFuneralCemetery);
+      if (inputValueFuneralCemetery !== "pokopalisce") {
+        formData.append("funeralCemetery", inputValueFuneralCemetery);
+      }
       if (formattedFuneralTimestamp) {
         formData.append("funeralTimestamp", formattedFuneralTimestamp);
       }

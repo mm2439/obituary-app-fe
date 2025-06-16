@@ -287,7 +287,11 @@ const AddObituary = ({ set_Id, setModal }) => {
       formData.append("birthDate", formattedBirthDate);
       formData.append("deathDate", formattedDeathDate);
       formData.append("funeralLocation", selectedCity);
-      formData.append("funeralCemetery", inputValueFuneralCemetery);
+      if (inputValueFuneralCemetery !== "pokopalisce") {
+        console.log(inputValueFuneralCemetery, "=========");
+        formData.append("funeralCemetery", inputValueFuneralCemetery);
+      }
+
       formattedFuneralTimestamp &&
         formData.append("funeralTimestamp", formattedFuneralTimestamp);
       formData.append("deathReportExists", isDeathReportConfirmed);

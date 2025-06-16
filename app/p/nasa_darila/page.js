@@ -2,8 +2,6 @@ import CompanyAccountLayout from "@/app/components/appcomponents/CompanyAccountL
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useEffect } from "react";
-import obituaryService from "@/services/obituary-service";
 
 export default function Darila() {
   return (

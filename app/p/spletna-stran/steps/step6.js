@@ -114,6 +114,8 @@ export default function Step6({ data, onChange, handleStepChange }) {
       const response = await companyService.updateCompany(formData, companyId);
       onChange(response.company);
       toast.success("Company Sent For Approval Successfully");
+      router.push(`/funeralcompany/${companyId}`);
+
       return true;
       console.log(response);
     } catch (error) {

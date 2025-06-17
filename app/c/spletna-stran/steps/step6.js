@@ -8,9 +8,11 @@ import companyService from "@/services/company-service";
 import shopService from "@/services/shop-service";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Step6({ data, onChange, handleStepChange }) {
   const [openBlock, setOpenBlock] = useState(1);
+  const router = useRouter();
   const [shops, setShops] = useState([
     {
       index: 1,
@@ -124,6 +126,7 @@ export default function Step6({ data, onChange, handleStepChange }) {
       };
       onChange(updatedCompany);
       toast.success("Shops Created,Company Sent For Approval Successfully");
+      router.push(`/floristdetails/${companyId}`);
 
       console.log(response);
     } catch (error) {

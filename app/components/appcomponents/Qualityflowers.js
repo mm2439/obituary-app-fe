@@ -84,7 +84,7 @@ const Qualityflowers = ({ data }) => {
                 <Image
                   src={`${data.box_one_icon}`}
                   width={70}
-                  height={52}
+                  height={70}
                   alt="vehicle"
                   className="w-[70px] h-[52.5px] tablet:h-[55.17px] tablet:mt-[19.72px] mt-[40.75px] mx-auto"
                 />
@@ -107,7 +107,7 @@ const Qualityflowers = ({ data }) => {
                 <Image
                   src={`${data.box_two_icon}`}
                   width={70}
-                  height={52}
+                  height={70}
                   alt="vehicle"
                   className="w-[60px] h-[60px] tablet:w-[66.18px] 
                                                                         tablet:h-[65px] tablet:mt-[15.84px] mt-[32px] mx-auto"

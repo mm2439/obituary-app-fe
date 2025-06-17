@@ -182,7 +182,7 @@ const MemoryPage = ({ params }) => {
           setModal={setIsShowModal}
         />
         <FlowerShops set_Id={setSelect_Id} setModal={setIsShowModal} />
-        <FlowerShops2 set_Id={setSelect_Id} setModal={setIsShowModal} />
+        {/* <FlowerShops2 set_Id={setSelect_Id} setModal={setIsShowModal} /> */}
 
         <ObituaryPublished
           set_Id={setSelect_Id}

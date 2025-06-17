@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-const Newobituary = ({ focusRef }) => {
+const Newobituary = ({ focusRef, setFile, setName, setRelation, onSubmit }) => {
   const [inputValuePic, setInputValuePic] = useState("");
   const [nameValue, setNameValue] = useState("");
   const [relationValue, setRelationValue] = useState("");
@@ -13,14 +13,17 @@ const Newobituary = ({ focusRef }) => {
 
   const handleEmailInput = (event) => {
     setInputValuePic(event.target.value);
+    setFile(event.target.files[0]);
   };
 
   const handleNameInput = (event) => {
     setNameValue(event.target.value);
+    setName(event.target.value);
   };
 
   const handleRelationInput = (e) => {
     setRelationValue(e.target.value);
+    setRelation(event.target.value);
   };
 
   return (
@@ -61,8 +64,7 @@ const Newobituary = ({ focusRef }) => {
           </label>
           <div className="relative w-full">
             <input
-              type="text"
-              value={inputValuePic}
+              type="file"
               onChange={handleEmailInput}
               className="w-full h-[48px] bg-transparent focus:outline-none text-[16px] text-[#848484] font-normal placeholder:text-[#ACAAAA] border border-[#6D778E] rounded-[8px] px-12"
               placeholder="Poišči sliko"
@@ -93,12 +95,12 @@ const Newobituary = ({ focusRef }) => {
         </div>
 
         <div className="w-[470px] mobile:w-[297px] h-[48px] mt-[40px] mx-auto">
-          <Link
-            href={"#"}
+          <button
+            onClick={onSubmit}
             className="flex w-full h-full bg-white items-center justify-center text-[16px] leading-[24px] font-variation-customOpt16 text-[#FFFFFF] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-lg"
           >
             POŠLJI
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -160,12 +162,12 @@ const Newobituary = ({ focusRef }) => {
         </div>
 
         <div className="w-[470px] mobile:w-[297px] h-[48px] mt-[35px] mx-auto">
-          <Link
-            href={"#"}
+          <button
+            onClick={onSubmit}
             className="flex w-full h-full bg-white items-center justify-center text-[16px] leading-[24px] font-variation-customOpt16 text-[#FFFFFF] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-lg"
           >
             POŠLJI
-          </Link>
+          </button>
         </div>
       </div>
     </div>

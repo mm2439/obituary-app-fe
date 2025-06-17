@@ -11,8 +11,8 @@ const USER_ROUTES = [
   "/user-accounts-dashboard",
   "/potrditev-objave",
 ];
-const FLORIST_ROUTES = ["/c/spletna-stran", "/obituaryform"];
-const FUNERAL_ROUTES = ["/p/spletna-stran", "/obituaryform"];
+const FLORIST_ROUTES = ["/c/spletna-stran"];
+const FUNERAL_ROUTES = ["/p/spletna-stran"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -56,7 +56,7 @@ export const config = {
     "/user-accounts-dashboard",
     "/potrditev-objave",
     "/c/nase_osmrtnice",
-    "/obituaryform",
+
     "/c/spletna-stran",
     "/p/spletna-stran",
   ],

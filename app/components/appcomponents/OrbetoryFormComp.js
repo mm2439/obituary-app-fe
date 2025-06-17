@@ -9,8 +9,16 @@ import obituaryService from "@/services/obituary-service";
 import Select from "react-select";
 import cardService from "@/services/card-service";
 import toast from "react-hot-toast";
+import keeperService from "@/services/keeper-service";
 
-const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
+const OrbetoryFormComp = ({
+  setModalVisible,
+  showForms,
+  focusInput,
+  setParentEmail,
+  setExpiry,
+  setObituaryId,
+}) => {
   const [selectedBtn, setSelectedBtn] = useState(0);
   const [obituaries, setObituaries] = useState([]);
   const [search, setSearch] = useState(null);
@@ -18,6 +26,8 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
   const [selectedObituary, setSelectedObituary] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [cardSelected, setCardSelected] = useState(null);
+  const [KeeperExpiry, setKeeperExpiry] = useState(null);
+
   const [email, setEmail] = useState("");
 
   const [debouncedValue, setDebouncedValue] = useState("");
@@ -38,6 +48,7 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
   }));
   const handleChange = (selectedOption) => {
     setSelectedObituary(selectedOption);
+    setObituaryId(selectedOption.value);
     console.log("Selected Obituary:", selectedOption);
   };
 
@@ -56,34 +67,13 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
   const handleInputChange = (input) => {
     setInputValue(input);
   };
-  const cards = [
-    {
-      value: 1,
-      label: `Card 1`,
-    },
-    {
-      value: 2,
-      label: `Card 2`,
-    },
-    ,
-    {
-      value: 3,
-      label: `Card 3`,
-    },
-    ,
-    {
-      value: 4,
-      label: `Card 4`,
-    },
-    ,
-    {
-      value: 5,
-      label: `Card 5`,
-    },
-  ];
+
   const handleCardChange = (selectedOption) => {
     setCardSelected(selectedOption);
-    console.log("Selected card:", selectedOption);
+  };
+  const handleKeeperExpiry = (selectedOption) => {
+    setKeeperExpiry(selectedOption);
+    setExpiry(selectedOption.value);
   };
 
   const submitMobileCard = async () => {
@@ -106,7 +96,67 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
       }
     }
   };
+  const cards = [
+    {
+      value: 1,
+      label: `1. Info o pogrebu. Temna, s sliko`,
+    },
+    {
+      value: 2,
+      label: `2. Info o pogrebu. Bela, s križem`,
+    },
+    ,
+    {
+      value: 3,
+      label: `3. Info o pogrebu. Modra, brez slike`,
+    },
+    ,
+    {
+      value: 4,
+      label: `4. Sožalje`,
+    },
+    ,
+    {
+      value: 5,
+      label: `5. Zahvala`,
+    },
+  ];
+  const KeeperData = [
+    {
+      value: 1,
+      label: `1. Skrbnik – tedenski`,
+      isDisabled: true,
+    },
+    {
+      value: 2,
+      label: `2. Skrbnik – mesečni`,
+    },
+    ,
+    {
+      value: 3,
+      label: `3. Skrbnik – letni`,
+      isDisabled: true,
+    },
+    ,
+    {
+      value: 4,
+      label: `4. Skrbnik – 6-letni`,
+      isDisabled: true,
+    },
+    ,
+  ];
+  const getUpdatedCards = () => {
+    const selected = obituaries.find(
+      (option) => option.id === selectedObituary
+    );
 
+    const shouldDisableFirstThree = !selected?.funeralTimestamp;
+
+    return cards.map((card, index) => ({
+      ...card,
+      isDisabled: shouldDisableFirstThree && index <= 3,
+    }));
+  };
   const validateData = () => {
     if (!selectedObituary) {
       toast.error("Please select an obituary.");
@@ -242,11 +292,6 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
         {selectedBtn === 1 ? (
           <div className="mt-[50px]">
             <div>
-              {/* <input
-                placeholder="Vpiši ime pokojnika / ce"
-                className="w-full h-[48px] bg-transparent focus:outline-none placeholder:font-sourcesans placeholder:text-[16px] placeholder:font-normal placeholder:leading-[24px] placeholder:text-[#848484] text-[#123597] font-medium text-[18px] leading-[24px] m-[0]
-                 mobile:placeholder:text-[14px] mobile:text-[14px]"
-              /> */}
               <div className="w-full mx-auto">
                 <Select
                   options={data} // Use flattened options without grouping
@@ -308,39 +353,55 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
               <div className="w-full h-[1px] bg-[rgba(212,_212,_212,_1)]"></div>
             </div>
 
-            <div
-              onClick={() => {
-                setShowSelect(!showSelect);
-              }}
-              className="relative cursor-pointer w-full h-[36px] border-b-[1px]  border-b-[rgba(212,212,212,1)] mt-[30px]"
-            >
-              <div className="h-[30px]">
-                <p
-                  className="font-sourcesans text-[16px] font-normal leading-[24px] text-[#848484] m-[0]
-                 mobile:text-[14px]"
-                >
-                  Izberi Skrbnika
-                </p>
-              </div>
-
-              <div className="absolute -top-[4px] right-[15px]">
-                <Image
-                  src={"/icon_dropDown.png"}
-                  height={28}
-                  width={28}
-                  className="h-[28px] w-[28px]"
-                />
-              </div>
-
-              {showSelect ? (
-                <div className="h-auto w-full bg-[#ffffff] rounded-[12px] p-[5px] absolute top-[25px] z-10">
-                  <li className="font-sourcesans text-[16px] font-normal leading-[24px] text-[#848484] m-[0]">
-                    Option1
-                  </li>
-                </div>
-              ) : (
-                ""
-              )}
+            <div className="w-full mx-auto my-5">
+              <Select
+                options={KeeperData}
+                onChange={handleKeeperExpiry}
+                value={KeeperExpiry}
+                placeholder=" Izberi Skrbnika"
+                styles={{
+                  control: (base) => ({
+                    ...base,
+                    backgroundColor: `none`,
+                    border: "1px solid #d4d4d4", // Light gray border
+                    boxShadow: "none", // Remove default shadow
+                    borderRadius: "4px",
+                    "&:hover": { borderColor: "#105ccf" }, // Change border on hover
+                    minHeight: "36px", // Match the dropdown height in the image
+                  }),
+                  dropdownIndicator: (base) => ({
+                    ...base,
+                    color: "#7d7d7d", // Arrow color
+                    "&:hover": { color: "#808080" }, // Arrow hover color
+                  }),
+                  indicatorSeparator: () => ({
+                    display: "none", // Remove the separator line
+                  }),
+                  menu: (base) => ({
+                    ...base,
+                    borderRadius: "4px", // Rounded menu
+                    marginTop: "2px", // Minimal gap
+                    zIndex: 10,
+                  }),
+                  option: (base, { isFocused, isDisabled }) => ({
+                    ...base,
+                    backgroundColor: isDisabled
+                      ? "#f5f5f5" // Light gray bg for disabled options
+                      : isFocused
+                      ? "#e8f5f4" // Hover highlight for enabled options
+                      : "#fff",
+                    color: isDisabled ? "#999" : "#333", // Dimmed text for disabled
+                    cursor: isDisabled ? "not-allowed" : "pointer",
+                    fontStyle: "normal",
+                    opacity: isDisabled ? 0.7 : 1,
+                  }),
+                  singleValue: (base) => ({
+                    ...base,
+                    color: "#105CCF",
+                    fontSize: "18px",
+                  }),
+                }}
+              />
             </div>
 
             <div className="mt-[15px]">
@@ -348,6 +409,11 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
                 placeholder="Vpiši e-pošto uporabnika"
                 className="w-full h-[48px] bg-transparent focus:outline-none placeholder:font-sourcesans placeholder:text-[16px] placeholder:font-normal placeholder:leading-[24px] placeholder:text-[#848484] text-[#123597] font-medium text-[18px] leading-[24px] m-[0]
                 mobile:placeholder:text-[14px] mobile:text-[14px]"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setParentEmail(e.target.value);
+                }}
               />
               <div className="w-full h-[1px] bg-[rgba(212,_212,_212,_1)]"></div>
             </div>
@@ -397,7 +463,7 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
             <div>
               <div className="w-full mx-auto">
                 <Select
-                  options={data} // Use flattened options without grouping
+                  options={data}
                   onChange={handleChange}
                   onInputChange={handleInputChange}
                   value={
@@ -435,14 +501,14 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
                     }),
                     menu: (base) => ({
                       ...base,
-                      borderRadius: "4px", // Rounded menu
-                      marginTop: "2px", // Minimal gap
+                      borderRadius: "4px",
+                      marginTop: "2px",
                       zIndex: 10,
                     }),
                     option: (base, { isFocused }) => ({
                       ...base,
-                      backgroundColor: isFocused ? "#e8f5f4" : "#fff", // Highlight on hover
-                      color: "#333", // Text color
+                      backgroundColor: isFocused ? "#e8f5f4" : "#fff",
+                      color: "#333",
                       cursor: "pointer",
                     }),
                     singleValue: (base) => ({
@@ -457,7 +523,7 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
 
             <div className="w-full mx-auto my-5">
               <Select
-                options={cards}
+                options={getUpdatedCards()}
                 onChange={handleCardChange}
                 value={cardSelected}
                 placeholder="Izberi predlogo"
@@ -485,11 +551,17 @@ const OrbetoryFormComp = ({ setModalVisible, showForms, focusInput }) => {
                     marginTop: "2px", // Minimal gap
                     zIndex: 10,
                   }),
-                  option: (base, { isFocused }) => ({
+                  option: (base, { isFocused, isDisabled }) => ({
                     ...base,
-                    backgroundColor: isFocused ? "#e8f5f4" : "#fff", // Highlight on hover
-                    color: "#333", // Text color
-                    cursor: "pointer",
+                    backgroundColor: isDisabled
+                      ? "#f5f5f5" // Light gray bg for disabled options
+                      : isFocused
+                      ? "#e8f5f4" // Hover highlight for enabled options
+                      : "#fff",
+                    color: isDisabled ? "#999" : "#333", // Dimmed text for disabled
+                    cursor: isDisabled ? "not-allowed" : "pointer",
+                    fontStyle: "normal",
+                    opacity: isDisabled ? 0.7 : 1,
                   }),
                   singleValue: (base) => ({
                     ...base,

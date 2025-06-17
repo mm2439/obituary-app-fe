@@ -554,9 +554,9 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                                     <p className="text-[#414141] text-[14px] font-normal leading-[16.41px]">
                                       {(() => {
                                         const formattedText = `${formatTitleCase(
-                                          data.Cemetry.name || ""
+                                          data?.Cemetry?.name || "Pokopalisce"
                                         )}, ${formatTitleCase(
-                                          data.funeralLocation || ""
+                                          data?.funeralLocation || ""
                                         )}`;
 
                                         return formattedText.length > 50

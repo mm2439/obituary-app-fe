@@ -2,6 +2,7 @@
 import CompanyAccountLayout from "@/app/components/appcomponents/CompanyAccountLayout";
 import obituaryService from "@/services/obituary-service";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function Obituaries() {
@@ -168,17 +169,11 @@ export default function Obituaries() {
                           <div className="flex items-center justify-center gap-3">
                             {obituary.hasKeeper === true ? (
                               <img
-                                src="/tick_green.png"
-                                alt=""
-                                className="w-[28px] h-[28px]"
-                              />
-                            ) : (
-                              <img
                                 src="/tick.png"
                                 alt=""
                                 className="w-[24px] h-[24px]"
                               />
-                            )}
+                            ) : null}
                           </div>
                         </td>
 
@@ -218,7 +213,10 @@ export default function Obituaries() {
                           </div>
                         </td>
                         <td className="pr-[25px]">
-                          <button className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto ">
+                          <Link
+                            href={`/obituaryform/${obituary.id}`}
+                            className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto "
+                          >
                             <img
                               src="/edit.png"
                               alt=""
@@ -227,7 +225,7 @@ export default function Obituaries() {
                             <span className="text-[16px] text-[#6D778E] leading-none">
                               Dopolni
                             </span>
-                          </button>
+                          </Link>
                         </td>
                       </tr>
                     ))

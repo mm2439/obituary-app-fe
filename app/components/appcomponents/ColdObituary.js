@@ -22,8 +22,8 @@ const ColdObituary = () => {
 
                      {/*Image contianer */}
                      <div className='relative tablet:mx-auto'>
-                        <div className='h-full w-full absolute z-30 rounded-md shadow-box-shadow-inner' />
-                        <img src='/mario_spominska.avif' alt='Tablet Image' className=' relative shadow-box-shadow flex w-[425px] h-[551px] tablet:w-[469px] tablet:h-[608px] mobile:w-[303.79px] mobile:h-[393.85px] rounded-md tablet:mx-auto mobile:mx-auto'></img>
+                        <div className='h-full w-full absolute z-30' />
+                        <img src='/mario_spominska.png' alt='Tablet Image' className='w-[385px] h-[560px] tablet:w-[469px] tablet:h-[608px] mobile:w-[303.79px] mobile:h-[393.85px] rounded-md tablet:mx-auto mobile:mx-auto'></img>
                     </div>
 
                     {/*Text contianer*/}
@@ -123,7 +123,7 @@ const ColdObituary = () => {
 
 
                             >06.</div>
-                            <div className=' h-[44px] mt-2 ml-3 text-[16px] text-[#3C3E41]'>Direktno kontaktiranje bližnjih cvetličarn preko strani na način, kot ste ga vajeni - z osebnim dogovarjanjem in naročilom, ne samo spletnim nakupom</div>
+                            <div className=' h-[44px] mt-2 ml-3 text-[16px] text-[#3C3E41]'>Direktno kontaktiranje bližnjih cvetličarn preko strani na način, kot ste ga vajeni </div>
                         </div>
 
                         {/*text7 contianer*/}

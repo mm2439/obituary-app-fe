@@ -2,13 +2,10 @@
 
 import UserAccountHeaderNew from "@/app/components/appcomponents/UserAccountHeaderNew";
 import Link from "next/link";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ButtonWhiteBG, { ButtonWhiteBGCap } from "@/app/components/appcomponents/buttonwhitebg";
 import obituaryService from "@/services/obituary-service";
 import { useRouter, usePathname } from "next/navigation";
-import Image from "next/image";
-import ButtonLightGreen from "@/app/components/appcomponents/buttonLightGreen";
-
 
 export default function Funeral() {
   const [isMobilSideBarOpen, setIsMobilSideBarOpen] = useState(true);
@@ -69,7 +66,7 @@ export default function Funeral() {
     <div
       ref={gotoTopRef}
       className="desktopUserAcc:overflow-x-hidden flex mx-auto bg-[#F1F5F8] tabletUserAcc:bg-[#ECF0F3] desktopUserAcc:bg-[#ECF0F3] w-full"
->
+  >
   {/* HEADER */}
     <UserAccountHeaderNew
       onMenuClick={toggleMobileSidebar}

@@ -57,7 +57,32 @@ function ObituaryHeader({ from }) {
             </Link>
             <div className="flex">
               <div className="hidden tablet:flex desktop:flex tablet:mr-[30px] desktop:mr-[60px]">
-                <ul className="flex items-center gap-[40px] tablet:gap-[16px]">
+                {pathname == "/memorypromo" || pathname == "/keeperpromo" ? <ul className="flex items-center gap-[40px] tablet:gap-[16px]">
+                  <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
+                    <Link
+                      href={"/obituarylist"}
+                      className=" text-[#1E2125] font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
+                    >
+                      Začetna
+                    </Link>
+                  </li>
+                  <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
+                    <Link
+                      href={"#"}
+                      className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${pathname == "/memorypromo" ? "!text-[#0A85C2] underline" : "text-[#1E2125]"}`}
+                    >
+                      Žalna stran
+                    </Link>
+                  </li>
+                  <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center ">
+                    <Link
+                      href={"/obituarylist"}
+                      className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${pathname == "/keeperpromo" ? "!text-[#0A85C2] underline" : "text-[#1E2125]"}`}
+                    >
+                      Spominska
+                    </Link>
+                  </li>
+                </ul> : <ul className="flex items-center gap-[40px] tablet:gap-[16px]">
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
                     <Link
                       href={"/obituarylist"}
@@ -90,15 +115,15 @@ function ObituaryHeader({ from }) {
                       Priložnost
                     </Link>
                   </li>
-                </ul>
+                </ul>}
               </div>
               <Image
                 src={iconMenu}
-                className="mobile:block hidden h-[20px] w-[20px]"
+                className={`mobile:block desktop:hidden h-[20px] w-[20px] ${pathname == "/keeperpromo" || pathname == "/memorypromo" ? "block" : "hidden"}`}
               />
 
               <Image
-                src={iconMainUser}
+                src={pathname == "/keeperpromo" || pathname == "/memorypromo" ? iconMenu : iconMainUser}
                 className="h-5 w-6 tablet:hidden mobile:hidden desktop:h-[30px] desktop:w-[30px]"
               />
             </div>

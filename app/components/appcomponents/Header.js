@@ -60,4 +60,32 @@ function Header({ onMenuCLick, from, isMegaMenuVisible }) {
   );
 }
 
+export function FAQHeader() {
+  return (
+    <header className="flex flex-col fixed h-[92px] mobile:h-[55px] tablet:h-[80px] left-0 right-0 shadow-md z-50 bg-[#FFFFFF]">
+      <div className="desktop:w-[1200px] w-full tablet:max-w-[700px] tablet:w-full mobile:max-w-[400px] mobile:w-full flex justify-between h-full items-center mx-auto">
+        <Link href={"/faq-1"} className="flex">
+          <Image
+            src={omr}
+            alt="App Logo"
+            width={500}
+            height={500}
+            className="box-border h-[22px] w-[182.76px] desktop:w-[255.31px] desktop:h-[32px]"
+          />
+        </Link>
+        <div className="flex gap-[24px] items-center mobile:hidden">
+          <Link href={"/faq-1"} className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]">CENIK</Link>
+          <Link href={"/faq-1"} className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]">KAKO ZAČNEM</Link>
+          <Link href={"/faq-1"} className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]">
+            <Image src={"/proiloznoot.svg"} alt="User" width={150} height={35} />
+          </Link>
+        </div>
+        <div className="hidden mobile:flex">
+          <Image src={"/faq_header_top.png"} alt="Menu" width={26} height={28} />
+        </div>
+      </div>
+    </header>
+  )
+}
+
 export default Header;

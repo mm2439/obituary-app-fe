@@ -3,9 +3,10 @@
 import Image from "next/image";
 import logo from "@/public/app_big_logo.png";
 import logo2 from "@/public/footer_logo.png";
+import logoWhite from "@/public/footer_logo_white.png";
 import iconFb from "@/public/icon_facebook.png";
 import mobFb from "@/public/fb_mob.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import BottomSlider from "../authcomponents/BottomSlider";
 import BottomSliderForTabAndMob from "../authcomponents/BottomSliderForTabAndMob";
@@ -23,8 +24,17 @@ const promoPathname = [
 export default function Footer() {
   const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] = useState(false);
   const [isMemoralPopupVisible, setIsMemoralPopupVisible] = useState(false);
+  const [footerVariant, setFooterVariant] = useState("default");
 
   const pathname = usePathname();
+
+  useEffect(() => {
+    if(pathname.startsWith("/memorypromo") || pathname.startsWith("/keeperpromo")) {
+      setFooterVariant("memory");
+    } else {
+      setFooterVariant("default");
+    }
+  }, [pathname]);
 
   const handleLocalQuickModalVisible = () => {
     setIsLocalQuickModalVisible(!isLocalQuickModalVisible);
@@ -39,7 +49,7 @@ export default function Footer() {
       <div className="bg-[#E0E9F399] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[35px] pb-[23px]">
         <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto">
           <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] mobile:hidden" />
-          <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
+          {footerVariant === "default" && <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
             <Link href="/" className="text-[#1860A3] underline">Začetna</Link>
             <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
             <Link href="/" className="text-[#1860A3] underline">Cvetličarne</Link>
@@ -47,7 +57,18 @@ export default function Footer() {
             <Link href="/" className="text-[#1860A3] underline">Pogrebna</Link>
             <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
             <Link href="/" className="text-[#1860A3] underline">Priložnost</Link>
-          </div>
+          </div>}
+          {footerVariant === "memory" && <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
+            <Link href="/" className="text-[#1860A3] underline">Začetna</Link>
+            <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
+            <Link href="/" className="text-[#1860A3] underline">Osmrtnice</Link>
+            <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
+            <Link href="/" className="text-[#1860A3] underline">Pogrebi</Link>
+            <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
+            <Link href="/" className="text-[#1860A3] underline">Spominske</Link>
+            <div className="w-[5px] h-[5px] bg-[#1860A3] rounded-full"></div>
+            <Link href="/" className="text-[#1860A3] underline">Cvetličarne</Link>
+          </div>}
         </div>
         <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] mx-auto bg-[#D4D4D4] h-[1px] mt-[22px]"></div>
         <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto mt-[22px]">
@@ -458,4 +479,41 @@ export default function Footer() {
     )}
     </>
   );
+}
+
+export function FooterForFaq() {
+  return (
+    <div className="bg-[#083545] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[35px] mobile:pt-[15px] pb-[23px]">
+      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[340px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto">
+        <Image src={logoWhite} width={160} height={20} alt="c" className="w-[160px] h-[20px] mobile:hidden" />
+        <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
+          <Link href="/" className="text-[#DAEBF1] underline">Začetna</Link>
+          <div className="w-[5px] h-[5px] bg-[#DAEBF1] rounded-full"></div>
+          <Link href="/" className="text-[#DAEBF1] underline">Stran za cvetličarne</Link>
+          <div className="w-[5px] h-[5px] bg-[#DAEBF1] rounded-full"></div>
+          <Link href="/" className="text-[#DAEBF1] underline">Pogrebna podjetja</Link>
+        </div>
+      </div>
+      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] mx-auto bg-[#D4D4D4] h-[1px] mt-[22px] mobile:hidden"></div>
+      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto mt-[22px] mobile:hidden">
+        <div className="flex flex-col">
+        <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] hidden mobile:flex mb-[5px]" />
+
+        <span className="text-[12px] text-[#C7C7C7] font-normal leading-[24px]">© 2025 Vse pravice zadržane</span>
+        </div>
+        <div className="inline-flex gap-[30px] mobile:gap-[16px]">
+          <Link href="/" className="text-[#A7C6E3] underline w-[65px] text-[14px]">Pišite nam</Link>
+          <Link href="/" className="">
+            <Image src={"/promo_footer_facebook_white.png"} width={18} height={18} alt="Facebook Icon" />
+          </Link>
+          <Link href="/" className="">
+            <Image src={"/promo_footer_instagram_white.png"} width={18} height={18} alt="Instagram Icon" />
+          </Link>
+        </div>
+      </div>
+      <div className="text-center text-[#1A6F8D] font-[400] text-[12px] leading-[100%] mt-[12px] mb-[6px] hidden mobile:block">
+      www.osmrtnica.com @ 2025.  Vse pravice zadržane
+      </div>
+    </div>
+  )
 }

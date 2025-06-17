@@ -5,13 +5,33 @@ import AnniversaryReminder from "../components/appcomponents/AnniversaryReminder
 import WayToPost from "../components/appcomponents/WayToPost";
 import MemorialPage from "../components/appcomponents/MemorialPage";
 import SimpleComp from "../components/appcomponents/SimpleComp";
-import FrequentlyAskedQuestionView from "../components/appcomponents/FrequentlyAskedQuestionView";
+import FrequentlyAskedQuestionView, { FrequentlyAskedQuestionView2 } from "../components/appcomponents/FrequentlyAskedQuestionView";
 import imgUp from "@/public/ico_up.png";
 import Image from "next/image";
 
 
 
 const MemoryPromo = () => {
+  const faqData = {
+    faqs: [
+      {
+        question: "Kako oddati osmrtnico",
+        answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      },
+      {
+        question: "Kako postanem Skrbnik brezplačno",
+        answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      },
+      {
+        question: "Kako dobim digitalne mobi kartice?",
+        answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      },
+      {
+        question: "Še več vprašanj",
+        answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      },
+    ],
+  };
   return (
     <Layout from={"10"} forFooter={"memorypromo"}>
       <div className="flex flex-1 flex-col mx-auto bg-gradient-to-br from-[#ECF0F3] to-[#F2F6F9]">
@@ -24,13 +44,11 @@ const MemoryPromo = () => {
         <MemorialPage />
         </div>
         <div className="flex w-full">
-          <FrequentlyAskedQuestionView from={"8"} />
+          <FrequentlyAskedQuestionView2 data={faqData} />
         </div>
         <div className="hidden mobile:flex w-full">
         <MemorialPage />
         </div>
-
-
 
         <div
           className="bottom-10 right-10 fixed w-[48px] h-[48px] mt-[26px] 

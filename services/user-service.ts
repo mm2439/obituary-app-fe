@@ -57,11 +57,20 @@ const deleteMyUser = async () => {
   }
 };
 
+const changeSlug = async (slug: string) => {
+  const endpoint = "/user/me/slug-key";
+
+  const response = await axios.patch(endpoint, { slugKey: slug }, { withCredentials: true });
+
+  return response.data;
+};
+
 const userService = {
   registerUser,
   getMyUser,
   updateMyUser,
   deleteMyUser,
+  changeSlug
 };
 
 export default userService;

@@ -118,12 +118,12 @@ const Registration = () => {
 
       if (isDesktop) {
         if (response?.user?.role === "User") {
-          router.push("/moj-racun");
+          router.push(`/u/${response.user.slugKey}/moj-racun`);
         } else if (
           response?.user?.role === "Florist" ||
           response?.user?.role === "Funeral"
         ) {
-          router.push("/c/menu");
+          router.push(`/c/${response.user.slugKey}/menu`);
         }
       } else if (!isDesktop) {
         if (response?.user?.role === "User") {

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import UserAccountLayout from "../useraccountlayout/UserAccountLayout";
-import MyAccount from "../components/appcomponents/MyAccount";
+import UserAccountLayout from "@/app/useraccountlayout/UserAccountLayout";
+import MyAccount from "@/app/components/appcomponents/MyAccount";
 const MojRacun = () => {
   return (
     <UserAccountLayout>

@@ -8,7 +8,7 @@ export default function MemoryHeader() {
       <div className=" flex w-full justify-center">
         <div
           className={`
-            desktop:h-[92.02px] mobile:h-[72px] tablet:h-[79px]
+            desktop:h-[92.02px] mobile:h-[68px] tablet:h-[79px]
             w-full  desktop:w-[1200px]
             desktop:pl-[23px] desktop:pr-[27px] tablet:pl-[23px]  tablet:pr-[27px] mobile:px-[24px]
             flex justify-between items-center
@@ -24,10 +24,10 @@ export default function MemoryHeader() {
             />
           </Link>
           <div className="flex items-center mobile:flex-row-reverse mobile:justify-between mobile:w-full gap-[70px] tablet:gap-[50px]">
-            <div className="flex items-center justify-between gap-[20px] border-[2px] border-[#0A85C2] rounded-[4px] h-[60px] px-[13px]">
-              <Image src={"/memory_header_bottom.png"} alt="" width={31} height={31} />
-              <span className="text-[#0A85C2] text-[20px]">LOKALNO</span>
-              <Image src={"/memory_header_top.png"} alt="" width={31} height={31} />
+            <div className="flex items-center justify-between gap-[20px] mobile:gap-[14px] border-[2px] border-[#0A85C2] rounded-[4px] h-[60px] mobile:h-[50px] px-[13px] mobile:px-[10px]">
+              <Image src={"/memory_header_bottom.png"} className="mobile:w-[28px] mobile:h-[28px]" alt="" width={31} height={31} />
+              <span className="text-[#0A85C2] text-[20px] mobile:text-[14px]">LOKALNO</span>
+              <Image src={"/memory_header_top.png"} className="mobile:w-[28px] mobile:h-[28px]" alt="" width={31} height={31} />
             </div>
             <div className="flex tablet:flex-col mobile:flex-col items-center gap-[20px] tablet:gap-[5px] mobile:gap-[5px]">
               <Image src={"/memory_header_left.png"} alt="" width={31} height={31} />

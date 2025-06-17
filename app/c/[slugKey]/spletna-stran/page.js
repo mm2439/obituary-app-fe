@@ -1,6 +1,6 @@
 "use client";
 
-import CompanyAccountLayout from "../../components/appcomponents/CompanyAccountLayout";
+import CompanyAccountLayout from "@/app/components/appcomponents/CompanyAccountLayout";
 import React, { useState, useEffect } from "react";
 import Step1 from "./steps/step1";
 import Step2 from "./steps/step2";

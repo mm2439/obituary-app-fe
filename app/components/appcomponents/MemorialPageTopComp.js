@@ -126,8 +126,9 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
     >
       <div
         className="bg-[#ecf0f3]   w-full flex justify-center 
-      mt-[57px] tablet:mt-[60px]   pt-[60px] "
+      mt-[57px] tablet:mt-[60px]   pt-[60px] relative"
       >
+        <Image src={"/memory_page_bg.png"} alt="" width={1280} height={1091} className="absolute top-0 left-0 w-full h-[120%]" />
         <div
           className="flex flex-col 
                w-[100%] px-[14px] tablet:px-0 desktop:px-0
@@ -398,7 +399,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                     set_Id("14");
                     setModal(true);
                   }}
-                  className="flex cursor-pointer self-end mt-[13px] pr-[7px] tablet:pr-[9px] tablet:mt-6 desktop:mt-6 h-[14px] tablet:h-[16px] desktop:h-[16px] items-center desktop:pr-[20px] tablet:mb-[26px] mobile:mb-[26px] "
+                  className="flex cursor-pointer self-end mt-[20px] pr-[7px] tablet:pr-[9px] tablet:mt-[12px] desktop:mt-[14px] h-[14px] tablet:h-[16px] desktop:h-[16px] items-center desktop:pr-[20px] tablet:mb-[26px] mobile:mb-[26px]"
                 >
                   {/* {user && data.User && user.id === data.User.id && (
                     <> */}
@@ -456,7 +457,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                       className="flex-col w-[100%] pt-4 
                       mobile:px-[21px]  mobile:pb-[25px] 
                       tablet:pb-[23px]  tablet:px-[22px]                          
-                      desktop:w-[517px]  desktop:pb-[14px] desktop:pl-[22px] desktop:pr-[17px] shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                      desktop:w-[517px]  desktop:pb-[14px] desktop:pl-[22px] desktop:pr-[17px] shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF] mb-[28px]"
                       style={{
                         background:
                           "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
@@ -640,10 +641,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
 
                 <div
                   className={`
-                  flex-col     
-                  pt-4       
-                  pl-[22px] pr-[18px]  
-                  tablet:mt-6 w-[100%]                       
+                  flex-col pt-4 pl-[22px] pr-[18px] w-[100%]                       
                   desktop:w-[517px]   desktop:pl-[22px] desktop:pr-[14px]
                   bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]
                   ${
@@ -809,7 +807,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                   </div>
                 </div>
 
-                <div
+                {/* <div
                   className="flex-col
                             mt-[24px]
                             mobile:mt-[28px]
@@ -840,7 +838,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                       className=""
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <div
                   onClick={() => {
@@ -863,10 +861,11 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             </div>
           </div>
         </div>
+        
       </div>
       {/* <div className="w-full bg-gradient-to-br from-[#ECF0F3] to-[#F2F6F9] pb-10"> */}
       <div className="w-full pb-10">
-        <div className="flex flex-col w-full items-center mt-[98.33px] tablet:mt-[109.33px] desktop:mt-[123px] ">
+        <div className="flex flex-col w-full items-center mt-[40px] tablet:mt-[45px] desktop:mt-[60px] ">
           {/* <div className="flex flex-col w-full items-center">
             <div className=" ">
               <div className=" relative h-[120px] w-[110.77px] mx-auto overflow-hidden rounded-xl">
@@ -892,14 +891,14 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             </div>
           </div> */}
 
-          <div className="flex flex-col w-full items-center mt-[98px] tablet:mt-[109px] desktop:mt-[140px] ">
+          <div className="flex flex-col w-full items-center mt-[40px] tablet:mt-[60px] desktop:mt-[70px] ">
             <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative">
               <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
                 Žalna knjiga
               </div>
-              <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px] text-end">
+              {/* <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px] text-end">
                 22
-              </div>
+              </div> */}
             </div>
             <div
               className="flex items-center mt-4 h-6 cursor-pointer"
@@ -1009,7 +1008,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
               className=""
             />
             <p className="text-[16px] text-[#1E2125] font-variation-customOpt16 font-normal">
-              Dodaj svoje ime
+            Dodaj sliko
             </p>
           </button>
           <button className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]">
@@ -1138,7 +1137,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             height={16}
             className=""
           />
-          Dodaj Sliko
+          Dodaj sožalje
         </button>
 
         <div className="w-[824px] tablet:w-[629px] mobile:w-[321px] mobile:grid-cols-1 mx-auto grid grid-cols-2 gap-[24px]">

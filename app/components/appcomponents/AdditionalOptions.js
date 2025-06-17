@@ -1,6 +1,10 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
+
 
 const AdditionalOptions = () => {
+  const [expand, setExpand] = useState(false);
   const list = [
     {
       image: "/image_c1.png",
@@ -107,9 +111,9 @@ const AdditionalOptions = () => {
 
   return (
     <div className="bg-white w-full">
-      <div className="relative max-w-[1920px] desktop:h-[1697px] w-full tablet:h-[2320px] overflow-hidden mx-auto justify-center items-center  flex ">
+      <div className="relative max-w-[1920px] w-full overflow-hidden mx-auto justify-center items-center  flex ">
         {/*Main container*/}
-        <div className="flex flex-col items-center mobile:mt-10">
+        <div className="flex flex-col items-center mobile:mt-10 pt-[114px] pb-[86px]">
           {/*Header container*/}
           <div className="flex w-[617.64px] h-[170px] tablet:h-[136px] mobile:h-[127px] mobile:w-[360px] flex-col items-center">
             <h className="w-full flex justify-center h-12 text-[40px] mobile:text-[28px] text-[#1E2125] font-variation-customOpt40 mobile:font-variation-customOpt28 mobile:text-center ">
@@ -124,7 +128,7 @@ const AdditionalOptions = () => {
           {/*grid container*/}
           <div className="grid grid-cols-3 gap-x-[40px] tablet:gap-x-0 gap-y-6 tablet:grid-cols-2 mobile:grid-cols-1">
             {/*grid column container*/}
-            {list.map((item, index) => (
+            {list.slice(0, expand ? list.length : 6).map((item, index) => (
               <div
                 key={index}
                 className="flex flex-col items-center mobile:mx-auto"
@@ -145,6 +149,15 @@ const AdditionalOptions = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="flex justify-center">
+            {!expand && <button 
+              className="py-[12px] px-[25px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[16px] leading-[24px] font-normal rounded-[8px] mt-[56px] text-[#3C3E41]" 
+              style={{
+                boxShadow: '5px 5px 10px 0px #C2C2C280, -5px -5px 10px 0px #FFFFFF'
+              }}
+              onClick={() => setExpand(!expand)}
+            >Odpri več</button>}
           </div>
         </div>
       </div>

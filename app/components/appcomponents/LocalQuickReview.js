@@ -101,7 +101,7 @@ const LocalQuickReview = ({setIsLocalQuickModalVisible}) => {
             </div>
           </div>
 
-          <div className="text-[#3C3E41] text-[16px] leading-[20px] font-normal w-[324px] mx-auto mt-[40px]">
+          <div className="text-[#3C3E41] text-[16px] leading-[20px] font-normal w-[340px] mx-auto mt-[40px]">
             Mesto izbereš v svojem uporabniškem računu.
             Moraš biti prijavljen, da zazna tvojo nastavitev.
             Brez vsakodnevnega iskanja po imenikih.

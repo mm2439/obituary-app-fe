@@ -6,14 +6,14 @@ import { format } from "date-fns";
 const ObituaryPublished = ({ set_Id, setModal, data }) => {
   return (
     <>
-    <div className="mx-auto border-t-[1px] border-b-[1px] border-[#DCE4E4] w-full flex items-center overflow-hidden bg-[#FFFAF826] py-[68px]">
+    <div className="mx-auto border-t-[1px] border-b-[1px] border-[#DCE4E4] w-full flex items-center overflow-hidden bg-[#FFFAF826] py-[68px] mobile:py-[30px]">
       {/* Main Container */}
       <div className="max-w-[1042] w-full flex flex-col justify-center items-center">
         {/* Container for first details */}
         {/* <div className="desktop:w-[993px] h-[128px] flex flex-row mobile:w-full mobile:mr-[32px] mobile:ml-[32px] mobile:flex-col mobile:h-[202px] bg-blue-500 tablet:w-[534px] tablet:mx-auto justify-between"> */}
         <div
-          className="desktop:w-[993px] h-[128px] flex flex-row tablet:w-[639px] tablet:mx-auto justify-between 
-        mobile:w-full mobile:px-[32px] mobile:flex-col mobile:h-[202px]"
+          className="desktop:w-[993px] h-[128px] mobile:h-auto flex flex-row tablet:w-[639px] tablet:mx-auto justify-between 
+        mobile:w-full mobile:px-[32px] mobile:flex-col"
         >
           {/* First row details */}
           <div className="desktop:w-[496px] tablet:w-[496px] h-full flex flex-col items-start">
@@ -79,7 +79,7 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
 
           {/* Second row details */}
           <div className="desktop:w-[496px] tablet:w-[496px] h-full flex flex-col items-end mobile:mt-[15px]">
-            <div className="desktop:mr-[18px] tablet:mr-[18px] text-[12px] text-[#414141] leading-[14.06px] flex tablet:mb-[34px] mb-[24px] flex-row mobile:mb-[10px]">
+            <div className="desktop:mr-[18px] tablet:mr-[18px] text-[12px] text-[#414141] leading-[14.06px] flex tablet:mb-[24px] mb-[24px] flex-row mobile:mb-[10px]">
               <div className="mr-[8px] ml-[6px]">
                 <Image
                   src={imgFlag}
@@ -96,7 +96,7 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
                 Sporoči napake
               </div>
             </div>
-            <div className="leading-[] text-[12px] text-[#414141] desktop:mt-[24px] mobile:mt-[8px] tablet:mt-[8px] desktop:mr-[4px] tablet:mr-[4px] text-end">
+            <div className="leading-[] text-[12px] text-[#414141] desktop:mt-[8px] mobile:mt-[8px] tablet:mt-[8px] desktop:mr-[4px] tablet:mr-[4px] text-end">
             <span className="text-[14px]">Zadnje spremembe:</span> <br />
             Žalna knjiga: Alfred G. 21.12.2023<br />
             Sožalje: Ahmed Omar G. 17.12.2023<br />

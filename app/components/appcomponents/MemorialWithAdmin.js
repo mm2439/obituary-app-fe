@@ -33,7 +33,7 @@ const MemorialWithAdmin = () => {
                         </p>
                     </div>
 
-                    <img src="spominska_laptop.avif" alt="memory_mac" className=" desktop:ml-[1/2] h-[459.49px] desktop:object-contain w-[670.81px] 
+                    <img src="spominska_laptop.png" alt="memory_mac" className=" desktop:ml-[1/2] h-[459.49px] desktop:object-contain w-[670.81px] 
                     desktop:mt-[96.84px] tablet:mx-auto tablet:mt-[64px] tablet:w-[659px] tablet:h-[411px] mobile:mt-[42px] mobile:mx-auto mobile:w-[320px] mobile:h-[213px]" />
                 </div>
                 

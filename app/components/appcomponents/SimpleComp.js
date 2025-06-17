@@ -4,24 +4,20 @@ import Link from "next/link";
 const SimpleComp = () => {
   return (
     <div className="w-full desktop:bg-[#FFFFFF] tablet:bg-[#FFFFFF]">
-      <div className="relative max-w-[1920px]  desktop:h-[600px] tablet:h-[494px]  w-full overflow-hidden flex mx-auto justify-center items-center">
+      <div className="relative max-w-[1920px]  desktop:h-[488px] tablet:h-[494px]  w-full overflow-hidden flex mx-auto justify-center items-center">
         {/*Main contianer*/}
-        <div className="flex max-w-[1038.25px] bg-[#FFFFFF] w-full h-[423px] px-[20px] mobile:px-0 tablet:max-w-[724px] tablet:h-[344px] mobile:h-[977px] mobile:w-full mobile:mx-4 flex-col">
+        <div className="flex max-w-[1038.25px] bg-[#FFFFFF] w-full px-[20px] mobile:px-0 tablet:max-w-[724px] mobile:w-full mobile:mx-4 flex-col">
           {/*Header contianer*/}
-          <div className="flex max-w-[669px] w-full h-[131px] tablet:h-[42px] tablet:w-[600px] mobile:w-[297px] mobile:h-[110px] mx-auto flex-col mobile:mt-9">
-            <div className="flex h-[102px] tablet:h-[48px] mobile:h-[110px] flex-col">
-              <h1 className="text-[40px] text-[#1E2125] font-variation-customOpt40 mobile:text-[28px] text-center mobile:font-variation-customOpt28 mobile:text-center tablet:mt-[2px] mobile:mt-0 tablet:text-center leading-[48px]">
+          <div className="flex max-w-[669px] w-full tablet:w-[600px] mobile:w-[297px] mx-auto flex-col mobile:mt-9">
+            <div className="flex tablet:h-[48px] flex-col">
+              <h1 className="text-[40px] text-[#3C3E41] font-variation-customOpt40 mobile:text-[28px] text-center mobile:font-variation-customOpt28 mobile:text-center tablet:mt-[2px] mobile:mt-0 tablet:text-center leading-[48px]">
                 Enostavno je
               </h1>
-              <div className="text-[18px] tablet:w-[568px] tablet:h-[81px] mobile:w-[300px] tablet:self-center text-[#3C3E41] font-variation-customOpt18 self-center mt-2 flex tablet:hidden bg-white mobile:leading-[27px] mobile:text-center">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </div>
             </div>
           </div>
 
           {/*Main contianer for boxes*/}
-          <div className="flex w-full h-[244px] mobile:w-[296px] mobile:h-[749px] mt-12 tablet:mt-[54px] mx-auto mobile:mt-[48px] mobile:flex-col">
+          <div className="flex w-full h-[244px] mobile:w-[296px] mobile:h-[749px] mt-[66px] tablet:mt-[54px] mx-auto mobile:mt-[48px] mobile:flex-col">
             {/*Main contianer for tablet*/}
             <div className="w-full flex-col hidden tablet:flex">
               {/* coloum container*/}

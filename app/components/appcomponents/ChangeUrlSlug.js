@@ -1,13 +1,13 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import userService from "@/services/user-service";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function ChangeUrlSlug({open, setOpen}) {
-  const [slug, setSlug] = useState(JSON.parse(localStorage.getItem("user"))?.slugKey || "");
+  const [slug, setSlug] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [newSlug, setNewSlug] = useState("");
   const pathname = usePathname();
@@ -32,6 +32,10 @@ export default function ChangeUrlSlug({open, setOpen}) {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    setSlug(JSON.parse(localStorage.getItem("user"))?.slugKey || "");
+  }, [open]);
 
   return <div className={`w-full h-screen fixed bg-[#344054B2] backdrop-blur-[16px] z-[1000] flex items-center justify-center transition-all duration-300 ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}>
    <div className="w-[595px] h-[700px] rounded-[16px] border-[1px] border-[#D4D4D4] bg-[#E8F0F6] p-[2px]">

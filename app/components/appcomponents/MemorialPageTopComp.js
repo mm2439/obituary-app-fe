@@ -118,7 +118,13 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
     showFullObituaryText || !shouldTruncate
       ? obituary
       : obituary.slice(0, characterLimit);
-
+  const formatDate = (timestamp) => {
+    return new Date(timestamp).toLocaleString("sl-SI", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  };
   return (
     <div
       id="memoryPageTop"
@@ -128,7 +134,13 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
         className="bg-[#ecf0f3]   w-full flex justify-center 
       mt-[57px] tablet:mt-[60px]   pt-[60px] relative"
       >
-        <Image src={"/memory_page_bg.png"} alt="" width={1280} height={1091} className="absolute top-0 left-0 w-full h-[120%]" />
+        <Image
+          src={"/memory_page_bg.png"}
+          alt=""
+          width={1280}
+          height={1091}
+          className="absolute top-0 left-0 w-full h-[120%]"
+        />
         <div
           className="flex flex-col 
                w-[100%] px-[14px] tablet:px-0 desktop:px-0
@@ -861,7 +873,6 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             </div>
           </div>
         </div>
-        
       </div>
       {/* <div className="w-full bg-gradient-to-br from-[#ECF0F3] to-[#F2F6F9] pb-10"> */}
       <div className="w-full pb-10">
@@ -952,26 +963,26 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
               </p>
             </div>
           </div>
-          {data?.Dedications && data?.Dedications.length > 0 ? null : (
-            <div
-              className="mt-[30px] w-[720px] mobile:w-[321px] mx-auto flex items-center justify-end cursor-pointer mb-[18px] px-[10px]"
-              onClick={() => {
-                set_Id("13");
-                setModal(true);
-              }}
-            >
-              <Image
-                src={"/round_add.png"}
-                alt="Slika"
-                width={100}
-                height={100}
-                className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
-              />
-              <p className="text-[14px] text-[#414141] font-variation-customOpt12 font-normal">
-                Dodaj posvetilo
-              </p>
-            </div>
-          )}
+
+          <div
+            className="mt-[30px] w-[720px] mobile:w-[321px] mx-auto flex items-center justify-end cursor-pointer mb-[18px] px-[10px]"
+            onClick={() => {
+              set_Id("13");
+              setModal(true);
+            }}
+          >
+            <Image
+              src={"/round_add.png"}
+              alt="Slika"
+              width={100}
+              height={100}
+              className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
+            />
+            <p className="text-[14px] text-[#414141] font-variation-customOpt12 font-normal">
+              Dodaj posvetilo
+            </p>
+          </div>
+
           <div className="hidden items-end justify-start gap-[7px] mobile:flex w-[321px] px-[15px]">
             <p className="text-[14px] leading-[14px] font-variation-customOpt16 font-normal text-[#36556CE5]">
               Marija Smrekar
@@ -980,7 +991,9 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
               15.01.2024
             </p>
           </div>
-          <ContentSlider />
+          {data?.Dedications && data?.Dedications?.length > 0 && (
+            <ContentSlider data={data.Dedications} />
+          )}
         </div>
       </div>
       <div className="w-full pb-[150px]">
@@ -1008,7 +1021,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
               className=""
             />
             <p className="text-[16px] text-[#1E2125] font-variation-customOpt16 font-normal">
-            Dodaj sliko
+              Dodaj sliko
             </p>
           </button>
           <button className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]">
@@ -1142,111 +1155,68 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
 
         <div className="w-[824px] tablet:w-[629px] mobile:w-[321px] mobile:grid-cols-1 mx-auto grid grid-cols-2 gap-[24px]">
           <div className="flex flex-col gap-[27px]">
-            <div
-              className="bg-white rounded-[3px] text-[16px] text-[#414141]"
-              style={{
-                boxShadow: "5px 5px 10px 0px #C2C2C280",
-              }}
-            >
-              <div className="px-[17px] pt-[14px] pb-[28px]">
-                Rest in peace my friend
-              </div>
-              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
-                <div className="flex items-end gap-[4px]">
-                  <span className="text-[16px] leading-none">Z.J.</span>
-                  <span className="text-[12px] leading-none">sosed</span>
-                </div>
-                <span className="text-[12px] leading-none">11.12.2023</span>
-              </div>
-            </div>
-            <div
-              className="bg-white rounded-[3px] text-[16px] text-[#414141]"
-              style={{
-                boxShadow: "5px 5px 10px 0px #C2C2C280",
-              }}
-            >
-              <div className="px-[17px] pt-[14px] pb-[28px]">
-                Deepest sympathies for your loss.
-              </div>
-              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
-                <div className="flex items-end gap-[4px]">
-                  <span className="text-[16px] leading-none">Zoltan</span>
-                </div>
-                <span className="text-[12px] leading-none">11.12.2023</span>
-              </div>
-            </div>
-            <div
-              className="bg-white rounded-[3px] text-[16px] text-[#414141]"
-              style={{
-                boxShadow: "5px 5px 10px 0px #C2C2C280",
-              }}
-            >
-              <div className="px-[17px] pt-[14px] pb-[28px]">
-                I’m deeply sorry for your loss. May you find comfort in the love
-                of those around you and strength in cherished memories. My
-                thoughts and prayers are with you during this difficult time.
-                Please know I’m here for you.
-              </div>
-              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
-                <div className="flex items-end gap-[4px]">
-                  <span className="text-[16px] leading-none">Jane Fonda</span>
-                  <span className="text-[12px] leading-none">Friend</span>
-                </div>
-                <span className="text-[12px] leading-none">11.12.2023</span>
-              </div>
-            </div>
+            {data?.Condolences &&
+              data?.Condolences.length > 0 &&
+              data.Condolences.filter((_, index) => index % 2 === 0).map(
+                (item, index) => (
+                  <div
+                    className="bg-white rounded-[3px] text-[16px] text-[#414141]"
+                    style={{
+                      boxShadow: "5px 5px 10px 0px #C2C2C280",
+                    }}
+                    key={index}
+                  >
+                    <div className="px-[17px] pt-[14px] pb-[28px]">
+                      {item.message}
+                    </div>
+                    <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
+                      <div className="flex items-end gap-[4px]">
+                        <span className="text-[16px] leading-none">
+                          {item.name}
+                        </span>
+                        <span className="text-[12px] leading-none">
+                          {item.relation}
+                        </span>
+                      </div>
+                      <span className="text-[12px] leading-none">
+                        {formatDate(item?.createdTimestamp)}
+                      </span>
+                    </div>
+                  </div>
+                )
+              )}
           </div>
           <div className="flex flex-col gap-[27px]">
-            <div
-              className="bg-white rounded-[3px] text-[16px] text-[#414141]"
-              style={{
-                boxShadow: "5px 5px 10px 0px #C2C2C280",
-              }}
-            >
-              <div className="px-[17px] pt-[14px] pb-[28px]">
-                Heartbroken for your loss. Please know I’m here for you. Wishing
-                you courage and healing in the days ahead.
-              </div>
-              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
-                <div className="flex items-end gap-[4px]">
-                  <span className="text-[16px] leading-none">
-                    Alexandra Sanchez{" "}
-                  </span>
-                </div>
-                <span className="text-[12px] leading-none">11.12.2023</span>
-              </div>
-            </div>
-            <div
-              className="bg-white rounded-[3px] text-[16px] text-[#414141]"
-              style={{
-                boxShadow: "5px 5px 10px 0px #C2C2C280",
-              }}
-            >
-              <div className="px-[17px] pt-[14px] pb-[28px]">R.I.P.</div>
-              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
-                <div className="flex items-end gap-[4px]">
-                  <span className="text-[16px] leading-none">Armando G.</span>
-                  <span className="text-[12px] leading-none">Friend</span>
-                </div>
-                <span className="text-[12px] leading-none">11.12.2023</span>
-              </div>
-            </div>
-            <div
-              className="bg-white rounded-[3px] text-[16px] text-[#414141]"
-              style={{
-                boxShadow: "5px 5px 10px 0px #C2C2C280",
-              }}
-            >
-              <div className="px-[17px] pt-[14px] pb-[28px]">
-                Sorry for your loss.
-              </div>
-              <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
-                <div className="flex items-end gap-[4px]">
-                  <span className="text-[16px] leading-none">Father</span>
-                </div>
-                <span className="text-[12px] leading-none">11.12.2023</span>
-              </div>
-            </div>
+            {data?.Condolences &&
+              data?.Condolences.length > 0 &&
+              data.Condolences.filter((_, index) => index % 2 !== 0).map(
+                (item, index) => (
+                  <div
+                    className="bg-white rounded-[3px] text-[16px] text-[#414141]"
+                    style={{
+                      boxShadow: "5px 5px 10px 0px #C2C2C280",
+                    }}
+                    key={index}
+                  >
+                    <div className="px-[17px] pt-[14px] pb-[28px]">
+                      {item.message}
+                    </div>
+                    <div className="bg-[#E1E7E8] text-[#6D778E] px-[16px] py-[4px] flex justify-between">
+                      <div className="flex items-end gap-[4px]">
+                        <span className="text-[16px] leading-none">
+                          {item.name}
+                        </span>
+                        <span className="text-[12px] leading-none">
+                          {item.relation}
+                        </span>
+                      </div>
+                      <span className="text-[12px] leading-none">
+                        {formatDate(item?.createdTimestamp)}
+                      </span>
+                    </div>
+                  </div>
+                )
+              )}
           </div>
         </div>
         <Image
@@ -1387,21 +1357,52 @@ const gradientStyles = [
   },
 ];
 
-const ContentSlider = () => {
+const ContentSlider = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? data.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === data.length - 1 ? 0 : prev + 1));
+  };
+  const currentDedication = data[activeIndex];
+  const formatDate = (timestamp) => {
+    return new Date(timestamp).toLocaleString("sl-SI", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  };
+  const [showFullDedicationText, setShowFullDedicationText] = useState(false);
+
+  const toggleDedicationText = () => {
+    setShowFullDedicationText((prev) => !prev);
+  };
+  const characterLimit = 300;
+  const message = currentDedication?.message || "";
+  const shouldTruncate = currentDedication?.message?.length > characterLimit;
+
+  const displayedMessage =
+    showFullDedicationText || !shouldTruncate
+      ? message
+      : message.slice(0, characterLimit);
+
   return (
-    <div className="flex w-full items-center mt-[10px] gap-[38px] justify-center relative px-[10px]">
+    <div className="flex w-full h-auto object-cover items-center mt-[10px] gap-[38px] justify-center relative px-[10px]">
       <Image
+        onClick={handlePrev}
         src={"/memory_slider_left.png"}
-        alt="Slika"
+        alt="Left"
         width={74}
         height={74}
-        className="tablet:absolute tablet:z-10 tablet:left-0 tablet:top-1/2 tablet:-translate-y-1/2 mobile:hidden"
+        className="cursor-pointer tablet:absolute tablet:z-10 tablet:left-0 tablet:top-1/2 tablet:-translate-y-1/2 mobile:hidden"
       />
-      <div className="flex flex-col gap-[10px] w-[720px] mobile:w-[321px] h-[370px] mobile:h-auto overflow-hidden rounded-[3px] relative pt-[38px] mobile:py-[40px] mobile:px-[35px]">
+      <div className="flex flex-col gap-[10px] w-[720px] mobile:w-[321px] h-auto mobile:h-auto  rounded-[3px] relative pt-[38px] mobile:py-[40px] mobile:px-[35px]">
         <Image
           src={"/memory_paper_slider.jpg"}
-          alt="Slika"
+          alt="Background"
           width={720}
           height={370}
           className="absolute top-0 left-0 object-cover w-full h-full"
@@ -1414,14 +1415,14 @@ const ContentSlider = () => {
                 textShadow: "0px 1px 1px #000000, 0px 4px 4px #00000040",
               }}
             >
-              Dragi moj Mario
+              {currentDedication?.title}
             </h3>
             <div className="flex flex-col items-end justify-end gap-[7px] mobile:hidden">
               <p className="text-[14px] leading-[14px] font-variation-customOpt16 font-normal text-[#36556CE5]">
-                Marija Smrekar
+                {currentDedication?.name}
               </p>
               <p className="text-[12px] leading-[12px] font-variation-customOpt16 font-normal text-[#36556CE5]">
-                15.01.2024
+                {formatDate(currentDedication?.createdTimestamp)}
               </p>
             </div>
           </div>
@@ -1436,28 +1437,40 @@ const ContentSlider = () => {
               textFillColor: "transparent",
             }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore. <br />
-            <br />
-            Coredolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            incididunt ut labore Lorem ipsum dolor sit amet, consectetur elit,
-            sed do eiusmod tempor incididunt ut labore Lorem ipsum dolor sit
-            amet, consectetur elit, sed do eiusmod tempor incididunt ut labore
-            Ansectetur elit.
+            {displayedMessage?.split("\n").map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
           </p>
-          <p className="text-end text-[12px] leading-[100%] font-regular text-[#36556CB2]  mt-[26px]">
-            Odpri naprej
-          </p>
+
+          {shouldTruncate && !showFullDedicationText && (
+            <p
+              onClick={toggleDedicationText}
+              className="text-end text-[12px] leading-[100%] font-regular text-[#36556CB2]  mb-[30px]  "
+            >
+              Odpri več
+            </p>
+          )}
+
+          {shouldTruncate && showFullDedicationText && (
+            <p
+              onClick={toggleDedicationText}
+              className="text-end text-[12px] leading-[100%] font-regular text-[#36556CB2]   mb-[30px]"
+            >
+              Zapri
+            </p>
+          )}
         </div>
       </div>
       <Image
+        onClick={handleNext}
         src={"/memory_slider_right.png"}
-        alt="Slika"
+        alt="Right"
         width={74}
         height={74}
-        className="tablet:absolute tablet:z-10 tablet:right-0 tablet:top-1/2 tablet:-translate-y-1/2 mobile:hidden"
+        className="cursor-pointer tablet:absolute tablet:z-10 tablet:right-0 tablet:top-1/2 tablet:-translate-y-1/2 mobile:hidden"
       />
     </div>
   );

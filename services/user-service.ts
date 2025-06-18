@@ -35,6 +35,7 @@ const updateMyUser = async (userData: {
   company?: string;
   region?: string;
   city?: string;
+  secondaryCity?: string;
 }) => {
   try {
     const endpoint = "/user/me";
@@ -60,7 +61,11 @@ const deleteMyUser = async () => {
 const changeSlug = async (slug: string) => {
   const endpoint = "/user/me/slug-key";
 
-  const response = await axios.patch(endpoint, { slugKey: slug }, { withCredentials: true });
+  const response = await axios.patch(
+    endpoint,
+    { slugKey: slug },
+    { withCredentials: true }
+  );
 
   return response.data;
 };
@@ -70,7 +75,7 @@ const userService = {
   getMyUser,
   updateMyUser,
   deleteMyUser,
-  changeSlug
+  changeSlug,
 };
 
 export default userService;

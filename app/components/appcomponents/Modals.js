@@ -1794,7 +1794,7 @@ const Modals = ({
               onChange={(e) => {
                 setMessage(e.target.value);
               }}
-              maxLength={10000}
+              maxLength={5000}
             />
           </div>
           <div className="mt-[24px] flex mobile:hidden">

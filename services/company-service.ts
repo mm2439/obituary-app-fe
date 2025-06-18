@@ -17,6 +17,12 @@ const getFuneralCompany = async (queryParams?: {
   return response.data;
 };
 
+const getCompleteCompany = async (queryParams?: { type?: string }) => {
+  const endpoint = `/company/details`;
+  const response = await axios.get(endpoint, { params: queryParams });
+  return response.data;
+};
+
 const getFloristCompany = async (queryParams?: {
   id?: string;
   userId?: string;
@@ -39,6 +45,7 @@ const companyService = {
   getFuneralCompany,
   updateCompany,
   getFloristCompany,
+  getCompleteCompany,
 };
 
 export default companyService;

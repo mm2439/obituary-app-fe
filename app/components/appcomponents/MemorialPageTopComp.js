@@ -1012,6 +1012,10 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             style={{
               boxShadow: "3px 3px 18px 0px #00000040",
             }}
+            onClick={() => {
+              set_Id("6");
+              setModal(true);
+            }}
           >
             <Image
               src={"/memory_page_plus_icon.png"}
@@ -1024,7 +1028,13 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
               Dodaj sliko
             </p>
           </button>
-          <button className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]">
+          <button
+            onClick={() => {
+              set_Id("6");
+              setModal(true);
+            }}
+            className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]"
+          >
             <Image
               src={"/memory_page_plus_icon.png"}
               alt="Slika"
@@ -1129,6 +1139,10 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
           style={{
             boxShadow: "3px 3px 18px 0px #00000040",
           }}
+          onClick={() => {
+            set_Id("sayings_condolence");
+            setModal(true);
+          }}
         >
           <Image
             src={"/memory_page_plus_icon.png"}
@@ -1142,7 +1156,13 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
           </p>
         </button>
 
-        <button className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]">
+        <button
+          onClick={() => {
+            set_Id("sayings_condolence");
+            setModal(true);
+          }}
+          className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]"
+        >
           <Image
             src={"/memory_page_plus_icon.png"}
             alt="Slika"

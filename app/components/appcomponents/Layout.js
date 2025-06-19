@@ -21,6 +21,7 @@ const Layout = ({
   isMegaMenuVisible,
   megaMenu,
   data = {},
+  onChangeMemory,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -54,7 +55,7 @@ const Layout = ({
       ) : from == "7" ? (
         <Header7 data={data} from={7} />
       ) : from == "3" ? (
-        <MemoryHeader />
+        <MemoryHeader onChange={onChangeMemory} />
       ) : (
         <>
           {from == "2" ? <div className="flex  h-[45px]" /> : null}

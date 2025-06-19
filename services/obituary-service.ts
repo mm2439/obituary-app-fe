@@ -323,6 +323,20 @@ const getCompanyLogs = async () => {
     throw new Error("Network error or no response");
   }
 };
+const getMemoryId = async (queryParams?: {
+  city?: string;
+  date?: string;
+  type?: string;
+}) => {
+  try {
+    const endpoint = `/obituary/id/`;
+    const response = await axios.get(endpoint, { params: queryParams });
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Getting Logs:", error);
+    throw error;
+  }
+};
 
 const obituaryService = {
   getObituaryById,
@@ -340,7 +354,7 @@ const obituaryService = {
   burnCandle,
   fetchPendingPosts,
   changePostStatus,
-
+  getMemoryId,
   addReport,
   getLogs,
   getMemories,

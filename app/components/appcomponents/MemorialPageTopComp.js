@@ -132,7 +132,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
     >
       <div
         className="bg-[#ecf0f3]   w-full flex justify-center 
-      mt-[57px] tablet:mt-[60px]   pt-[60px] relative"
+      mt-[53px] tablet:mt-[60px]   pt-[60px] relative"
       >
         <Image
           src={"/memory_page_bg.png"}
@@ -1045,80 +1045,130 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             Dodaj Sliko
           </button>
 
-          <div className="overflow-hidden w-full">
-            <div className="flex gap-[5px] w-[1024px] tablet:w-[800px] mobile:w-[406px] mobile:h-[150px] mobile:gap-0 mx-auto">
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
+          <div className="w-full space-y-[30px] px-[15px] mobile:space-y-[14px]">
+            <div className="flex gap-[25px] w-[1024px] flex-nowrap tablet:w-[800px] mobile:w-[406px] mobile:h-[125px] mx-auto mobile:gap-[14px]">
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
             </div>
-            <div className="hidden tablet:flex mobile:flex gap-[5px] w-[1024px] mobile:h-[150px] tablet:w-[800px] mobile:w-[406px] mobile:gap-0 mx-auto">
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
-              <Image
-                src={"/person.png"}
-                alt="Slika"
-                width={200}
-                height={200}
-                className=""
-              />
+            <div className="hidden tablet:flex mobile:flex gap-[25px] w-[1024px] mobile:h-[125px] tablet:w-[800px] mobile:w-[406px] mobile:gap-[14px] mx-auto">
+            <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
+              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
+                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+
+              }}>
+                <Image
+                  src={"/person.jpg"}
+                  alt="Slika"
+                  width={200}
+                  height={200}
+                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                />
+              </div>
             </div>
           </div>
         </div>

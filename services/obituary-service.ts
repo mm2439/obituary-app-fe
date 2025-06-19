@@ -33,11 +33,12 @@ const getObituary = async (queryParams?: {
 };
 
 //memory
-const getMemory = async (queryParams?: { id?: string }) => {
+const getMemory = async (queryParams?: { slugKey?: string }) => {
   try {
     const endpoint = "/obituary/memory";
     console.log(endpoint, { params: queryParams });
     const response = await axios.get(endpoint, { params: queryParams });
+    console.log(response.data);
     return response.data;
   } catch (error: unknown) {
     console.error("Error fetching obituaries:", error);

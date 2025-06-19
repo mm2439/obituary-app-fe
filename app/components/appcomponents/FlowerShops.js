@@ -35,7 +35,7 @@ import React from "react";
 //   );
 // };
 
-const FlowerShops = ({ set_Id, setModal }) => {
+const FlowerShops = ({ setIsOpen }) => {
   return (
     <div 
       className="h-[1061px] mobile:h-[1230px] w-full flex flex-col mobile:justify-center desktop:justify-center items-center  bg-[#F8EDE3] relative"
@@ -45,15 +45,11 @@ const FlowerShops = ({ set_Id, setModal }) => {
       <div className="mx-auto mobile:flex-col mobile:items-center desktop:w-[800px] tablet:mt-[110px] tablet:w-[600px] mobile:max-w-[560.17px] mobile:px-[30px] mobile:w-full ">
         <div className="flex justify-between mobile:flex-col-reverse mobile:items-end mobile:gap-[12px]">
           <div
-            onClick={() => {
-              set_Id("16");
-              setModal(true);
-            }}
             className="leading-[46.88px] cursor-pointer text-[28px] desktop:text-[40px] mobile:flex mobile:justify-center font-variation-customOpt40 text-[#1E2125] mobile:w-full"
           >
             Cvetličarne
           </div>
-          <img src="/memory_page_cross.png" alt="trbovlje" className="w-[50px] h-[50px]" />
+          <img src="/memory_page_cross.png" alt="trbovlje" className="w-[50px] h-[50px]" onClick={() => setIsOpen(false)} />
         </div>
 
         <div className="text-[#0A85C2] text-[32px] leading-[24px] font-variation-customOpt16 mt-[18px] mobile:w-full mobile:text-center">
@@ -245,7 +241,7 @@ const FlowerShops = ({ set_Id, setModal }) => {
   );
 };
 
-export const FlowerShops2 = ({ set_Id, setModal }) => {
+export const FlowerShops2 = ({ setIsOpen }) => {
   return (
     <div 
       className="h-[393px] mobile:h-[407px] w-full flex flex-col mobile:justify-center desktop:justify-center items-center  bg-[#F8EDE3] relative"
@@ -255,10 +251,6 @@ export const FlowerShops2 = ({ set_Id, setModal }) => {
       <div className="mx-auto mobile:flex-col mobile:items-center desktop:w-[800px] tablet:mt-[110px] tablet:w-[600px] mobile:max-w-[560.17px] mobile:px-[30px] mobile:w-full">
         <div className="flex justify-between mobile:flex-col-reverse mobile:items-end mobile:gap-[12px]">
           <div
-            onClick={() => {
-              set_Id("16");
-              setModal(true);
-            }}
             className="leading-[46.88px] cursor-pointer text-[28px] desktop:text-[40px] mobile:flex mobile:justify-center font-variation-customOpt40 text-[#1E2125] mobile:w-full"
           >
             Cvetličarne
@@ -273,7 +265,9 @@ export const FlowerShops2 = ({ set_Id, setModal }) => {
         style={{
           background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
           boxShadow: '-3px -3px 7px 0px #FFFFFFB2, 3px 3px 3px 0px #C2C2C299'
-        }}>
+        }}
+        onClick={() => setIsOpen(true)}
+        >
         Odpri
         </button>
       </div>

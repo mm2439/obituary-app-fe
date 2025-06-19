@@ -16,7 +16,7 @@ export default function DemoMemoryPage() {
       {isOpen && <div className="fixed top-0 left-0 h-screen w-screen bg-[#344054B2] backdrop-blur-sm z-50 flex items-center justify-end" onClick={() => setIsOpen(false)}>
         <div className="space-y-[18px] absolute top-[50%] translate-y-[-50%] right-[77px] tabletUserAcc:right-[50%] tabletUserAcc:translate-x-[50%] mobileUserAcc:right-[50%] mobileUserAcc:translate-x-[50%] w-[360px] tabletUserAcc:w-[550px]" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-center justify-between mobileUserAcc:px-[12px]">
-            <div className="border border-[#FFFFFF] w-[150px] h-[42px] flex items-center justify-center bg-[#e3e8ec28] rounded-[8px] font-normal text-[15px] [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)] cursor-pointer" onClick={() => { setIsRegisterOpen(true); setIsOpen(false); }}>
+            <div className="border border-[#FFFFFF] text-white w-[150px] h-[42px] flex items-center justify-center bg-[#e3e8ec28] rounded-[8px] font-normal text-[15px] [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)] cursor-pointer" onClick={() => { setIsRegisterOpen(true); setIsOpen(false); }}>
               REGISTRACIJA
             </div>
             <div className="cursor-pointer" onClick={() => setIsOpen(false)}>

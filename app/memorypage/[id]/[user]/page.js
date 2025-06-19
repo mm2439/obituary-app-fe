@@ -34,37 +34,6 @@ const MemoryPage = ({ params }) => {
   useEffect(() => {
     fetchMemory();
   }, []);
-  //old code
-  // const fetchObituary = async () => {
-  //   try {
-  //     const response = await obituaryService.getObituary({ id });
-
-  //     if (response.error) {
-  //       toast.error(
-  //         response.error || "Something went wrong. Please try again!"
-  //       );
-  //       return;
-  //     }
-  //     console.log(response);
-  //     setObituary(response.obituaries[0]);
-
-  //     if (id) {
-  //       const visitRespone = await obituaryService.updateObituaryVisits(id);
-
-  //       if (visitRespone.error) {
-  //         toast.error(
-  //           visitRespone.error || "Something went wrong. Please try again!"
-  //         );
-  //         return;
-  //       }
-
-  //       setObituary(visitRespone);
-  //     }
-  //   } catch (err) {
-  //     console.error("Error fetching obituary:", err);
-  //     toast.error(err.message || "Failed to fetch obituary.");
-  //   }
-  // };
 
   useEffect(() => {
     console.log("set is modal:", isShowModal);
@@ -153,14 +122,14 @@ const MemoryPage = ({ params }) => {
           data={obituary}
           updateObituary={updateObituary}
         />
-        {obituary?.Dedications?.length > 0 && (
+        {/* {obituary?.Dedications?.length > 0 && (
           <SanctifiedComp
             dedications={obituary.Dedications}
             set_Id={setSelect_Id}
             setModal={setIsShowModal}
           />
-        )}
-        {obituary?.Photos?.length > 0 && (
+        )} */}
+        {/* {obituary?.Photos?.length > 0 && (
           <ImageWall
             set_Id={setSelect_Id}
             setModal={setIsShowModal}
@@ -168,14 +137,14 @@ const MemoryPage = ({ params }) => {
             setImageId={setImageId}
             data={obituary?.Photos}
           />
-        )}
+        )} */}
 
         {/* <Condolences
           set_Id={setSelect_Id}
           setModal={setIsShowModal}
           data={obituary?.Condolences}
         /> */}
-        <AnnouncementBlock />
+        {obituary?.Keepers?.length === 1 && <AnnouncementBlock />}
 
         <ShippingNotifications
           set_Id={setSelect_Id}

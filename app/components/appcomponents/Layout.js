@@ -21,7 +21,7 @@ const Layout = ({
   isMegaMenuVisible,
   megaMenu,
   data = {},
-  onChangeMemory,
+  onChangeMemory = () => {},
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

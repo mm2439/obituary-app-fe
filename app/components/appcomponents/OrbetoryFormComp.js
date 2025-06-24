@@ -10,6 +10,7 @@ import Select from "react-select";
 import cardService from "@/services/card-service";
 import toast from "react-hot-toast";
 import keeperService from "@/services/keeper-service";
+import { useRouter } from "next/navigation";
 
 const OrbetoryFormComp = ({
   setModalVisible,
@@ -27,7 +28,8 @@ const OrbetoryFormComp = ({
   const [inputValue, setInputValue] = useState("");
   const [cardSelected, setCardSelected] = useState(null);
   const [KeeperExpiry, setKeeperExpiry] = useState(null);
-
+  const [user, setUser] = useState(null);
+  const router = useRouter();
   const [email, setEmail] = useState("");
 
   const [debouncedValue, setDebouncedValue] = useState("");
@@ -36,6 +38,11 @@ const OrbetoryFormComp = ({
     try {
       let queryParams = {};
       queryParams.name = query;
+      const today = new Date().toISOString();
+      queryParams.date = today;
+      queryParams.city = user?.city;
+      console.log(queryParams, "here------------");
+
       const response = await obituaryService.getObituary(queryParams);
       setObituaries(response.obituaries);
     } catch (error) {
@@ -172,6 +179,14 @@ const OrbetoryFormComp = ({
     }
     return true;
   };
+
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, [router]);
 
   return (
     <div

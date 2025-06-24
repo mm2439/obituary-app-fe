@@ -19,6 +19,7 @@ const getObituary = async (queryParams?: {
   id?: string;
   userId?: string;
   page?: number;
+  date?: string;
   limit?: number;
 }) => {
   try {

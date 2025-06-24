@@ -412,7 +412,7 @@ export default function Home() {
         </div>
         <NotificationView />
 
-        <MainOptions />
+        {/* <MainOptions /> */}
       </div>
     </Layout>
   );

@@ -36,7 +36,7 @@ const SlideTwo = () => {
                 digitalni obliki in jih ohranimo za vedno.{" "}
               </p>
             </div>
-            <div className="btn-container px-[89px]">
+            <div className="btn-container">
               <button className="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
                 Več o Skrbniku
               </button>
@@ -56,48 +56,61 @@ const SlideTwo = () => {
 
   if (breakpoint === "laptop") {
     return (
-      <div className="bg-[#F8EDE366] text-[#22281C] w-[1280px]">
-        <div className="flex justify-center p-[179px]">
-          <div className="text-container w-[560px]">
-            <h2 className="text-[40px] leading-[100%] h-[73px]">
-              Spominska stran{" "}
-              <span className="text-[#de222e] font-medium">s skrbnikom</span>
-            </h2>
-            <p className="text-[#414141] text-[16px] mt-[16px]">
-              Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame
-              skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena
-              oseba, ki skrbi za grob in odloča). Upravljanje je zelo enostavno;
-              vsak je lahko Skrbnik.{" "}
-            </p>
-            <p className="text-[#414141] text-[16px] mt-[16px]">
-              Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo
-              številnih dodatnih vsebin celotni družini, prijateljem in znancem
-              ter na ta način omogoči izdelavo prave spominske strani, na katero
-              se bodo bližnji radi vračali in jo dopolnjevali.{" "}
-            </p>
-            <div className="inner-div mt-[77px]">
-              <h3 className="text-[#22281C] text-[24px] font-medium">
-                Spomini niso večni
-              </h3>
-              <p className="text-[#414141] text-[16px] mt-[8px]">
-                Prehitro nam uidejo, čarobni trenutki se pozabijo, slike
-                zbledijo. Povežimo spomine na naše najdražje v celoto v
-                digitalni obliki in jih ohranimo za vedno.{" "}
-              </p>
-            </div>
-            <div className="btn-container px-[89px]">
-              <button class="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-                Več o Skrbniku
-              </button>
-            </div>
-          </div>
-          <div className="img-container">
-            <img
-              className="mx-[111px]"
-              src="/mobile-cards/slider-mobile.png"
-              alt="iPad Landscape"
-            />
-          </div>
+      <div className="relative box-border w-[100%] h-[1204px] bg-[#F7F2ED] border-t border-b border-solid border-[#C6CFD5] mx-auto">
+        <div className="absolute left-1/2 top-[64px] -translate-x-1/2 flex flex-col justify-center items-start w-[558px] h-[249px] p-0 gap-[16px]">
+          <h2 className="w-[558px] h-[73px] font-['Roboto_Flex'] font-normal text-[40px] leading-[47px] text-center text-[#414141]">
+            Spominska stran{" "}
+            <span className="text-[#de222e] font-medium">s skrbnikom</span>
+          </h2>
+          <p className="w-[558px] h-[72px] font-['Roboto_Flex'] font-normal text-[16px] leading-[24px] text-[#414141]">
+            Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame
+            skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba,
+            ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je
+            lahko Skrbnik.
+          </p>
+          <p className="w-[558px] h-[72px] font-['Roboto_Flex'] font-normal text-[16px] leading-[24px] text-[#414141]">
+            Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo
+            številnih dodatnih vsebin celotni družini, prijateljem in znancem
+            ter na ta način omogoči izdelavo prave spominske strani, na katero
+            se bodo bližnji radi vračali in jo dopolnjevali.
+          </p>
+        </div>
+        <div
+          className="absolute left-1/2 top-[509px] -translate-x-1/2 w-[250px] h-[500px]"
+          style={{ marginLeft: "3px" }}
+        >
+          <img
+            className="w-full h-full object-cover rounded-[20px]"
+            src="/mobile-cards/slider-mobile.png"
+            alt="iPad Landscape"
+          />
+          <div className="absolute left-[181px] top-[39px] w-[113px] h-[18px] bg-black rounded-t-[14px] rotate-180"></div>
+        </div>
+        <div className="absolute left-1/2 top-[639px] -translate-x-1/2 w-[244px] h-[35px] border-t border-[#D4D4D4]"></div>
+        <div
+          className="absolute left-1/2 top-[392px] -translate-x-1/2 w-[467px] h-[84px] flex flex-col justify-center items-start gap-[8px]"
+          style={{ marginLeft: "-45.5px" }}
+        >
+          <h3 className="w-[197px] h-[36px] font-['Roboto_Flex'] font-medium text-[24px] leading-[28px] text-[#414141]">
+            Spomini niso večni
+          </h3>
+          <p className="w-[551px] h-[16px] font-['Roboto_Flex'] font-normal text-[16px] leading-[16px] text-[#414141]">
+            Prehitro nam uidejo, čarobni trenutki se pozabijo, slike zbledijo.
+          </p>
+          <p className="w-[551px] h-[16px] font-['Roboto_Flex'] font-normal text-[16px] leading-[16px] text-[#414141]">
+            Povežimo spomine na naše najdražje v digitalni obliki in jih
+            ohranimo za vedno.
+          </p>
+        </div>
+        <div
+          className="absolute left-1/2 top-[1053px] -translate-x-1/2 w-[155px] h-[43px] flex flex-col items-start p-[12px_25px] gap-[8px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] shadow-[5px_5px_10px_rgba(194,194,194,0.5),_-5px_-5px_10px_#FFFFFF] rounded-[8px]"
+          style={{ marginLeft: "2.5px" }}
+        >
+          <button className="flex flex-row justify-center items-center w-[105px] h-[19px] gap-[8px]">
+            <span className="w-[105px] h-[19px] font-['Roboto_Flex'] font-normal text-[16px] leading-[19px] text-[#414141]">
+            Več o Skrbniku
+            </span>
+          </button>
         </div>
       </div>
     );
@@ -106,46 +119,45 @@ const SlideTwo = () => {
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-      <div className="bg-[#F8EDE366] h-auto text-[#22281C] p-[64px] flex justify-center">
-        <div className="image-container w-[560px]">
-          <h2 className="text-center text-[40px] mt-[16px]">
-            Spominska stran{" "}
+      <div className="relative box-border w-[100%] h-[930px] bg-[#F7F2ED] border-t border-b border-solid border-[#36556c33] mx-auto">
+        {/* Main content frame */}
+        <div className="absolute left-1/2 top-[69px] -translate-x-1/2 flex flex-col justify-center items-center w-[98%] h-[250px] p-0 gap-[16px]">
+          <h2 className="w-[201px] h-[66px] font-['Roboto_Flex'] font-normal text-[28px] leading-[33px] text-center text-[#22281C]">
+            Spominska stran <br />
             <span className="text-[#de222e] font-medium">s skrbnikom</span>
           </h2>
-          <p className="text-[#414141] text-[16px] mt-[30px]">
+          <p className="w-[100%] h-[168px] font-['Roboto_Flex'] font-normal text-[16px] leading-[24px] text-center text-[#414141] mt-0">
             Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame
-            skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba,
-            ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je
-            lahko Skrbnik.{" "}
+            skrb nad objavljenimi vsebinami vseh ostalih in s tem omogoči
+            izdelavo prave spominske strani, na katero se bodo bližnji radi
+            vračali in jo dopolnjevali tudi kasneje. Upravljanje je enostavno;
+            vsak je lahko Skrbnik.
           </p>
-          <p className="text-[#414141] text-[16px] mt-[16px]">
-            Skrbnik, ki je pokojnega dobro poznal, s tem omogoči objavo
-            številnih dodatnih vsebin celotni družini, prijateljem in znancem
-            ter na ta način omogoči izdelavo prave spominske strani, na katero
-            se bodo bližnji radi vračali in jo dopolnjevali.{" "}
-          </p>
-          <div className="inner-div mt-[79px]">
-            <h3 className="text-[#22281C] text-[24px] font-medium]">
-              Spomini niso večni
-            </h3>
-            <p className="mt-[16px]">
-              Prehitro nam uidejo, čarobni trenutki se pozabijo, slike zbledijo.
-              Povežimo spomine na naše najdražje v celoto v digitalni obliki in
-              jih ohranimo za vedno.{" "}
-            </p>
-          </div>
-
+        </div>
+        <div className="absolute left-1/2 top-[321px] -translate-x-1/2 w-[150px] h-[300px]">
           <img
-            className="mt-[33px] mx-auto"
+            className="w-full h-full object-cover rounded-[20px]"
             src="/mobile-cards/slider-mobile.png"
             alt="iPad Landscape"
           />
-
-          <div className="btn-container text-center">
-            <button class="px-[25px] py-[12px] rounded-[8px] mt-[44px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-              Več o Skrbniku
-            </button>
-          </div>
+          <div className="absolute left-[102.5px] top-[26px] w-[56.5px] h-[9px] bg-black rounded-t-[14px] rotate-180"></div>
+        </div>
+        <div className="absolute left-1/2 top-[643px] -translate-x-1/2 w-[155px] h-[43px] flex flex-col items-start p-[12px_25px] gap-[8px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] shadow-[5px_5px_10px_rgba(194,194,194,0.5),_-5px_-5px_10px_#FFFFFF] rounded-[8px]">
+          <button className="flex flex-row justify-center items-center w-[105px] h-[19px] gap-[8px]">
+            <span className="w-[105px] h-[19px] font-['Roboto_Flex'] font-normal text-[16px] leading-[19px] text-[#414141]">
+            Več o Skrbniku
+            </span>
+          </button>
+        </div>
+        <div className="absolute left-1/2 top-[740px] -translate-x-1/2 w-[313px] h-[139px] flex flex-col justify-center items-center gap-[15px]">
+          <h3 className="w-[197px] h-[28px] font-['Roboto_Flex'] font-medium text-[24px] leading-[28px] text-[#414141]">
+            Spomini niso večni
+          </h3>
+          <p className="w-[313px] h-[96px] font-['Roboto_Flex'] font-normal text-[16px] leading-[24px] text-center text-[#414141]">
+            Prehitro nam uidejo, čarobni trenutki se pozabijo, slike zbledijo.
+            Povežimo spomine na naše najdražje v digitalni obliki in jih
+            ohranimo za vedno.
+          </p>
         </div>
       </div>
     );

@@ -19,8 +19,8 @@ const ObituaryListComponentReplica = () => {
 
   const cardSizes = {
     mobile: { selected: { w: 90, h: 120 }, normal: { w: 60, h: 85 }, gap: 'gap-[0px]', maxH: 120 },
-    tablet: { selected: { w: 110, h: 160 }, normal: { w: 75, h: 110 }, gap: 'gap-[20px]', maxH: 160 },
-    desktop: { selected: { w: 138, h: 208 }, normal: { w: 91, h: 138 }, gap: 'gap-[25px]', maxH: 208 }
+    tablet: { selected: { w: 110, h: 160 }, normal: { w: 75, h: 110 }, gap: 'gap-[0px]', maxH: 160 },
+    desktop: { selected: { w: 138, h: 208 }, normal: { w: 91, h: 138 }, gap: 'gap-[0px]', maxH: 208 }
   };
   const getFiveDayWindow = (centerDate) => {
     const days = [];
@@ -31,9 +31,12 @@ const ObituaryListComponentReplica = () => {
     }
     return days;
   };
-  const [selectedDay, setSelectedDay] = useState(new Date());
   const [carouselCenter, setCarouselCenter] = useState(new Date());
-  // Keep carousel centered on selected day
+  // Calculate leftmost date (2 days before center date)
+  const leftmostDate = new Date(carouselCenter);
+  leftmostDate.setDate(carouselCenter.getDate() - 1);
+  const [selectedDay, setSelectedDay] = useState(leftmostDate);
+  // First card in carousel is selected by default
 
   const carouselDays = getFiveDayWindow(carouselCenter);
   const isSelected = (day) => day.toDateString() === selectedDay.toDateString();

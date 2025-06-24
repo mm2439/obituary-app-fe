@@ -22,54 +22,78 @@ const ObituaryListComponentReplica = () => {
     tablet: { selected: { w: 110, h: 160 }, normal: { w: 75, h: 110 }, gap: 'gap-[0px]', maxH: 160 },
     desktop: { selected: { w: 138, h: 208 }, normal: { w: 91, h: 138 }, gap: 'gap-[0px]', maxH: 208 }
   };
-  const getFiveDayWindow = (centerDate) => {
+  
+  // Get window of days based on screen size
+  // Desktop: 5 cards, Tablet: 4 cards, Mobile: 3 cards
+  const getResponsiveDayWindow = (centerDate) => {
     const days = [];
-    for (let i = -2; i <= 2; i++) {
+    let rangeStart = 0;
+    let rangeEnd = 0;
+    
+    if (screen === 'mobile') {
+      // Mobile: 3 cards (selected + 2)
+      rangeStart = 0;
+      rangeEnd = 2;
+    } else if (screen === 'tablet') {
+      // Tablet: 4 cards (selected + 3)
+      rangeStart = -1;
+      rangeEnd = 2;
+    } else {
+      // Desktop: 5 cards (2 before + selected + 2 after)
+      rangeStart = -1;
+      rangeEnd = 3;
+    }
+    
+    for (let i = rangeStart; i <= rangeEnd; i++) {
       const d = new Date(centerDate);
       d.setDate(centerDate.getDate() + i);
       days.push(d);
     }
     return days;
   };
-  const [carouselCenter, setCarouselCenter] = useState(new Date());
-  // Calculate leftmost date (2 days before center date)
-  const leftmostDate = new Date(carouselCenter);
-  leftmostDate.setDate(carouselCenter.getDate() - 1);
-  const [selectedDay, setSelectedDay] = useState(leftmostDate);
+  
+  // Legacy function for backward compatibility
+  const getFiveDayWindow = getResponsiveDayWindow;
+  const today = new Date();
+  const [carouselCenter, setCarouselCenter] = useState(today);
+  // Always select the first card (leftmost) in the carousel
+  const [selectedDay, setSelectedDay] = useState(carouselCenter);
   // First card in carousel is selected by default
 
   const carouselDays = getFiveDayWindow(carouselCenter);
   const isSelected = (day) => day.toDateString() === selectedDay.toDateString();
   const isToday = (day) => day.toDateString() === new Date().toDateString();
+  
   const handlePrevDay = () => {
     // Find index of selectedDay in carouselDays
     const idx = carouselDays.findIndex(day => day.toDateString() === selectedDay.toDateString());
     if (idx > 0) {
       // Select the card to the left
       setSelectedDay(new Date(carouselDays[idx - 1]));
-      setCarouselCenter(carouselDays[2]); // Keep center stable
     } else {
       // At left edge, move window left
       const newCenter = new Date(carouselCenter);
       newCenter.setDate(carouselCenter.getDate() - 1);
-      const newWindow = getFiveDayWindow(newCenter);
       setCarouselCenter(newCenter);
-      setSelectedDay(new Date(newWindow[0])); // Select new left-most card
+      // Always select first card when shifting
+      const newWindow = getFiveDayWindow(newCenter);
+      setSelectedDay(new Date(newWindow[0]));
     }
   };
+  
   const handleNextDay = () => {
     const idx = carouselDays.findIndex(day => day.toDateString() === selectedDay.toDateString());
     if (idx < carouselDays.length - 1) {
       // Select the card to the right
       setSelectedDay(new Date(carouselDays[idx + 1]));
-      setCarouselCenter(carouselDays[2]); // Keep center stable
     } else {
       // At right edge, move window right
       const newCenter = new Date(carouselCenter);
-      newCenter.setDate(carouselCenter.getDate() + 1);
-      const newWindow = getFiveDayWindow(newCenter);
+      newCenter.setDate(carouselCenter.getDate() + 3);
       setCarouselCenter(newCenter);
-      setSelectedDay(new Date(newWindow[newWindow.length - 1])); // Select new right-most card
+      // Always select first card when shifting
+      const newWindow = getFiveDayWindow(newCenter);
+      setSelectedDay(new Date(newWindow[0]));
     }
   };
 

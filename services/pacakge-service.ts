@@ -7,9 +7,17 @@ const createPackage = async (formData: FormData) => {
   });
   return response.data;
 };
+const getPackages = async (companyId: string) => {
+  const endpoint = `/package`;
+  const response = await axios.get(endpoint, {
+    params: { companyId },
+  });
+  return response.data;
+};
 
 const packageService = {
   createPackage,
+  getPackages,
 };
 
 export default packageService;

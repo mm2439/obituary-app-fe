@@ -1,6 +1,6 @@
 import API_BASE_URL from "@/config/apiConfig";
 import Image from "next/image";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 
@@ -983,14 +983,6 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             </p>
           </div>
 
-          <div className="hidden items-end justify-start gap-[7px] mobile:flex w-[321px] px-[15px]">
-            <p className="text-[14px] leading-[14px] font-variation-customOpt16 font-normal text-[#36556CE5]">
-              Marija Smrekar
-            </p>
-            <p className="text-[12px] leading-[12px] font-variation-customOpt16 font-normal text-[#36556CE5]">
-              15.01.2024
-            </p>
-          </div>
           {data?.Dedications && data?.Dedications?.length > 0 && (
             <ContentSlider data={data.Dedications} />
           )}
@@ -1045,130 +1037,48 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
             Dodaj Sliko
           </button>
 
-          <div className="w-full space-y-[30px] px-[15px] mobile:space-y-[14px]">
-            <div className="flex gap-[25px] w-[1024px] flex-nowrap tablet:w-[800px] mobile:w-[406px] mobile:h-[125px] mx-auto mobile:gap-[14px]">
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
+          <div className="w-full  space-y-[30px] px-[15px] mobile:space-y-[14px]">
+            <div className="hidden desktop:flex overflow-x-auto scrollbar-hide gap-[25px] w-[1024px]  flex-nowrap tablet:w-[800px] mobile:w-[406px] mobile:h-[125px] mx-auto mobile:gap-[14px]">
+              {data?.Photos?.length > 0 &&
+                data?.Photos.map((item, index) => (
+                  <div
+                    key={index}
+                    className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0"
+                    style={{
+                      boxShadow:
+                        "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+                    }}
+                  >
+                    <Image
+                      src={`${API_BASE_URL}/${item.fileUrl}`}
+                      alt="Slika"
+                      width={200}
+                      height={200}
+                      className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                    />
+                  </div>
+                ))}
             </div>
-            <div className="hidden tablet:flex mobile:flex gap-[25px] w-[1024px] mobile:h-[125px] tablet:w-[800px] mobile:w-[406px] mobile:gap-[14px] mx-auto">
-            <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
-              <div className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0" style={{
-                boxShadow: "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-
-              }}>
-                <Image
-                  src={"/person.jpg"}
-                  alt="Slika"
-                  width={200}
-                  height={200}
-                  className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                />
-              </div>
+            <div className="hidden overflow-x-auto scrollbar-hide tablet:flex mobile:flex gap-[25px] w-[1024px] mobile:h-[125px] tablet:w-[800px] mobile:w-[406px] mobile:gap-[14px] mx-auto">
+              {data?.Photos?.length > 0 &&
+                data?.Photos.map((item, index) => (
+                  <div
+                    key={index}
+                    className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0"
+                    style={{
+                      boxShadow:
+                        "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+                    }}
+                  >
+                    <Image
+                      src={`${API_BASE_URL}/${item.fileUrl}`}
+                      alt="Slika"
+                      width={200}
+                      height={200}
+                      className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                    />
+                  </div>
+                ))}
             </div>
           </div>
         </div>
@@ -1450,17 +1360,28 @@ const ContentSlider = ({ data }) => {
   const toggleDedicationText = () => {
     setShowFullDedicationText((prev) => !prev);
   };
+
   const characterLimit = 300;
   const message = currentDedication?.message || "";
-  const shouldTruncate = currentDedication?.message?.length > characterLimit;
+  const [shouldTruncate, setShouldTruncate] = useState(false);
+  const messageRef = useRef(null);
+  const maxHeight = 198;
 
-  const displayedMessage =
-    showFullDedicationText || !shouldTruncate
-      ? message
-      : message.slice(0, characterLimit);
+  useEffect(() => {
+    if (messageRef.current && message.length > characterLimit) {
+      const height = messageRef.current.scrollHeight;
+      if (height > maxHeight) {
+        setShouldTruncate(true);
+      } else {
+        setShouldTruncate(false); // reset if height is OK
+      }
+    } else {
+      setShouldTruncate(false); // reset if under char limit
+    }
+  }, [currentDedication]);
 
   return (
-    <div className="flex w-full h-auto object-cover items-center mt-[10px] gap-[38px] justify-center relative px-[10px]">
+    <div className="flex h-auto object-cover w-full items-center mt-[10px] gap-[38px] justify-center relative px-[10px]">
       <Image
         onClick={handlePrev}
         src={"/memory_slider_left.png"}
@@ -1469,7 +1390,7 @@ const ContentSlider = ({ data }) => {
         height={74}
         className="cursor-pointer tablet:absolute tablet:z-10 tablet:left-0 tablet:top-1/2 tablet:-translate-y-1/2 mobile:hidden"
       />
-      <div className="flex flex-col gap-[10px] w-[720px] mobile:w-[321px] h-auto mobile:h-auto  rounded-[3px] relative pt-[38px] mobile:py-[40px] mobile:px-[35px]">
+      <div className="flex flex-col gap-[10px] w-[720px] mobile:w-[321px] min-h-[370px] h-auto mobile:h-auto overflow-hidden rounded-[3px] relative pt-[38px] mobile:py-[40px] mobile:px-[35px]">
         <Image
           src={"/memory_paper_slider.jpg"}
           alt="Background"
@@ -1477,7 +1398,7 @@ const ContentSlider = ({ data }) => {
           height={370}
           className="absolute top-0 left-0 object-cover w-full h-full"
         />
-        <div className="w-[522px] mobile:w-[255px] relative mx-auto">
+        <div className="w-[522px] h-auto mobile:w-[255px] relative mx-auto">
           <div className="flex justify-between items-center gap-[10px]">
             <h3
               className="text-[40px] mobile:text-[24px] font-greatVibes font-normal text-[#1E2125]"
@@ -1487,7 +1408,7 @@ const ContentSlider = ({ data }) => {
             >
               {currentDedication?.title}
             </h3>
-            <div className="flex flex-col items-end justify-end gap-[7px] mobile:hidden">
+            <div className="flex flex-col items-end justify-end gap-[7px] ">
               <p className="text-[14px] leading-[14px] font-variation-customOpt16 font-normal text-[#36556CE5]">
                 {currentDedication?.name}
               </p>
@@ -1497,17 +1418,21 @@ const ContentSlider = ({ data }) => {
             </div>
           </div>
           <p
+            ref={messageRef}
             className="text-[16px] leading-[24px] font-normal text-[#1E2125] mt-[19px]"
             style={{
               background:
                 "linear-gradient(180deg, #414141 76.56%, rgba(166, 166, 167, 0.1) 96.35%)",
               WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              textFillColor: "transparent",
+              maxHeight:
+                !showFullDedicationText && shouldTruncate
+                  ? `${maxHeight}px`
+                  : "none",
+              overflow: "hidden",
             }}
           >
-            {displayedMessage?.split("\n").map((line, index) => (
+            {message.split("\n").map((line, index) => (
               <React.Fragment key={index}>
                 {line}
                 <br />
@@ -1518,7 +1443,7 @@ const ContentSlider = ({ data }) => {
           {shouldTruncate && !showFullDedicationText && (
             <p
               onClick={toggleDedicationText}
-              className="text-end text-[12px] leading-[100%] font-regular text-[#36556CB2]  mb-[30px]  "
+              className="text-end text-[12px] leading-[100%] font-regular text-[#36556CB2]  mt-[26px]"
             >
               Odpri več
             </p>
@@ -1527,7 +1452,7 @@ const ContentSlider = ({ data }) => {
           {shouldTruncate && showFullDedicationText && (
             <p
               onClick={toggleDedicationText}
-              className="text-end text-[12px] leading-[100%] font-regular text-[#36556CB2]   mb-[30px]"
+              className="text-end text-[12px] leading-[100%] font-regular text-[#36556CB2]  mt-[26px]"
             >
               Zapri
             </p>

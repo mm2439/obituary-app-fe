@@ -18,6 +18,7 @@ import { toast } from "react-hot-toast";
 import AnnouncementBlock from "../../../components/appcomponents/AnnouncementBlock";
 import { FlowerShops2 } from "../../../components/appcomponents/FlowerShops";
 import { useRouter } from "next/navigation";
+import Card1 from "@/app/components/mobile-cards/card1";
 
 const MemoryPage = ({ params }) => {
   const { id, user } = params;
@@ -165,7 +166,12 @@ const MemoryPage = ({ params }) => {
           set_Id={setSelect_Id}
           setModal={setIsShowModal}
         />
-        <FlowerShops set_Id={setSelect_Id} setModal={setIsShowModal} />
+        <FlowerShops
+          data={obituary}
+          set_Id={setSelect_Id}
+          setModal={setIsShowModal}
+        />
+
         {/* <FlowerShops2 set_Id={setSelect_Id} setModal={setIsShowModal} /> */}
 
         <ObituaryPublished

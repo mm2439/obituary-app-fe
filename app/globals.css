@@ -112,3 +112,13 @@ body {
 .react-datepicker__year .react-datepicker__year-text {
   margin: 4px !important;
 }
+
+/* Hide scrollbar for Webkit, Firefox, and IE */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

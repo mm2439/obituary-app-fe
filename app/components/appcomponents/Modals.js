@@ -86,6 +86,11 @@ const Modals = ({
       toast.error("You must log in to enter your name in list of sorrow book.");
       return;
     }
+    if (isCompany()) {
+      toast.error("You are not allowed to do this!");
+      return;
+    }
+
     const sorrowBookData = {
       name,
       relation,
@@ -133,6 +138,10 @@ const Modals = ({
       toast.error("You must log in to add dedication.");
       return;
     }
+    if (isCompany()) {
+      toast.error("You are not allowed to do this!");
+      return;
+    }
 
     if (!memoryHasKeeper()) {
       toast.error("Current Memory has no keeper! You cannot proceed");
@@ -177,6 +186,11 @@ const Modals = ({
       return;
     }
 
+    if (isCompany()) {
+      toast.error("You are not allowed to do this!");
+      return;
+    }
+
     if (!memoryHasKeeper()) {
       toast.error("Current Memory has no keeper! You cannot add photo");
       return;
@@ -216,6 +230,11 @@ const Modals = ({
       toast.error("You must log in to add condolence.");
       return;
     }
+    if (isCompany()) {
+      toast.error("You are not allowed to do this!");
+      return;
+    }
+
     if (!name?.trim()) {
       toast.error("Please enter name before submitting.");
       return;
@@ -274,6 +293,11 @@ const Modals = ({
       toast.error("You must log in to update.");
       return;
     }
+    if (isCompany()) {
+      toast.error("You are not allowed to do this!");
+      return;
+    }
+
     if (!name?.trim() || !message?.trim()) {
       toast.error("Please enter complete details before submitting.");
       return;
@@ -336,6 +360,10 @@ const Modals = ({
   const updateMemory = async (field, value) => {
     if (!user) {
       toast.error("You must log in to update.");
+      return;
+    }
+    if (isCompany()) {
+      toast.error("You are not allowed to do this!");
       return;
     }
 
@@ -422,6 +450,13 @@ const Modals = ({
       setUser(JSON.parse(storedUser));
     }
   }, []);
+
+  const isCompany = () => {
+    if (user && user.id === data.id) {
+      return true;
+    }
+    return false;
+  };
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;

@@ -1,49 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Dropdown from "@/app/components/appcomponents/Dropdown";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import ObituaryCard from "@/app/components/appcomponents/ObituaryCard";
-import imgPrevious from "@/public/previous_img.png";
-import imgNext from "@/public/next_img.png";
-import Image from "next/image";
-import { toast } from "react-hot-toast";
-import obituaryService from "@/services/obituary-service";
-import regionsAndCities from "@/utils/regionAndCities";
+import React, { useEffect, useState } from "react"; 
 
 const ObituaryListComponentReplica = () => {
-  // Calendar state
-  const [currentDate, setCurrentDate] = useState(new Date());
 
-  // Helper functions for calendar
-  const getMonthName = (date) =>
-    date.toLocaleString("default", { month: "long" });
-  const getYear = (date) => date.getFullYear();
-  const getDaysInMonth = (date) =>
-    new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-  const getFirstDayOfWeek = (date) => {
-    let day = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-    return day === 0 ? 6 : day - 1; // Make Monday the first day
-  };
-
-  const handlePrevMonth = () => {
-    setCurrentDate(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
-    );
-  };
-  const handleNextMonth = () => {
-    setCurrentDate(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
-    );
-  };
-
-  // --- Week Carousel Calendar ---
-  // Find the Monday of the current week
-  const getMonday = (date) => {
-    const d = new Date(date);
-    const day = d.getDay();
-    const diff = d.getDate() - ((day === 0 ? 7 : day) - 1);
-    return new Date(d.setDate(diff));
-  };
   // --- 5-Day Carousel Calendar ---
   // Utility: get a list of days centered on a date
   const getFiveDayWindow = (centerDate) => {
@@ -92,11 +51,6 @@ const ObituaryListComponentReplica = () => {
     setCarouselCenter(new Date(day)); // Ensure selected card is always visible
   };
 
-  const getMonthAbbr = (date) =>
-    date
-      .toLocaleString("sl-SI", { month: "short" })
-      .replace(/\.$/, "")
-      .toUpperCase();
   const getWeekdayAbbr = (date) => {
     const abbr = date
       .toLocaleString("sl-SI", { weekday: "short" })
@@ -104,102 +58,6 @@ const ObituaryListComponentReplica = () => {
     return abbr.charAt(0).toUpperCase() + abbr.slice(1);
   };
 
-  const languages = [
-    "Ljubljana",
-    "Maribor",
-    "Celje",
-    "Kranj",
-    "Koper",
-    "Novo Mesto",
-    "Domžale",
-    "Velenje",
-    "Nova Gorica",
-    "Koroška",
-    "Zasavje",
-  ];
-  const [obituaries, setObituaries] = useState([]);
-  const allRegionsOption = {
-    place: "- Pokaži vse regije - ",
-    id: "allRegions",
-  };
-  const allCitiesOption = { place: " - Pokaži vse občine - ", id: "allCities" };
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedRegion, setSelectedRegion] = useState(null);
-
-  const regionOptions = [
-    allRegionsOption,
-    ...Object.keys(regionsAndCities).map((region) => ({
-      place: region,
-      id: region,
-    })),
-  ];
-
-  const cityOptions =
-    selectedRegion && selectedRegion !== "allRegions"
-      ? [
-          allCitiesOption,
-          ...regionsAndCities[selectedRegion].map((city) => ({
-            place: city,
-            id: city,
-          })),
-        ]
-      : [
-          allCitiesOption,
-          ...Object.values(regionsAndCities)
-            .flat()
-            .map((city) => ({
-              place: city,
-              id: city,
-            }))
-            .sort((a, b) => a.place.localeCompare(b.place, "sl")),
-        ];
-
-  const handleRegionSelect = (item) => {
-    if (item.id === "allRegions") {
-      setSelectedRegion(null);
-      setSelectedCity(null);
-      return;
-    }
-    setSelectedRegion(item.place);
-    setSelectedCity(null);
-  };
-
-  const handleCitySelect = (item) => {
-    if (item.id === "allCities") {
-      setSelectedCity(null);
-      return;
-    }
-    setSelectedCity(item.place);
-    setSelectedRegion(null);
-  };
-
-  useEffect(() => {
-    fetchObituary();
-    // eslint-disable-next-line
-  }, []);
-
-  const fetchObituary = async () => {
-    try {
-      const queryParams = {};
-      if (selectedCity) queryParams.city = selectedCity;
-      if (selectedRegion) queryParams.region = selectedRegion;
-      const response = await obituaryService.getObituary(queryParams);
-      if (response.error) {
-        toast.error(
-          response.error || "Something went wrong. Please try again!"
-        );
-        return;
-      }
-      const sortedObituaries = response.obituaries.sort(
-        (a, b) =>
-          new Date(b.deathDate).getTime() - new Date(a.deathDate).getTime()
-      );
-      setObituaries(sortedObituaries);
-    } catch (err) {
-      console.error("Error fetching obituary:", err);
-      toast.error(err.message || "Failed to fetch obituary.");
-    }
-  };
 
   return (
     <>
@@ -413,87 +271,6 @@ const ObituaryListComponentReplica = () => {
                 />
               </svg>
             </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-[1920px] w-full tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">
-        {/* Main Container */}
-        <div className=" flex flex-col items-center w-full tablet:w-full mobile:w-full">
-          {/* Main container for inputs main container */}
-          <div className="w-full tablet:w-full mobile:w-full flex flex-col items-center">
-            {/* Inputs main Container */}
-            <div
-              className="w-[777px] tablet:w-[600px] h-[48px] tablet:h-[112px] tablet:columns-2 mobile:w-[296px] mobile:h-[240px] mobile:flex-wrap \
-              flex tablet:flex-wrap flex-row gap-4 mt-[69.07px] tablet:mt-[63px] mobile:mt-[40px] mobile:mb-[42px] tablet:mb-[53px] mb-[23.93px]"
-            >
-              {/* Input field for  Išči po imenu / priimku*/}
-              <div className="flex w-[227px] tablet:w-[292px] h-[48px] mobile:w-[296px] justify-center items-center">
-                {/* ... replicate rest of the input fields and dropdowns ... */}
-              </div>
-              {/* ... replicate all UI structure as per original ... */}
-            </div>
-            {/* ... replicate rest of the component ... */}
-          </div>
-          {/* Zasavska regija container*/}
-          <div className="max-w-[1062px] w-full block tablet:hidden mobile:hidden text-[24px] mt-[55px] font-[400px] leading-[28.13px] text-[#1E2125]">
-            <div>Zasavska regija</div>
-          </div>
-          {/* Grid Container */}
-          <div className="mx-auto mobile:hidden tablet:hidden desktop:grid desktop:grid-cols-2 grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
-            {obituaries.map((obituary, index) => (
-              <ObituaryCard
-                data={obituary}
-                index={index}
-                key={index}
-                mob={false}
-              />
-            ))}
-          </div>
-          <div className="mx-auto hidden tablet:grid desktop:hidden grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
-            {obituaries.map((obituary, index) => (
-              <ObituaryCard
-                data={obituary}
-                index={index}
-                key={index}
-                mob={false}
-              />
-            ))}
-          </div>
-          <div className="mx-auto grid tablet:hidden desktop:hidden  grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
-            {obituaries.map((obituary, index) => (
-              <ObituaryCard
-                data={obituary}
-                index={index}
-                key={index}
-                mob={true}
-              />
-            ))}
-          </div>
-          <div className="w-[272px] h-[48px] mt-[47.27px] gap-2 flex flex-row justify-center mobile:mt-[30px] mobile:mb-[66px] mb-[87.81px]">
-            <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-              <Image
-                src={imgPrevious}
-                alt="imgPrevious"
-                className=" w-[5.66px] h-[8.49px]"
-              />
-            </div>
-            <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-              1
-            </div>
-            <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-              2
-            </div>
-            <div className="w-[48px] h-[48px] flex mobile:hidden rounded-lg text-black justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-              3
-            </div>
-            <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-              <Image
-                src={imgNext}
-                alt="imgNext"
-                className=" w-[5.66px] h-[8.49px]"
-              />
-            </div>
           </div>
         </div>
       </div>

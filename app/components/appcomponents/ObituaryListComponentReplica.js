@@ -68,19 +68,30 @@ const ObituaryListComponentReplica = () => {
     setCarouselCenter((prev) => {
       const d = new Date(prev);
       d.setDate(d.getDate() - 1);
-      return d;
+      // Compute new window
+      const window = getFiveDayWindow(d);
+      // If selectedDay not in window, recenter on selectedDay
+      const inWindow = window.some(day => day.toDateString() === selectedDay.toDateString());
+      return inWindow ? d : new Date(selectedDay);
     });
   };
   const handleNextDay = () => {
     setCarouselCenter((prev) => {
       const d = new Date(prev);
       d.setDate(d.getDate() + 1);
-      return d;
+      // Compute new window
+      const window = getFiveDayWindow(d);
+      // If selectedDay not in window, recenter on selectedDay
+      const inWindow = window.some(day => day.toDateString() === selectedDay.toDateString());
+      return inWindow ? d : new Date(selectedDay);
     });
   };
+
   const handleSelectDay = (day) => {
     setSelectedDay(new Date(day));
+    setCarouselCenter(new Date(day)); // Ensure selected card is always visible
   };
+
   const getMonthAbbr = (date) =>
     date
       .toLocaleString("sl-SI", { month: "short" })
@@ -199,7 +210,7 @@ const ObituaryListComponentReplica = () => {
             <button
               aria-label="Previous Day"
               onClick={handlePrevDay}
-              className="w-12 h-12 flex items-center justify-center rounded-[8px] shadow transition mr-2"
+              className="w-12 h-12 flex items-center justify-center rounded-[8px] transition mr-2 -mt-8"
             >
               <svg
                 width="74"
@@ -215,22 +226,20 @@ const ObituaryListComponentReplica = () => {
               </svg>
             </button>
             {/* 5-Day Carousel */}
-            <div className="flex-1 flex justify-center gap-6 items-end">
+            <div className="flex-1 flex justify-center gap-[0px] items-end">
               {carouselDays.map((day, idx) => {
                 const selected = isSelected(day);
-                const today = isToday(day);
+                // Only highlight 'today' if it is also selected
+                const today = isToday(day) && isSelected(day);
                 // Card sizes
-                const cardW = selected || today ? 195 : 136;
-                const cardH = selected || today ? 256 : 182;
-                const borderRadius = 16; // less rounded
-                // For bottom alignment: non-selected cards get marginTop
-                const maxCardH = 256;
-                const marginTop = selected || today ? 0 : maxCardH - cardH;
+                const cardW = selected || today ? 138 : 91;
+                const cardH = selected || today ? 208 : 138; 
+                const maxCardH = 208;
                 return (
                   <div
                     key={idx}
                     className="flex flex-col items-center justify-center"
-                    style={{ height: maxCardH, marginTop }}
+                    style={{ height: maxCardH }}
                   >
                     <button
                       onClick={() => handleSelectDay(day)}
@@ -242,7 +251,6 @@ const ObituaryListComponentReplica = () => {
                         border: 'none',
                         boxShadow: 'none',
                         padding: 0,
-                        margin: 0
                       }}
                     >
                       {selected || today ? (
@@ -255,7 +263,7 @@ const ObituaryListComponentReplica = () => {
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                             className="absolute top-0 left-0 w-full h-full"
-                            style={{ width: 195, height: 256 }}
+                            style={{ width: cardW, height: cardH }}
                           >
                             <g filter="url(#filter0_d_7022_1466)">
                               <path d="M28.3125 51.4141V185.116C28.3125 198.613 39.2534 209.554 52.75 209.554H142.353C155.85 209.554 166.791 198.613 166.791 185.116V51.4141C146.021 55.3253 122.487 57.5314 97.5517 57.5314C72.6167 57.5314 49.0823 55.3248 28.3125 51.4141Z" fill="url(#paint0_linear_7022_1466)"/>
@@ -316,7 +324,7 @@ const ObituaryListComponentReplica = () => {
                           <svg
                             width="100%"
                             height="100%"
-                            viewBox="0 0 136 182"
+                            viewBox="15 0 100 182"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                             className="absolute top-0 left-0 w-full h-full"
@@ -390,7 +398,7 @@ const ObituaryListComponentReplica = () => {
             <button
               aria-label="Next Day"
               onClick={handleNextDay}
-              className="w-12 h-12 flex items-center justify-center bg-[#414141] rounded-[8px] shadow transition ml-2"
+              className="w-12 h-12 flex items-center justify-center rounded-[8px] transition ml-2 -mt-8"
             >
               <svg
                 width="74"

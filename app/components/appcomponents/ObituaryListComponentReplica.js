@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react"; 
 
-const ObituaryListComponentReplica = () => {
+const CarouselCalendar = () => {
 
   // --- 5-Day Carousel Calendar ---
   // Responsive card sizes
@@ -146,14 +146,12 @@ const ObituaryListComponentReplica = () => {
     return abbr.charAt(0).toUpperCase() + abbr.slice(1);
   };
 
-  console.log(selectedDay);
-
 
   return (
     <>
-      <div className="w-full flex flex-col items-center">
+      <div className="w-full flex flex-col items-center bg-white border-b-[1px] border-[#C7C7C7]">
         {/* Calendar 5-Day Carousel */}
-        <div className="w-full max-w-fit bg-white shadow-lg sm:px-6 py-5 mb-0 flex flex-col items-center ">
+        <div className="w-full max-w-fit sm:px-6 py-5 mb-0 flex flex-col items-center ">
           <div className="w-full flex items-center justify-between">
             <button
               aria-label="Previous Day"
@@ -174,7 +172,7 @@ const ObituaryListComponentReplica = () => {
               </svg>
             </button>
             {/* 5-Day Carousel */}
-            <div className={`flex-1 min-w-0 flex justify-center items-end overflow-x-auto scrollbar-hide ${cardSizes[screen].gap} px-0 mobile:px-4`}> 
+            <div className={`flex-1 min-w-0 flex justify-center items-end ${cardSizes[screen].gap} px-0 mobile:px-4`}> 
               {carouselDays.map((day, idx) => {
                 const selected = isSelected(day);
                 // Only highlight 'today' if it is also selected
@@ -186,7 +184,7 @@ const ObituaryListComponentReplica = () => {
                 return (
                   <div
                     key={idx}
-                    className="flex flex-col items-center justify-center relative"
+                    className={`flex flex-col items-center ${screen === 'mobile' ? 'justify-start' : 'justify-center'} relative h-fit`}
                     style={{ height: maxCardH }}
                   >
                     <button
@@ -403,24 +401,24 @@ const ObituaryListComponentReplica = () => {
                     
                     {/* Navigation arrows under rightmost two cards for mobile only */}
                     {screen === 'mobile' && idx > 0 && (
-                      <div className="absolute -bottom-7 w-full flex justify-center">
+                      <div className="absolute bottom-0 w-full flex justify-center">
                         {idx === 1 && (
                           <button 
                             onClick={handlePrevDay}
-                            className="w-7 h-7 flex items-center justify-center bg-gray-100 rounded-full shadow-sm"
+                            className="w-12 h-12 flex items-center justify-center"
                           >
-                            <svg width="14" height="14" viewBox="0 0 74 75" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M33.3868 37.6613L48.6484 22.3995L44.288 18.0391L24.6656 37.6613L44.288 57.2834L48.6484 52.9229L33.3868 37.6613Z" fill="#808080"/>
+                            <svg width="36" height="36" viewBox="0 0 74 75" fill="rgba(212, 212, 212, 1)" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M33.3868 37.6613L48.6484 22.3995L44.288 18.0391L24.6656 37.6613L44.288 57.2834L48.6484 52.9229L33.3868 37.6613Z" fill="rgba(212, 212, 212, 1)"/>
                             </svg>
                           </button>
                         )}
                         {idx === 2 && (
                           <button 
                             onClick={handleNextDay}
-                            className="w-7 h-7 flex items-center justify-center bg-gray-100 rounded-full shadow-sm"
+                            className="w-12 h-12 flex items-center justify-center"
                           >
-                            <svg width="14" height="14" viewBox="0 0 74 75" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M40.6132 37.6512L25.3516 52.913L29.712 57.2734L49.3344 37.6512L29.712 18.0291L25.3516 22.3896L40.6132 37.6512Z" fill="#808080"/>
+                            <svg width="36" height="36" viewBox="0 0 74 75" fill="rgba(212, 212, 212, 1)" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M40.6132 37.6512L25.3516 52.913L29.712 57.2734L49.3344 37.6512L29.712 18.0291L25.3516 22.3896L40.6132 37.6512Z" fill="rgba(212, 212, 212, 1)"/>
                             </svg>
                           </button>
                         )}
@@ -455,4 +453,4 @@ const ObituaryListComponentReplica = () => {
   );
 };
 
-export default ObituaryListComponentReplica;
+export default CarouselCalendar;

@@ -4,7 +4,24 @@ import React, { useEffect, useState } from "react";
 const ObituaryListComponentReplica = () => {
 
   // --- 5-Day Carousel Calendar ---
-  // Utility: get a list of days centered on a date
+  // Responsive card sizes
+  const [screen, setScreen] = useState('desktop');
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 640) setScreen('mobile');
+      else if (window.innerWidth < 1024) setScreen('tablet');
+      else setScreen('desktop');
+    }
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const cardSizes = {
+    mobile: { selected: { w: 90, h: 120 }, normal: { w: 60, h: 85 }, gap: 'gap-[0px]', maxH: 120 },
+    tablet: { selected: { w: 110, h: 160 }, normal: { w: 75, h: 110 }, gap: 'gap-[20px]', maxH: 160 },
+    desktop: { selected: { w: 138, h: 208 }, normal: { w: 91, h: 138 }, gap: 'gap-[25px]', maxH: 208 }
+  };
   const getFiveDayWindow = (centerDate) => {
     const days = [];
     for (let i = -2; i <= 2; i++) {
@@ -63,12 +80,12 @@ const ObituaryListComponentReplica = () => {
     <>
       <div className="w-full flex flex-col items-center">
         {/* Calendar 5-Day Carousel */}
-        <div className="w-full max-w-fit rounded-2xl bg-white shadow-lg px-6 py-5 mb-8 flex flex-col items-center border border-[#E3E8EC]">
+        <div className="w-full max-w-fit bg-white shadow-lg sm:px-6 py-5 mb-0 flex flex-col items-center ">
           <div className="w-full flex items-center justify-between">
             <button
               aria-label="Previous Day"
               onClick={handlePrevDay}
-              className="w-12 h-12 flex items-center justify-center rounded-[8px] transition mr-2 -mt-8"
+              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-[8px] transition mr-2 -mt-8 shrink-0"
             >
               <svg
                 width="74"
@@ -84,15 +101,15 @@ const ObituaryListComponentReplica = () => {
               </svg>
             </button>
             {/* 5-Day Carousel */}
-            <div className="flex-1 flex justify-center gap-[0px] items-end">
+            <div className={`flex-1 min-w-0 flex justify-center items-end overflow-x-auto scrollbar-hide ${cardSizes[screen].gap} px-0 mobile:px-4`}> 
               {carouselDays.map((day, idx) => {
                 const selected = isSelected(day);
                 // Only highlight 'today' if it is also selected
                 const today = isToday(day) && isSelected(day);
                 // Card sizes
-                const cardW = selected || today ? 138 : 91;
-                const cardH = selected || today ? 208 : 138; 
-                const maxCardH = 208;
+                const cardW = selected || today ? cardSizes[screen].selected.w : cardSizes[screen].normal.w;
+                const cardH = selected || today ? cardSizes[screen].selected.h : cardSizes[screen].normal.h;
+                const maxCardH = cardSizes[screen].maxH;
                 return (
                   <div
                     key={idx}
@@ -223,8 +240,12 @@ const ObituaryListComponentReplica = () => {
                               className="font-semibold"
                               style={{
                                 fontFamily: "Roboto Flex, Roboto, sans-serif",
-                                fontSize: 32,
-                                lineHeight: "32px",
+                                fontSize: selected || today
+                                  ? 32
+                                  : screen === 'mobile' ? 16 : screen === 'tablet' ? 22 : 24,
+                                lineHeight: selected || today
+                                  ? '32px'
+                                  : screen === 'mobile' ? '18px' : screen === 'tablet' ? '24px' : '28px',
                                 color: "#3C3E41",
                                 textShadow: "0px 4px 4px rgba(0,0,0,0.25)",
                                 marginTop: 0 
@@ -235,8 +256,12 @@ const ObituaryListComponentReplica = () => {
                             <span
                               style={{
                                 fontFamily: "Roboto Flex, Roboto, sans-serif",
-                                fontSize: 16,
-                                lineHeight: "24px",
+                                fontSize: selected || today
+                                  ? 16
+                                  : screen === 'mobile' ? 10 : screen === 'tablet' ? 13 : 14,
+                                lineHeight: selected || today
+                                  ? '24px'
+                                  : screen === 'mobile' ? '14px' : screen === 'tablet' ? '18px' : '20px',
                                 color: "#808080",
                                 fontWeight: 300,
                                 textShadow: "0px 2px 4px rgba(0,0,0,0.25)",
@@ -256,7 +281,7 @@ const ObituaryListComponentReplica = () => {
             <button
               aria-label="Next Day"
               onClick={handleNextDay}
-              className="w-12 h-12 flex items-center justify-center rounded-[8px] transition ml-2 -mt-8"
+              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-[8px] transition ml-2 -mt-8 shrink-0"
             >
               <svg
                 width="74"

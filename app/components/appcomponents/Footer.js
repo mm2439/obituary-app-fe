@@ -93,7 +93,7 @@ export default function Footer() {
 
   return (
     <>
-    <div className="flex">
+    <div className="flex border-t-[1px] border-[#C7C7C7]">
       <div className="flex w-full bg-[#E3E8EC] items-center justify-center">
         <div
           className="

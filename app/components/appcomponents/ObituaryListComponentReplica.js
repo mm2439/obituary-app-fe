@@ -65,6 +65,19 @@ const ObituaryListComponentReplica = () => {
   const isToday = (day) => day.toDateString() === new Date().toDateString();
   
   const handlePrevDay = () => {
+    // For mobile view, change the selected date but keep position fixed at left
+    if (screen === 'mobile') {
+      // Create new date one day before
+      const newSelectedDay = new Date(selectedDay);
+      newSelectedDay.setDate(selectedDay.getDate() - 1);
+      // Update selectedDay
+      setSelectedDay(newSelectedDay);
+      // Update carousel center to match
+      setCarouselCenter(newSelectedDay);
+      return;
+    }
+
+    // Normal behavior for tablet/desktop
     // Find index of selectedDay in carouselDays
     const idx = carouselDays.findIndex(day => day.toDateString() === selectedDay.toDateString());
     if (idx > 0) {
@@ -82,6 +95,19 @@ const ObituaryListComponentReplica = () => {
   };
   
   const handleNextDay = () => {
+    // For mobile view, change the selected date but keep position fixed at left
+    if (screen === 'mobile') {
+      // Create new date one day after
+      const newSelectedDay = new Date(selectedDay);
+      newSelectedDay.setDate(selectedDay.getDate() + 1);
+      // Update selectedDay
+      setSelectedDay(newSelectedDay);
+      // Update carousel center to match
+      setCarouselCenter(newSelectedDay);
+      return;
+    }
+    
+    // Normal behavior for tablet/desktop
     const idx = carouselDays.findIndex(day => day.toDateString() === selectedDay.toDateString());
     if (idx < carouselDays.length - 1) {
       // Select the card to the right
@@ -89,7 +115,8 @@ const ObituaryListComponentReplica = () => {
     } else {
       // At right edge, move window right
       const newCenter = new Date(carouselCenter);
-      newCenter.setDate(carouselCenter.getDate() + 3);
+      let daysToAdd = screen === 'tablet' ? 4 : 5;
+      newCenter.setDate(carouselCenter.getDate() + daysToAdd);
       setCarouselCenter(newCenter);
       // Always select first card when shifting
       const newWindow = getFiveDayWindow(newCenter);
@@ -100,7 +127,13 @@ const ObituaryListComponentReplica = () => {
 
 
   const handleSelectDay = (day) => {
+    // Update the selected day
     setSelectedDay(new Date(day));
+    
+    // For mobile, also update carouselCenter to keep selected day on left
+    if (screen === 'mobile') {
+      setCarouselCenter(new Date(day));
+    }
   };
 
   const getMonthAbbr = (date) =>
@@ -125,7 +158,7 @@ const ObituaryListComponentReplica = () => {
             <button
               aria-label="Previous Day"
               onClick={handlePrevDay}
-              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-[8px] transition mr-2 -mt-8 shrink-0"
+              className="hidden sm:flex w-10 h-10 sm:w-12 sm:h-12 items-center justify-center rounded-[8px] transition mr-2 -mt-8 shrink-0"
             >
               <svg
                 width="74"
@@ -153,11 +186,18 @@ const ObituaryListComponentReplica = () => {
                 return (
                   <div
                     key={idx}
-                    className="flex flex-col items-center justify-center"
+                    className="flex flex-col items-center justify-center relative"
                     style={{ height: maxCardH }}
                   >
                     <button
-                      onClick={() => handleSelectDay(day)}
+                      // On mobile, disable click for the last two cards
+                      onClick={() => {
+                        // On mobile, only allow selection of the first card
+                        if (screen === 'mobile' && idx > 0) {
+                          return; // Don't select the rightmost two cards on mobile
+                        }
+                        handleSelectDay(day);
+                      }}
                       className={`transition flex flex-col items-center relative focus:outline-none select-none ${selected || today ? "z-10" : "opacity-90"}`}
                       style={{
                         width: cardW,
@@ -166,6 +206,7 @@ const ObituaryListComponentReplica = () => {
                         border: 'none',
                         boxShadow: 'none',
                         padding: 0,
+                        cursor: screen === 'mobile' && idx > 0 ? 'default' : 'pointer', // Cursor style based on selectability
                       }}
                     >
                       {selected || today ? (
@@ -359,6 +400,32 @@ const ObituaryListComponentReplica = () => {
                         </div>
                       )}
                     </button>
+                    
+                    {/* Navigation arrows under rightmost two cards for mobile only */}
+                    {screen === 'mobile' && idx > 0 && (
+                      <div className="absolute -bottom-7 w-full flex justify-center">
+                        {idx === 1 && (
+                          <button 
+                            onClick={handlePrevDay}
+                            className="w-7 h-7 flex items-center justify-center bg-gray-100 rounded-full shadow-sm"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 74 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M33.3868 37.6613L48.6484 22.3995L44.288 18.0391L24.6656 37.6613L44.288 57.2834L48.6484 52.9229L33.3868 37.6613Z" fill="#808080"/>
+                            </svg>
+                          </button>
+                        )}
+                        {idx === 2 && (
+                          <button 
+                            onClick={handleNextDay}
+                            className="w-7 h-7 flex items-center justify-center bg-gray-100 rounded-full shadow-sm"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 74 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M40.6132 37.6512L25.3516 52.913L29.712 57.2734L49.3344 37.6512L29.712 18.0291L25.3516 22.3896L40.6132 37.6512Z" fill="#808080"/>
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -366,7 +433,7 @@ const ObituaryListComponentReplica = () => {
             <button
               aria-label="Next Day"
               onClick={handleNextDay}
-              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-[8px] transition ml-2 -mt-8 shrink-0"
+              className="hidden sm:flex w-10 h-10 sm:w-12 sm:h-12 items-center justify-center rounded-[8px] transition ml-2 -mt-8 shrink-0"
             >
               <svg
                 width="74"

@@ -335,9 +335,7 @@ const AddObituary = ({ set_Id, setModal }) => {
         .toString()
         .slice(2)}`;
 
-      router.push(
-        `/memorypage/${response.id}/${response.name}_${response.sirName}_${deathDateFormatted}`
-      );
+      router.push(`/m/${response.slugKey}`);
     } catch (error) {
       console.error("Error creating obituary:", error);
       toast.error(

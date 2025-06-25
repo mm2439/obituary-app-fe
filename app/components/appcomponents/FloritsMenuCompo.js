@@ -179,7 +179,7 @@ const FloritsMenuCompo = ({ setActiveButton }) => {
                     samo v okviru žalnega programa.
                   </div>
                   <div className="flex flex-row items-center mt-2">
-                    <Link href={"/florists"}>
+                    <Link href={"/cvetlicarne"}>
                       <div className="text-[12px] font-normal text-[#F48F53] leading-[22px] mr-[10px]">
                         poišči cvetličarno po kraju
                       </div>

@@ -46,7 +46,7 @@ const ObituaryCard = ({ data, key, index, mob }) => {
 
   return (
     <Link
-      href={`/memorypage/${data.id}/${data.name}_${data.sirName}_${funeralDateFormatted}`}
+      href={`/m/${data.slugKey}`}
       className="mobile:w-[298px] tablet:w-[466px] desktop:w-[466px] 
       mobile:h-[126px] tablet:h-[170px] desktop:h-[170px]  border-2
        border-white shadow-custom-light-dark-box

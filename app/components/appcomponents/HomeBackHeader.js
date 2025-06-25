@@ -38,7 +38,7 @@ const HomeBackHeader = () => {
             head={"CVETLIČARNE"}
             index={"04."}
             id={4}
-            endPoint={"/florists"}
+            endPoint={"/cvetlicarne"}
           />
         </div>
       </div>
@@ -65,7 +65,7 @@ const HomeBackHeader = () => {
           head={"CVETLIČARNE"}
           index={"04."}
           id={4}
-          endPoint={"/florists"}
+          endPoint={"/cvetlicarne"}
         />
       </div>
       <div className=" justify-between absolute bottom-[70px] w-full max-w-[898.97px] tablet:flex hidden pl-[65px] pr-[50px]">
@@ -91,7 +91,7 @@ const HomeBackHeader = () => {
           head={"CVETLIČARNE"}
           index={"04."}
           id={4}
-          endPoint={"/florists"}
+          endPoint={"/cvetlicarne"}
         />
       </div>
     </div>

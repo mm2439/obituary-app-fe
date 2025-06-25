@@ -17,12 +17,13 @@ import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
 import AnnouncementBlock from "../../components/appcomponents/AnnouncementBlock";
 import { FlowerShops2 } from "../../components/appcomponents/FlowerShops";
+import { useRouter } from "next/navigation";
+import Card1 from "@/app/components/mobile-cards/card1";
 
 const MemoryPage = ({ params }) => {
-  const { id } = params;
-
+  const { slugKey, user } = params;
+  const router = useRouter();
   const [isShowModal, setIsShowModal] = useState(false);
-  const [isFloristModal, setIsFloristModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
@@ -35,45 +36,14 @@ const MemoryPage = ({ params }) => {
   useEffect(() => {
     fetchMemory();
   }, []);
-  //old code
-  // const fetchObituary = async () => {
-  //   try {
-  //     const response = await obituaryService.getObituary({ id });
-
-  //     if (response.error) {
-  //       toast.error(
-  //         response.error || "Something went wrong. Please try again!"
-  //       );
-  //       return;
-  //     }
-  //     console.log(response);
-  //     setObituary(response.obituaries[0]);
-
-  //     if (id) {
-  //       const visitRespone = await obituaryService.updateObituaryVisits(id);
-
-  //       if (visitRespone.error) {
-  //         toast.error(
-  //           visitRespone.error || "Something went wrong. Please try again!"
-  //         );
-  //         return;
-  //       }
-
-  //       setObituary(visitRespone);
-  //     }
-  //   } catch (err) {
-  //     console.error("Error fetching obituary:", err);
-  //     toast.error(err.message || "Failed to fetch obituary.");
-  //   }
-  // };
 
   useEffect(() => {
     console.log("set is modal:", isShowModal);
   }, [isShowModal]);
-  //new code for memory with keepers
+
   const fetchMemory = async () => {
     try {
-      const response = await obituaryService.getMemory({ slugKey: id });
+      const response = await obituaryService.getMemory({ slugKey: slugKey });
 
       if (response.error) {
         toast.error(
@@ -85,9 +55,9 @@ const MemoryPage = ({ params }) => {
 
       setObituary(response.obituary);
 
-      if (id) {
+      if (response?.obituary) {
         const visitRespone = await obituaryService.updateObituaryVisits({
-          obituaryId: id,
+          obituaryId: response?.obituary?.id,
           userId: currentUser?.id || null,
         });
 
@@ -130,8 +100,43 @@ const MemoryPage = ({ params }) => {
       setCurrentUser(JSON.parse(storedUser));
     }
   }, []);
+
+  const handleMemoryChange = async (type) => {
+    try {
+      const queryParams = {
+        city: obituary.city,
+        date: obituary.createdTimestamp,
+        type: type,
+      };
+      const response = await obituaryService.getMemoryId(queryParams);
+
+      const data = response;
+      const funeralDate = new Date(data.deathDate); // ensure data.funeralDate exists
+      const funeralDateFormatted = `${funeralDate
+        .getDate()
+        .toString()
+        .padStart(2, "0")}${(funeralDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}${funeralDate.getFullYear().toString().slice(2)}`; // Format: DDMMYY
+
+      router.push(
+        `/memorypage/${data.id}/${data.name}_${data.sirName}_${funeralDateFormatted}`
+      );
+    } catch (error) {
+      console.error("Error fetching memory:", error);
+      if (error?.response?.status === 404) {
+        toast.error(`No ${type} memory exists`);
+      } else {
+        toast.error("Something went wrong.");
+      }
+    }
+  };
   return (
-    <Layout from={"3"} forFooter={"memorypage"}>
+    <Layout
+      from={"3"}
+      onChangeMemory={handleMemoryChange}
+      forFooter={"memorypage"}
+    >
       <div className="flex flex-1 flex-col mx-auto bg-[#ecf0f3] pt-[20px] max-w-[100vw] overflow-x-hidden">
         <ModalLibrary
           isShowModal={isShowModal}
@@ -154,42 +159,20 @@ const MemoryPage = ({ params }) => {
           data={obituary}
           updateObituary={updateObituary}
         />
-        {obituary?.Dedications?.length > 0 && (
-          <SanctifiedComp
-            dedications={obituary.Dedications}
-            set_Id={setSelect_Id}
-            setModal={setIsShowModal}
-          />
-        )}
-        {obituary?.Photos?.length > 0 && (
-          <ImageWall
-            set_Id={setSelect_Id}
-            setModal={setIsShowModal}
-            setShowImageView={setShowImageView}
-            setImageId={setImageId}
-            data={obituary?.Photos}
-          />
-        )}
 
-        {/* <Condolences
-          set_Id={setSelect_Id}
-          setModal={setIsShowModal}
-          data={obituary?.Condolences}
-        /> */}
-        <AnnouncementBlock />
+        {obituary?.Keepers?.length === 1 && <AnnouncementBlock />}
 
         <ShippingNotifications
           set_Id={setSelect_Id}
           setModal={setIsShowModal}
         />
+        <FlowerShops
+          data={obituary}
+          set_Id={setSelect_Id}
+          setModal={setIsShowModal}
+        />
 
-        {isFloristModal ? (
-          <FlowerShops setIsOpen={setIsFloristModal} />
-
-        ) : (
-          <FlowerShops2 setIsOpen={setIsFloristModal} />
-
-        )}
+        {/* <FlowerShops2 set_Id={setSelect_Id} setModal={setIsShowModal} /> */}
 
         <ObituaryPublished
           set_Id={setSelect_Id}

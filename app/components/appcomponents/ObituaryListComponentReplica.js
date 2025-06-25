@@ -149,7 +149,7 @@ const CarouselCalendar = () => {
 
   return (
     <>
-      <div className="w-full flex flex-col items-center bg-white border-b-[1px] border-[#C7C7C7] py-[100px]">
+      <div className={`w-full flex flex-col items-center bg-white border-b-[1px] border-[#C7C7C7] ${screen === 'mobile' ? 'py-[50px]' : 'py-[100px]'}`}>
         {/* Calendar 5-Day Carousel */}
         <div className="w-full max-w-fit sm:px-6 py-5 mb-0 flex flex-col items-center ">
           <div className="w-full flex items-center justify-between">
@@ -315,7 +315,7 @@ const CarouselCalendar = () => {
                             </g>
                             <defs>
                               <filter id="filter0_d_7017_1465" x="0" y="0.65625" width="135.062" height="180.602" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                                <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
                                 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                                 <feOffset dy="22" />
                                 <feGaussianBlur stdDeviation="11" />
@@ -429,35 +429,47 @@ const CarouselCalendar = () => {
           </div>
         </div>
         <div className="table-container mx-8">
-          <table className={`${screen === 'mobile' ? 'w-full' : screen === 'tablet' ? 'w-full' : 'w-[900px]'} border-collapse border-t border-gray-300`}>
+          <table className={`${screen === 'mobile' ? 'w-full' : screen === 'tablet' ? 'w-full' : 'w-[900px]'} border-collapse ${screen === 'mobile' ? '' : 'border-t border-gray-300'}`}>
             <tbody>
-              <tr className="border-t border-gray-300 h-[64px] w-[100%]">
-                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px] text-[#3C3E41] w-[10%]`} >9:00</td>
-                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] w-[40%]`}>John Wayne</td>
-                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%]`}>Berlin</td>
-                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%]`} >&gt;</td>
+              <tr className={`h-[64px] w-[100%] ${screen === 'mobile' ? '' : 'border-t border-gray-300'}`}>
+                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px]  w-[10%]  ${screen === 'mobile' ? 'align-top text-[#0A85C2]' : 'text-[#3C3E41]'}`} >9:00</td>
+                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] ${screen === 'mobile' ? 'align-top  w-[90%]' : 'w-[40%]'}`}>
+                  John Wayne
+                  <span className={`${screen === 'mobile' ? 'block mt-1' : 'hidden'} font-roboto text-[14px] font-normal leading-[19px] text-[#6D778E]`}>Berlin</span>
+                </td>
+                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%] ${screen === 'mobile' ? 'hidden' : ''}`}>Berlin</td>
+                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%] ${screen === 'mobile' ? 'hidden' : ''}`} >&gt;</td>
               </tr>
-              <tr className="border-t border-gray-300 h-[64px] w-[100%]">
-                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px] text-[#3C3E41] w-[10%]`} >10:00</td>
-                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] w-[40%]`}>John Doe</td>
-                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%]`}>New York</td>
-                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%]`} >&gt;</td>
+              <tr className={`h-[64px] w-[100%] ${screen === 'mobile' ? '' : 'border-t border-gray-300'}`}>
+                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px]  w-[10%]  ${screen === 'mobile' ? 'align-top text-[#0A85C2]' : 'text-[#3C3E41]'}`} >11:00</td>
+                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] ${screen === 'mobile' ? 'align-top  w-[90%]' : 'w-[40%]'}`}>
+                  Jane Doe
+                  <span className={`${screen === 'mobile' ? 'block mt-1' : 'hidden'} font-roboto text-[14px] font-normal leading-[19px] text-[#6D778E]`}>Paris</span>
+                </td>
+                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%] ${screen === 'mobile' ? 'hidden' : ''}`}>Paris</td>
+                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%] ${screen === 'mobile' ? 'hidden' : ''}`} >&gt;</td>
               </tr>
-              <tr className="border-t border-gray-300 h-[64px] w-[100%]">
-                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px] text-[#3C3E41] w-[10%]`} >11:00</td>
-                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] w-[40%]`}>Jane Doe</td>
-                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%]`}>Paris</td>
-                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%]`} >&gt;</td>
+              <tr className={`h-[64px] w-[100%] ${screen === 'mobile' ? '' : 'border-t border-gray-300'}`}>
+                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px]  w-[10%]  ${screen === 'mobile' ? 'align-top text-[#0A85C2]' : 'text-[#3C3E41]'}`} >12:00</td>
+                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] ${screen === 'mobile' ? 'align-top  w-[90%]' : 'w-[40%]'}`}>
+                  Alice Johnson
+                  <span className={`${screen === 'mobile' ? 'block mt-1' : 'hidden'} font-roboto text-[14px] font-normal leading-[19px] text-[#6D778E]`}>London</span>
+                </td>
+                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%] ${screen === 'mobile' ? 'hidden' : ''}`}>London</td>
+                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%] ${screen === 'mobile' ? 'hidden' : ''}`} >&gt;</td>
               </tr>
-              <tr className="border-y border-gray-300 h-[64px] w-[100%]">
-                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px] text-[#3C3E41] w-[10%]`} >12:00</td>
-                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] w-[40%]`}>Alice Johnson</td>
-                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%]`}>London</td>
-                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%]`} >&gt;</td>
+              <tr className={`h-[64px] w-[100%] ${screen === 'mobile' ? '' : 'border-y border-gray-300'}`}>
+                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px]  w-[10%]  ${screen === 'mobile' ? 'align-top text-[#0A85C2]' : 'text-[#3C3E41]'}`} >13:00</td>
+                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] ${screen === 'mobile' ? 'align-top  w-[90%]' : 'w-[40%]'}`}>
+                  Bob Smith
+                  <span className={`${screen === 'mobile' ? 'block mt-1' : 'hidden'} font-roboto text-[14px] font-normal leading-[19px] text-[#6D778E]`}>New York</span>
+                </td>
+                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%] ${screen === 'mobile' ? 'hidden' : ''}`}>New York</td>
+                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%] ${screen === 'mobile' ? 'hidden' : ''}`} >&gt;</td>
               </tr>
             </tbody>
           </table>
-          <p className="mt-[64px] font-roboto text-[20px] font-normal leading-[24px] text-center text-[#3C3E41]">
+          <p className={`mt-[64px] font-roboto text-[20px] font-normal leading-[24px]  text-[#3C3E41] ${screen === 'mobile' ? 'text-left' : 'text-center'}`}>
             Če pogreb še ni vnešen, je pa termin že znan, zaprosite svojo cvetličarno (ali pogrebno podjetje), da ga vnese.
           </p>
         </div>

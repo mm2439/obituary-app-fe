@@ -428,7 +428,7 @@ const CarouselCalendar = () => {
             </button>
           </div>
         </div>
-        <div className="table-container mx-8">
+        <div className="table-container mx-8 mt-[40px]">
           <table className={`${screen === 'mobile' ? 'w-full' : screen === 'tablet' ? 'w-full' : 'w-[900px]'} border-collapse ${screen === 'mobile' ? '' : 'border-t border-gray-300'}`}>
             <tbody>
               <tr className={`h-[64px] w-[100%] ${screen === 'mobile' ? '' : 'border-t border-gray-300'}`}>
@@ -469,7 +469,7 @@ const CarouselCalendar = () => {
               </tr>
             </tbody>
           </table>
-          <p className={`mt-[64px] font-roboto text-[20px] font-normal leading-[24px]  text-[#3C3E41] ${screen === 'mobile' ? 'text-left' : 'text-center'}`}>
+          <p className={`mt-[40px] font-roboto  font-normal leading-[24px]  text-[#3C3E41] ${screen === 'mobile' ? 'text-left text-[16px]' : 'text-center text-[20px]'}`}>
             Če pogreb še ni vnešen, je pa termin že znan, zaprosite svojo cvetličarno (ali pogrebno podjetje), da ga vnese.
           </p>
         </div>

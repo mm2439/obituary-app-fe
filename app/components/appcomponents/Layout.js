@@ -33,9 +33,12 @@ const Layout = ({
   const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] =
     useState(false);
 
+  // get the url and exract the route from there 
+  const route =
+    typeof window !== "undefined" ? window.location.pathname : "";
   return (
     <div>
-      {from == "1" || from == "2" ? (
+      {route && (from == "1" || from == "2") && route !== "/obituarylist-new" ? (
         <div className="fixed top-0 z-50  flex w-full justify-center">
           <TopBar
             setIsModalVisible={setIsModalVisible}
@@ -58,7 +61,7 @@ const Layout = ({
         <MemoryHeader onChange={onChangeMemory} />
       ) : (
         <>
-          {from == "2" ? <div className="flex  h-[45px]" /> : null}
+          {route && (from == "2" && route !== "/obituarylist-new") ? <div className="flex  h-[45px]" /> : null}
           <ObituaryHeader from={from} />
         </>
       )}

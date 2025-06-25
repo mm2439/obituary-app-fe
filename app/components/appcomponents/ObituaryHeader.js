@@ -15,7 +15,7 @@ function ObituaryHeader({ from }) {
     // <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 ">
     <header
       className={`fixed ${
-        from == "2" ? "top-[45px]" : "top-0"
+        from == "2" && pathname !== "/obituarylist-new" ? "top-[45px]" : "top-0"
       } left-0 right-0 bg-white shadow-md z-50`}
     >
       <div className=" flex w-full justify-center">

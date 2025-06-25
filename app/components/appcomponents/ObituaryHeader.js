@@ -127,12 +127,8 @@ function ObituaryHeader({ from }) {
               />
 
               <Image
-                src={
-                  pathname == "/keeperpromo" || pathname == "/memorypromo"
-                    ? iconMenu
-                    : iconMainUser
-                }
-                className="h-5 w-6 tablet:hidden mobile:hidden desktop:h-[30px] desktop:w-[30px]"
+                src={pathname == "/keeperpromo" || pathname == "/memorypromo" || pathname == "/obituarylist-new" ? iconMenu : iconMainUser}
+                className="h-5 w-6  mobile:hidden desktop:h-[30px] desktop:w-[30px]"
               />
             </div>
           </div>

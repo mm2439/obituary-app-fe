@@ -6,9 +6,10 @@ const ObituaryListBanner = ({ image, label }) => {
       <img
         src={image}
         alt="Slika"
-        className="h-[300px] mobile:h-[192px] tablet:h-[220px] w-full object-cover"
+        className="h-[300px] mobile:h-[192px] tablet:h-[220px] w-full object-cover object-center"
       />
-      <h1
+      {label && (
+        <h1
         className=" flex flex-col items-center justify-center
          py-4 px-6 mx-auto absolute rounded-lg border-2 border-[#FFFFFF] shadow-custom-light-dark-banner bg-gradient-to-r from-[#FFFFFF] to-[#FFFFFF50] backdrop-blur-sm
         text-[#1E2125] 
@@ -17,6 +18,8 @@ const ObituaryListBanner = ({ image, label }) => {
       >
         {label}
       </h1>
+      )}
+      
     </div>
   );
 };

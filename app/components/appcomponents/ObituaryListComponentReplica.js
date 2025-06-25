@@ -149,7 +149,7 @@ const CarouselCalendar = () => {
 
   return (
     <>
-      <div className="w-full flex flex-col items-center bg-white border-b-[1px] border-[#C7C7C7]">
+      <div className="w-full flex flex-col items-center bg-white border-b-[1px] border-[#C7C7C7] py-[100px]">
         {/* Calendar 5-Day Carousel */}
         <div className="w-full max-w-fit sm:px-6 py-5 mb-0 flex flex-col items-center ">
           <div className="w-full flex items-center justify-between">
@@ -253,26 +253,6 @@ const CarouselCalendar = () => {
                                 <feGaussianBlur stdDeviation="14"/>
                                 <feComposite in2="hardAlpha" operator="out"/>
                                 <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
-                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7022_1466"/>
-                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_7022_1466" result="shape"/>
-                              </filter>
-                              <filter id="filter1_d_7022_1466" x="70.0898" y="86.3125" width="49.8594" height="42.6875" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                                <feOffset dy="4"/>
-                                <feGaussianBlur stdDeviation="2"/>
-                                <feComposite in2="hardAlpha" operator="out"/>
-                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7022_1466"/>
-                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_7022_1466" result="shape"/>
-                              </filter>
-                              <filter id="filter2_d_7022_1466" x="76.7695" y="152.938" width="43.2148" height="25.3906" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                                <feOffset dy="2"/>
-                                <feGaussianBlur stdDeviation="2"/>
-                                <feComposite in2="hardAlpha" operator="out"/>
-                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
                                 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7022_1466"/>
                                 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_7022_1466" result="shape"/>
                               </filter>
@@ -447,6 +427,39 @@ const CarouselCalendar = () => {
               </svg>
             </button>
           </div>
+        </div>
+        <div className="table-container mx-8">
+          <table className={`${screen === 'mobile' ? 'w-full' : screen === 'tablet' ? 'w-full' : 'w-[900px]'} border-collapse border-t border-gray-300`}>
+            <tbody>
+              <tr className="border-t border-gray-300 h-[64px] w-[100%]">
+                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px] text-[#3C3E41] w-[10%]`} >9:00</td>
+                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] w-[40%]`}>John Wayne</td>
+                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%]`}>Berlin</td>
+                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%]`} >&gt;</td>
+              </tr>
+              <tr className="border-t border-gray-300 h-[64px] w-[100%]">
+                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px] text-[#3C3E41] w-[10%]`} >10:00</td>
+                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] w-[40%]`}>John Doe</td>
+                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%]`}>New York</td>
+                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%]`} >&gt;</td>
+              </tr>
+              <tr className="border-t border-gray-300 h-[64px] w-[100%]">
+                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px] text-[#3C3E41] w-[10%]`} >11:00</td>
+                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] w-[40%]`}>Jane Doe</td>
+                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%]`}>Paris</td>
+                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%]`} >&gt;</td>
+              </tr>
+              <tr className="border-y border-gray-300 h-[64px] w-[100%]">
+                <td className={`text-right pr-4 font-roboto text-[24px] font-normal leading-[28px] text-[#3C3E41] w-[10%]`} >12:00</td>
+                <td className={`font-roboto pl-4 text-[18px] font-semibold leading-[21px] text-[#3C3E41] w-[40%]`}>Alice Johnson</td>
+                <td className={`font-roboto text-[16px] font-normal leading-[19px] text-[#3C3E41] w-[45%]`}>London</td>
+                <td className={`font-roboto text-[28px] font-normal leading-[28px] text-[#D4D4D4] w-[5%]`} >&gt;</td>
+              </tr>
+            </tbody>
+          </table>
+          <p className="mt-[64px] font-roboto text-[20px] font-normal leading-[24px] text-center text-[#3C3E41]">
+            Če pogreb še ni vnešen, je pa termin že znan, zaprosite svojo cvetličarno (ali pogrebno podjetje), da ga vnese.
+          </p>
         </div>
       </div>
     </>

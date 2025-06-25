@@ -14,7 +14,7 @@ const ObituaryListNew = () => {
   return (
     <Layout megaMenu={""} isMegaMenuVisible={false} from={"2"} forFooter={""}>
       <div className="flex flex-col mx-auto bg-[#F5F7F9] w-full">
-        <ObituaryListBanner image={"/funeral33.png"} label={"Pogrebi"} />
+        <ObituaryListBanner image={"/funeral33.png"} label={""} />
         <CarouselCalendar />
         <MainOptions />
         <FloristsComp />

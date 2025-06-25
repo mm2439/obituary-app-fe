@@ -64,8 +64,7 @@ const SimpleComp = () => {
                     Povej naprej
                   </div>
                   <div className="text-[16px] text-[#3C3E41] font-variation-customOpt16 text-center mt-4">
-                    K sodelovanju in deljenju zgodb povabi tudi druge. Izdelane
-                    predloge te že čakajo, vneseš samo email ali tel. št.
+                  V svoji lokalni cvetličarni brezplačno dobiš tudi digitalne kartice za pošiljanje naprej; in nekaj časa tudi Skrbnika.   
                   </div>
                 </div>
               </div>
@@ -113,8 +112,7 @@ const SimpleComp = () => {
                 Povej naprej
               </div>
               <div className="text-[16px] h-[72px] text-[#3C3E41] font-variation-customOpt16 text-center mt-4 mobile:mt-3 desktop:mx-3">
-                K sodelovanju in deljenju zgodb povabi tudi druge. Izdelane
-                predloge te že čakajo in vneseš samo email ali tel številko.
+              V svoji lokalni cvetličarni brezplačno dobiš tudi digitalne kartice za pošiljanje naprej; in nekaj časa tudi Skrbnika.   
               </div>
             </div>
           </div>

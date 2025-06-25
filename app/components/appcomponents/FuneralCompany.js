@@ -8,7 +8,7 @@ const FuneralCompanies = () => {
         <div className='w-[1088px] h-[302px] hidden desktop:flex'>
 
             {/*header container*/}
-            <div className='flex w-[611px] flex-col'>
+            <div className='flex w-[570px] flex-col'>
                 <h1 className='text-[40px] text-[#3C3E41] font-variation-customOpt40 mt-[56px] w-[707px]'>Celovite rešitve za pogrebna podjetja</h1>
                 <div className='text-[24px] text-[#3C3E41] font-variation-customOpt24 font-bold mt-4'>Vaša nova spletna stran</div>
                 <button className='w-[140px] h-[48px] flex items-center justify-center text-[16px] leading-[24px] font-normal text-[#000000] bg-[#BCD7F4] mt-[75px] rounded-[8px]'
@@ -19,7 +19,11 @@ const FuneralCompanies = () => {
             </div>
             
             {/*image container*/}
-            <img src='/pog_laptop.png' className='flex w-[519px]'></img>
+            <div className='w-[530px] relative pt-[30px]'>
+              <img src='/pog_laptop.png' className='flex w-[530px]'></img>
+
+              <div className="absolute top-full left-1/2 -translate-x-1/2  w-full flex justify-center items-center bg-[#000000] h-[9px] blur-[44px]" />
+            </div>
         </div>
 
         {/*Main container for tablet & mobile*/}

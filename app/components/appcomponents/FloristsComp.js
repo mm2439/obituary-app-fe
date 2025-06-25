@@ -42,7 +42,7 @@ const FloristsComp = () => {
   ];
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col border-b-[1px] border-[#C7C7C7]">
       <div className="flex w-full ">
         <div className="relative flex flex-row min-w-full dekstop:h-[300px] tablet:h-[361px] mobile:h-[236px]">
           <img

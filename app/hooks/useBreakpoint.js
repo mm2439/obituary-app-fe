@@ -6,7 +6,7 @@ export const useBreakpoint = () => {
 
   useEffect(() => {
     const calculateBreakpoint = () => {
-      const width = window.innerWidth;
+      const width = window.screen.availWidth;
       if (width < 360) return setBreakpoint("mobile");
       if (width < 744) return setBreakpoint("tablet");
       if (width < 1280) return setBreakpoint("laptop");

@@ -1,33 +1,33 @@
 "use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Layout from "../../../components/appcomponents/Layout";
-import ObituaryPublished from "../../../components/appcomponents/ObituaryPublished";
-import FlowerShops from "../../../components/appcomponents/FlowerShops";
-import ShippingNotifications from "../../../components/appcomponents/ShippingNotifications";
-import MemorialPageTopComp from "../../../components/appcomponents/MemorialPageTopComp";
-import Condolences from "../../../components/appcomponents/Condolences";
-import ImageWall from "../../../components/appcomponents/ImageWall";
-import SanctifiedComp from "../../../components/appcomponents/SanctifiedComp";
-import ModalLibrary from "../../../components/appcomponents/ModalLibrary";
-import ImageFullView from "../../../components/appcomponents/ImageFullView";
+import Layout from "../../components/appcomponents/Layout";
+import ObituaryPublished from "../../components/appcomponents/ObituaryPublished";
+import FlowerShops from "../../components/appcomponents/FlowerShops";
+import ShippingNotifications from "../../components/appcomponents/ShippingNotifications";
+import MemorialPageTopComp from "../../components/appcomponents/MemorialPageTopComp";
+import Condolences from "../../components/appcomponents/Condolences";
+import ImageWall from "../../components/appcomponents/ImageWall";
+import SanctifiedComp from "../../components/appcomponents/SanctifiedComp";
+import ModalLibrary from "../../components/appcomponents/ModalLibrary";
+import ImageFullView from "../../components/appcomponents/ImageFullView";
 import imgUp from "@/public/ico_up.png";
 import Image from "next/image";
 import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
-import AnnouncementBlock from "../../../components/appcomponents/AnnouncementBlock";
-import { FlowerShops2 } from "../../../components/appcomponents/FlowerShops";
+import AnnouncementBlock from "../../components/appcomponents/AnnouncementBlock";
+import { FlowerShops2 } from "../../components/appcomponents/FlowerShops";
 import { useRouter } from "next/navigation";
 import Card1 from "@/app/components/mobile-cards/card1";
 
 const MemoryPage = ({ params }) => {
-  const { id, user } = params;
+  const { slugKey, user } = params;
   const router = useRouter();
   const [isShowModal, setIsShowModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
-
+  const [showShops, setShowShops] = useState(false);
   const [showImageView, setShowImageView] = useState(false);
   const [imageId, setImageId] = useState("0");
 
@@ -43,7 +43,7 @@ const MemoryPage = ({ params }) => {
 
   const fetchMemory = async () => {
     try {
-      const response = await obituaryService.getMemory({ id });
+      const response = await obituaryService.getMemory({ slugKey: slugKey });
 
       if (response.error) {
         toast.error(
@@ -55,9 +55,9 @@ const MemoryPage = ({ params }) => {
 
       setObituary(response.obituary);
 
-      if (id) {
+      if (response?.obituary) {
         const visitRespone = await obituaryService.updateObituaryVisits({
-          obituaryId: id,
+          obituaryId: response?.obituary?.id,
           userId: currentUser?.id || null,
         });
 
@@ -167,12 +167,19 @@ const MemoryPage = ({ params }) => {
           setModal={setIsShowModal}
         />
         <FlowerShops
+          setIsOpen={(value) => {
+            setShowShops(value);
+          }}
           data={obituary}
-          set_Id={setSelect_Id}
-          setModal={setIsShowModal}
+          showShop={showShops}
         />
 
-        {/* <FlowerShops2 set_Id={setSelect_Id} setModal={setIsShowModal} /> */}
+        <FlowerShops2
+          setIsOpen={(value) => {
+            setShowShops(value);
+          }}
+          showShop={showShops}
+        />
 
         <ObituaryPublished
           set_Id={setSelect_Id}

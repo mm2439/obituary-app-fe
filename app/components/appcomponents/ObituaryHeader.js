@@ -93,8 +93,8 @@ function ObituaryHeader({ from }) {
                   </li>
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
                     <Link
-                      href={"#"}
-                      className="text-[#1E2125] font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
+                      href={"/florists"}
+                      className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${pathname == "/floristspromo" ? "!text-[#0A85C2] underline" : "text-[#1E2125]"}`}
                     >
                       Cvetličarne
                     </Link>
@@ -109,8 +109,8 @@ function ObituaryHeader({ from }) {
                   </li>
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center ">
                     <Link
-                      href={"/florists"}
-                      className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${pathname == "/floristspromo" ? "!text-[#0A85C2] underline" : "text-[#1E2125]"}`}
+                      href={"#"}
+                      className="text-[#1E2125] font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
                     >
                       Priložnost
                     </Link>
@@ -119,7 +119,11 @@ function ObituaryHeader({ from }) {
               </div>
               <Image
                 src={iconMenu}
-                className={`mobile:block desktop:hidden h-[20px] w-[20px] ${pathname == "/keeperpromo" || pathname == "/memorypromo" ? "block" : "hidden"}`}
+                className={`mobile:block desktop:hidden h-[20px] w-[20px] ${
+                  pathname == "/keeperpromo" || pathname == "/memorypromo"
+                    ? "block"
+                    : "hidden"
+                }`}
               />
 
               <Image

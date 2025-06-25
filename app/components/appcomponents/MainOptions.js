@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function MainOptions() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(13);
   const data = [
     {
       hasId: true,

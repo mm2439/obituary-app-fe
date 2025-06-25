@@ -1598,7 +1598,7 @@ const Modals = ({
             playsInline
           >
             <source
-              src={`${API_BASE_URL}/obituaryUploads/assets/candleBurn.mp4`}
+              src={`${API_BASE_URL}/assets/candleBurn.mp4`}
               type="video/mp4"
             />
             Your browser does not support the video tag.

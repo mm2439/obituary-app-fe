@@ -27,7 +27,7 @@ const MemoryPage = ({ params }) => {
   const [select_id, setSelect_Id] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
-
+  const [showShops, setShowShops] = useState(false);
   const [showImageView, setShowImageView] = useState(false);
   const [imageId, setImageId] = useState("0");
 
@@ -167,12 +167,19 @@ const MemoryPage = ({ params }) => {
           setModal={setIsShowModal}
         />
         <FlowerShops
+          setIsOpen={(value) => {
+            setShowShops(value);
+          }}
           data={obituary}
-          set_Id={setSelect_Id}
-          setModal={setIsShowModal}
+          showShop={showShops}
         />
 
-        {/* <FlowerShops2 set_Id={setSelect_Id} setModal={setIsShowModal} /> */}
+        <FlowerShops2
+          setIsOpen={(value) => {
+            setShowShops(value);
+          }}
+          showShop={showShops}
+        />
 
         <ObituaryPublished
           set_Id={setSelect_Id}

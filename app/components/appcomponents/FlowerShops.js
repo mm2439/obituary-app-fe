@@ -36,7 +36,7 @@ import packageService from "@/services/pacakge-service";
 //   );
 // };
 
-const FlowerShops = ({ setIsOpen, data }) => {
+const FlowerShops = ({ setIsOpen, data, showShop }) => {
   useEffect(() => {
     if (data?.floristShops?.length > 0) {
       const firstShop = data.floristShops[0];
@@ -63,7 +63,8 @@ const FlowerShops = ({ setIsOpen, data }) => {
     setSelectedFloristShop(shop);
     getPackages(shop.companyId);
   };
-  return (
+
+  return showShop ? (
     <div
       className="h-[1061px] mobile:h-[1230px] w-full flex flex-col mobile:justify-center desktop:justify-center items-center  bg-[#F8EDE3] relative"
       style={{
@@ -225,10 +226,10 @@ const FlowerShops = ({ setIsOpen, data }) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
-export const FlowerShops2 = ({ setIsOpen }) => {
+export const FlowerShops2 = ({ setIsOpen, showShop }) => {
   return (
     <div
       className="h-[393px] mobile:h-[407px] w-full flex flex-col mobile:justify-center desktop:justify-center items-center  bg-[#F8EDE3] relative"

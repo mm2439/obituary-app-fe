@@ -18,7 +18,8 @@ const promoPathname = [
   "/funeralpromo",
   "/floristspromo",
   "/memorypromo",
-  "/keeperpromo"
+  "/keeperpromo",
+  "/obituarylist-new"
 ]
 
 export default function Footer() {
@@ -29,7 +30,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if(pathname.startsWith("/memorypromo") || pathname.startsWith("/keeperpromo")) {
+    if(pathname.startsWith("/memorypromo") || pathname.startsWith("/keeperpromo") || pathname.startsWith("/obituarylist-new")) {
       setFooterVariant("memory");
     } else {
       setFooterVariant("default");
@@ -46,7 +47,7 @@ export default function Footer() {
 
   if(promoPathname.includes(pathname)) {
     return (
-      <div className="bg-[#E0E9F399] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[35px] pb-[23px]">
+      <div className="bg-[#E0E9F399] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[35px] pb-[23px] border-t-[1px] border-[#C7C7C7]">
         <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto">
           <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] mobile:hidden" />
           {footerVariant === "default" && <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
@@ -499,7 +500,7 @@ export function FooterForFaq() {
         <div className="flex flex-col">
         <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] hidden mobile:flex mb-[5px]" />
 
-        <span className="text-[12px] text-[#C7C7C7] font-normal leading-[24px]">© 2025 Vse pravice zadržane</span>
+        <span className="text-[12px] text-[rgb(199,199,199)] font-normal leading-[24px]">© 2025 Vse pravice zadržane</span>
         </div>
         <div className="inline-flex gap-[30px] mobile:gap-[16px]">
           <Link href="/" className="text-[#A7C6E3] underline w-[65px] text-[14px]">Pišite nam</Link>

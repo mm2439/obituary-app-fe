@@ -46,12 +46,12 @@ const FloristsComp = () => {
       <div className="flex w-full ">
         <div className="relative flex flex-row min-w-full dekstop:h-[300px] tablet:h-[361px] mobile:h-[236px]">
           <img
-            src="/soncnica_modra.avif"
+            src="/flower38.png"
             alt="Flower_img"
             className="h-[100%] w-[100%] desktop:w-[50%] hidden tablet:flex desktop:flex  object-cover"
           />
           <img
-            src="/zel_ozadje.avif"
+            src="/flower38.png"
             alt="Slika"
             className="h-full w-full tablet:hidden desktop:hidden object-cover"
           />

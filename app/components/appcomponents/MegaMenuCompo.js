@@ -209,7 +209,7 @@ const MegaMenuCompo = ({ setActiveButton }) => {
 
                 {/* text container */}
                 <div className="flex flex-col px-3 justify-center">
-                  <Link href={"/funerals"}>
+                  <Link href={"/pogrebna-p"}>
                     <div className="text-[14px] font-medium text-[#535353] leading-[22px]">
                       Pregled lokalnih pogrebov
                     </div>
@@ -248,7 +248,7 @@ const MegaMenuCompo = ({ setActiveButton }) => {
 
                 {/* text container */}
                 <div className="flex flex-col px-3 justify-center">
-                  <Link href={"/funerals"}>
+                  <Link href={"/pogrebna-p"}>
                     <div className="text-[14px] font-medium text-[#535353] leading-[22px]">
                       Oddaja osmrtnice
                     </div>

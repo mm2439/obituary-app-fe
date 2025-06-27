@@ -24,6 +24,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { getYear, getMonth } from "date-fns"; // To extract year and month info
 import obituaryService from "@/services/obituary-service";
 import toast from "react-hot-toast";
+import keeperService from "@/services/keeper-service";
 
 const Modals = ({
   select_id,
@@ -53,6 +54,8 @@ const Modals = ({
   const [uploadedImage, setUploadedImage] = useState(null);
   const [verse, setVerse] = useState(null);
   const [user, setUser] = useState(null);
+  const [keeperEmail, setKeeperEmail] = useState(null);
+  const [keeperMessage, setKeeperMessage] = useState(null);
 
   //
   const closeModal = () => {
@@ -75,6 +78,41 @@ const Modals = ({
       setters[field](null);
     }
   };
+
+  const handleKeeperAssignment = async () => {
+    if (!isKeeper()) {
+      toast.error("Only Keeper is allowed to invite other keeper");
+      return;
+    }
+
+    if (keeperEmail.trim() === "") {
+      toast.error("Please Enter Email");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+
+      formData.append("obituaryId", data?.id);
+      formData.append("time", String(2));
+      formData.append("email", keeperEmail);
+      if (keeperMessage) {
+        //tp be done tomorrow
+        formData.append("relation", message);
+      }
+
+      console.log(formData);
+
+      const response = await keeperService.assignKeeper(formData);
+      toast.success("Keeper Assigned Successfully");
+      console.log(response);
+    } catch (error) {
+      toast.error("Some Error Occured");
+    }
+  };
+  useEffect(() => {
+    console.log(keeperMessage);
+  }, [keeperMessage]);
   // add sorrow book
   const addSorrowBook = async () => {
     if (!name || name.trim() === "") {
@@ -1370,16 +1408,40 @@ const Modals = ({
             Povabi še drugega Skrbnika
           </div>
           <div className="mt-8 flex ">
-            <TextFieldComp placeholder={"Njegov / njen e-naslov"} />
+            <TextFieldComp
+              value={keeperEmail}
+              onChange={(e) => {
+                setKeeperEmail(e.target.value);
+              }}
+              placeholder={"Njegov / njen e-naslov"}
+            />
           </div>
           <div className=" mt-4 ">
             <DescriptionFieldComp
               placeholder={"Lahko mu napišeš nekaj besed ali pustiš prazno"}
               height={"101px"}
+              value={keeperMessage}
+              onChange={(e) => {
+                setKeeperMessage(e.target.value);
+              }}
             />
           </div>
           <div className="mt-4">
-            <ButtonGreen placeholder={"Pošlji povabilo"} bg={"bg-[#09C1A3]"} />
+            <button
+              onClick={handleKeeperAssignment}
+              className="w-[100%] rounded-[10px] shadow-custom-dark-bottom"
+            >
+              <div
+                className={`h-[60px] w-full bg-[#09C1A3] flex justify-center items-center rounded-[8px]`}
+              >
+                <div
+                  className=" text-[20px]  text-[#FFFFFF]
+            font-variation-customOpt20 font-semibold leading-[24px] "
+                >
+                  Pošlji povabilo
+                </div>
+              </div>
+            </button>
           </div>
           <div className="mt-8 text-[#414141] text-base font-normal">
             Prejel/a bo e-pošto za potrditev.
@@ -1598,7 +1660,7 @@ const Modals = ({
             playsInline
           >
             <source
-              src={`${API_BASE_URL}/obituaryUploads/assets/candleBurn.mp4`}
+              src={`${API_BASE_URL}/assets/candleBurn.mp4`}
               type="video/mp4"
             />
             Your browser does not support the video tag.
@@ -1613,7 +1675,7 @@ const Modals = ({
             playsInline
           >
             <source
-              src={`${API_BASE_URL}/obituaryUploads/assets/candleBurn.mp4`}
+              src={`${API_BASE_URL}/assets/candleBurn.mp4`}
               type="video/mp4"
             />
             Your browser does not support the video tag.

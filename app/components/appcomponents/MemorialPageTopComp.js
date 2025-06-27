@@ -936,194 +936,153 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
               users={data.SorrowBooks}
             />
           </div>
-          {data?.Dedications && data?.Dedications.length > 0 ? null : (
-            <div
-              className="ml-auto mr-[14px] mb-5 desktop:mr-[18%] flex items-center cursor-pointer "
-              onClick={() => {
-                set_Id("13");
-                setModal(true);
-              }}
-            >
-              <Image
-                src={"/round_add.png"}
-                alt="Slika"
-                width={100}
-                height={100}
-                className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
-              />
-              <p className="text-[14px] text-[#414141] font-variation-customOpt12 font-normal">
-                Dodaj posvetilo
-              </p>
-            </div>
-          )}
-          {data?.Photos && data?.Photos.length > 0 ? null : (
-            <div
-              className="ml-auto mr-[14px] desktop:mr-[18%] flex items-center cursor-pointer "
-              onClick={() => {
-                set_Id("6");
-                setModal(true);
-              }}
-            >
-              <Image
-                src={"/round_add.png"}
-                alt="Slika"
-                width={100}
-                height={100}
-                className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
-              />
-              <p className="text-[14px]  text-[#414141] font-variation-customOpt12 font-normal">
-                Dodaj fotografije
-              </p>
-            </div>
-          )}
         </div>
       </div>
-      {data?.Dedications && data?.Dedications?.length > 0 && (
-        <div className="w-full pb-[150px]">
-          <div className="flex flex-col w-full items-center">
-            <div className="flex flex-col w-full items-center mt-[100px] ">
-              <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative mobile:mb-[16px]">
-                <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
-                  Posvetilo
-                </div>
-                <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px]">
-                  22
-                </div>
-              </div>
-              <div
-                className="flex items-center mt-4 h-6 cursor-pointer"
-                onClick={() => {
-                  set_Id("13");
-                  setModal(true);
-                }}
-              >
-                <p className="text-[16px] text-[#414141] font-variation-customOpt16 font-normal text-center mobile:w-[306px] mobile:mx-auto">
-                  Delite zgodbe, čarobne trenutke, morda biografijo, zadnji
-                  pozdrav
-                </p>
-              </div>
-            </div>
 
-            <div
-              className="mt-[30px] w-[720px] mobile:w-[321px] mx-auto flex items-center justify-end cursor-pointer mb-[18px] px-[10px]"
-              onClick={() => {
-                set_Id("13");
-                setModal(true);
-              }}
-            >
-              <Image
-                src={"/round_add.png"}
-                alt="Slika"
-                width={100}
-                height={100}
-                className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
-              />
-              <p className="text-[14px] text-[#414141] font-variation-customOpt12 font-normal">
-                Dodaj posvetilo
-              </p>
-            </div>
-
-            <ContentSlider data={data.Dedications} />
-          </div>
-        </div>
-      )}
-      {data?.Photos && data?.Photos?.length > 0 && (
-        <div className="w-full pb-[150px]">
-          <div className="flex flex-col w-full items-center">
-            <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative">
+      <div className="w-full pb-[150px]">
+        <div className="flex flex-col w-full items-center">
+          <div className="flex flex-col w-full items-center mt-[100px] ">
+            <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative mobile:mb-[16px]">
               <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
-                Nepozabni trenutki
+                Posvetilo
               </div>
               <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px]">
                 22
               </div>
             </div>
-
-            <button
-              className="flex cursor-pointer self-center tablet:self-start desktop:self-start items-center justify-center flex-col gap-[2px] border-2 rounded-[4px] border-[#FFFFFF] w-[165px] h-[60px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30] z-20 mx-auto mt-[47px] tablet:hidden mobile:hidden mb-[30px]"
-              style={{
-                boxShadow: "3px 3px 18px 0px #00000040",
-              }}
+            <div
+              className="flex items-center mt-4 h-6 cursor-pointer"
               onClick={() => {
-                set_Id("6");
+                set_Id("13");
                 setModal(true);
               }}
             >
-              <Image
-                src={"/memory_page_plus_icon.png"}
-                alt="Slika"
-                width={20}
-                height={20}
-                className=""
-              />
-              <p className="text-[16px] text-[#1E2125] font-variation-customOpt16 font-normal">
-                Dodaj sliko
+              <p className="text-[16px] text-[#414141] font-variation-customOpt16 font-normal text-center mobile:w-[306px] mobile:mx-auto">
+                Delite zgodbe, čarobne trenutke, morda biografijo, zadnji
+                pozdrav
               </p>
-            </button>
-            <button
-              onClick={() => {
-                set_Id("6");
-                setModal(true);
-              }}
-              className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]"
-            >
-              <Image
-                src={"/memory_page_plus_icon.png"}
-                alt="Slika"
-                width={16}
-                height={16}
-                className=""
-              />
-              Dodaj Sliko
-            </button>
+            </div>
+          </div>
 
-            <div className="w-full  space-y-[30px] px-[15px] mobile:space-y-[14px]">
-              <div className="hidden desktop:flex overflow-x-auto scrollbar-hide gap-[25px] w-[1024px]  flex-nowrap tablet:w-[800px] mobile:w-[406px] mobile:h-[125px] mx-auto mobile:gap-[14px]">
-                {data?.Photos?.length > 0 &&
-                  data?.Photos.map((item, index) => (
-                    <div
-                      key={index}
-                      className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0"
-                      style={{
-                        boxShadow:
-                          "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-                      }}
-                    >
-                      <Image
-                        src={`${API_BASE_URL}/${item.fileUrl}`}
-                        alt="Slika"
-                        width={200}
-                        height={200}
-                        className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                      />
-                    </div>
-                  ))}
-              </div>
-              <div className="hidden overflow-x-auto scrollbar-hide tablet:flex mobile:flex gap-[25px] w-[1024px] mobile:h-[125px] tablet:w-[800px] mobile:w-[406px] mobile:gap-[14px] mx-auto">
-                {data?.Photos?.length > 0 &&
-                  data?.Photos.map((item, index) => (
-                    <div
-                      key={index}
-                      className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0"
-                      style={{
-                        boxShadow:
-                          "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-                      }}
-                    >
-                      <Image
-                        src={`${API_BASE_URL}/${item.fileUrl}`}
-                        alt="Slika"
-                        width={200}
-                        height={200}
-                        className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                      />
-                    </div>
-                  ))}
-              </div>
+          <div
+            className="mt-[30px] w-[720px] mobile:w-[321px] mx-auto flex items-center justify-end cursor-pointer mb-[18px] px-[10px]"
+            onClick={() => {
+              set_Id("13");
+              setModal(true);
+            }}
+          >
+            <Image
+              src={"/round_add.png"}
+              alt="Slika"
+              width={100}
+              height={100}
+              className="w-[12px] mb-[2px] h-[12px] mr-[10px]"
+            />
+            <p className="text-[14px] text-[#414141] font-variation-customOpt12 font-normal">
+              Dodaj posvetilo
+            </p>
+          </div>
+
+          {data?.Dedications && data?.Dedications?.length > 0 && (
+            <ContentSlider data={data.Dedications} />
+          )}
+        </div>
+      </div>
+      <div className="w-full pb-[150px]">
+        <div className="flex flex-col w-full items-center">
+          <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative">
+            <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
+              Nepozabni trenutki
+            </div>
+            <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px]">
+              22
+            </div>
+          </div>
+
+          <button
+            className="flex cursor-pointer self-center tablet:self-start desktop:self-start items-center justify-center flex-col gap-[2px] border-2 rounded-[4px] border-[#FFFFFF] w-[165px] h-[60px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30] z-20 mx-auto mt-[47px] tablet:hidden mobile:hidden mb-[30px]"
+            style={{
+              boxShadow: "3px 3px 18px 0px #00000040",
+            }}
+            onClick={() => {
+              set_Id("6");
+              setModal(true);
+            }}
+          >
+            <Image
+              src={"/memory_page_plus_icon.png"}
+              alt="Slika"
+              width={20}
+              height={20}
+              className=""
+            />
+            <p className="text-[16px] text-[#1E2125] font-variation-customOpt16 font-normal">
+              Dodaj sliko
+            </p>
+          </button>
+          <button
+            onClick={() => {
+              set_Id("6");
+              setModal(true);
+            }}
+            className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]"
+          >
+            <Image
+              src={"/memory_page_plus_icon.png"}
+              alt="Slika"
+              width={16}
+              height={16}
+              className=""
+            />
+            Dodaj Sliko
+          </button>
+
+          <div className="w-full  space-y-[30px] px-[15px] mobile:space-y-[14px]">
+            <div className="hidden desktop:flex overflow-x-auto scrollbar-hide gap-[25px] w-[1024px]  flex-nowrap tablet:w-[800px] mobile:w-[406px] mobile:h-[125px] mx-auto mobile:gap-[14px]">
+              {data?.Photos?.length > 0 &&
+                data?.Photos.map((item, index) => (
+                  <div
+                    key={index}
+                    className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0"
+                    style={{
+                      boxShadow:
+                        "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+                    }}
+                  >
+                    <Image
+                      src={`${API_BASE_URL}/${item.fileUrl}`}
+                      alt="Slika"
+                      width={200}
+                      height={200}
+                      className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                    />
+                  </div>
+                ))}
+            </div>
+            <div className="hidden overflow-x-auto scrollbar-hide tablet:flex mobile:flex gap-[25px] w-[1024px] mobile:h-[125px] tablet:w-[800px] mobile:w-[406px] mobile:gap-[14px] mx-auto">
+              {data?.Photos?.length > 0 &&
+                data?.Photos.map((item, index) => (
+                  <div
+                    key={index}
+                    className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0"
+                    style={{
+                      boxShadow:
+                        "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
+                    }}
+                  >
+                    <Image
+                      src={`${API_BASE_URL}/${item.fileUrl}`}
+                      alt="Slika"
+                      width={200}
+                      height={200}
+                      className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
+                    />
+                  </div>
+                ))}
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       <div className="w-[1024px] tablet:w-[678.78px]   mobile:w-[341px] h-auto  flex flex-col items-center ">
         <div className="flex flex-row h-[47px] items-center relative">

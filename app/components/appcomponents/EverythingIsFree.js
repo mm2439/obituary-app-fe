@@ -1,11 +1,6 @@
 export default function EverythingIsFree() {
   return (
-    <div className="bg-gradient-to-bl from-[#f9f0e7] via-[#f5f2ec] to-[#f2f3ee]"
-    style={{
-      borderWidth: '1px 0px 1px 0px',
-      borderStyle: 'solid',
-      borderColor: '#C7C7C780',
-    }}>
+    <div className=" bg-[#f9eee4]">
       <div className="max-w-[730px] tablet:max-w-[600px] mobile:max-w-[341px] mx-auto py-[111px]">
         <h2 className="text-center text-[40px] leading-[48px] font-[400] text-[#3C3E41] mobile:text-[28px] mobile:leading-[20px]">VSE je brezplačno!</h2>
         <p className="text-center text-[#3C3E41] text-[24px] font-[700] leading-[48px] mobile:text-[20px] mobile:leading-[20px]  mobile:font-[600] mobile:mt-[20px]">In brez odvečnih korakov </p>
@@ -55,15 +50,18 @@ export default function EverythingIsFree() {
           {/*text3 contianer*/}
           <div className='flex w-full'>
               <div
-                style={{
-                  width: '48px',
-                  textShadow: "0px 4px 4px #00000030",
-                  marginTop: '2px',
-                  marginLeft: '12px',
-                  color: '#E8B298',
-                  fontSize: '32px',
-                  fontVariationSettings: '"slnt" -10, "wght" 500, "opsz" 48',
-                }}
+                  style={{
+                      width: '48px',
+                      textShadow: "0px 4px 4px #00000030",
+                      marginTop: '2px',
+                      marginLeft: '12px',
+                      color: '#E8B298',
+                      fontSize: '32px',
+                      fontVariationSettings: '"slnt" -10, "wght" 500, "opsz" 32',
+                  }}
+
+
+
               >03.</div>
               <div className="space-y-[0] ml-4">
                 <div className=' mt-[5px] leading-[27px] text-[18px] mobile:text-[16px] font-variation-customOpt16 text-[#3C3E41] font-variation-customOpt16'>Vaša lokalna cvetličarna vam brezplačno podari <span className='text-[#530CC6] font-medium'>status Skrbnika</span> spominske strani.</div>

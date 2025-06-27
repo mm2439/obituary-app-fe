@@ -3,7 +3,9 @@ import Layout from "../components/appcomponents/Layout";
 import AdministratorCompo from "../components/appcomponents/AdministratorCompo";
 import AdditionalOptions from "../components/appcomponents/AdditionalOptions";
 import MemorialWithAdmin from "../components/appcomponents/MemorialWithAdmin";
-import { FrequentlyAskedQuestionView2 } from "../components/appcomponents/FrequentlyAskedQuestionView";
+import Difference from "../components/appcomponents/Difference";
+import FrequentlyAskedQuestionView, { FrequentlyAskedQuestionView2 } from "../components/appcomponents/FrequentlyAskedQuestionView";
+import OpeningPromotion from "../components/appcomponents/OpeningPromotion";
 import AdminBenefits from "../components/appcomponents/AdminBenefits";
 import EverythingIsFree from "../components/appcomponents/EverythingIsFree";
 

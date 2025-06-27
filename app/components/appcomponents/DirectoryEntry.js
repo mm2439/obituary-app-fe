@@ -117,21 +117,27 @@ const DirectoryEntry = () => {
                                                 STANDARDNA PROMOCIJA
                                             </div>
                                         </div>
-                                        <div className="flex self-center mt-[15px] gap-[5px] relative">
+                                        <div className="flex self-center">
                                             <div 
                                              style={{                                              
                                                 textShadow: "0px 4px 4px #00000025"
                                                 }}
-                                            className="text-[24px] text-[#2D3D48] font-normal" >
-                                                od 10€ naprej
-                                            </div>
-                                            <div className="self-center absolute top-[-5px] left-[calc(100%+5px)]">
-                                                <div className="text-[13px] text-[#767F84] font-thin w-[50px]" >
-                                                    + DDV
-                                                </div>
+                                            className="text-[24px] text-[#2D3D48] font-normal   " >
+                                                Mesečno
                                             </div>
                                         </div>
-                                        
+                                        <div className="flex w-[188px] h-[35px] self-center items-center justify-center ">
+                                            <div style={{
+                                              textShadow: "0px 2px 2px #00000025"
+                                            }} className="text-[16px] text-[#2D3D48] font-normal leading-[17.92px] text-center drop-shadow-2xl shadow-black ">
+                                                Registrirajste se, da vam pošljemo več informacij
+                                            </div>
+                                        </div>
+                                        <div className="mt-[10px] self-center">
+                                            <div className="text-[13px] text-[#767F84] font-thin " >
+                                                + DDV
+                                            </div>
+                                        </div>
                                         <div className="flex flex-col mt-[10px] ">
                                             {containerArray2?.map((item, index) => (
                                                 <ContainerView item={item} index={index} key={index} />
@@ -166,7 +172,7 @@ const DirectoryEntry = () => {
                     <div className="flex flex-col tablet:w-[650px] w-[333px] desktop:mt-0 tablet:mt-6 mobile:mt-[28px] ">
                         <div className="flex w-full mobile:flex-col  flex-row tablet:justify-between ">
                             <div className="flex tablet:w-[310px] w-[333px]  bg-[#FFFFFF] flex-col ">
-                                <div className="w-full h-[8px] bg-[#EB1D1D]" />
+                                <div className="w-full h-1 bg-[#EB1D1D]" />
                                 <div className="flex flex-col w-full mobile:h-[653px] h-[670px] py-[10px]  items-center">
                                     <div className="flex flex-col w-[299px] ">
                                         <div className="flex self-center desktop:h-[33px] ">
@@ -178,7 +184,7 @@ const DirectoryEntry = () => {
                                             <div style={{                                              
                                                 textShadow: "0px 4px 4px #00000025"
                                                 }} className="text-[24px] text-[#2D3D48] font-normal leading-[26.88px] text-center" >
-                                                BREZ RIZIKA 50 DNI
+                                                BREZ RIZIKA 45 DNI
                                             </div>
                                         </div>
                                         <div className="flex  self-center items-center justify-center mt-[10px] ">

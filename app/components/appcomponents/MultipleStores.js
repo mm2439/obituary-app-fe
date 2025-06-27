@@ -23,13 +23,10 @@ const MultipleStores = () => {
         </div>
 
         {/*image container*/}
-        <div className="w-[569px] flex justify-end ml-[79.58px] relative">
-          <img
-            src="/cvetlicarna_laptop.png"
-            className="relative z-10"
-          />
-          <div className="absolute top-full left-1/2 -translate-x-1/2  w-full flex justify-center items-center bg-[#000000] h-[9px] blur-[44px]" />
-        </div>
+        <img
+          src="/cvetlicarna_laptop.png"
+          className="flex w-[512px] ml-[79.58px]"
+        ></img>
       </div>
 
       {/*Main container for tablet & mobile*/}

@@ -23,22 +23,22 @@ const FloristList = () => {
   };
   // 17 September 2024
   const arrPlace = [
-    { place: "Place 1", url: "/cvetlicarne", id: 1 },
+    { place: "Place 1", url: "/florists", id: 1 },
 
     {
       place: "Place 2",
-      url: "/cvetlicarne",
+      url: "/florists",
       id: 2,
     },
 
     {
       place: "Place 3",
-      url: "/cvetlicarne",
+      url: "/florists",
       id: 3,
     },
     {
       place: "Place 4",
-      url: "/cvetlicarne",
+      url: "/florists",
       id: 4,
     },
   ];

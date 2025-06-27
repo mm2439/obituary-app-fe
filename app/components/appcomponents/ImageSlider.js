@@ -90,7 +90,7 @@ const ImageSlider = () => {
       </div>
 
       <Link
-        href={"/cvetlicarne"}
+        href={"/florists"}
         className="flex items-center mt-12 mb-10 mobile:mt-10 mobile:mb-8 tablet:mt-[39px] rounded-lg h-[48px] w-[155px] justify-center  shadow-custom-light-dark-with-white bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
       >
         <img
@@ -129,3 +129,5 @@ const ImageSlider = () => {
 };
 
 export default ImageSlider;
+
+

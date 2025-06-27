@@ -27,21 +27,21 @@ import SlideTwo from "./components/slidercomponents/SlideTwo";
 export default function Home() {
   // 17 September 2024
   const arrPlace = [
-    { place: "City 1", url: "/cvetlicarne", id: 1 },
+    { place: "City 1", url: "/florists", id: 1 },
     {
       place: "City 2",
-      url: "/cvetlicarne",
+      url: "/florists",
       id: 2,
     },
 
     {
       place: "City 3",
-      url: "/cvetlicarne",
+      url: "/florists",
       id: 3,
     },
     {
       place: "City 4",
-      url: "/cvetlicarne",
+      url: "/florists",
       id: 4,
     },
   ];
@@ -361,7 +361,7 @@ export default function Home() {
         desktop:pt-[45px] desktop:pb-[62px]  "
           >
             <Link
-              href={"/osmrtnice"}
+              href={"/obituarylist"}
               className="flex items-center rounded-lg justify-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
           mobile:h-[43px] mobile:w-[103px]
           tablet:h-[43px] tablet:w-[97px]
@@ -411,6 +411,8 @@ export default function Home() {
           </div>
         </div>
         <NotificationView />
+
+        <MainOptions />
       </div>
     </Layout>
   );

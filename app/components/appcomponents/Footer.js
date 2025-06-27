@@ -18,8 +18,7 @@ const promoPathname = [
   "/funeralpromo",
   "/floristspromo",
   "/memorypromo",
-  "/keeperpromo",
-  "/obituarylist-new"
+  "/keeperpromo"
 ]
 
 export default function Footer() {
@@ -30,7 +29,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if(pathname.startsWith("/memorypromo") || pathname.startsWith("/keeperpromo") || pathname.startsWith("/obituarylist-new")) {
+    if(pathname.startsWith("/memorypromo") || pathname.startsWith("/keeperpromo")) {
       setFooterVariant("memory");
     } else {
       setFooterVariant("default");
@@ -47,8 +46,8 @@ export default function Footer() {
 
   if(promoPathname.includes(pathname)) {
     return (
-      <div className="bg-[#E0E9F399] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[35px] pb-[23px] border-t-[1px] border-[#C7C7C7]">
-        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[365px] desktop:w-[1190px] px-[15px] mx-auto">
+      <div className="bg-[#E0E9F399] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[35px] pb-[23px]">
+        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto">
           <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] mobile:hidden" />
           {footerVariant === "default" && <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
             <Link href="/" className="text-[#1860A3] underline">Začetna</Link>
@@ -71,8 +70,8 @@ export default function Footer() {
             <Link href="/" className="text-[#1860A3] underline">Cvetličarne</Link>
           </div>}
         </div>
-        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[365px] desktop:w-[1190px] px-[15px] mx-auto bg-[#D4D4D4] h-[1px] mt-[22px]"></div>
-        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[365px] desktop:w-[1190px] px-[15px] mx-auto mobile:px-[0px] mt-[22px]">
+        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] mx-auto bg-[#D4D4D4] h-[1px] mt-[22px]"></div>
+        <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto mt-[22px]">
           <div className="flex flex-col">
           <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] hidden mobile:flex mb-[5px]" />
 
@@ -94,7 +93,7 @@ export default function Footer() {
 
   return (
     <>
-    <div className="flex border-t-[1px] border-[#C7C7C7]">
+    <div className="flex">
       <div className="flex w-full bg-[#E3E8EC] items-center justify-center">
         <div
           className="
@@ -484,7 +483,7 @@ export default function Footer() {
 
 export function FooterForFaq() {
   return (
-    <div className="bg-[#083545] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[29px] mobile:pt-[15px] pb-[9px]">
+    <div className="bg-[#083545] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[35px] mobile:pt-[15px] pb-[23px]">
       <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[340px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto">
         <Image src={logoWhite} width={160} height={20} alt="c" className="w-[160px] h-[20px] mobile:hidden" />
         <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
@@ -495,12 +494,12 @@ export function FooterForFaq() {
           <Link href="/" className="text-[#DAEBF1] underline">Pogrebna podjetja</Link>
         </div>
       </div>
-      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] mx-auto bg-[#D4D4D4] h-[1px] mt-[18px] mobile:hidden"></div>
-      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto mt-[18px] mobile:hidden">
+      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] mx-auto bg-[#D4D4D4] h-[1px] mt-[22px] mobile:hidden"></div>
+      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto mt-[22px] mobile:hidden">
         <div className="flex flex-col">
         <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] hidden mobile:flex mb-[5px]" />
 
-        <span className="text-[12px] text-[rgb(199,199,199)] font-normal leading-[24px]">© 2025 Vse pravice zadržane</span>
+        <span className="text-[12px] text-[#C7C7C7] font-normal leading-[24px]">© 2025 Vse pravice zadržane</span>
         </div>
         <div className="inline-flex gap-[30px] mobile:gap-[16px]">
           <Link href="/" className="text-[#A7C6E3] underline w-[65px] text-[14px]">Pišite nam</Link>

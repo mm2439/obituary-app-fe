@@ -41,13 +41,12 @@ const AddObituary = ({ set_Id, setModal }) => {
     useState(false);
   const [openEventTimePicker, setOpenEventTimePicker] = useState(null);
   const [isDeathReportConfirmed, setIsDeathReportConfirmed] = useState(false);
-  const [obituaryId, setObituaryId] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [dataExists, setDataExists] = useState(false);
-  const { slugKey } = useParams();
-  useEffect(() => {
-    console.log(slugKey, "====================");
-  }, [slugKey]);
+  const { id } = useParams();
+  console.log("ObituaryId", id);
+
   const [events, setEvents] = useState([
     {
       eventName: "",
@@ -92,15 +91,15 @@ const AddObituary = ({ set_Id, setModal }) => {
       const parsedUser = JSON.parse(storedUser);
       console.log(parsedUser, "ParsedUser");
       setUser(parsedUser);
-      fetchObituary(slugKey);
+      fetchObituary(id);
     }
   }, [router]);
 
-  const fetchObituary = async (slugKey) => {
+  const fetchObituary = async (orbituaryId) => {
     try {
-      console.log(slugKey, "===========inside function");
       setLoading(true);
-      const result = await obituaryService.getObituaryById(slugKey);
+      const result = await obituaryService.getObituaryById(orbituaryId);
+
       console.log("Response Variable: ", result);
 
       if (!result) return;
@@ -115,7 +114,6 @@ const AddObituary = ({ set_Id, setModal }) => {
         setSelectedRegion(response.region || "");
         setSelectedCity(response.city || "");
         setInputValueGender(response.gender || "");
-        setObituaryId(response.id || "");
         setUploadedImage(`${API_BASE_URL}/${response.image}`);
       } catch (err) {
         console.error("Error setting basic info state:", err);
@@ -389,7 +387,7 @@ const AddObituary = ({ set_Id, setModal }) => {
 
       let response;
 
-      response = await obituaryService.updateObituary(obituaryId, formData);
+      response = await obituaryService.updateObituary(id, formData);
       toast.success("Obituary updated successfully!");
 
       if (response?.error) {

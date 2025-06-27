@@ -36,7 +36,7 @@ import packageService from "@/services/pacakge-service";
 //   );
 // };
 
-const FlowerShops = ({ setIsOpen, data, showShop }) => {
+const FlowerShops = ({ setIsOpen, data }) => {
   useEffect(() => {
     if (data?.floristShops?.length > 0) {
       const firstShop = data.floristShops[0];
@@ -63,10 +63,9 @@ const FlowerShops = ({ setIsOpen, data, showShop }) => {
     setSelectedFloristShop(shop);
     getPackages(shop.companyId);
   };
-
-  return showShop ? (
+  return (
     <div
-      className="h-[550px] mobile:h-[800px] w-full flex flex-col mobile:justify-center desktop:justify-center items-center  bg-[#F8EDE3] relative"
+      className="h-[1061px] mobile:h-[1230px] w-full flex flex-col mobile:justify-center desktop:justify-center items-center  bg-[#F8EDE3] relative"
       style={{
         boxShadow:
           "2.5px 2.5px 5px 0px #A6ABBD inset, -1.5px -1.5px 5px 0px #A6ABBDBF inset",
@@ -139,7 +138,7 @@ const FlowerShops = ({ setIsOpen, data, showShop }) => {
             )}
         </div>
 
-        {/* <div className="bg-[#000000] blur-lg absolute top-[100%] left-1/2 w-[90%] rounded-full -translate-x-1/2 h-[12px] mobile:hidden"></div> */}
+        <div className="bg-[#000000] blur-lg absolute top-[100%] left-1/2 w-[90%] rounded-full -translate-x-1/2 h-[12px] mobile:hidden"></div>
       </div>
       <div className="tablet:w-[629px] hidden tablet:flex items-center justify-end mb-[34px]">
         <Image src="/page_scroller_memory_page.png" width={64} height={64} />
@@ -156,7 +155,7 @@ const FlowerShops = ({ setIsOpen, data, showShop }) => {
         <div className="bg-gradient-to-r from-[#FF984E] to-[#36556C] absolute top-0 left-0 w-full h-[3px]"></div>
         <div className="bg-gradient-to-b from-[#FF984E] to-[#36556C] absolute top-0 left-0 w-[3px] h-full"></div>
       </div>
-      {/* <div className="w-full overflow-y-auto h-[400px] pt-[12px]">
+      <div className="w-full overflow-y-auto h-[400px] pt-[12px]">
         <div className="tablet:w-[629px] mobile:w-[320px] mx-auto">
           <div className="w-[1076px] mx-auto grid grid-cols-4 mobile:grid-cols-[185px_185px_185px] gap-[20px]">
             <div className="pr-[20px] relative mobile:hidden">
@@ -224,13 +223,13 @@ const FlowerShops = ({ setIsOpen, data, showShop }) => {
               ))}
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
-  ) : null;
+  );
 };
 
-export const FlowerShops2 = ({ setIsOpen, showShop }) => {
-  return !showShop ? (
+export const FlowerShops2 = ({ setIsOpen }) => {
+  return (
     <div
       className="h-[393px] mobile:h-[407px] w-full flex flex-col mobile:justify-center desktop:justify-center items-center  bg-[#F8EDE3] relative"
       style={{
@@ -263,7 +262,7 @@ export const FlowerShops2 = ({ setIsOpen, showShop }) => {
         </button>
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default FlowerShops;

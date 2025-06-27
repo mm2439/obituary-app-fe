@@ -33,19 +33,19 @@ export default function Faq1() {
     },
   ];
     return (
-      <div className="bg-[#F9EBD4] tablet:bg-[#F8EDE3] mobile:bg-[#E0E9F3]">
+      <div className="bg-[#F9EBD4] tablet:bg-[#F8EDE3] mobile:bg-[#E0E9F3] min-h-[100vh]">
         <FAQHeader />
         <div className="w-full hidden mobile:flex gap-[16px] absolute top-[80px] left-0 right-0 justify-center items-center">
-          <div className="w-[140px] h-[35px] flex items-center justify-center rounded-[4px] text-[14px] text-[#FFFFFF]" 
+          <div className="w-[140px] h-[35px] flex items-center justify-center rounded-[2px] text-[14px] text-[#FFFFFF]" 
           style={{background: "linear-gradient(180deg, #0D94E8 4.81%, #1860A3 100%)", border: "2px solid #6D778E"}}>
           PRILOŽNOST
           </div>
-          <div className="w-[140px] h-[35px] flex items-center justify-center rounded-[4px] text-[14px] text-[#6D778E]" 
+          <div className="w-[140px] h-[35px] flex items-center justify-center rounded-[2px] text-[14px] text-[#6D778E]" 
           style={{border: "2px solid #6D778E"}}>
           CENIK
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center pt-[200px] mobile:pt-[200px] w-[700px] mx-auto mobile:w-[350px] min-h-[1076px] mobile:min-h-[800px]">
+        <div className="flex flex-col items-center justify-center pt-[200px] w-[700px] mx-auto mobile:w-[350px] min-h-[calc(100vh-55px)]">
           <Image src={"/faq_page_icon.png"} alt="FAQ" className="mobile:w-[78px] mobile:h-[78px]" width={94} height={94} />
           <h1 className="text-[40px] mobile:text-[28px] font-[300] leading-[48px] text-[#3C3E41] text-center mt-[16px]">Kaj zdaj, kako naj začnem?</h1>
           <h3 className="text-[22px] mobile:text-[20px] font-[600] leading-[48px] text-[#3C3E41] text-center mt-[8px] mobile:mt-[2px]">Cvetličarne - Preprosti napotki</h3>

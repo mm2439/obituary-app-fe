@@ -15,7 +15,7 @@ function ObituaryHeader({ from }) {
     // <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 ">
     <header
       className={`fixed ${
-        from == "2" && pathname !== "/obituarylist-new" ? "top-[45px]" : "top-0"
+        from == "2" ? "top-[45px]" : "top-0"
       } left-0 right-0 bg-white shadow-md z-50`}
     >
       <div className=" flex w-full justify-center">
@@ -93,8 +93,8 @@ function ObituaryHeader({ from }) {
                   </li>
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
                     <Link
-                      href={"/florists"}
-                      className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${pathname == "/floristspromo" ? "!text-[#0A85C2] underline" : "text-[#1E2125]"}`}
+                      href={"#"}
+                      className="text-[#1E2125] font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
                     >
                       Cvetličarne
                     </Link>
@@ -109,8 +109,8 @@ function ObituaryHeader({ from }) {
                   </li>
                   <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center ">
                     <Link
-                      href={"#"}
-                      className="text-[#1E2125] font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px]"
+                      href={"/florists"}
+                      className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${pathname == "/floristspromo" ? "!text-[#0A85C2] underline" : "text-[#1E2125]"}`}
                     >
                       Priložnost
                     </Link>
@@ -119,16 +119,12 @@ function ObituaryHeader({ from }) {
               </div>
               <Image
                 src={iconMenu}
-                className={`mobile:block desktop:hidden h-[20px] w-[20px] ${
-                  pathname == "/keeperpromo" || pathname == "/memorypromo"
-                    ? "block"
-                    : "hidden"
-                }`}
+                className={`mobile:block desktop:hidden h-[20px] w-[20px] ${pathname == "/keeperpromo" || pathname == "/memorypromo" ? "block" : "hidden"}`}
               />
 
               <Image
-                src={pathname == "/keeperpromo" || pathname == "/memorypromo" || pathname == "/obituarylist-new" ? iconMenu : iconMainUser}
-                className="h-5 w-6  mobile:hidden desktop:h-[30px] desktop:w-[30px]"
+                src={pathname == "/keeperpromo" || pathname == "/memorypromo" ? iconMenu : iconMainUser}
+                className="h-5 w-6 tablet:hidden mobile:hidden desktop:h-[30px] desktop:w-[30px]"
               />
             </div>
           </div>

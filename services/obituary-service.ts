@@ -8,8 +8,8 @@ const createObituary = async (formData: FormData) => {
   return response.data;
 };
 
-const getObituaryById = async (slugKey: any) => {
-  const response = await axios.get(`/obituary?slugKey=${slugKey}`);
+const getObituaryById = async (obituaryId: any) => {
+  const response = await axios.get(`/obituary?obituaryId=${obituaryId}`);
   return response.data || null;
 };
 

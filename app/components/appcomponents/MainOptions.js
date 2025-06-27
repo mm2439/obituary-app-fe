@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function MainOptions() {
-  const [selectedIndex, setSelectedIndex] = useState(13);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const data = [
     {
       hasId: true,
@@ -104,7 +104,7 @@ export default function MainOptions() {
     },
   ];
   return (
-    <div className="w-full bg-[#f1f6fd] flex justify-center border-b-[1px] border-[#C7C7C7]">
+    <div className="w-full bg-[#f1f6fd] flex justify-center">
       <div
         className="
         desktop:w-[1280px] desktop:pl-[57px] desktop:pr-[55px]
@@ -112,11 +112,8 @@ export default function MainOptions() {
         mobile:py-[63px] py-[83px] mobile:mb-[62.76px] mobile:w-[310px] "
       >
         <h1 className="text-[#1E2125] text-[40px] font-regular text-center mb-[40px]">
-          Ponekod vam podarijo virtualno svečko
+          Možnosti
         </h1>
-        <p className="text-[#1E2125] text-[24px] font-bold text-center mb-[40px]">
-          Pri nas dobite več
-        </p>
         <div className="flex gap-[130px] mobile:flex-col tablet:gap-[80px] mobile:gap-[40px] justify-center items-center">
           <div
             className={`flex flex-col gap-[15px] w-[310px] ${

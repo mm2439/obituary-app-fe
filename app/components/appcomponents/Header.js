@@ -63,7 +63,7 @@ function Header({ onMenuCLick, from, isMegaMenuVisible }) {
 export function FAQHeader() {
   return (
     <header className="flex flex-col fixed h-[92px] mobile:h-[55px] tablet:h-[80px] left-0 right-0 shadow-md z-50 bg-[#FFFFFF]">
-      <div className="desktop:w-[1200px] w-full tablet:max-w-[700px] tablet:w-full mobile:max-w-[400px] mobile:w-full flex justify-between h-full items-center mx-auto mobile:px-[10px]">
+      <div className="desktop:w-[1200px] w-full tablet:max-w-[700px] tablet:w-full mobile:max-w-[400px] mobile:w-full flex justify-between h-full items-center mx-auto">
         <Link href={"/faq-1"} className="flex">
           <Image
             src={omr}

@@ -6,7 +6,7 @@ import sponser5 from "@/public/sponser5.png";
 import Image from "next/image";
 const SponsorComponent = () => {
   return (
-    <div className="relative max-w-[1920px]  overflow-hidden mx-auto mobile:mx-5 flex tablet:pt-[47px] desktop:pt-[50px] tablet:pb-[42px] desktop:pb-[45px] mobile:py-[50px] justify-center items-center bg-[#F5F7F9]"> 
+    <div className="relative max-w-[1920px]  overflow-hidden mx-auto flex py-[115px] mobile:py-[100px] justify-center items-center bg-[#F5F7F9]"> 
       <div
         className="flex flex-col items-center justify-between
                     w-[1084px] h-[139.45px] 

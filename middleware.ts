@@ -55,8 +55,9 @@ export const config = {
     "/pregled2",
     "/user-accounts-dashboard",
     "/potrditev-objave",
-    "/c/:path*",
-    "/p/:path*",
-    "/u/:path*",
+    "/c/nase_osmrtnice",
+
+    "/c/spletna-stran",
+    "/p/spletna-stran",
   ],
 };

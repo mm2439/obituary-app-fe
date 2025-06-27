@@ -63,7 +63,7 @@ const FrequentlyAskedQuestionView = ({ from, data }) => {
             {from == "7" || from == "8" ? null : (
               <div className="self-end">
                 <Link
-                  href={"/osmrtnice"}
+                  href={"/obituarylist"}
                   className="flex mobile:mt-3 items-center rounded-lg py-3 px-6 justify-center border-[#0A85C270] border-2 shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
                 >
                   <div className=" flex font-variation-customOpt16 font-normal text-[16px] leading-6 text-[#414141] text-center">
@@ -171,22 +171,14 @@ export const FrequentlyAskedQuestionView2 = ({ from, data }) => {
                         [index]: !prev[index],
                       }))
                     }
-                    className={`flex w-full justify-between items-center h-[48px] border-t border-t-[#D4D4D4] px-3 mobile:px-0 ${
-                      visibleIndexes[index] ? "bg-[#083545]" : ""
-                    }`}
+                    className={`flex w-full justify-between items-center h-[48px] border-t border-t-[#D4D4D4] px-3 mobile:px-0 ${visibleIndexes[index] ? 'bg-[#083545]' : ''}`}
                   >
-                    <div
-                      className={`flex font-variation-customOpt16 font-normal text-[18px] leading-6 text-[#1E2125] text-center ${
-                        visibleIndexes[index] ? "text-[#FFFFFF]" : ""
-                      }`}
-                    >
+                    <div className={`flex font-variation-customOpt16 font-normal text-[18px] leading-6 text-[#1E2125] text-center ${visibleIndexes[index] ? 'text-[#FFFFFF]' : ''}`}>
                       {faq.question}
                     </div>
 
                     <Image
-                      src={
-                        visibleIndexes[index] ? icon_cancel_white : icon_plus
-                      }
+                      src={visibleIndexes[index] ? icon_cancel_white : icon_plus}
                       className=" h-[12.5px] w-[12.5px]"
                       alt="cross Icon"
                       width={1000}
@@ -229,19 +221,9 @@ export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
                     [index]: !prev[index],
                   }))
                 }
-                className={`flex w-full justify-between items-center border-t border-t-[#D4D4D4] px-[23px] py-[12px] mobile:px-0 ${
-                  visibleIndexes[index]
-                    ? "tablet:bg-[#083545] desktop:bg-[#083545]"
-                    : ""
-                }`}
+                className={`flex w-full justify-between items-center border-t border-t-[#D4D4D4] px-[23px] py-[12px] mobile:px-0 ${visibleIndexes[index] ? 'tablet:bg-[#083545] desktop:bg-[#083545]' : ''}`}
               >
-                <div
-                  className={`flex font-variation-customOpt16 font-medium text-[18px] leading-6 text-[#1E2125] text-start ${
-                    visibleIndexes[index]
-                      ? "text-[#FFFFFF] mobile:text-[#1E2125]"
-                      : ""
-                  }`}
-                >
+                <div className={`flex font-variation-customOpt16 font-medium text-[18px] leading-6 text-[#1E2125] text-start ${visibleIndexes[index] ? 'text-[#FFFFFF] mobile:text-[#1E2125]' : ''}`}>
                   {faq.question}
                 </div>
 
@@ -268,8 +250,9 @@ export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
             </>
           ))
         : null}
-    </>
+      </>
   );
 };
+
 
 export default FrequentlyAskedQuestionView;

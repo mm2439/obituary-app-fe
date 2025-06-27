@@ -31,7 +31,7 @@ const OpeningDate = () => {
             <div className="flex  h-[174px] flex-col justify-between">
               <div className="flex flex-col w-full h-[102px]">
                 <div className="text-[40px] text-[#3C3E41] font-variation-customOpt40 text-center mt-[-5px]">
-                Uradna otvoritev je 30. junija
+                Uradna otvoritev je 15. junija
                 </div>
                 <div className="text-[24px] text-[#3C3E41] font-bold mt-[3px] font-variation-customOpt24 text-center">
                   Izdelajte svojo spletno stran še pravočasno

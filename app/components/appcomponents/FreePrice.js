@@ -1,55 +1,50 @@
-"use client";
 import React from "react";
-import Link from "next/link";
 
-const FreePrice = () => {
+const FreeCharge = () => {
   return (
-    <div className="max-w-[1920px]  mx-auto h-[616px] tablet:h-[680px] w-full overflow-hidden">
-      <div className="max-w-[1064px] w-full desktop:h-[253px] tablet:h-[253px] mx-auto mt-[109px] mobile:mt-[82px] flex flex-col">
-        <div className="flex justify-center">
-          <div className="text-[40px] mobile:hidden mobile:text-[28px] mobile:w-full leading-[48px] text-[#3C3E41] mobile:font-variation-customOpt28 font-variation-customOpt40 text-center">
-            Cena? Popolnoma BREZPLAČNO!
+    <div className="w-full bg-[#edf1f4]">
+      <div className="relative max-w-[1920px]  py-[65px] desktop:py-[105px] tablet:py-[75px] w-full overflow-hidden flex mx-auto justify-center items-center">
+        {/*Main container */}
+        <div className="w-[669px] h-[616px] tablet:w-[637px] tablet:h-[685px] mobile:w-[337px] mobile:h-[483px] flex flex-col">
+          {/*header container*/}
+          <div className="flex mobile:w-[304px] mobile:h-[228px] tablet:h-[228px] mx-auto flex-col">
+            <div className="text-[40px] text-[#3C3E41] mobile:text-[28px] mobile:font-variation-customOpt28 text-center font-variation-customOpt40  tablet:mt-[1px] tablet:truncate mobile:mt-[1px] leading-[48px] mobile:leading-10">
+              Spletno stran si sami izdelate v 30 minutah
+            </div>
+
+            {/*text for desktop*/}
+            <div className="text-[24px] text-[#3C3E41] self-center font-variation-customOpt24 font-bold mt-[12px] mobile:mt-[15px] hidden desktop:flex">
+              BREZPLAČNO
+            </div>
+
+            {/*text for tablet & mobile*/}
+            <div className="text-[24px] text-[#3C3E41] self-center font-variation-customOpt24 mobile:text-[20px] mobile:font-variation-customOpt20wght400 mobile:font-bold font-bold mt-[11px] mobile:mt-[7px] flex desktop:hidden">
+              Bolj enostavno ne gre
+            </div>
+
+            <p className="text-[18px] text-[#3C3E41] text-center font-variation-customOpt18 mt-[22px] mobile:mt-[29px] leading-[27px] tablet:mx-6">
+              Korak za korakom v naši predlogi zamenjate tekste s svojimi in
+              vstavite svoje slike.
+            </p>
           </div>
 
-          <div className="text-[40px] mobile:text-[28px] hidden mobile:flex flex-col mobile:w-full leading-[48px] text-[#3C3E41] mobile:font-variation-customOpt28 font-variation-customOpt40 text-center">
-            Cena?
-            <div>Popolnoma BREZPLAČNO!</div>
-          </div>
-        </div>
+          {/*image for mobile */}
+          {/* 7 October 2024 To be confirmed */}
+          <img
+            src="/image_mobile_offer.png"
+            className="w-[336px] h-[217px] self-center mt-[42px] hidden mobile:flex"
+          ></img>
 
-        <div className="font-variation-customOpt24 mobile:font-variation-customOpt20 mx-auto leading-[48px] mt-[2px] font-bold text-[24px] mobile:text-[20px] text-[#3C3E41] text-center">
-          Danes. Jutri. Za vedno.
-        </div>
-
-        <div className="w-[650px] mobile:w-[292px] desktop:h-[135px] text-center font-variation-customOpt18 mx-auto text-[18px] leading-[27px] mt-[16px] tablet:mt-[20px] text-[#3C3E41]">
-          <div>
-            Delimo iste cilje; kar najbolj pomagati žalujočim, da najdejo vse
-            potrebne informacije na enem mestu v težkih trenutkih.
-          </div>
-          <div className="mt-[32px] tablet:mt-[28px]">
-            Naše edino pričakovanje je, da dosledno in ažurno vnašate nove
-            osmrtnice v sistem, da ima neko uporabno vrednost; tj vključno s
-            sliko in časom pogreba.
-          </div>
-        </div>
-
-        <div className="mt-[62px] mobile:hidden mx-auto w-[617.64px] tablet:w-[650px] tablet:h-[135px] h-[147px]">
-          <div className="flex justify-center text-[#1E2125] text-[24px] font-bold font-variation-customOpt24 leading-[48px]">
-            Oglej si primer strani za pogrebna podjetja
-          </div>
-
-          <div className="w-[99px] h-[48px] bg-[#BCD7F4] mx-auto flex mt-[8px] justify-center items-center rounded-lg">
-            <Link
-              href="/funeralcompany"
-              className="font-variation-customOpt16 leading-[24px] text-[16px] text-[#1E2125] text-center"
-            >
-              Vzorec
-            </Link>
-          </div>
+          {/*image for tablet*/}
+          {/* 7 October 2024 - To be confirmed */}
+          <img
+            src="/image_desktop_offer.png"
+            className=" h-[401px] self-center mx-4 mt-[63px] desktop:mt-[70px] flex mobile:hidden"
+          ></img>
         </div>
       </div>
     </div>
   );
 };
 
-export default FreePrice;
+export default FreeCharge;

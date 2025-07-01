@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const PUBLIC_ROUTES = ["/", "/registrationpage"];
+
 const USER_ROUTES = [
   "/moj-racun",
   "/moji-prispevki",
@@ -11,18 +12,22 @@ const USER_ROUTES = [
   "/user-accounts-dashboard",
   "/potrditev-objave",
 ];
-const FLORIST_ROUTES = ["/c/spletna-stran"];
-const FUNERAL_ROUTES = ["/p/spletna-stran"];
+
+// Routes that should be rewritten based on role
+const FLORIST_ROUTES = ["spletna-stran", "nasi_podatki"];
+const FUNERAL_ROUTES = ["spletna-stran", "nasi_podatki"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("accessToken")?.value;
   const role = request.cookies.get("role")?.value;
+  const slugKey = request.cookies.get("slugKey")?.value;
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
   const isUserRoute = USER_ROUTES.includes(pathname);
-  const isFloristRoute = FLORIST_ROUTES.includes(pathname);
-  const isFuneralRoute = FUNERAL_ROUTES.includes(pathname);
+
+  const pathParts = pathname.split("/").filter(Boolean);
+  const lastSegment = pathParts[pathParts.length - 1];
 
   if (isPublicRoute) {
     return NextResponse.next();
@@ -36,28 +41,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL("/access-denied", request.url));
   }
 
-  if (isFloristRoute && role !== "Florist") {
-    return NextResponse.rewrite(new URL("/access-denied", request.url));
+  if (role === "Florist" && FLORIST_ROUTES.includes(lastSegment) && slugKey) {
+    const targetUrl = `/c/${slugKey}/${lastSegment}`;
+    if (pathname !== targetUrl) {
+      return NextResponse.redirect(new URL(targetUrl, request.url));
+    }
   }
-  if (isFuneralRoute && role !== "Funeral") {
-    return NextResponse.rewrite(new URL("/access-denied", request.url));
+
+  if (role === "Funeral" && FUNERAL_ROUTES.includes(lastSegment) && slugKey) {
+    const targetUrl = `/p/${slugKey}/${lastSegment}`;
+    if (pathname !== targetUrl) {
+      return NextResponse.redirect(new URL(targetUrl, request.url));
+    }
   }
 
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: [
-    "/moj-racun",
-    "/moji-prispevki",
-    "/obletnice",
-    "/pregled",
-    "/pregled2",
-    "/user-accounts-dashboard",
-    "/potrditev-objave",
-    "/c/nase_osmrtnice",
-
-    "/c/spletna-stran",
-    "/p/spletna-stran",
-  ],
-};

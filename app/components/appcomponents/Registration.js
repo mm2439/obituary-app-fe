@@ -118,12 +118,14 @@ const Registration = () => {
 
       if (isDesktop) {
         if (response?.user?.role === "User") {
+          console.log("Here in user part");
           router.push(`/u/${response.user.slugKey}/moj-racun`);
         } else if (
           response?.user?.role === "Florist" ||
           response?.user?.role === "Funeral"
         ) {
-          router.push(`/c/${response.user.slugKey}/menu`);
+          console.log("Here in company part");
+          router.push(`/c/${response.user.slugKey}/nasi_podatki`);
         }
       } else if (!isDesktop) {
         if (response?.user?.role === "User") {

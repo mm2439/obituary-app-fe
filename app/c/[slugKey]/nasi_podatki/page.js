@@ -17,6 +17,7 @@ export default function AccountSettings() {
     getCompleteCompanyData();
   }, []);
   const [data, setData] = useState({});
+  const [selectedCity, setSelectedCity] = useState(null);
   const getCompleteCompanyData = async () => {
     try {
       const queryParams = {};

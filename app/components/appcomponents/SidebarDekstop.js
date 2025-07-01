@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { CommonViewUserAccSidebar } from "./Commonfunction";
 import { usePathname, useRouter } from "next/navigation";
@@ -12,6 +12,7 @@ function SidebarDekstop({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [user, setUser] = useState(null);
 
   const logoutUser = async () => {
     try {
@@ -30,6 +31,13 @@ function SidebarDekstop({
       console.error("Error Fetching Pending Posts:", err);
     }
   };
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, []);
   return (
     <div
       className="px-[22px] mx-auto bg-[#F1F5F8] pt-[36px] hidden desktopUserAcc:flex flex-col border-r-2 border-[#FFFFFF]
@@ -51,7 +59,7 @@ function SidebarDekstop({
               : "/ico_setting.png"
           }
           title={"Moj račun"}
-          route="/moj-racun"
+          route={"/moj-racun"}
         />
       </div>
       <div>

@@ -7,6 +7,7 @@ import {
 } from "./Commonfunction";
 import { usePathname, useRouter } from "next/navigation";
 import authService from "@/services/auth-service";
+import { useEffect, useState } from "react";
 
 export default function CompanySidebar({
   showAlternateContent,
@@ -15,6 +16,7 @@ export default function CompanySidebar({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [user, setUser] = useState(null);
 
   const normalPath = pathname.startsWith("/c")
     ? pathname.replace("/c", "")
@@ -38,6 +40,14 @@ export default function CompanySidebar({
       console.error("Error Fetching Pending Posts:", err);
     }
   };
+
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, []);
 
   return (
     <div
@@ -65,7 +75,7 @@ export default function CompanySidebar({
                 : "/ico_pregled.png"
             }
             title={"Osmrtnice"}
-            route={absolutePath + "/nase_osmrtnice"}
+            route={absolutePath + `/${user?.slugKey}` + "/nase_osmrtnice"}
             pendingConfirmations={pendingConfirmations}
             isActive={normalPath === "/osmrtnice_stat"}
             isFirstLetterDifferent={true}
@@ -78,7 +88,7 @@ export default function CompanySidebar({
                 : "/spominske.png"
             }
             title={"Spominske"}
-            route={absolutePath + "/nase_spominske"}
+            route={absolutePath + `/${user?.slugKey}` + "/nase_spominske"}
             isActive={
               normalPath === "/nase_spominske" ||
               normalPath === "/nasi_prispevki"
@@ -93,7 +103,7 @@ export default function CompanySidebar({
                 : "/mobi_predloge.png"
             }
             title={"MOBI predloge"}
-            route={absolutePath + "/nasa_darila"}
+            route={absolutePath + `/${user?.slugKey}` + "/nasa_darila"}
             isActive={
               normalPath === "/nasa_darila" || normalPath === "/darila_pregled"
             }
@@ -122,7 +132,7 @@ export default function CompanySidebar({
               : "/ico_setting.png"
           }
           title={"Naša spletna stran"}
-          route={absolutePath + "/nasa_pokopalisca"}
+          route={absolutePath + `/${user?.slugKey}` + "/nasa_pokopalisca"}
           isActive={
             normalPath === "/nasa_pokopalisca" ||
             normalPath === "/spletna-stran"
@@ -137,7 +147,7 @@ export default function CompanySidebar({
               : "/ico_setting.png"
           }
           title={"Naši podatki"}
-          route={absolutePath + "/nasi_podatki"}
+          route={absolutePath + `/${user?.slugKey}` + "/nasi_podatki"}
           isActive={
             normalPath === "/nasi_podatki" ||
             normalPath === "/narocila" ||

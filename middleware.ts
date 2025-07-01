@@ -57,3 +57,17 @@ export function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: [
+    "/moj-racun",
+    "/moji-prispevki",
+    "/obletnice",
+    "/pregled",
+    "/pregled2",
+    "/user-accounts-dashboard",
+    "/potrditev-objave",
+    "/c/:slug/:page*",
+    "/p/:slug/:page*",
+  ],
+};

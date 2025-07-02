@@ -20,6 +20,8 @@ export default function Funeral() {
   const gotoTopRef = useRef(null);
   const pathname = usePathname();
 
+  const [user, setUser] = useState(null);
+
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
   useEffect(() => {
@@ -28,7 +30,13 @@ export default function Funeral() {
   }, []);
 
   const [pendingPosts, setPendingPosts] = useState([]);
-
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, []);
   const fetchPendingPosts = async () => {
     try {
       const response = await obituaryService.fetchPendingPosts();
@@ -119,7 +127,7 @@ export default function Funeral() {
                 />
               </div>
               <Link
-                href={absolutePath + "/nase_osmrtnice"}
+                href={absolutePath + `${user.slugKey}` + "/nase_osmrtnice"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG
@@ -130,7 +138,7 @@ export default function Funeral() {
               <div className="text-[#2198D3] mt-[50px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
                 MESEČNI PREGLED IN STATISTIKE
               </div>
-              <Link href="/pregled">
+              <Link href={absolutePath + `${user.slugKey}` + "/pregled"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
@@ -141,7 +149,7 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href="/obletnice">
+              <Link href={absolutePath + `${user.slugKey}` + "/obletnice"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -151,7 +159,7 @@ export default function Funeral() {
                   />
                 </div>
               </Link>
-              <Link href="/moji-prispevki">
+              <Link href={absolutePath + `${user.slugKey}` + "/moji-prispevki"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -184,7 +192,11 @@ export default function Funeral() {
                     />
                   </div>
 
-                  <Link href={"/potrditev-objave"}>
+                  <Link
+                    href={
+                      absolutePath + `${user.slugKey}` + "/potrditev-objave"
+                    }
+                  >
                     <div className="mt-[8px]">
                       <ButtonWhiteBG
                         placeholderImg={""}

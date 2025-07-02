@@ -10,8 +10,11 @@ import CompanySidebar from "@/app/components/appcomponents/CompanySidebar";
 
 const CompanyAccountLayout = ({ children }) => {
   const pathname = usePathname();
+  const [user, setUser] = useState(null);
 
-  const normalPath = pathname.startsWith("/c") ? pathname.replace("/c", "") : pathname.replace("/p", "");
+  const normalPath = pathname.startsWith("/c")
+    ? pathname.replace("/c", "")
+    : pathname.replace("/p", "");
 
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
@@ -25,14 +28,22 @@ const CompanyAccountLayout = ({ children }) => {
   };
 
   const [headingOne, setHeadingOne] = useState("Račun in nastavitve");
-  const [headingTwo, setHeadingTwo] = useState("Moja naročila");
+  const [headingTwo, setHeadingTwo] = useState("Naša pokopališča");
   const [headingThree, setHeadingThree] = useState("Prejeta sporočila");
 
-  const [hrefLinkOne, setHrefLinkOne] = useState("");
+  const [hrefLinkOne, setHrefLinkOne] = useState(
+    `/p/${user?.slugKey}/nasa_pokopalisca`
+  );
   const [hrefLinkTwo, setHrefLinkTwo] = useState("");
 
   const [innnerSize, setInnnerSize] = useState(false);
-
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, []);
   function handleResize() {
     if (window.innerWidth <= 744) {
       setInnnerSize(true); // Change state value when width is <= 744
@@ -97,7 +108,7 @@ const CompanyAccountLayout = ({ children }) => {
       setHeadingThree("Naročila");
     } else if (normalPath == "/spletna-stran") {
       setHeadingOne("Naša spletna stran");
-      if(absolutePath == "/p"){
+      if (absolutePath == "/p") {
         setHeadingTwo("Naša pokopališča");
       } else {
         setHeadingTwo(null);
@@ -220,9 +231,10 @@ const CompanyAccountLayout = ({ children }) => {
                     )}
                   </div>
 
-                  {headingTwo && <Link
-                    href={hrefLinkOne}
-                    className={` mt-[10px]
+                  {headingTwo && (
+                    <Link
+                      href={hrefLinkOne}
+                      className={` mt-[10px]
                     
                     ${
                       pathname == "/potrditev-objave" ||
@@ -231,33 +243,35 @@ const CompanyAccountLayout = ({ children }) => {
                         : ""
                     }
                     `}
-                  >
-                    <div
-                      className={`ml-[49px] h-[30px] px-3 border-b-2 mt-[2px] border-[#0A85C2] `}
                     >
                       <div
-                        style={{
-                          fontVariationSettings:
-                            "'wdth' 50,'wght' 400,'opsz' 18",
-                        }}
-                        className="text-[18px] font-normal text-[#0A85C2]"
+                        className={`ml-[49px] h-[30px] px-3 border-b-2 mt-[2px] border-[#0A85C2] `}
                       >
-                        {headingTwo}
+                        <div
+                          style={{
+                            fontVariationSettings:
+                              "'wdth' 50,'wght' 400,'opsz' 18",
+                          }}
+                          className="text-[18px] font-normal text-[#0A85C2]"
+                        >
+                          {headingTwo}
+                        </div>
                       </div>
-                    </div>
-                  </Link>}
+                    </Link>
+                  )}
 
-                  {headingThree && <Link
-                    href={hrefLinkTwo}
-                    className={` mt-[10px] ${
-                      pathname == "/moj-racun" ||
-                      pathname == "/moji-prispevki" ||
-                      pathname == "/pregled2" ||
-                      pathname == "/potrditev-objave" ||
-                      pathname == "/dodaj-vsebine"
-                        ? "mobileUserAcc:hidden "
-                        : ""
-                    }
+                  {headingThree && (
+                    <Link
+                      href={hrefLinkTwo}
+                      className={` mt-[10px] ${
+                        pathname == "/moj-racun" ||
+                        pathname == "/moji-prispevki" ||
+                        pathname == "/pregled2" ||
+                        pathname == "/potrditev-objave" ||
+                        pathname == "/dodaj-vsebine"
+                          ? "mobileUserAcc:hidden "
+                          : ""
+                      }
                     
                     ${
                       pathname == "/potrditev-objave"
@@ -265,21 +279,22 @@ const CompanyAccountLayout = ({ children }) => {
                         : ""
                     }
                     `}
-                  >
-                    <div
-                      className={`h-[30px] ml-[25px] px-3 border-b-2 mt-[2px] border-[#0A85C2]`}
                     >
                       <div
-                        style={{
-                          fontVariationSettings:
-                            "'wdth' 50,'wght' 400,'opsz' 18",
-                        }}
-                        className="text-[18px] text-[#0A85C2] font-normal px-3"
+                        className={`h-[30px] ml-[25px] px-3 border-b-2 mt-[2px] border-[#0A85C2]`}
                       >
-                        {headingThree}
+                        <div
+                          style={{
+                            fontVariationSettings:
+                              "'wdth' 50,'wght' 400,'opsz' 18",
+                          }}
+                          className="text-[18px] text-[#0A85C2] font-normal px-3"
+                        >
+                          {headingThree}
+                        </div>
                       </div>
-                    </div>
-                  </Link>}
+                    </Link>
+                  )}
                 </div>
 
                 {/* MAIN SCREENS WHICH WILL CHANGE WHEN ROUTE CHANGES */}

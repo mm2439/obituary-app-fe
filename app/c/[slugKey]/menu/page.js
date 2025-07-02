@@ -18,6 +18,7 @@ export default function Funeral() {
   const pathname = usePathname();
 
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetchPendingPosts();
@@ -63,7 +64,13 @@ export default function Funeral() {
   const toggleMobileSidebar = () => {
     setIsMobilSideBarOpen(!isMobilSideBarOpen);
   };
-
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, []);
   return (
     <div
       ref={gotoTopRef}
@@ -116,7 +123,7 @@ export default function Funeral() {
                 />
               </div>
               <Link
-                href={absolutePath + "/nase_osmrtnice"}
+                href={"/c" + `${user?.slugKey}` + "/nase_osmrtnice"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG
@@ -127,7 +134,7 @@ export default function Funeral() {
               <div className="text-[#2198D3] mt-[50px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
                 MESEČNI PREGLED IN STATISTIKE
               </div>
-              <Link href="/pregled">
+              <Link href={"/c" + `${user?.slugKey}` + "/pregled"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
@@ -138,7 +145,7 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href="/obletnice">
+              <Link href={"/c" + `${user?.slugKey}` + "/obletnice"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -148,7 +155,7 @@ export default function Funeral() {
                   />
                 </div>
               </Link>
-              <Link href="/moji-prispevki">
+              <Link href={"/c" + `${user?.slugKey}` + "/moji-prispevki"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -181,7 +188,7 @@ export default function Funeral() {
                     />
                   </div>
 
-                  <Link href={"/potrditev-objave"}>
+                  <Link href={"/c" + `${user?.slugKey}` + "/potrditev-objave"}>
                     <div className="mt-[8px]">
                       <ButtonWhiteBG
                         placeholderImg={""}
@@ -193,13 +200,19 @@ export default function Funeral() {
                 </div>
               )}
               <div className="w-[314] h-[55px] mt-[8px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent"></div>
-              <Link href={"/"} className="mt-[8px]">
+              <Link
+                href={"/c" + `${user?.slugKey}` + "/spletna_stran"}
+                className="mt-[8px]"
+              >
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"NAŠA SPLETNA STRAN"}
                 />
               </Link>
-              <Link href={"/"} className="mt-[8px]">
+              <Link
+                href={"/c" + `${user?.slugKey}` + "/nasi_podatki"}
+                className="mt-[8px]"
+              >
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"NAŠ RAČUN"}
@@ -233,7 +246,7 @@ export default function Funeral() {
             <div className="w-[314px] flex flex-col">
               <div className="items-center justify-center gap-5 mt-5 hidden mobileUserAcc:flex">
                 <Link
-                  href={"/osmrtnice"}
+                  href={"/c" + `${user?.slugKey}` + "/osmrtnice"}
                   className="flex items-center rounded-lg justify-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
                 mobile:h-[50px] mobile:w-[120px]
                 tablet:h-[43px] tablet:w-[97px]
@@ -247,7 +260,7 @@ export default function Funeral() {
                   </div>
                 </Link>
                 <Link
-                  href={"/osmrtnice"}
+                  href={"/c" + `${user?.slugKey}` + "/osmrtnice"}
                   className="flex items-center rounded-lg justify-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
                 mobile:h-[50px] mobile:w-[120px]
                 tablet:h-[43px] tablet:w-[97px]
@@ -261,19 +274,22 @@ export default function Funeral() {
                   </div>
                 </Link>
               </div>
-              <div className="mt-[8px]  mobileUserAcc:hidden">
+              <Link
+                href={"/c" + `${user?.slugKey}` + "/spletna_stran"}
+                className="mt-[8px]  mobileUserAcc:hidden"
+              >
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"NAZAJ NA SPLETNO STRAN"}
                   isOpen={2}
                 />
-              </div>
-              <div className="mt-[8px]  mobileUserAcc:hidden">
+              </Link>
+              <Link className="mt-[8px]  mobileUserAcc:hidden">
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"POGOSTA VPRAŠANJA"}
                 />
-              </div>
+              </Link>
               <div className="w-[314] h-[58px] mt-[8px] py-[2px] px-[2px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent opacity-0 invisible"></div>
               {/* {/ 21/10 changeeeee /} */}
               <div
@@ -285,7 +301,7 @@ export default function Funeral() {
                 ZA STRANKE
               </div>
               <Link
-                href="/user/funeral/notifications"
+                href={"/obituaryform"}
                 className="bg-white rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[2px] mobileUserAcc:mt-[5px] relative overflow-hidden min-h-[55px]"
               >
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-end bg-gradient-to-b from-[rgba(249,171,22,1)] to-[rgba(197,135,14,1)]">
@@ -321,7 +337,7 @@ export default function Funeral() {
                 </div>
               </Link>
               <Link
-                href="/user/funeral/notifications"
+                href={"/floristsgifts"}
                 className="bg-white rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[9px] mobileUserAcc:mt-[15px] relative overflow-hidden min-h-[55px]"
               >
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-end bg-gradient-to-b from-[rgba(10,133,194,1)] to-[rgba(24,96,163,1)]">
@@ -359,7 +375,7 @@ export default function Funeral() {
               </Link>
               <div className="w-[314] h-[55px] mt-[8px] py-[2px] px-[2px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent mobileUserAcc:hidden"></div>
               <Link
-                href="/user/funeral/notifications"
+                href={"/floristsgifts"}
                 className="bg-white rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[9px] mobileUserAcc:mt-[15px] relative overflow-hidden min-h-[55px]"
               >
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-end bg-gradient-to-b from-[rgba(249,22,214,1)] to-[rgba(157,32,138,1)]">

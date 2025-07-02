@@ -22,8 +22,6 @@ export default function Funeral() {
 
   const [user, setUser] = useState(null);
 
-  const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
-
   useEffect(() => {
     fetchPendingPosts();
     getKeeperMemory();
@@ -126,10 +124,7 @@ export default function Funeral() {
                   pendingConfirmations={pendingPosts.length}
                 />
               </div>
-              <Link
-                href={absolutePath + `/${user?.slugKey}` + "/nase_osmrtnice"}
-                className="mt-[8px]"
-              >
+              <Link href={"/"} className="mt-[8px]">
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"DOPOLNI OSMRTNICE"}
@@ -138,7 +133,7 @@ export default function Funeral() {
               <div className="text-[#2198D3] mt-[50px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
                 MESEČNI PREGLED IN STATISTIKE
               </div>
-              <Link href={absolutePath + `/${user?.slugKey}` + "/pregled"}>
+              <Link href={"p" + `/${user?.slugKey}` + "/nase_osmrtnice"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
@@ -149,7 +144,7 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href={absolutePath + `/${user?.slugKey}` + "/obletnice"}>
+              <Link href={"p" + `/${user?.slugKey}` + "/nase_spominske"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -159,9 +154,7 @@ export default function Funeral() {
                   />
                 </div>
               </Link>
-              <Link
-                href={absolutePath + `/${user?.slugKey}` + "/moji-prispevki"}
-              >
+              <Link href={"p" + `/${user?.slugKey}` + "/nasa_darila"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -194,11 +187,7 @@ export default function Funeral() {
                     />
                   </div>
 
-                  <Link
-                    href={
-                      absolutePath + `/${user?.slugKey}` + "/potrditev-objave"
-                    }
-                  >
+                  <Link href={"p" + `/${user?.slugKey}` + "/potrditev-objave"}>
                     <div className="mt-[8px]">
                       <ButtonWhiteBG
                         placeholderImg={""}
@@ -210,13 +199,19 @@ export default function Funeral() {
                 </div>
               )}
               <div className="w-[314] h-[55px] mt-[8px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent"></div>
-              <Link href={"/"} className="mt-[8px]">
+              <Link
+                href={"p" + `/${user?.slugKey}` + "/spletna-stran"}
+                className="mt-[8px]"
+              >
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"NAŠA SPLETNA STRAN"}
                 />
               </Link>
-              <Link href={"/"} className="mt-[8px]">
+              <Link
+                href={"p" + `/${user?.slugKey}` + "/nasi_podatki"}
+                className="mt-[8px]"
+              >
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"NAŠ RAČUN"}

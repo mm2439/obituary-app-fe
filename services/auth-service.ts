@@ -17,7 +17,7 @@ const login = async (credentials: { email: string; password: string }) => {
     return { error: "An unexpected error occurred" };
   }
 };
-
+//
 const logout = async () => {
   const endpoint = "/auth/logout";
 

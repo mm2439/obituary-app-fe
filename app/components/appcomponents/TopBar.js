@@ -22,14 +22,29 @@ const TopBar = ({
   const isDesktop = () => window.innerWidth >= 758;
 
   const handleNavigation = () => {
-    if (user) {
-      if (isDesktop()) {
-        router.push("/moj-racun");
-      } else {
-        router.push("/user-accounts-dashboard");
-      }
-    } else {
+    if (!user) {
       router.push("/registrationpage");
+      return;
+    }
+
+    const isUser = user.role === "User";
+    const isFuneral = user.role === "Funeral";
+    const isFlorist = user.role === "Florist";
+    const desktop = isDesktop();
+    const slugKey = user.slugKey;
+
+    if (isUser && desktop) {
+      router.push(`/u/${user.slugKey}/moj-racun`);
+    } else if (isUser && !desktop) {
+      router.push("/user-accounts-dashboard");
+    } else if (isFuneral && desktop) {
+      router.push(`/p/${slugKey}/nasi_podatki`);
+    } else if (isFuneral && !desktop) {
+      router.push(`/p/${slugKey}/menu`);
+    } else if (isFlorist && desktop) {
+      router.push(`/c/${slugKey}/nasi_podatki`);
+    } else if (isFlorist && !desktop) {
+      router.push(`/c/${slugKey}/menu`);
     }
   };
 

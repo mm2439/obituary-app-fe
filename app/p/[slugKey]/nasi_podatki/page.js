@@ -92,10 +92,6 @@ export default function AccountSettings() {
           </div>
           <div className="space-y-[18px]">
             <div className="flex items-center gap-[12px]">
-              <span className="uppercase">uporabniško ime:</span>
-              <span className="text-[#3C3E41]"> {data?.name}</span>
-            </div>
-            <div className="flex items-center gap-[12px]">
               <span className="uppercase">geslo:</span>
               <span className="text-[#3C3E41]">**************</span>
             </div>

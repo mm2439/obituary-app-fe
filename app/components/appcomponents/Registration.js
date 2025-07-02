@@ -116,25 +116,26 @@ const Registration = () => {
 
       toast.success(response.message || "Login successful!");
 
-      if (isDesktop) {
-        if (response?.user?.role === "User") {
-          console.log("Here in user part");
-          router.push(`/u/${response.user.slugKey}/moj-racun`);
-        } else if (
-          response?.user?.role === "Florist" ||
-          response?.user?.role === "Funeral"
-        ) {
-          console.log("Here in company part");
-          router.push(`/c/${response.user.slugKey}/nasi_podatki`);
-        }
-      } else if (!isDesktop) {
-        if (response?.user?.role === "User") {
-          router.push("/user-accounts-dashboard");
-        } else if (
-          response?.user?.role === "Florist" ||
-          response?.user?.role === "Funeral"
-        ) {
-          router.push("/c/menu");
+      if (response?.user) {
+        const role = response.user.role;
+        const slugKey = response.user.slugKey;
+
+        if (isDesktop) {
+          if (role === "User") {
+            router.push(`/u/${slugKey}/moj-racun`);
+          } else if (role === "Florist") {
+            router.push(`/c/${slugKey}/nasi_podatki`);
+          } else if (role === "Funeral") {
+            router.push(`/p/${slugKey}/nasi_podatki`);
+          }
+        } else {
+          if (role === "User") {
+            router.push("/user-accounts-dashboard");
+          } else if (role === "Florist") {
+            router.push(`/c/${slugKey}/menu`);
+          } else if (role === "Funeral") {
+            router.push(`/p/${slugKey}/menu`);
+          }
         }
       }
     } catch (error) {

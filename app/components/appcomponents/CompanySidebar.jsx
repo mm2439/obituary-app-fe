@@ -132,7 +132,7 @@ export default function CompanySidebar({
               : "/ico_setting.png"
           }
           title={"Naša stran"}
-          route={absolutePath + `/${user?.slugKey}` + "/nasa_pokopalisca"}
+          route={absolutePath + `/${user?.slugKey}` + "/spletna-stran"}
           isActive={
             normalPath === "/nasa_pokopalisca" ||
             normalPath === "/spletna-stran"

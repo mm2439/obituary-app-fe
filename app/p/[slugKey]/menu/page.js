@@ -133,7 +133,7 @@ export default function Funeral() {
               <div className="text-[#2198D3] mt-[50px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
                 MESEČNI PREGLED IN STATISTIKE
               </div>
-              <Link href={"p" + `/${user?.slugKey}` + "/nase_osmrtnice"}>
+              <Link href={`/p/${user?.slugKey}/nase_osmrtnice`}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
@@ -144,7 +144,7 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href={"p" + `/${user?.slugKey}` + "/nase_spominske"}>
+              <Link href={"/p" + `/${user?.slugKey}` + "/nase_spominske"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -154,7 +154,7 @@ export default function Funeral() {
                   />
                 </div>
               </Link>
-              <Link href={"p" + `/${user?.slugKey}` + "/nasa_darila"}>
+              <Link href={"/p" + `/${user?.slugKey}` + "/nasa_darila"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -187,7 +187,7 @@ export default function Funeral() {
                     />
                   </div>
 
-                  <Link href={"p" + `/${user?.slugKey}` + "/potrditev-objave"}>
+                  <Link href={"/p" + `/${user?.slugKey}` + "/potrditev-objave"}>
                     <div className="mt-[8px]">
                       <ButtonWhiteBG
                         placeholderImg={""}
@@ -200,7 +200,7 @@ export default function Funeral() {
               )}
               <div className="w-[314] h-[55px] mt-[8px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent"></div>
               <Link
-                href={"p" + `/${user?.slugKey}` + "/spletna-stran"}
+                href={"/p" + `/${user?.slugKey}` + "/spletna-stran"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG
@@ -209,7 +209,7 @@ export default function Funeral() {
                 />
               </Link>
               <Link
-                href={"p" + `/${user?.slugKey}` + "/nasi_podatki"}
+                href={"/p" + `/${user?.slugKey}` + "/nasi_podatki"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG

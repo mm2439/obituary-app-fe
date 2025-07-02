@@ -55,6 +55,7 @@ export default function AccountSettings() {
       toast.error("Error Updating City");
     }
   };
+
   return (
     <CompanyAccountLayout>
       <div className="w-full max-w-[1000px] min-w-[720px]">

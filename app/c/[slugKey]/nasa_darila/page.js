@@ -1,9 +1,25 @@
+"use client";
 import CompanyAccountLayout from "@/app/components/appcomponents/CompanyAccountLayout";
+import obituaryService from "@/services/obituary-service";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Darila() {
+  const [logs, setLogs] = useState([]);
+  useEffect(() => {
+    console.log("here-called");
+    getLogs();
+  }, []);
+
+  const getLogs = async () => {
+    try {
+      const response = await obituaryService.getGiftLogs();
+      setLogs(response.logs);
+    } catch (error) {
+      console.log(error, "==============");
+    }
+  };
   return (
     <CompanyAccountLayout>
       <div className="w-full max-w-[969px]">
@@ -37,9 +53,12 @@ export default function Darila() {
                 alt="predloge"
                 className="w-6 h-6 object-contain"
               />
-              <h2 className="text-[16px] text-[#6D778E] leading-none">
+              <Link
+                href={"/floristsgifts"}
+                className="text-[16px] text-[#6D778E] leading-none"
+              >
                 PODARI SKRBNIKA
-              </h2>
+              </Link>
             </div>
           </Link>
           <Link
@@ -71,9 +90,12 @@ export default function Darila() {
                 alt="predloge"
                 className="w-6 h-6 object-contain"
               />
-              <h2 className="text-[16px] text-[#6D778E] leading-none">
+              <Link
+                href={"/floristsgifts"}
+                className="text-[16px] text-[#6D778E] leading-none"
+              >
                 MOBI PREDLOGE
-              </h2>
+              </Link>
             </div>
           </Link>
         </div>
@@ -95,192 +117,51 @@ export default function Darila() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-white/40 text-[#3C3E41]">
-                  <td className="px-4 py-[18px] text-[16px] leading-[19px] font-variation-customOpt18 border-t border-b border-l rounded-l border-[#A1B1D4] text-[#6D778E]">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
-                      12.03.2023
-                    </span>
-                    <span className="tabletUserAcc:block mobileUserAcc:block hidden text-[14px]">
-                      12.03.
-                      <br />
-                      <span className="text-[#D4D4D4]">2023</span>
-                    </span>
-                  </td>
-                  <td className="px-4 py-[12px] border-t border-b border-[#A1B1D4] text-center text-[16px]">
-                    <div className="flex flex-col items-start gap-0 ">
-                      <span className="text-[#6D778E] text-[12px]">
-                        Elizabeth
-                      </span>
-                      <span className="text-[#3C3E41] text-[14px]">
-                        Frederickson
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    Managua
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    justme39
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-r rounded-r border-[#A1B1D4] text-[14px]">
-                    MOBI Pogreb 2
-                  </td>
-                </tr>
-                <tr className="bg-[#e3e9f0] text-[#3C3E41]">
-                  <td className="px-4 py-[18px] text-[16px] leading-[19px] font-variation-customOpt18 border-t border-b border-l rounded-l border-[#A1B1D4] text-[#6D778E]">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
-                      12.03.2023
-                    </span>
-                    <span className="tabletUserAcc:block mobileUserAcc:block hidden text-[14px]">
-                      12.03.
-                      <br />
-                      <span className="text-[#D4D4D4]">2023</span>
-                    </span>
-                  </td>
-                  <td className="px-4 py-[12px] border-t border-b border-[#A1B1D4] text-center text-[16px]">
-                    <div className="flex flex-col items-start gap-0">
-                      <span className="text-[#6D778E] text-[12px]">
-                        Elizabeth
-                      </span>
-                      <span className="text-[#3C3E41] text-[14px]">
-                        Frederickson
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    Managua
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    justme39
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px] border-r rounded-r">
-                    MOBI Pogreb 2
-                  </td>
-                </tr>
-                <tr className="bg-white/40 text-[#3C3E41]">
-                  <td className="px-4 py-[18px] text-[16px] leading-[19px] font-variation-customOpt18 border-t border-b border-l rounded-l border-[#A1B1D4] text-[#6D778E]">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
-                      12.03.2023
-                    </span>
-                    <span className="tabletUserAcc:block mobileUserAcc:block hidden text-[14px]">
-                      12.03.
-                      <br />
-                      <span className="text-[#D4D4D4]">2023</span>
-                    </span>
-                  </td>
-                  <td className="px-4 py-[12px] border-t border-b border-[#A1B1D4] text-center text-[16px]">
-                    <div className="flex flex-col items-start gap-0">
-                      <span className="text-[#6D778E] text-[12px]">
-                        Elizabeth
-                      </span>
-                      <span className="text-[#3C3E41] text-[14px]">
-                        Frederickson
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    Managua
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    justme39
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px] border-r rounded-r">
-                    MOBI Pogreb 2
-                  </td>
-                </tr>
-                <tr className="bg-[#e3e9f0] text-[#3C3E41]">
-                  <td className="px-4 py-[18px] text-[16px] leading-[19px] font-variation-customOpt18 border-t border-b border-l rounded-l border-[#A1B1D4] text-[#6D778E]">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
-                      12.03.2023
-                    </span>
-                    <span className="tabletUserAcc:block mobileUserAcc:block hidden text-[14px]">
-                      12.03.
-                      <br />
-                      <span className="text-[#D4D4D4]">2023</span>
-                    </span>
-                  </td>
-                  <td className="px-4 py-[12px] border-t border-b border-[#A1B1D4] text-center text-[16px]">
-                    <div className="flex flex-col items-start gap-0">
-                      <span className="text-[#6D778E] text-[12px]">
-                        Elizabeth
-                      </span>
-                      <span className="text-[#3C3E41] text-[14px]">
-                        Frederickson
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    Managua
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    justme39
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px] border-r rounded-r">
-                    MOBI Pogreb 2
-                  </td>
-                </tr>
-                <tr className="bg-white/40 text-[#3C3E41]">
-                  <td className="px-4 py-[18px] text-[16px] leading-[19px] font-variation-customOpt18 border-t border-b border-l rounded-l border-[#A1B1D4] text-[#6D778E]">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
-                      12.03.2023
-                    </span>
-                    <span className="tabletUserAcc:block mobileUserAcc:block hidden text-[14px]">
-                      12.03.
-                      <br />
-                      <span className="text-[#D4D4D4]">2023</span>
-                    </span>
-                  </td>
-                  <td className="px-4 py-[12px] border-t border-b border-[#A1B1D4] text-center text-[16px]">
-                    <div className="flex flex-col items-start gap-0">
-                      <span className="text-[#6D778E] text-[12px]">
-                        Elizabeth
-                      </span>
-                      <span className="text-[#3C3E41] text-[14px]">
-                        Frederickson
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    Managua
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    justme39
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px] border-r rounded-r">
-                    MOBI Pogreb 2
-                  </td>
-                </tr>
-                <tr className="bg-white/40 text-[#3C3E41]">
-                  <td className="px-4 py-[18px] text-[16px] leading-[19px] font-variation-customOpt18 border-t border-b border-l rounded-l border-[#A1B1D4] text-[#6D778E]">
-                    <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
-                      12.03.2023
-                    </span>
-                    <span className="tabletUserAcc:block mobileUserAcc:block hidden text-[14px]">
-                      12.03.
-                      <br />
-                      <span className="text-[#D4D4D4]">2023</span>
-                    </span>
-                  </td>
-                  <td className="px-4 py-[12px] border-t border-b border-[#A1B1D4] text-center text-[16px]">
-                    <div className="flex flex-col items-start gap-0">
-                      <span className="text-[#6D778E] text-[12px]">
-                        Elizabeth
-                      </span>
-                      <span className="text-[#3C3E41] text-[14px]">
-                        Frederickson Sanpellegrini
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    Managua
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
-                    justme39
-                  </td>
-                  <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px] border-r rounded-r">
-                    MOBI Pogreb 2
-                  </td>
-                </tr>
+                {logs.map((log, index) => {
+                  const createdAt = new Date(log.createdAt);
+                  const day = createdAt.getDate().toString().padStart(2, "0");
+                  const month = (createdAt.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0");
+                  const year = createdAt.getFullYear();
+
+                  const isEven = index % 2 === 0;
+                  const rowBg = isEven ? "bg-white/40" : "bg-[#e3e9f0]";
+
+                  return (
+                    <tr key={index} className={`${rowBg} text-[#3C3E41]`}>
+                      <td className="px-4 py-[18px] text-[16px] leading-[19px] font-variation-customOpt18 border-t border-b border-l rounded-l border-[#A1B1D4] text-[#6D778E]">
+                        <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
+                          {`${day}.${month}.${year}`}
+                        </span>
+                        <span className="tabletUserAcc:block mobileUserAcc:block hidden text-[14px]">
+                          {`${day}.${month}.`}
+                          <br />
+                          <span className="text-[#D4D4D4]">{year}</span>
+                        </span>
+                      </td>
+                      <td className="px-4 py-[12px] border-t border-b border-[#A1B1D4] text-center text-[16px]">
+                        <div className="flex flex-col items-start gap-0">
+                          <span className="text-[#6D778E] text-[12px]">
+                            {log.name}
+                          </span>
+                          <span className="text-[#3C3E41] text-[14px]">
+                            {log.surname}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
+                        {log.city}
+                      </td>
+                      <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-[#A1B1D4] text-[14px]">
+                        {log.giftedTo}
+                      </td>
+                      <td className="p-4 leading-[19px] font-variation-customOpt16 border-t border-b border-r rounded-r border-[#A1B1D4] text-[14px]">
+                        {log.typeInSL}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
             <div className="items-center justify-center gap-[16px] mt-[16px] hidden tabletUserAcc:flex mobileUserAcc:flex">

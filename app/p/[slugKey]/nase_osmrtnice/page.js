@@ -2,6 +2,7 @@
 import CompanyAccountLayout from "@/app/components/appcomponents/CompanyAccountLayout";
 import obituaryService from "@/services/obituary-service";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function Obituaries() {
@@ -56,12 +57,13 @@ export default function Obituaries() {
         <div className="mt-[60px]">
           <div className="flex items-center gap-3">
             <div className="h-[55px] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] border-2 custom-border-gradient inline-flex flex-row items-center justify-center rounded-[8px] w-[310px] relative cursor-pointer tabletUserAcc:w-[310px]">
-              <div
+              <Link
+                href={"/obituaryform"}
                 className="text-[18px] text-[#FFFFFF]
                         font-variation-customOpt16 font-normal leading-[24px]"
               >
                 DODAJ OSMRTNICO
-              </div>
+              </Link>
 
               <Image
                 src={"/ico_right_white.png"}
@@ -72,12 +74,13 @@ export default function Obituaries() {
               />
             </div>
             <div className="h-[55px] bg-gradient-to-b from-[#F9AB16] to-[#C5870E] border-2 custom-border-gradient inline-flex flex-row items-center justify-center rounded-[8px] w-[310px] relative cursor-pointer tabletUserAcc:w-[310px]">
-              <div
+              <Link
+                href={"/floristsgifts"}
                 className="text-[18px] text-[#FFFFFF]
                         font-variation-customOpt16 font-normal leading-[24px]"
               >
                 PODARI SKRBNIKA
-              </div>
+              </Link>
 
               <Image
                 src={"/ico_right_white.png"}

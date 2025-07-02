@@ -312,9 +312,12 @@ export default function Funeral() {
                     alt="predloge"
                     className="w-6 h-6 object-contain"
                   />
-                  <h2 className="text-[16px] text-[#6D778E]">
+                  <Link
+                    href={"/obituaryform"}
+                    className="text-[16px] text-[#6D778E]"
+                  >
                     DODAJ OSMRTNICO
-                  </h2>
+                  </Link>
                 </div>
               </Link>
               <Link
@@ -346,9 +349,12 @@ export default function Funeral() {
                     alt="predloge"
                     className="w-6 h-6 object-contain"
                   />
-                  <h2 className="text-[16px] text-[#6D778E]">
+                  <Link
+                    href={"/floristsgifts"}
+                    className="text-[16px] text-[#6D778E]"
+                  >
                     PODARI SKRBNIKA
-                  </h2>
+                  </Link>
                 </div>
               </Link>
               <div className="w-[314] h-[55px] mt-[8px] py-[2px] px-[2px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent mobileUserAcc:hidden"></div>
@@ -380,7 +386,12 @@ export default function Funeral() {
                     alt="predloge"
                     className="w-6 h-6 object-contain"
                   />
-                  <h2 className="text-[16px] text-[#6D778E]">MOBI PREDLOGE</h2>
+                  <Link
+                    href={"/floristsgifts"}
+                    className="text-[16px] text-[#6D778E]"
+                  >
+                    MOBI PREDLOGE
+                  </Link>
                 </div>
               </Link>
               <div className="w-[314] h-[58px] mt-[8px] py-[2px] px-[2px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent mobileUserAcc:hidden"></div>

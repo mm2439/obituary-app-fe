@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 export default function Darila() {
   const [logs, setLogs] = useState([]);
   useEffect(() => {
-    console.log("here-called");
     getLogs();
   }, []);
 
@@ -53,9 +52,12 @@ export default function Darila() {
                 alt="predloge"
                 className="w-6 h-6 object-contain"
               />
-              <h2 className="text-[16px] text-[#6D778E] leading-none">
+              <Link
+                href={"/floristsgifts"}
+                className="text-[16px] text-[#6D778E] leading-none"
+              >
                 PODARI SKRBNIKA
-              </h2>
+              </Link>
             </div>
           </Link>
           <Link
@@ -87,9 +89,12 @@ export default function Darila() {
                 alt="predloge"
                 className="w-6 h-6 object-contain"
               />
-              <h2 className="text-[16px] text-[#6D778E] leading-none">
+              <Link
+                href={"/floristsgifts"}
+                className="text-[16px] text-[#6D778E] leading-none"
+              >
                 MOBI PREDLOGE
-              </h2>
+              </Link>
             </div>
           </Link>
         </div>

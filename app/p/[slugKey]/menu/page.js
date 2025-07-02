@@ -127,7 +127,7 @@ export default function Funeral() {
                 />
               </div>
               <Link
-                href={absolutePath + `${user.slugKey}` + "/nase_osmrtnice"}
+                href={absolutePath + `${user?.slugKey}` + "/nase_osmrtnice"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG
@@ -138,7 +138,7 @@ export default function Funeral() {
               <div className="text-[#2198D3] mt-[50px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
                 MESEČNI PREGLED IN STATISTIKE
               </div>
-              <Link href={absolutePath + `${user.slugKey}` + "/pregled"}>
+              <Link href={absolutePath + `${user?.slugKey}` + "/pregled"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
@@ -149,7 +149,7 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href={absolutePath + `${user.slugKey}` + "/obletnice"}>
+              <Link href={absolutePath + `${user?.slugKey}` + "/obletnice"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -159,7 +159,9 @@ export default function Funeral() {
                   />
                 </div>
               </Link>
-              <Link href={absolutePath + `${user.slugKey}` + "/moji-prispevki"}>
+              <Link
+                href={absolutePath + `${user?.slugKey}` + "/moji-prispevki"}
+              >
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -194,7 +196,7 @@ export default function Funeral() {
 
                   <Link
                     href={
-                      absolutePath + `${user.slugKey}` + "/potrditev-objave"
+                      absolutePath + `${user?.slugKey}` + "/potrditev-objave"
                     }
                   >
                     <div className="mt-[8px]">

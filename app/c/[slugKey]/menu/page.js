@@ -17,10 +17,10 @@ export default function Funeral() {
   const gotoTopRef = useRef(null);
   const pathname = usePathname();
 
-  const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    getUserData();
     fetchPendingPosts();
     getKeeperMemory();
   }, []);
@@ -64,13 +64,13 @@ export default function Funeral() {
   const toggleMobileSidebar = () => {
     setIsMobilSideBarOpen(!isMobilSideBarOpen);
   };
-  useEffect(() => {
+
+  const getUserData = () => {
     const currUser = localStorage.getItem("user");
     if (currUser) {
       setUser(JSON.parse(currUser));
-      console.log(JSON.parse(currUser));
     }
-  }, []);
+  };
   return (
     <div
       ref={gotoTopRef}
@@ -123,7 +123,7 @@ export default function Funeral() {
                 />
               </div>
               <Link
-                href={"/c" + `${user?.slugKey}` + "/nase_osmrtnice"}
+                href={"/c" + `/${user?.slugKey}` + "/nase_osmrtnice"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG
@@ -134,7 +134,7 @@ export default function Funeral() {
               <div className="text-[#2198D3] mt-[50px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
                 MESEČNI PREGLED IN STATISTIKE
               </div>
-              <Link href={"/c" + `${user?.slugKey}` + "/pregled"}>
+              <Link href={"/c" + `/${user?.slugKey}` + "/pregled"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
@@ -145,7 +145,7 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href={"/c" + `${user?.slugKey}` + "/obletnice"}>
+              <Link href={"/c" + `/${user?.slugKey}` + "/obletnice"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -155,7 +155,7 @@ export default function Funeral() {
                   />
                 </div>
               </Link>
-              <Link href={"/c" + `${user?.slugKey}` + "/moji-prispevki"}>
+              <Link href={"/c" + `/${user?.slugKey}` + "/moji-prispevki"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -188,7 +188,7 @@ export default function Funeral() {
                     />
                   </div>
 
-                  <Link href={"/c" + `${user?.slugKey}` + "/potrditev-objave"}>
+                  <Link href={"/c" + `/${user?.slugKey}` + "/potrditev-objave"}>
                     <div className="mt-[8px]">
                       <ButtonWhiteBG
                         placeholderImg={""}
@@ -201,7 +201,7 @@ export default function Funeral() {
               )}
               <div className="w-[314] h-[55px] mt-[8px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent"></div>
               <Link
-                href={"/c" + `${user?.slugKey}` + "/spletna_stran"}
+                href={"/c" + `/${user?.slugKey}` + "/spletna_stran"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG
@@ -210,7 +210,7 @@ export default function Funeral() {
                 />
               </Link>
               <Link
-                href={"/c" + `${user?.slugKey}` + "/nasi_podatki"}
+                href={"/c" + `/${user?.slugKey}` + "/nasi_podatki"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG
@@ -246,7 +246,7 @@ export default function Funeral() {
             <div className="w-[314px] flex flex-col">
               <div className="items-center justify-center gap-5 mt-5 hidden mobileUserAcc:flex">
                 <Link
-                  href={"/c" + `${user?.slugKey}` + "/osmrtnice"}
+                  href={"/c" + `/${user?.slugKey}` + "/osmrtnice"}
                   className="flex items-center rounded-lg justify-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
                 mobile:h-[50px] mobile:w-[120px]
                 tablet:h-[43px] tablet:w-[97px]
@@ -260,7 +260,7 @@ export default function Funeral() {
                   </div>
                 </Link>
                 <Link
-                  href={"/c" + `${user?.slugKey}` + "/osmrtnice"}
+                  href={"/c" + `/${user?.slugKey}` + "/osmrtnice"}
                   className="flex items-center rounded-lg justify-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
                 mobile:h-[50px] mobile:w-[120px]
                 tablet:h-[43px] tablet:w-[97px]
@@ -275,7 +275,7 @@ export default function Funeral() {
                 </Link>
               </div>
               <Link
-                href={"/c" + `${user?.slugKey}` + "/spletna_stran"}
+                href={"/c" + `/${user?.slugKey}` + "/spletna_stran"}
                 className="mt-[8px]  mobileUserAcc:hidden"
               >
                 <ButtonWhiteBG
@@ -284,14 +284,14 @@ export default function Funeral() {
                   isOpen={2}
                 />
               </Link>
-              <Link className="mt-[8px]  mobileUserAcc:hidden">
+              <Link href={"/"} className="mt-[8px]  mobileUserAcc:hidden">
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"POGOSTA VPRAŠANJA"}
                 />
               </Link>
               <div className="w-[314] h-[58px] mt-[8px] py-[2px] px-[2px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent opacity-0 invisible"></div>
-              {/* {/ 21/10 changeeeee /} */}
+
               <div
                 onClick={() => {
                   setIsButtonHide(!isButtonHide);

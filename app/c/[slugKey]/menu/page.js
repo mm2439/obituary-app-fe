@@ -134,7 +134,7 @@ export default function Funeral() {
               <div className="text-[#2198D3] mt-[50px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold">
                 MESEČNI PREGLED IN STATISTIKE
               </div>
-              <Link href={"/c" + `/${user?.slugKey}` + "/pregled"}>
+              <Link href={"/c" + `/${user?.slugKey}` + "/nase_osmrtnice"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
@@ -145,7 +145,7 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href={"/c" + `/${user?.slugKey}` + "/obletnice"}>
+              <Link href={"/c" + `/${user?.slugKey}` + "/ase_spominske"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -155,7 +155,7 @@ export default function Funeral() {
                   />
                 </div>
               </Link>
-              <Link href={"/c" + `/${user?.slugKey}` + "/moji-prispevki"}>
+              <Link href={"/c" + `/${user?.slugKey}` + "/nasa_darila"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -274,10 +274,7 @@ export default function Funeral() {
                   </div>
                 </Link>
               </div>
-              <Link
-                href={"/c" + `/${user?.slugKey}` + "/spletna_stran"}
-                className="mt-[8px]  mobileUserAcc:hidden"
-              >
+              <Link href={"/"} className="mt-[8px]  mobileUserAcc:hidden">
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"NAZAJ NA SPLETNO STRAN"}

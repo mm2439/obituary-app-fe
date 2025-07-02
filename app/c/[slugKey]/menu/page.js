@@ -145,7 +145,7 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href={"/c" + `/${user?.slugKey}` + "/ase_spominske"}>
+              <Link href={"/c" + `/${user?.slugKey}` + "/nase_spominske"}>
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -201,7 +201,7 @@ export default function Funeral() {
               )}
               <div className="w-[314] h-[55px] mt-[8px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent"></div>
               <Link
-                href={"/c" + `/${user?.slugKey}` + "/spletna_stran"}
+                href={"/c" + `/${user?.slugKey}` + "/spletna-stran"}
                 className="mt-[8px]"
               >
                 <ButtonWhiteBG

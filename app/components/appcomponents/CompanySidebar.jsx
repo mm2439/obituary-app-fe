@@ -8,6 +8,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import authService from "@/services/auth-service";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function CompanySidebar({
   showAlternateContent,

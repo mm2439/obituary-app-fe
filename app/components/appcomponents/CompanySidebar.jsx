@@ -65,7 +65,7 @@ export default function CompanySidebar({
       </div>
       <div>
         <div className="text-[14px] leading-[24px] font-variation-customOpt14 text-[#2198D3] mt-[32px] font-semibold">
-          MOJI BLIŽNJI
+          NAŠA AKTIVNOST
         </div>
         <div>
           <CommonViewBusinessAccSidebar
@@ -123,7 +123,7 @@ export default function CompanySidebar({
           className="text-[14px] leading-[24px] font-variation-customOpt14 cursor-pointer text-[#2198D3] mt-[32px] font-semibold"
           onClick={() => setShowAlternateContent(!showAlternateContent)}
         >
-          MOJI SKRBNIKI
+          NAŠ BRLOG
         </div>
         <CommonViewBusinessAccSidebar
           imgPath={
@@ -131,7 +131,7 @@ export default function CompanySidebar({
               ? "/icon_white_setting.png"
               : "/ico_setting.png"
           }
-          title={"Naša spletna stran"}
+          title={"Naša stran"}
           route={absolutePath + `/${user?.slugKey}` + "/nasa_pokopalisca"}
           isActive={
             normalPath === "/nasa_pokopalisca" ||
@@ -146,7 +146,7 @@ export default function CompanySidebar({
               ? "/icon_white_setting.png"
               : "/ico_setting.png"
           }
-          title={"Naši podatki"}
+          title={"Naš račun"}
           route={absolutePath + `/${user?.slugKey}` + "/nasi_podatki"}
           isActive={
             normalPath === "/nasi_podatki" ||

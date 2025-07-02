@@ -173,12 +173,13 @@ export default function CompanySidebar({
               className="h-[50px] bg-[#FFFFFF80] border-[1px] border-[#FFFFFF40] 
     flex justify-center items-center rounded-[8px]"
             >
-              <div
+              <Link
+                href={"/"}
                 className=" ml-[8px] h-full my-[2px] text-base  text-[#EB1D1D] text-[16px]
         font-variation-customOpt16 font-normal leading-[24px] flex justify-center items-center "
               >
                 Nazaj na spletno stran
-              </div>
+              </Link>
             </div>
           </div>
 

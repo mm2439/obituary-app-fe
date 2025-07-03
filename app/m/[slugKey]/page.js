@@ -160,7 +160,7 @@ const MemoryPage = ({ params }) => {
           updateObituary={updateObituary}
         />
 
-        {obituary?.Keepers?.length === 1 && <AnnouncementBlock />}
+        {obituary?.Keepers?.length === 0 && <AnnouncementBlock />}
 
         <ShippingNotifications
           set_Id={setSelect_Id}

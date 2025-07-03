@@ -9,7 +9,7 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
 import regionsAndCities from "@/utils/regionAndCities";
-const ObituaryListComponent = ({ date, days, city }) => {
+const ObituaryListComponent = ({ city }) => {
   const languages = [
     "Ljubljana",
     "Maribor",

@@ -119,9 +119,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
 
                     <div className="flex flex-row gap-[9px] items-end">
                       <Link
-                        href={`/obituarylist?city=${
-                          user?.city
-                        }&date=${new Date().toISOString()}&days=2`}
+                        href={`/obituarylist?city=${user?.city}`}
                         className="text-[20px] leading-[24px] font-bold text-[#3C3E41]"
                       >
                         Osmrtnic

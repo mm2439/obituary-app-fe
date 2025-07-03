@@ -14,14 +14,12 @@ import { useSearchParams } from "next/navigation";
 const ObituaryList = () => {
   const searchParams = useSearchParams();
   const city = searchParams.get("city");
-  const date = searchParams.get("date");
-  const days = searchParams.get("days");
 
   return (
     <Layout megaMenu={""} isMegaMenuVisible={false} from={"2"} forFooter={""}>
       <div className="flex flex-col mx-auto bg-[#F5F7F9] w-full">
         <ObituaryListBanner image={"/cvetje.avif"} label={"Osmrtnice"} />
-        <ObituaryListComponent date={date} days={days} city={city} />
+        <ObituaryListComponent city={city} />
         <NextFunerals />
         <MemorialPageView />
         <SponsorComponent />

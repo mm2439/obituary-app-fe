@@ -21,7 +21,7 @@ const getObituary = async (queryParams?: {
   page?: number;
   date?: string;
   limit?: number;
-  day?: number;
+  days?: number;
 }) => {
   try {
     const endpoint = "/obituary";

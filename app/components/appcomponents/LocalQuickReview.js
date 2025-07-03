@@ -8,9 +8,34 @@ import React, { useState, useEffect } from "react";
 const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
   const [user, setUser] = useState(null);
   const [obituaries, setObituaries] = useState([]);
+
   useEffect(() => {
-    getUser();
-    getObituaries();
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      const parsedUser = JSON.parse(currUser);
+      setUser(parsedUser);
+
+      const fetchObituaries = async () => {
+        try {
+          const today = new Date();
+          const formattedDate = today.toISOString().split("T")[0];
+
+          const queryParams = {
+            city: parsedUser.city,
+            days: 2,
+            date: formattedDate,
+          };
+
+          const response = await obituaryService.getObituary(queryParams);
+          setObituaries(response);
+          console.log(response.obituaries);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fetchObituaries();
+    }
   }, []);
 
   const getFormattedDate = () => {
@@ -29,33 +54,6 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const year = today.getFullYear();
     return `${dayName}, ${day}.${month}.${year}`;
-  };
-
-  const getUser = () => {
-    const currUser = localStorage.getItem("user");
-    if (currUser) {
-      setUser(JSON.parse(currUser));
-      console.log(JSON.parse(currUser));
-    }
-  };
-
-  const getObituaries = async () => {
-    try {
-      const today = new Date();
-      const formattedDate = today.toISOString().split("T")[0];
-
-      const queryParams = {
-        city: user?.city,
-        days: 2,
-        date: formattedDate,
-      };
-
-      const response = await obituaryService.getObituary(queryParams);
-      setObituaries(response);
-      console.log(response.obituaries);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (

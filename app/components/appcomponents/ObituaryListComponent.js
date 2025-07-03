@@ -93,8 +93,6 @@ const ObituaryListComponent = ({ city }) => {
       const queryParams = {};
 
       if (selectedCity) queryParams.city = selectedCity;
-      if (days) queryParams.days = days;
-      if (date) queryParams.date = date;
 
       if (selectedRegion) queryParams.region = selectedRegion;
       const response = await obituaryService.getObituary(queryParams);

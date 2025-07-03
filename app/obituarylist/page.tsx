@@ -13,8 +13,6 @@ import { useSearchParams } from "next/navigation";
 const ObituaryListContent = () => {
   const searchParams = useSearchParams();
   const city = searchParams.get("city");
-  const date = searchParams.get("date");
-  const days = searchParams.get("days");
 
   return (
     <>

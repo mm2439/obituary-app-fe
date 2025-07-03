@@ -9,7 +9,7 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
 import regionsAndCities from "@/utils/regionAndCities";
-const ObituaryListComponent = () => {
+const ObituaryListComponent = ({ date, days, city }) => {
   const languages = [
     "Ljubljana",
     "Maribor",
@@ -24,52 +24,56 @@ const ObituaryListComponent = () => {
     "Zasavje",
   ];
   const [obituaries, setObituaries] = useState([]);
-  const allRegionsOption = { place: "- Pokaži vse regije - ", id: "allRegions" };
+  const allRegionsOption = {
+    place: "- Pokaži vse regije - ",
+    id: "allRegions",
+  };
   const allCitiesOption = { place: " - Pokaži vse občine - ", id: "allCities" };
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(city ? city : null);
   const [selectedRegion, setSelectedRegion] = useState(null);
-  
-const regionOptions = [
-  allRegionsOption, 
-  ...Object.keys(regionsAndCities).map((region) => ({
-    place: region,
-    id: region,
-  }))
-];
 
-const cityOptions = selectedRegion && selectedRegion !== "allRegions"
-? [
-    allCitiesOption,
-    ...regionsAndCities[selectedRegion].map((city) => ({
-      place: city,
-      id: city,
+  const regionOptions = [
+    allRegionsOption,
+    ...Object.keys(regionsAndCities).map((region) => ({
+      place: region,
+      id: region,
     })),
-  ]
-: [
-    allCitiesOption,
-    ...Object.values(regionsAndCities)
-      .flat()
-      .map((city) => ({
-        place: city,
-        id: city,
-      }))
-      .sort((a, b) => a.place.localeCompare(b.place, "sl")),
   ];
 
+  const cityOptions =
+    selectedRegion && selectedRegion !== "allRegions"
+      ? [
+          allCitiesOption,
+          ...regionsAndCities[selectedRegion].map((city) => ({
+            place: city,
+            id: city,
+          })),
+        ]
+      : [
+          allCitiesOption,
+          ...Object.values(regionsAndCities)
+            .flat()
+            .map((city) => ({
+              place: city,
+              id: city,
+            }))
+            .sort((a, b) => a.place.localeCompare(b.place, "sl")),
+        ];
+
   const handleRegionSelect = (item) => {
-    if(item.id==='allRegions'){
+    if (item.id === "allRegions") {
       setSelectedRegion(null);
       setSelectedCity(null);
-      return
+      return;
     }
     setSelectedRegion(item.place);
     setSelectedCity(null);
   };
 
   const handleCitySelect = (item) => {
-    if(item.id==='allCities'){
+    if (item.id === "allCities") {
       setSelectedCity(null);
-      return
+      return;
     }
     setSelectedCity(item.place);
     setSelectedRegion(null);
@@ -89,6 +93,8 @@ const cityOptions = selectedRegion && selectedRegion !== "allRegions"
       const queryParams = {};
 
       if (selectedCity) queryParams.city = selectedCity;
+      if (days) queryParams.days = days;
+      if (date) queryParams.date = date;
 
       if (selectedRegion) queryParams.region = selectedRegion;
       const response = await obituaryService.getObituary(queryParams);
@@ -111,7 +117,6 @@ const cityOptions = selectedRegion && selectedRegion !== "allRegions"
       toast.error(err.message || "Failed to fetch obituary.");
     }
   };
-
 
   return (
     <div className="max-w-[1920px] w-full tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">

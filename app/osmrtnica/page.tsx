@@ -14,7 +14,8 @@ const ObituaryList = () => {
     <Layout megaMenu={""} isMegaMenuVisible={false} from={"2"} forFooter={""}>
       <div className="flex flex-col mx-auto bg-[#F5F7F9] w-full">
         <ObituaryListBanner image={"/cvetje.avif"} label={"Osmrtnice"} />
-        <ObituaryListComponent />
+        <ObituaryListComponent city={""} />{" "}
+        {/* remove dummy city from here when working */}
         <NextFunerals />
         <MemorialPageView />
         <SponsorComponent />

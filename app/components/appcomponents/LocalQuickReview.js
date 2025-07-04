@@ -270,7 +270,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickModalVisible }) => {
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
-                      {obituaries?.total}
+                      {obituaries?.total || 0}
                     </h4>
 
                     <div className="flex flex-row gap-[9px] items-end">
@@ -306,7 +306,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickModalVisible }) => {
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
-                      {obituaries?.funeralCount}
+                      {obituaries?.funeralCount || 0}
                     </h4>
 
                     <div className="flex flex-row gap-[9px] items-end">
@@ -338,7 +338,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickModalVisible }) => {
             >
               <div className="flex flex-row justify-between items-center gap-[15px]">
                 <div className="text-[20px] leading-[24px] font-semibold text-[#FFFFFF]">
-                  {obituaries?.total}
+                  {obituaries?.total || 0}
                 </div>
                 <div className="text-[#FFFFFF] text-[14px] leading-[24px] font-[300]">
                   Novih spominskih strani

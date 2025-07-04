@@ -110,23 +110,23 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
                 }}
               >
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
-                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
+                  <Link
+                    href={`/obituarylist?city=${user?.city}`}
+                    className="flex flex-row justify-between items-center pl-[24px] gap-[17px]"
+                  >
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
                       {obituaries?.total}
                     </h4>
 
                     <div className="flex flex-row gap-[9px] items-end">
-                      <Link
-                        href={`/obituarylist?city=${user?.city}`}
-                        className="text-[20px] leading-[24px] font-bold text-[#3C3E41]"
-                      >
+                      <div className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">
                         Osmrtnic
-                      </Link>
+                      </div>
                       <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">
                         od včeraj
                       </span>
                     </div>
-                  </div>
+                  </Link>
                   <Image
                     src={"/arrow_right_ico.png"}
                     alt="Right_arrow"
@@ -152,7 +152,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
-                      5
+                      {obituaries?.funeralCount}
                     </h4>
 
                     <div className="flex flex-row gap-[9px] items-end">

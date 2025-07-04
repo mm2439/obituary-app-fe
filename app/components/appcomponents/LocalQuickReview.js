@@ -62,7 +62,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
               >
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <Link
-                    href={`/obituarylist?city=${user?.city}`}
+                    href={`/obituarylist`}
                     className="flex flex-row justify-between items-center pl-[24px] gap-[17px]"
                   >
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
@@ -169,7 +169,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
   );
 };
 
-const LocalQuickReviewModal = ({ setIsLocalQuickModalVisible }) => {
+const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
   const [user, setUser] = useState(null);
   const [obituaries, setObituaries] = useState([]);
 
@@ -223,7 +223,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickModalVisible }) => {
   return (
     <div
       className="fixed z-[1000] top-0 left-0 w-full bg-[#000000B2] h-screen py-[80px]"
-      onClick={() => setIsLocalQuickModalVisible(false)}
+      onClick={() => setIsLocalQuickReviewModalVisible(false)}
     >
       <div
         className="relative mx-auto max-w-[1280px] flex justify-center mobile:w-[360px] w-full h-full mt-[5px]"
@@ -235,7 +235,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickModalVisible }) => {
               src={"./circle_cross.png"}
               alt="Close"
               className="w-[70px] h-[70px] cursor-pointer"
-              onClick={() => setIsLocalQuickModalVisible(false)}
+              onClick={() => setIsLocalQuickReviewModalVisible(false)}
             />
           </div>
 
@@ -268,7 +268,10 @@ const LocalQuickReviewModal = ({ setIsLocalQuickModalVisible }) => {
                 }}
               >
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
-                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
+                  <Link
+                    href={`/obituarylist?city=${user?.city}`}
+                    className="flex flex-row justify-between items-center pl-[24px] gap-[17px]"
+                  >
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
                       {obituaries?.total || 0}
                     </h4>
@@ -281,7 +284,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickModalVisible }) => {
                         od včeraj
                       </span>
                     </div>
-                  </div>
+                  </Link>
                   <Image
                     src={"/arrow_right_ico.png"}
                     alt="Right_arrow"

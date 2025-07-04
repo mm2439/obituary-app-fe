@@ -8,10 +8,13 @@ import Footer from "./Footer";
 import CompanyFooter from "./CompanyFooter";
 
 import DrawerDialoge from "./DrawerDialoge";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PopUp from "@/app/components/appcomponents/popup";
 import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
-import { LocalQuickReview } from "@/app/components/appcomponents/LocalQuickReview";
+import {
+  LocalQuickReview,
+  LocalQuickReviewModal,
+} from "@/app/components/appcomponents/LocalQuickReview";
 import MemoryHeader from "./MemoryHeader";
 
 const Layout = ({
@@ -24,6 +27,7 @@ const Layout = ({
   onChangeMemory = () => {},
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const OnDrawerButtonClicked = (item) => {
     console.log(item.name);
@@ -32,7 +36,16 @@ const Layout = ({
   const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
   const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] =
     useState(false);
+  const [isLocalQuickModalReviewVisible, setIsLocalQuickReviewModalVisible] =
+    useState(false);
 
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, []);
   return (
     <div>
       {from == "1" || from == "2" ? (
@@ -41,6 +54,9 @@ const Layout = ({
             setIsModalVisible={setIsModalVisible}
             setIsMessageModalVisible={setIsMessageModalVisible}
             setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
+            setIsLocalQuickModalReviewVisible={
+              setIsLocalQuickReviewModalVisible
+            }
           />
         </div>
       ) : null}
@@ -74,10 +90,20 @@ const Layout = ({
         </div>
       )}
 
-      {isLocalQuickModalVisible && (
+      {isLocalQuickModalVisible && user === null && (
         <div className="flex ">
           <LocalQuickReview
             setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
+          />
+        </div>
+      )}
+
+      {isLocalQuickModalReviewVisible && user !== null && (
+        <div className="flex ">
+          <LocalQuickReviewModal
+            setIsLocalQuickReviewModalVisible={
+              setIsLocalQuickReviewModalVisible
+            }
           />
         </div>
       )}

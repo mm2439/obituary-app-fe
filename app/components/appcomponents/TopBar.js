@@ -7,6 +7,7 @@ const TopBar = ({
   setIsModalVisible,
   setIsMessageModalVisible,
   setIsLocalQuickModalVisible,
+  setIsLocalQuickModalReviewVisible,
 }) => {
   const popuButtonRef = React.useRef();
   const [user, setUser] = useState(null);
@@ -67,6 +68,7 @@ const TopBar = ({
                 setIsMessageModalVisible(true);
                 setIsModalVisible(false);
                 setIsLocalQuickModalVisible(false);
+                setIsLocalQuickModalReviewVisible(false);
               }}
             >
               <img
@@ -81,6 +83,7 @@ const TopBar = ({
                 setIsModalVisible(true);
                 setIsMessageModalVisible(false);
                 setIsLocalQuickModalVisible(false);
+                setIsLocalQuickModalReviewVisible(false);
               }}
             >
               <img
@@ -90,24 +93,48 @@ const TopBar = ({
               />
             </button>
           </div>
-          <div
-            className="flex -z-10  tablet:w-[100%] tablet:justify-center  tablet:absolute 
+          {user === null && (
+            <div
+              className="flex -z-10  tablet:w-[100%] tablet:justify-center  tablet:absolute 
                     desktop:absolute desktop:w-[1200px] desktop:justify-center items-center "
-          >
-            <button
-              onClick={() => {
-                setIsModalVisible(false);
-                setIsMessageModalVisible(false);
-                setIsLocalQuickModalVisible(true);
-              }}
             >
-              <img
-                src="ico_location_top.png"
-                alt="location"
-                className="w-[28px] h-[28px]"
-              />
-            </button>
-          </div>
+              <button
+                onClick={() => {
+                  setIsModalVisible(false);
+                  setIsMessageModalVisible(false);
+                  setIsLocalQuickModalReviewVisible(false);
+                  setIsLocalQuickModalVisible(true);
+                }}
+              >
+                <img
+                  src="ico_location_top.png"
+                  alt="location"
+                  className="w-[28px] h-[28px]"
+                />
+              </button>
+            </div>
+          )}
+          {user !== null && (
+            <div
+              className="flex -z-10  tablet:w-[100%] tablet:justify-center  tablet:absolute 
+                    desktop:absolute desktop:w-[1200px] desktop:justify-center items-center "
+            >
+              <button
+                onClick={() => {
+                  setIsModalVisible(false);
+                  setIsMessageModalVisible(false);
+                  setIsLocalQuickModalReviewVisible(true);
+                  setIsLocalQuickModalVisible(false);
+                }}
+              >
+                <img
+                  src="ico_location_top.png"
+                  alt="location"
+                  className="w-[28px] h-[28px]"
+                />
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <div className="w-full h-[3px] bg-[#0A85C260] " />

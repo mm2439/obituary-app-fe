@@ -108,6 +108,7 @@ const MemoryPage = ({ params }) => {
         date: obituary.createdTimestamp,
         type: type,
       };
+      console.log(queryParams);
       const response = await obituaryService.getMemoryId(queryParams);
 
       const data = response;
@@ -119,9 +120,7 @@ const MemoryPage = ({ params }) => {
         .toString()
         .padStart(2, "0")}${funeralDate.getFullYear().toString().slice(2)}`; // Format: DDMMYY
 
-      router.push(
-        `/memorypage/${data.slugKey}/${data.name}_${data.sirName}_${funeralDateFormatted}`
-      );
+      router.push(`/m/${data.slugKey}`);
     } catch (error) {
       console.error("Error fetching memory:", error);
       if (error?.response?.status === 404) {

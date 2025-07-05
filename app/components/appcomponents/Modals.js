@@ -1783,7 +1783,9 @@ const Modals = ({
               Osmrtnica in več informacij na strani:
             </div>
             <div className="flex mobile:hidden text-base font-normal text-[#0A85C2] mt-1 underline ">
-              www.osmrtnica.com/sl/mariodaniloprimo3753
+              {`${
+                typeof window !== "undefined" ? window.location.origin : ""
+              }/m/${data?.slugKey}`}
             </div>
             <div className="hidden mobile:flex text-sm font-medium text-[#6D778E] ">
               Osmrtnica in več informacij na strani:

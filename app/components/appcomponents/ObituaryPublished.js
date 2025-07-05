@@ -25,17 +25,27 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
                 by preko:
               </div>
               <div className="block text-[16px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
-                Edwards Funeral Chapel Inc
+                {data?.Company?.name}
               </div>
               <div className="block text-[14px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
-                Their address
+                {data?.Company?.address}
               </div>
               <div className="block text-[14px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
-                Tel. 660-277-3218
+                Tel. {data?.Company?.phone}
               </div>
-              <div className="block text-[14px] text-[#36556C] leading-[100%] mobile:hidden">
-                www.link to their page on our website
-              </div>
+              {data?.Company?.type === "FLORIST" ? (
+                <div className="block text-[14px] text-[#36556C] leading-[100%] mobile:hidden">
+                  {`${
+                    typeof window !== "undefined" ? window.location.origin : ""
+                  }/c/floristsdetails/${data?.User?.slugKey}`}
+                </div>
+              ) : (
+                <div className="block text-[14px] text-[#36556C] leading-[100%] mobile:hidden">
+                  {`${
+                    typeof window !== "undefined" ? window.location.origin : ""
+                  }/p/funeralcompany/${data?.User?.slugKey}`}
+                </div>
+              )}
               <div className="text-[16px] text-[#1E2125] leading-[100%] mb-[12px] hidden mobile:block">
                 Name of funeral company
               </div>
@@ -102,11 +112,22 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
               </div>
               <div className="leading-[] text-[12px] text-[#414141] desktop:mt-[8px] mobile:mt-[8px] tablet:mt-[8px] desktop:mr-[4px] tablet:mr-[4px] text-end">
                 <span className="text-[14px]">Zadnje spremembe:</span> <br />
-                Žalna knjiga: Alfred G. 21.12.2023
-                <br />
-                Sožalje: Ahmed Omar G. 17.12.2023
-                <br />
-                Posvetilo: G.K., 15.12.2023 <br />
+                {data && data?.MemoryLogs?.length > 0
+                  ? data?.MemoryLogs?.map((item, index) => (
+                      <div
+                        key={index}
+                        className="leading-[14.06px] text-[12px] desktop:mr-[3px] tablet:mr-[3px] mt-[4px] font-variation-customOpt12 text-[#414141]"
+                      >
+                        <div>
+                          {item.typeInSL}: {item.userName}
+                          {format(
+                            new Date(item.createdTimestamp),
+                            "dd.MM.yyyy"
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  : null}
               </div>
               {/* {data && data?.MemoryLogs?.length > 0
               ? data?.MemoryLogs?.map((item, index) => (

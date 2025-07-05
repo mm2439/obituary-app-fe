@@ -61,6 +61,8 @@ const MemoryPage = ({ params }) => {
           userId: currentUser?.id || null,
         });
 
+        console.log(visitRespone, "visit =========");
+
         if (visitRespone.error) {
           toast.error(
             visitRespone.error || "Something went wrong. Please try again!"
@@ -108,17 +110,11 @@ const MemoryPage = ({ params }) => {
         date: obituary.createdTimestamp,
         type: type,
       };
+
       console.log(queryParams);
       const response = await obituaryService.getMemoryId(queryParams);
 
       const data = response;
-      const funeralDate = new Date(data.deathDate);
-      const funeralDateFormatted = `${funeralDate
-        .getDate()
-        .toString()
-        .padStart(2, "0")}${(funeralDate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}${funeralDate.getFullYear().toString().slice(2)}`; // Format: DDMMYY
 
       router.push(`/m/${data.slugKey}`);
     } catch (error) {

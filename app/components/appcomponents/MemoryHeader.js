@@ -32,7 +32,7 @@ export default function MemoryHeader({ onChange }) {
             <div className="flex items-center justify-between gap-[20px] mobile:gap-[14px] border-[2px] border-[#0A85C2] rounded-[4px] h-[60px] mobile:h-[50px] px-[13px] mobile:px-[10px]">
               <Image
                 src={"/memory_header_bottom.png"}
-                className="mobile:w-[28px] mobile:h-[28px]"
+                className="mobile:w-[28px] mobile:h-[28px] cursor-pointer"
                 alt=""
                 width={31}
                 height={31}
@@ -43,7 +43,7 @@ export default function MemoryHeader({ onChange }) {
               </span>
               <Image
                 src={"/memory_header_top.png"}
-                className="mobile:w-[28px] mobile:h-[28px]"
+                className="mobile:w-[28px] mobile:h-[28px] cursor-pointer"
                 alt=""
                 width={31}
                 height={31}
@@ -52,7 +52,7 @@ export default function MemoryHeader({ onChange }) {
             </div>
             <div
               onClick={() => router.back()}
-              className="flex tablet:flex-col mobile:flex-col items-center gap-[20px] tablet:gap-[5px] mobile:gap-[5px]"
+              className="cursor-pointer flex tablet:flex-col mobile:flex-col items-center gap-[20px] tablet:gap-[5px] mobile:gap-[5px]"
             >
               <Image
                 src={"/memory_header_left.png"}

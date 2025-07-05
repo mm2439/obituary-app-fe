@@ -16,20 +16,20 @@ export default function AnnouncementBlock() {
           </p>
         </div>
         <div className="flex flex-col gap-[16px]">
-          <Link
-            href={"/spominska-stran"}
-            className="bg-[#CAF0F8] text-[#1E2125] text-[16px] leading-[24px] font-variation-customOpt16 font-normal py-[12px] px-[24px] rounded-[8px]"
-          >
+          <div className="bg-[#CAF0F8] text-[#1E2125] text-[16px] leading-[24px] font-variation-customOpt16 font-normal py-[12px] px-[24px] rounded-[8px]">
             Postani Skrbnik
-          </Link>
+          </div>
         </div>
         <p className="text-[#EDF1F3] text-[16px] leading-[24px] font-variation-customOpt16 font-normal tablet:hidden mobile:w-full mobile:text-end">
-          Več informacij{" "}
+          Več informacij
           <span className="mobile:hidden">
-            o Skrbniku je{" "}
-            <a className="underline text-[#41C0FF] font-variation-customOpt16 font-normal italic">
-              tukaj{" "}
-            </a>
+            o Skrbniku je
+            <Link
+              href={"/spominska-stran"}
+              className="underline text-[#41C0FF] font-variation-customOpt16 font-normal italic"
+            >
+              tukaj
+            </Link>
           </span>
         </p>
       </div>

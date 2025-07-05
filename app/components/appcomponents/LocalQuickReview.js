@@ -267,11 +267,11 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
                     "5px 5px 10px 0px #A6ABBD, -5px -5px 10px 0px #FAFBFF",
                 }}
               >
-                <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
-                  <Link
-                    href={`/obituarylist?city=${user?.city}`}
-                    className="flex flex-row justify-between items-center pl-[24px] gap-[17px]"
-                  >
+                <Link
+                  href={`/obituarylist?city=${user?.city}`}
+                  className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative"
+                >
+                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
                       {obituaries?.total || 0}
                     </h4>
@@ -284,7 +284,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
                         od včeraj
                       </span>
                     </div>
-                  </Link>
+                  </div>
                   <Image
                     src={"/arrow_right_ico.png"}
                     alt="Right_arrow"
@@ -292,7 +292,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
                     height={24}
                     className="mr-[6px]"
                   />
-                </div>
+                </Link>
               </div>
               <div
                 className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]"

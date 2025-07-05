@@ -111,7 +111,7 @@ const MemoryPage = ({ params }) => {
       const response = await obituaryService.getMemoryId(queryParams);
 
       const data = response;
-      const funeralDate = new Date(data.deathDate); // ensure data.funeralDate exists
+      const funeralDate = new Date(data.deathDate);
       const funeralDateFormatted = `${funeralDate
         .getDate()
         .toString()
@@ -120,7 +120,7 @@ const MemoryPage = ({ params }) => {
         .padStart(2, "0")}${funeralDate.getFullYear().toString().slice(2)}`; // Format: DDMMYY
 
       router.push(
-        `/memorypage/${data.id}/${data.name}_${data.sirName}_${funeralDateFormatted}`
+        `/memorypage/${data.slugKey}/${data.name}_${data.sirName}_${funeralDateFormatted}`
       );
     } catch (error) {
       console.error("Error fetching memory:", error);

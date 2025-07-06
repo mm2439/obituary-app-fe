@@ -1130,9 +1130,9 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
           <div className="font-variation-customOpt40 text-[40px] leading-[46.88px] mr-[8px] mobile:text-[28px] mobile:leading-[32.9px] mobile:font-variation-customOpt28 text-[#1E2125] ">
             Sožalja
           </div>
-          <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-29px]">
+          {/* <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-29px]">
             22
-          </div>
+          </div> */}
         </div>
 
         <button

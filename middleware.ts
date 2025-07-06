@@ -13,7 +13,6 @@ const USER_ROUTES = [
   "/potrditev-objave",
 ];
 
-// Routes that should be rewritten based on role
 const FLORIST_ROUTES = ["spletna-stran", "nasi_podatki"];
 const FUNERAL_ROUTES = ["spletna-stran", "nasi_podatki"];
 
@@ -23,11 +22,26 @@ export function middleware(request: NextRequest) {
   const role = request.cookies.get("role")?.value;
   const slugKey = request.cookies.get("slugKey")?.value;
 
-  const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
-  const isUserRoute = USER_ROUTES.includes(pathname);
-
   const pathParts = pathname.split("/").filter(Boolean);
   const lastSegment = pathParts[pathParts.length - 1];
+
+  // ✅ If user is logged in and tries to visit /registrationpage, redirect them accordingly
+  if (pathname === "/registrationpage" && token) {
+    if (role === "Florist" && slugKey) {
+      return NextResponse.redirect(new URL(`/c/${slugKey}/menu`, request.url));
+    }
+    if (role === "Funeral" && slugKey) {
+      return NextResponse.redirect(new URL(`/p/${slugKey}/menu`, request.url));
+    }
+    if (role === "User" && slugKey) {
+      return NextResponse.redirect(
+        new URL(`/u/${slugKey}/moj-racun`, request.url)
+      );
+    }
+  }
+
+  const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
+  const isUserRoute = USER_ROUTES.includes(pathname);
 
   if (isPublicRoute) {
     return NextResponse.next();
@@ -60,6 +74,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/registrationpage",
     "/moj-racun",
     "/moji-prispevki",
     "/obletnice",

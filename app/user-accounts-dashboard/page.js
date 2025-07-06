@@ -9,10 +9,17 @@ const UserAccountDashboard = () => {
   const [isKeeper, setIsKeeper] = useState(false);
   const router = useRouter();
   const gotoTopRef = useRef(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth > 768) {
-      router.push("/moj-racun");
+      const currUser = localStorage.getItem("user");
+      if (currUser) {
+        const parsedUser = JSON.parse(currUser);
+        setUser(parsedUser);
+
+        router.push(`u/${parsedUser.slugKey}/moj-racun`);
+      }
     } else {
       fetchPendingPosts();
       getKeeperMemory();

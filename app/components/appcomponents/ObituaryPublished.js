@@ -119,7 +119,7 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
                         className="leading-[14.06px] text-[12px] desktop:mr-[3px] tablet:mr-[3px] mt-[4px] font-variation-customOpt12 text-[#414141]"
                       >
                         <div>
-                          {item.typeInSL}: {item.userName}
+                          {item.typeInSL}:&nbsp; {item.userName},&nbsp;
                           {format(
                             new Date(item.createdTimestamp),
                             "dd.MM.yyyy"

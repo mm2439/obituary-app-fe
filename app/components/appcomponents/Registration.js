@@ -120,22 +120,14 @@ const Registration = () => {
         const role = response.user.role;
         const slugKey = response.user.slugKey;
 
-        if (isDesktop) {
-          if (role === "User") {
-            router.push(`/u/${slugKey}/moj-racun`);
-            // } else if (role === "Florist") {
-            //   router.push(`/c/${slugKey}/nasi_podatki`);
-            // } else if (role === "Funeral") {
-            //   router.push(`/p/${slugKey}/nasi_podatki`);
-          }
-        } else {
-          if (role === "User") {
-            router.push("/user-accounts-dashboard");
-          } else if (role === "Florist") {
-            router.push(`/c/${slugKey}/menu`);
-          } else if (role === "Funeral") {
-            router.push(`/p/${slugKey}/menu`);
-          }
+        if (role === "User" && !isDesktop) {
+          router.push("/user-accounts-dashboard");
+        } else if (role === "User" && isDesktop) {
+          router.push(`/u/${slugKey}/moj-racun`);
+        } else if (role === "Florist") {
+          router.push(`/c/${slugKey}/menu`);
+        } else if (role === "Funeral") {
+          router.push(`/p/${slugKey}/menu`);
         }
       }
     } catch (error) {

@@ -59,10 +59,7 @@ function UserCompanyHeaderNew({
                         "
           >
             <div className="flex items-center gap-3 justify-between w-full mx-5">
-              <Link
-                href={absolutePath + "/menu"}
-                className="flex items-center "
-              >
+              <Link href={"/"} className="flex items-center ">
                 <Image
                   src={omr}
                   alt="App Logo"

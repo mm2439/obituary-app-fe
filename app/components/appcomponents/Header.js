@@ -13,7 +13,11 @@ function Header({ onMenuCLick, from, isMegaMenuVisible }) {
           className={`
         desktop:h-[92.02px] mobile:h-[72px] tablet:h-[79px]
         w-full  desktop:w-[1200px]
-        desktop:pl-[23px] ${isMegaMenuVisible && from === "1" ? "tablet:max-w-[700px] tablet:w-full mobile:max-w-[400px] mobile:w-full" : "" } desktop:pr-[27px] tablet:pl-[23px]  tablet:pr-[27px] mobile:px-[24px]
+        desktop:pl-[23px] ${
+          isMegaMenuVisible && from === "1"
+            ? "tablet:max-w-[700px] tablet:w-full mobile:max-w-[400px] mobile:w-full"
+            : ""
+        } desktop:pr-[27px] tablet:pl-[23px]  tablet:pr-[27px] mobile:px-[24px]
         `}
         >
           <div className="mobile:h-[72px] tablet:h-[79px] desktop:h-[92.02px] w-full desktop:w-[1150px] flex justify-between items-center ">
@@ -74,18 +78,41 @@ export function FAQHeader() {
           />
         </Link>
         <div className="flex gap-[24px] items-center mobile:hidden">
-          <Link href={"/faq-1"} className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]">CENIK</Link>
-          <Link href={"/faq-1"} className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]">KAKO ZAČNEM</Link>
-          <Link href={"/faq-1"} className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]">
-            <Image src={"/proiloznoot.svg"} alt="User" width={150} height={35} />
+          <Link
+            href={"/faq-1"}
+            className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]"
+          >
+            CENIK
+          </Link>
+          <Link
+            href={"/faq-1"}
+            className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]"
+          >
+            KAKO ZAČNEM
+          </Link>
+          <Link
+            href={"/faq-1"}
+            className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]"
+          >
+            <Image
+              src={"/proiloznoot.svg"}
+              alt="User"
+              width={150}
+              height={35}
+            />
           </Link>
         </div>
         <div className="hidden mobile:flex">
-          <Image src={"/faq_header_top.png"} alt="Menu" width={26} height={28} />
+          <Image
+            src={"/faq_header_top.png"}
+            alt="Menu"
+            width={26}
+            height={28}
+          />
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 export default Header;

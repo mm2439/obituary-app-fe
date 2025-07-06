@@ -123,10 +123,10 @@ const Registration = () => {
         if (isDesktop) {
           if (role === "User") {
             router.push(`/u/${slugKey}/moj-racun`);
-          } else if (role === "Florist") {
-            router.push(`/c/${slugKey}/nasi_podatki`);
-          } else if (role === "Funeral") {
-            router.push(`/p/${slugKey}/nasi_podatki`);
+            // } else if (role === "Florist") {
+            //   router.push(`/c/${slugKey}/nasi_podatki`);
+            // } else if (role === "Funeral") {
+            //   router.push(`/p/${slugKey}/nasi_podatki`);
           }
         } else {
           if (role === "User") {

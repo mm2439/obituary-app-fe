@@ -68,10 +68,10 @@ const CompanyAccountLayout = ({ children }) => {
   useEffect(() => {
     if (!pathname) return;
 
-    // Remove slug segment: /p/[slug]/route or /c/[slug]/route → /route
-    const pathParts = pathname.split("/"); // ['', 'p', 'slugKey', 'route']
-    const role = pathParts[1]; // 'p' or 'c'
-    const route = "/" + (pathParts[3] || ""); // get actual route after slug
+    const pathParts = pathname.split("/");
+    const role = pathParts[1];
+    const route = "/" + (pathParts[3] || "");
+    const basePath = `/${role}/${slugKey}`;
     const isFuneralCompany = role === "p";
     const isFlorist = role === "c";
 
@@ -136,29 +136,25 @@ const CompanyAccountLayout = ({ children }) => {
         setHeadingTwo(null);
         setHeadingThree(null);
     }
-  }, [pathname]);
 
-  useEffect(() => {
-    if (pathname == "/pregled") {
-      setHrefLinkOne("/obletnice");
-      setHrefLinkTwo("/moji-prispevki");
-    } else if (pathname == "/obletnice") {
-      setHrefLinkOne("/pregled");
-      setHrefLinkTwo("/moji-prispevki");
-    } else if (pathname == "/moji-prispevki") {
-      setHrefLinkOne("/pregled");
-      setHrefLinkTwo("/obletnice");
-    } else if (pathname == "/pregled2") {
-      setHrefLinkOne("/potrditev-objave");
-      setHrefLinkTwo("/dodaj-vsebine");
-    } else if (pathname == "/potrditev-objave") {
-      setHrefLinkOne("/pregled2");
-      setHrefLinkTwo("/dodaj-vsebine");
-    } else if (pathname == "/dodaj-vsebine") {
-      setHrefLinkOne("/pregled2");
-      setHrefLinkTwo("/potrditev-objave");
+    switch (route) {
+      case "/nasi_podatki":
+        setHrefLinkOne(`${basePath}/osmrtnice_stat`);
+        setHrefLinkTwo(`${basePath}/nase_osmrtnice`);
+        break;
+      case "/nase_spominske":
+        setHrefLinkOne(`${basePath}/nasi_prispevki`);
+        setHrefLinkTwo(`${basePath}/nase_spominske`);
+        break;
+      case "/nasa_darila":
+        setHrefLinkOne(`${basePath}/darila_pregled`);
+        setHrefLinkTwo(`${basePath}/nasa_darila`);
+        break;
+      default:
+        setHrefLinkOne(null);
+        setHrefLinkTwo(null);
     }
-  }, [pathname]);
+  }, [pathname, user]);
 
   const handleGoToTop = () => {
     gotoTopRef.current?.scrollIntoView({

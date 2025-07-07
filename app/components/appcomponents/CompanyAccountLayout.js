@@ -71,10 +71,10 @@ const CompanyAccountLayout = ({ children }) => {
     const pathParts = pathname.split("/");
     const role = pathParts[1];
     const route = "/" + (pathParts[3] || "");
-    const basePath = `/${role}/${slugKey}`;
+
     const isFuneralCompany = role === "p";
     const isFlorist = role === "c";
-
+    const basePath = `/${role}/${user?.slugKey}`;
     switch (route) {
       case "/nasi_podatki":
         setHeadingOne("Račun in nastavitve");
@@ -151,8 +151,8 @@ const CompanyAccountLayout = ({ children }) => {
         setHrefLinkTwo(`${basePath}/nasa_darila`);
         break;
       default:
-        setHrefLinkOne(null);
-        setHrefLinkTwo(null);
+        setHrefLinkOne("");
+        setHrefLinkTwo("");
     }
   }, [pathname, user]);
 

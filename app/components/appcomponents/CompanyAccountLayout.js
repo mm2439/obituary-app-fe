@@ -27,9 +27,9 @@ const CompanyAccountLayout = ({ children }) => {
     setIsMobilSideBarOpen(!isMobilSideBarOpen);
   };
 
-  const [headingOne, setHeadingOne] = useState("Račun in nastavitve");
-  const [headingTwo, setHeadingTwo] = useState("Naša pokopališča");
-  const [headingThree, setHeadingThree] = useState("Prejeta sporočila");
+  const [headingOne, setHeadingOne] = useState("");
+  const [headingTwo, setHeadingTwo] = useState("");
+  const [headingThree, setHeadingThree] = useState("");
 
   const [hrefLinkOne, setHrefLinkOne] = useState(
     `/p/${user?.slugKey}/nasa_pokopalisca`
@@ -66,56 +66,77 @@ const CompanyAccountLayout = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (normalPath == "/nasi_podatki") {
-      setHeadingOne("Račun in nastavitve");
-      setHeadingTwo("Naročila");
-      setHeadingThree("Promocije");
-    } else if (normalPath == "/nase_osmrtnice") {
-      setHeadingOne("Vnešene osmrtnice");
-      setHeadingTwo("Mesečna statistika");
-      setHeadingThree(null);
-    } else if (normalPath == "/osmrtnice_stat") {
-      setHeadingOne("Mesečna statistika");
-      setHeadingTwo("Dopolni vnešene osmrtnice");
-      setHeadingThree(null);
-    } else if (normalPath == "/nase_spominske") {
-      setHeadingOne("Podarjene spominske");
-      setHeadingTwo("Naša sodelovanja na spominskih");
-      setHeadingThree(null);
-    } else if (normalPath == "/nasi_prispevki") {
-      setHeadingOne("Naša sodelovanja na spominskih");
-      setHeadingTwo("Podarjene spominske");
-      setHeadingThree(null);
-    } else if (normalPath == "/darila_pregled") {
-      setHeadingOne("Darila - mesečni pregled");
-      setHeadingTwo("Podrobno");
-      setHeadingThree(null);
-    } else if (normalPath == "/nasa_darila") {
-      setHeadingOne("Darila strankam");
-      setHeadingTwo("Mesečni pregled");
-      setHeadingThree(null);
-    } else if (normalPath == "/narocila") {
-      setHeadingOne("Naročila");
-      setHeadingTwo("Uporabniški račun");
-      setHeadingThree("Promocije");
-    } else if (normalPath == "/nasa_pokopalisca") {
-      setHeadingOne("Naša pokopališča");
-      setHeadingTwo("Naša spletna stran");
-      setHeadingThree(null);
-    } else if (normalPath == "/promocije") {
-      setHeadingOne("Promocije");
-      setHeadingTwo("Račun in nastavitve");
-      setHeadingThree("Naročila");
-    } else if (normalPath == "/spletna-stran") {
-      setHeadingOne("Naša spletna stran");
-      if (absolutePath == "/p") {
-        setHeadingTwo("Naša pokopališča");
-      } else {
+    if (!pathname) return;
+
+    // Remove slug segment: /p/[slug]/route or /c/[slug]/route → /route
+    const pathParts = pathname.split("/"); // ['', 'p', 'slugKey', 'route']
+    const role = pathParts[1]; // 'p' or 'c'
+    const route = "/" + (pathParts[3] || ""); // get actual route after slug
+    const isFuneralCompany = role === "p";
+    const isFlorist = role === "c";
+
+    switch (route) {
+      case "/nasi_podatki":
+        setHeadingOne("Račun in nastavitve");
+        setHeadingTwo("Naročila");
+        setHeadingThree("Promocije");
+        break;
+      case "/nase_osmrtnice":
+        setHeadingOne("Vnešene osmrtnice");
+        setHeadingTwo("Mesečna statistika");
+        setHeadingThree(null);
+        break;
+      case "/osmrtnice_stat":
+        setHeadingOne("Mesečna statistika");
+        setHeadingTwo("Dopolni vnešene osmrtnice");
+        setHeadingThree(null);
+        break;
+      case "/nase_spominske":
+        setHeadingOne("Podarjene spominske");
+        setHeadingTwo("Naša sodelovanja na spominskih");
+        setHeadingThree(null);
+        break;
+      case "/nasi_prispevki":
+        setHeadingOne("Naša sodelovanja na spominskih");
+        setHeadingTwo("Podarjene spominske");
+        setHeadingThree(null);
+        break;
+      case "/darila_pregled":
+        setHeadingOne("Darila - mesečni pregled");
+        setHeadingTwo("Podrobno");
+        setHeadingThree(null);
+        break;
+      case "/nasa_darila":
+        setHeadingOne("Darila strankam");
+        setHeadingTwo("Mesečni pregled");
+        setHeadingThree(null);
+        break;
+      case "/narocila":
+        setHeadingOne("Naročila");
+        setHeadingTwo("Uporabniški račun");
+        setHeadingThree("Promocije");
+        break;
+      case "/nasa_pokopalisca":
+        setHeadingOne("Naša pokopališča");
+        setHeadingTwo("Naša spletna stran");
+        setHeadingThree(null);
+        break;
+      case "/promocije":
+        setHeadingOne("Promocije");
+        setHeadingTwo("Račun in nastavitve");
+        setHeadingThree("Naročila");
+        break;
+      case "/spletna-stran":
+        setHeadingOne("Naša spletna stran");
+        setHeadingTwo(isFuneralCompany ? "Naša pokopališča" : null);
+        setHeadingThree(null);
+        break;
+      default:
+        setHeadingOne("Račun in nastavitve");
         setHeadingTwo(null);
-      }
-      setHeadingThree(null);
+        setHeadingThree(null);
     }
-  }, [pathname, innnerSize]);
+  }, [pathname]);
 
   useEffect(() => {
     if (pathname == "/pregled") {

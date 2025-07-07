@@ -31,9 +31,7 @@ const CompanyAccountLayout = ({ children }) => {
   const [headingTwo, setHeadingTwo] = useState("");
   const [headingThree, setHeadingThree] = useState("");
 
-  const [hrefLinkOne, setHrefLinkOne] = useState(
-    `/p/${user?.slugKey}/nasa_pokopalisca`
-  );
+  const [hrefLinkOne, setHrefLinkOne] = useState("");
   const [hrefLinkTwo, setHrefLinkTwo] = useState("");
 
   const [innnerSize, setInnnerSize] = useState(false);
@@ -75,6 +73,7 @@ const CompanyAccountLayout = ({ children }) => {
     const isFuneralCompany = role === "p";
     const isFlorist = role === "c";
     const basePath = `/${role}/${user?.slugKey}`;
+    console.log(route, "============route is here");
     switch (route) {
       case "/nasi_podatki":
         setHeadingOne("Račun in nastvitve");
@@ -138,15 +137,19 @@ const CompanyAccountLayout = ({ children }) => {
 
     switch (route) {
       case "/nase_spominske":
-        setHrefLinkTwo(`${basePath}/nasi_prispevki`);
+        setHrefLinkOne(`${basePath}/nasi_prispevki`);
+
         break;
       case "/nasa_darila":
         setHrefLinkOne(`${basePath}/darila_pregled`);
         setHrefLinkTwo(`${basePath}/nasa_darila`);
+        break;
       case "/nase_osmrtnice":
-        setHrefLinkTwo(`${basePath}/osmrtnice_stat`);
+        setHrefLinkOne(`${basePath}/osmrtnice_stat`);
+
+        break;
       case "/darila_pregled":
-        setHrefLinkTwo(`${basePath}/nasa_darila `);
+        setHrefLinkOne(`${basePath}/nasa_darila `);
 
         break;
       default:
@@ -154,6 +157,10 @@ const CompanyAccountLayout = ({ children }) => {
         setHrefLinkTwo("");
     }
   }, [pathname, user]);
+
+  useEffect(() => {
+    console.log(hrefLinkOne, hrefLinkTwo, "============");
+  }, [hrefLinkOne]);
 
   const handleGoToTop = () => {
     gotoTopRef.current?.scrollIntoView({

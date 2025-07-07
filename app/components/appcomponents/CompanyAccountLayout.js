@@ -146,21 +146,22 @@ const CompanyAccountLayout = ({ children }) => {
         break;
       case "/nase_osmrtnice":
         setHrefLinkOne(`${basePath}/osmrtnice_stat`);
-
         break;
       case "/darila_pregled":
-        setHrefLinkOne(`${basePath}/nasa_darila `);
-
+        setHrefLinkOne(`${basePath}/nasa_darila`);
         break;
+      case "/osmrtnice_stat":
+        setHrefLinkOne(`${basePath}/nase_osmrtnice`);
+        break;
+      case "/nasi_prispevki":
+        setHrefLinkOne(`${basePath}/nase_spominske`);
+        break;
+
       default:
         setHrefLinkOne("");
         setHrefLinkTwo("");
     }
   }, [pathname, user]);
-
-  useEffect(() => {
-    console.log(hrefLinkOne, hrefLinkTwo, "============");
-  }, [hrefLinkOne]);
 
   const handleGoToTop = () => {
     gotoTopRef.current?.scrollIntoView({

@@ -77,9 +77,8 @@ const CompanyAccountLayout = ({ children }) => {
     const basePath = `/${role}/${user?.slugKey}`;
     switch (route) {
       case "/nasi_podatki":
-        setHeadingOne("Račun in nastavitve");
-        setHeadingTwo("Naročila");
-        setHeadingThree("Promocije");
+        setHeadingOne("Račun in nastvitve");
+
         break;
       case "/nase_osmrtnice":
         setHeadingOne("Vnešene osmrtnice");
@@ -138,17 +137,17 @@ const CompanyAccountLayout = ({ children }) => {
     }
 
     switch (route) {
-      case "/nasi_podatki":
-        setHrefLinkOne(`${basePath}/osmrtnice_stat`);
-        setHrefLinkTwo(`${basePath}/nase_osmrtnice`);
-        break;
       case "/nase_spominske":
-        setHrefLinkOne(`${basePath}/nasi_prispevki`);
-        setHrefLinkTwo(`${basePath}/nase_spominske`);
+        setHrefLinkTwo(`${basePath}/nasi_prispevki`);
         break;
       case "/nasa_darila":
         setHrefLinkOne(`${basePath}/darila_pregled`);
         setHrefLinkTwo(`${basePath}/nasa_darila`);
+      case "/nase_osmrtnice":
+        setHrefLinkTwo(`${basePath}/osmrtnice_stat`);
+      case "/darila_pregled":
+        setHrefLinkTwo(`${basePath}/nasa_darila `);
+
         break;
       default:
         setHrefLinkOne("");

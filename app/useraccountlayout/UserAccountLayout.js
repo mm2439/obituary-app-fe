@@ -58,28 +58,6 @@ const UserAccountLayout = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (pathname == "/pregled") {
-      setHrefLinkOne("/obletnice");
-      setHrefLinkTwo("/moji-prispevki");
-    } else if (pathname == "/obletnice") {
-      setHrefLinkOne("/pregled");
-      setHrefLinkTwo("/moji-prispevki");
-    } else if (pathname == "/moji-prispevki") {
-      setHrefLinkOne("/pregled");
-      setHrefLinkTwo("/obletnice");
-    } else if (pathname == "/pregled2") {
-      setHrefLinkOne("/potrditev-objave");
-      setHrefLinkTwo("/dodaj-vsebine");
-    } else if (pathname == "/potrditev-objave") {
-      setHrefLinkOne("/pregled2");
-      setHrefLinkTwo("/dodaj-vsebine");
-    } else if (pathname == "/dodaj-vsebine") {
-      setHrefLinkOne("/pregled2");
-      setHrefLinkTwo("/potrditev-objave");
-    }
-  }, [pathname]);
-
-  useEffect(() => {
     if (!pathname) return;
 
     const pathParts = pathname.split("/");
@@ -99,15 +77,15 @@ const UserAccountLayout = ({ children }) => {
       case "/pregled":
         setHeadingOne("Moji bližnji");
         setHeadingTwo("Obletnice");
-        setHeadingThree(innnerSize ? "Moje vsebine" : "Moje žalne vsebine");
+        setHeadingThree("Moje vsebine");
         setHrefLinkOne(`${basePath}/obletnice`);
         setHrefLinkTwo(`${basePath}/moji-prispevki`);
         break;
 
       case "/obletnice":
-        setHeadingOne(innnerSize ? "Obletnice" : "Obletnice in pregled");
+        setHeadingOne("Obletnice");
         setHeadingTwo("Moji bližnji");
-        setHeadingThree(innnerSize ? "Moje vsebine" : "Moje žalne vsebine");
+        setHeadingThree("Moje vsebine");
         setHrefLinkOne(`${basePath}/pregled`);
         setHrefLinkTwo(`${basePath}/moji-prispevki`);
         break;
@@ -115,7 +93,7 @@ const UserAccountLayout = ({ children }) => {
       case "/moji-prispevki":
         setHeadingOne("Moje žalne vsebine");
         setHeadingTwo("Moji bližnji");
-        setHeadingThree("Obletnice");
+        setHeadingThree(!innnerSize ? "Obletnice" : "");
         setHrefLinkOne(`${basePath}/pregled`);
         setHrefLinkTwo(`${basePath}/obletnice`);
         break;
@@ -123,7 +101,7 @@ const UserAccountLayout = ({ children }) => {
       case "/pregled2":
         setHeadingOne("Moji skrbniki");
         setHeadingTwo("Potrditve objav");
-        setHeadingThree("Potek Skrbnikov");
+        setHeadingThree(!innnerSize ? "Potek Skrbnikov" : "");
         setHrefLinkOne(`${basePath}/potrditev-objave`);
         setHrefLinkTwo(`${basePath}/dodaj-vsebine`);
         break;
@@ -134,8 +112,8 @@ const UserAccountLayout = ({ children }) => {
             ? "Potrebna potrditev"
             : "Potrebna potrditev s tvoje strani"
         );
-        setHeadingTwo("Moji Skrbniki");
-        setHeadingThree("Trajanje statusa Skrbnikov");
+        setHeadingTwo(!innnerSize ? "Moji Skrbniki" : "");
+        setHeadingThree(!innnerSize ? "Trajanje statusa Skrbnikov" : "");
         setHrefLinkOne(`${basePath}/pregled2`);
         setHrefLinkTwo(`${basePath}/dodaj-vsebine`);
         break;
@@ -144,8 +122,8 @@ const UserAccountLayout = ({ children }) => {
         setHeadingOne(
           innnerSize ? "Trajanje Skrbnikov" : "Potek statusa Skrbnika"
         );
-        setHeadingTwo("Moji Skrbniki");
-        setHeadingThree("Potrditve objav");
+        setHeadingTwo(!innnerSize ? "Moji Skrbniki" : "");
+        setHeadingThree(!innnerSize ? "Potrditve objav" : "");
         setHrefLinkOne(`${basePath}/pregled2`);
         setHrefLinkTwo(`${basePath}/potrditev-objave`);
         break;

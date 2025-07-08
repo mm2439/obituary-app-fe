@@ -76,8 +76,7 @@ const CompanyAccountLayout = ({ children }) => {
     console.log(route, "============route is here");
     switch (route) {
       case "/nasi_podatki":
-        setHeadingOne("Račun in nastvitve");
-
+        setHeadingOne("Račun in nastavitve");
         break;
       case "/nase_osmrtnice":
         setHeadingOne("Vnešene osmrtnice");
@@ -160,6 +159,9 @@ const CompanyAccountLayout = ({ children }) => {
       default:
         setHrefLinkOne("");
         setHrefLinkTwo("");
+    }
+    if (route === "/spletna-stran" && isFuneralCompany) {
+      setHrefLinkOne(`${basePath}/nasa_pokopalisca`);
     }
   }, [pathname, user]);
 

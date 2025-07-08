@@ -241,54 +241,46 @@ const MyAccount = () => {
         <div className="flex gap-[26px] mt-[50px] mobileUserAcc:mt-[24px] mobileUserAcc:gap-0 tabletUserAcc:justify-between mobileUserAcc:flex-col-reverse">
           <div className="flex desktopUserAcc:w-[403px] flex-col w-full">
             <div
-              className="text-[24px] text-[#0A85C2] font-variation-customOpt14  font-medium mb-1"
+              className="text-[24px] text-[#0A85C2] font-variation-customOpt14 flex justify-between font-medium mb-1"
               style={{
                 fontVariationSettings: "'wdth' 50,'wght' 600,'opsz' 32",
               }}
             >
-              Lokalno:
-              <span
-                style={{
-                  color: "#EB1D1D",
-                  fontSize: "20px",
-                  fontWeight: 500,
-                  fontVariationSettings: "'wdth' 50,'wght' 500,'opsz' 20",
-                  marginLeft: "10px",
-                }}
-              >
-                {user?.city
-                  ? user.city
-                  : selectedCity
-                  ? selectedCity
-                  : "Izberi občino"}
-              </span>
+              <div>
+                Lokalno:
+                <span
+                  style={{
+                    color: "#EB1D1D",
+                    fontSize: "20px",
+                    fontWeight: 500,
+                    fontVariationSettings: "'wdth' 50,'wght' 500,'opsz' 20",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {user?.city
+                    ? user.city
+                    : selectedCity
+                    ? selectedCity
+                    : "Izberi občino"}
+                </span>
+              </div>
+              <div className="hidden  h-5 w-24   justify-between pl-0 pr-0 items-center mobileUserAcc:flex">
+                <DropdownWithSearch
+                  onSelectCity={handleCitySelect}
+                  selectedCity={selectedCity}
+                />
+              </div>
             </div>
             <div className="text-[13px] font-normal text-[#6D778E] -mt-1 ">
               (omogoči hitri lokalni pregled na prvi strani)
             </div>
           </div>
-          {/* 23 october 2024 desktopUserAcc:pl-0 tabletUserAcc:pl-0 tabletUserAcc:pr-0 */}
           <div className="flex w-full mobileUserAcc:w-auto desktopUserAcc:w-[282px] h-10   mobileUserAcc:border-b-0  justify-between mobileUserAcc:justify-end desktopUserAcc:pl-0 desktopUserAcc:pr-0 tabletUserAcc:pl-0 tabletUserAcc:pr-0 pl-3 pr-8 mobileUserAcc:pl-0 mobileUserAcc:pr-0 items-center">
-            {/* 23 october 2024 desktopUserAcc:pl-0 desktopUserAcc:pr-0 tabletUserAcc:pr-0 tabletUserAcc:pl-0  tabletUserAcc:w-full*/}
             <div className="flex h-10 w-[270px] tabletUserAcc:w-full mobileUserAcc:w-8  mobileUserAcc:border-b-0  justify-between desktopUserAcc:pl-0 tabletUserAcc:pl-0 pl-3 desktopUserAcc:pr-0 tabletUserAcc:pr-0 pr-8 mobileUserAcc:pl-0 mobileUserAcc:pr-0 items-center  mobileUserAcc:hidden">
-              {/* <CustomDropdown
-                label={"Izberi lokalni kraj"}
-                data={cityOptions}
-              /> */}
-
               <DropdownWithSearch
                 onSelectCity={handleCitySelect}
                 selectedCity={selectedCity}
               />
-            </div>
-
-            <div className="hidden h-10  justify-between pl-0 pr-0 items-center mobileUserAcc:flex">
-              <DropdownWithSearch
-                onSelectCity={handleCitySelect}
-                selectedCity={selectedCity}
-              />
-
-              {/* <CustomDropdown label={"Spremeni"} data={cityOptions} /> */}
             </div>
           </div>
         </div>

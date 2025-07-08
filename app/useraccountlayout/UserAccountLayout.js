@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 import obituaryService from "@/services/obituary-service";
 const UserAccountLayout = ({ children }) => {
   const pathname = usePathname();
-
+  const [user, setUser] = useState(null);
   const gotoTopRef = useRef(null);
   const [isMobilSideBarOpen, setIsMobilSideBarOpen] = useState(false);
 
@@ -19,9 +19,9 @@ const UserAccountLayout = ({ children }) => {
     setIsMobilSideBarOpen(!isMobilSideBarOpen);
   };
 
-  const [headingOne, setHeadingOne] = useState("Moj račun");
-  const [headingTwo, setHeadingTwo] = useState("Moja naročila");
-  const [headingThree, setHeadingThree] = useState("Prejeta sporočila");
+  const [headingOne, setHeadingOne] = useState("");
+  const [headingTwo, setHeadingTwo] = useState("");
+  const [headingThree, setHeadingThree] = useState("");
 
   const [hrefLinkOne, setHrefLinkOne] = useState("");
   const [hrefLinkTwo, setHrefLinkTwo] = useState("");
@@ -37,6 +37,14 @@ const UserAccountLayout = ({ children }) => {
   }
 
   useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, []);
+
+  useEffect(() => {
     handleResize();
     if (typeof window !== "undefined") {
       window.addEventListener("resize", handleResize);
@@ -48,42 +56,6 @@ const UserAccountLayout = ({ children }) => {
     fetchPendingPosts();
     getKeeperMemory();
   }, []);
-
-  useEffect(() => {
-    if (pathname == "/moj-racun") {
-      setHeadingOne("Moj račun");
-      setHeadingTwo("Moja naročila");
-      setHeadingThree("Prejeta sporočila");
-    } else if (pathname == "/pregled") {
-      setHeadingOne("Moji bližnji");
-      setHeadingTwo("Obletnice");
-      setHeadingThree(innnerSize ? "Moje vsebine" : "Moje žalne vsebine");
-    } else if (pathname == "/obletnice") {
-      setHeadingOne(innnerSize ? "Obletnice" : "Obletnice in pregled");
-      setHeadingTwo("Moji bližnji");
-      setHeadingThree(innnerSize ? "Moje vsebine" : "Moje žalne vsebine");
-    } else if (pathname == "/moji-prispevki") {
-      setHeadingOne("Moje žalne vsebine");
-      setHeadingTwo("Moji bližnji");
-      setHeadingThree("Obletnice");
-    } else if (pathname == "/pregled2") {
-      setHeadingOne("Moji skrbniki");
-      setHeadingTwo("Potrditve objav");
-      setHeadingThree("Potek Skrbnikov");
-    } else if (pathname == "/potrditev-objave") {
-      setHeadingOne(
-        innnerSize ? "Potrebna potrditev" : "Potrebna potrditev s tvoje strani"
-      );
-      setHeadingTwo("Moji Skrbniki");
-      setHeadingThree("Trajanje statusa Skrbnikov");
-    } else if (pathname == "/dodaj-vsebine") {
-      setHeadingOne(
-        innnerSize ? "Trajanje Skrbnikov" : "Potek statusa Skrbnika"
-      );
-      setHeadingTwo("Moji Skrbniki");
-      setHeadingThree("Potrditve objav");
-    }
-  }, [pathname, innnerSize]);
 
   useEffect(() => {
     if (pathname == "/pregled") {
@@ -106,6 +78,66 @@ const UserAccountLayout = ({ children }) => {
       setHrefLinkTwo("/potrditev-objave");
     }
   }, [pathname]);
+
+  useEffect(() => {
+    if (!pathname) return;
+
+    const pathParts = pathname.split("/");
+    const role = pathParts[1];
+    const route = "/" + (pathParts[3] || "");
+
+    const isUser = role === "u";
+
+    const basePath = `/${role}/${user?.slugKey}`;
+    console.log(route, "============route is here");
+    switch (route) {
+      case "/moj-racun":
+        setHeadingOne("Moj račun");
+        setHeadingTwo("Moja naročila");
+        break;
+      case "/pregled":
+        setHeadingOne("Moji bližnji");
+        setHeadingTwo("Obletnice");
+        setHeadingThree(innnerSize ? "Moje vsebine" : "Moje žalne vsebine");
+        break;
+      case "/obletnice":
+        setHeadingOne(innnerSize ? "Obletnice" : "Obletnice in pregled");
+        setHeadingTwo("Moji bližnji");
+        setHeadingThree(innnerSize ? "Moje vsebine" : "Moje žalne vsebine");
+        break;
+      case "/moji-prispevki":
+        setHeadingOne("Moje žalne vsebine");
+        setHeadingTwo("Moji bližnji");
+        setHeadingThree("Obletnice");
+        break;
+      case "/pregled2":
+        setHeadingOne("Moji skrbniki");
+        setHeadingTwo("Potrditve objav");
+        setHeadingThree("Potek Skrbnikov");
+        break;
+      case "/potrditev-objave":
+        setHeadingOne(
+          innnerSize
+            ? "Potrebna potrditev"
+            : "Potrebna potrditev s tvoje strani"
+        );
+        setHeadingTwo("Moji Skrbniki");
+        setHeadingThree("Trajanje statusa Skrbnikov");
+        break;
+      case "/dodaj-vsebine":
+        setHeadingOne(
+          innnerSize ? "Trajanje Skrbnikov" : "Potek statusa Skrbnika"
+        );
+        setHeadingTwo("Moji Skrbniki");
+        setHeadingThree("Potrditve objav");
+        break;
+
+      default:
+        setHeadingOne(null);
+        setHeadingTwo(null);
+        setHeadingThree(null);
+    }
+  }, [pathname, innnerSize]);
 
   const handleGoToTop = () => {
     gotoTopRef.current?.scrollIntoView({
@@ -183,7 +215,7 @@ const UserAccountLayout = ({ children }) => {
                     }}
                     className="pt-[10px] flex text-[32px] text-[#0A85C2] font-medium mobileUserAcc:text-[28px] "
                   >
-                    {headingOne}{" "}
+                    {headingOne}
                     {pathname === "/potrditev-objave" ? (
                       <div
                         style={{
@@ -225,18 +257,18 @@ const UserAccountLayout = ({ children }) => {
                       </div>
                     </div>
                   </Link>
-
-                  <Link
-                    href={hrefLinkTwo}
-                    className={` mt-[10px] ${
-                      pathname == "/moj-racun" ||
-                      pathname == "/moji-prispevki" ||
-                      pathname == "/pregled2" ||
-                      pathname == "/potrditev-objave" ||
-                      pathname == "/dodaj-vsebine"
-                        ? "mobileUserAcc:hidden "
-                        : ""
-                    }
+                  {hrefLinkTwo && headingThree && (
+                    <Link
+                      href={hrefLinkTwo}
+                      className={` mt-[10px] ${
+                        pathname == "/moj-racun" ||
+                        pathname == "/moji-prispevki" ||
+                        pathname == "/pregled2" ||
+                        pathname == "/potrditev-objave" ||
+                        pathname == "/dodaj-vsebine"
+                          ? "mobileUserAcc:hidden "
+                          : ""
+                      }
                     
                     ${
                       pathname == "/potrditev-objave"
@@ -244,21 +276,22 @@ const UserAccountLayout = ({ children }) => {
                         : ""
                     }
                     `}
-                  >
-                    <div
-                      className={`h-[30px] ml-[25px] px-3 mobileUserAcc:px-0 border-b-2 mt-[2px] border-[#0A85C2]`}
                     >
                       <div
-                        style={{
-                          fontVariationSettings:
-                            "'wdth' 50,'wght' 400,'opsz' 18",
-                        }}
-                        className="text-[18px] text-[#0A85C2] font-normal px-3 mobileUserAcc:px-0"
+                        className={`h-[30px] ml-[25px] px-3 mobileUserAcc:px-0 border-b-2 mt-[2px] border-[#0A85C2]`}
                       >
-                        {headingThree}
+                        <div
+                          style={{
+                            fontVariationSettings:
+                              "'wdth' 50,'wght' 400,'opsz' 18",
+                          }}
+                          className="text-[18px] text-[#0A85C2] font-normal px-3 mobileUserAcc:px-0"
+                        >
+                          {headingThree}
+                        </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  )}
                 </div>
 
                 {/* MAIN SCREENS WHICH WILL CHANGE WHEN ROUTE CHANGES */}

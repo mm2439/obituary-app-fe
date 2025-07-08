@@ -87,34 +87,47 @@ const UserAccountLayout = ({ children }) => {
     const route = "/" + (pathParts[3] || "");
 
     const isUser = role === "u";
-
     const basePath = `/${role}/${user?.slugKey}`;
     console.log(route, "============route is here");
+
     switch (route) {
       case "/moj-racun":
         setHeadingOne("Moj račun");
         setHeadingTwo("Moja naročila");
         break;
+
       case "/pregled":
         setHeadingOne("Moji bližnji");
         setHeadingTwo("Obletnice");
         setHeadingThree(innnerSize ? "Moje vsebine" : "Moje žalne vsebine");
+        setHrefLinkOne(`${basePath}/obletnice`);
+        setHrefLinkTwo(`${basePath}/moji-prispevki`);
         break;
+
       case "/obletnice":
         setHeadingOne(innnerSize ? "Obletnice" : "Obletnice in pregled");
         setHeadingTwo("Moji bližnji");
         setHeadingThree(innnerSize ? "Moje vsebine" : "Moje žalne vsebine");
+        setHrefLinkOne(`${basePath}/pregled`);
+        setHrefLinkTwo(`${basePath}/moji-prispevki`);
         break;
+
       case "/moji-prispevki":
         setHeadingOne("Moje žalne vsebine");
         setHeadingTwo("Moji bližnji");
         setHeadingThree("Obletnice");
+        setHrefLinkOne(`${basePath}/pregled`);
+        setHrefLinkTwo(`${basePath}/obletnice`);
         break;
+
       case "/pregled2":
         setHeadingOne("Moji skrbniki");
         setHeadingTwo("Potrditve objav");
         setHeadingThree("Potek Skrbnikov");
+        setHrefLinkOne(`${basePath}/potrditev-objave`);
+        setHrefLinkTwo(`${basePath}/dodaj-vsebine`);
         break;
+
       case "/potrditev-objave":
         setHeadingOne(
           innnerSize
@@ -123,19 +136,26 @@ const UserAccountLayout = ({ children }) => {
         );
         setHeadingTwo("Moji Skrbniki");
         setHeadingThree("Trajanje statusa Skrbnikov");
+        setHrefLinkOne(`${basePath}/pregled2`);
+        setHrefLinkTwo(`${basePath}/dodaj-vsebine`);
         break;
+
       case "/dodaj-vsebine":
         setHeadingOne(
           innnerSize ? "Trajanje Skrbnikov" : "Potek statusa Skrbnika"
         );
         setHeadingTwo("Moji Skrbniki");
         setHeadingThree("Potrditve objav");
+        setHrefLinkOne(`${basePath}/pregled2`);
+        setHrefLinkTwo(`${basePath}/potrditev-objave`);
         break;
 
       default:
         setHeadingOne(null);
         setHeadingTwo(null);
         setHeadingThree(null);
+        setHrefLinkOne(``);
+        setHrefLinkTwo(``);
     }
   }, [pathname, innnerSize]);
 

@@ -121,7 +121,7 @@ const Registration = () => {
         const slugKey = response.user.slugKey;
 
         if (role === "User" && !isDesktop) {
-          router.push("/user-accounts-dashboard");
+          router.push(`/u/${slugKey}/menu`);
         } else if (role === "User" && isDesktop) {
           router.push(`/u/${slugKey}/moj-racun`);
         } else if (role === "Florist") {

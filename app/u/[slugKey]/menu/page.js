@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import obituaryService from "@/services/obituary-service";
-import UserAccountHeaderNew from "../components/appcomponents/UserAccountHeaderNew";
+import UserAccountHeaderNew from "../../../components/appcomponents/UserAccountHeaderNew";
 import { useRouter } from "next/navigation";
 
 const UserAccountDashboard = () => {

@@ -12,19 +12,20 @@ const UserAccountDashboard = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.innerWidth > 768) {
-      const currUser = localStorage.getItem("user");
-      if (currUser) {
-        const parsedUser = JSON.parse(currUser);
-        setUser(parsedUser);
-
-        router.push(`u/${parsedUser.slugKey}/moj-racun`);
+    if (typeof window !== "undefined") {
+      if (window.innerWidth > 768) {
+        const currUser = localStorage.getItem("user");
+        if (currUser) {
+          const parsedUser = JSON.parse(currUser);
+          setUser(parsedUser);
+          router.push(`u/${parsedUser.slugKey}/moj-racun`);
+        }
+      } else {
+        fetchPendingPosts();
+        getKeeperMemory();
       }
-    } else {
-      fetchPendingPosts();
-      getKeeperMemory();
     }
-  }, [window.innerWidth]);
+  }, []);
 
   const [pendingPosts, setPendingPosts] = useState([]);
 

@@ -24,7 +24,7 @@ const UserAccountDashboard = () => {
       fetchPendingPosts();
       getKeeperMemory();
     }
-  }, []);
+  }, [window.innerWidth]);
 
   const [pendingPosts, setPendingPosts] = useState([]);
 

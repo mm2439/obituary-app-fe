@@ -59,7 +59,7 @@ function SidebarDekstop({
               : "/ico_setting.png"
           }
           title={"Moj račun"}
-          route={"/moj-racun"}
+          route={`/u/${user?.slugKey}/moj-racun`}
         />
       </div>
       <div>
@@ -72,7 +72,7 @@ function SidebarDekstop({
               pathname == "/pregled" ? "/ico_pre.png" : "/ico_pregled.png"
             }
             title={"Pregled"}
-            route="/pregled"
+            route={`/u/${user?.slugKey}/pregled`}
             pendingConfirmations={pendingConfirmations}
           />
           <CommonViewUserAccSidebar
@@ -82,7 +82,7 @@ function SidebarDekstop({
                 : "/ico_setting.png"
             }
             title={"Obletnice"}
-            route="/obletnice"
+            route={`/u/${user?.slugKey}/obletnice`}
           />
 
           <CommonViewUserAccSidebar
@@ -92,7 +92,7 @@ function SidebarDekstop({
                 : "/ico_setting.png"
             }
             title={"Moji prispevki"}
-            route="/moji-prispevki"
+            route={`/u/${user?.slugKey}/moji-prispevki`}
           />
         </div>
       </div>
@@ -112,20 +112,20 @@ function SidebarDekstop({
                   : "/ico_pregled_black.png"
               }
               title={"Pregled"}
-              route="/pregled2"
+              route={`/u/${user?.slugKey}/pregled2`}
               isKeeper={true}
             />
             <CommonViewUserAccSidebar
               imgPath={""}
               title={"Potrditev objave"}
-              route="/potrditev-objave"
+              route={`/u/${user?.slugKey}/potrditev-objave`}
               pendingConfirmations={pendingConfirmations}
               isKeeper={true}
             />
             <CommonViewUserAccSidebar
               imgPath={"/ico_setting.png"}
               title={"Dodaj vsebine"}
-              route="/dodaj-vsebine"
+              route={`/u/${user?.slugKey}/dodaj-vsebine`}
               isKeeper={true}
             />
           </div>

@@ -288,7 +288,6 @@ const AddObituary = ({ set_Id, setModal }) => {
       formData.append("deathDate", formattedDeathDate);
       formData.append("funeralLocation", selectedCity);
       if (inputValueFuneralCemetery !== "pokopalisce") {
-        console.log(inputValueFuneralCemetery, "=========");
         formData.append("funeralCemetery", inputValueFuneralCemetery);
       }
 
@@ -1510,50 +1509,48 @@ const AddObituary = ({ set_Id, setModal }) => {
 
               <div className="flex mt-9 flex-col gap-y-8">
                 {/* {/ {/ first container of text /} /} */}
-                {funeralDate &&
-                  inputValueFuneralCemetery &&
-                  inputValueFuneralEnd && (
-                    <div className="flex flex-col">
-                      <div className="text-[16px] text-[#1E2125] font-normal leading-6">
-                        Pogreb
-                      </div>
+                {funeralDate && (
+                  <div className="flex flex-col">
+                    <div className="text-[16px] text-[#1E2125] font-normal leading-6">
+                      Pogreb
+                    </div>
 
-                      {/* {/ {/ text row container /} /} */}
-                      <div className="flex flex-row space-x-6 mobile:space-x-0 mobile:flex-col">
-                        <div className="mobile:flex-row flex mobile:mt-1">
-                          <div className="text-[18px] font-normal text-[#1E2125] mobile:text-[16px]">
-                            {funeralDate
-                              ? funeralDate.toLocaleDateString("sl-SI", {
-                                  day: "2-digit",
-                                  month: "2-digit",
-                                  year: "numeric",
-                                })
-                              : ""}
-                          </div>
-
-                          <div className="mobile:ml-6 text-[18px] font-normal text-[#1E2125] mobile:text-[16px] ml-3">
-                            {selectedFuneralHour !== null &&
-                            selectedFuneralHour !== undefined &&
-                            selectedFuneralMinute !== null &&
-                            selectedFuneralMinute !== undefined
-                              ? `${selectedFuneralHour
-                                  .toString()
-                                  .padStart(2, "0")}:${selectedFuneralMinute
-                                  .toString()
-                                  .padStart(2, "0")}`
-                              : ""}
-                          </div>
+                    {/* {/ {/ text row container /} /} */}
+                    <div className="flex flex-row space-x-6 mobile:space-x-0 mobile:flex-col">
+                      <div className="mobile:flex-row flex mobile:mt-1">
+                        <div className="text-[18px] font-normal text-[#1E2125] mobile:text-[16px]">
+                          {funeralDate
+                            ? funeralDate.toLocaleDateString("sl-SI", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                              })
+                            : ""}
                         </div>
 
-                        <div className="text-[18px] font-normal text-[#1E2125] mobile:text-[16px] mobile:mt-1">
-                          {inputValueFuneralCemetery || ""}
-                          {inputValueFuneralEnd
-                            ? `, ${inputValueFuneralEnd}`
+                        <div className="mobile:ml-6 text-[18px] font-normal text-[#1E2125] mobile:text-[16px] ml-3">
+                          {selectedFuneralHour !== null &&
+                          selectedFuneralHour !== undefined &&
+                          selectedFuneralMinute !== null &&
+                          selectedFuneralMinute !== undefined
+                            ? `${selectedFuneralHour
+                                .toString()
+                                .padStart(2, "0")}:${selectedFuneralMinute
+                                .toString()
+                                .padStart(2, "0")}`
                             : ""}
                         </div>
                       </div>
+
+                      <div className="text-[18px] font-normal text-[#1E2125] mobile:text-[16px] mobile:mt-1">
+                        {inputValueFuneralCemetery || "Pokopališče"}
+                        {inputValueFuneralEnd
+                          ? `, ${inputValueFuneralEnd}`
+                          : ""}
+                      </div>
                     </div>
-                  )}
+                  </div>
+                )}
 
                 <div className="flex flex-col">
                   {events

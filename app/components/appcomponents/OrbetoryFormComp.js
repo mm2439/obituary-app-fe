@@ -320,7 +320,7 @@ const OrbetoryFormComp = ({
                       : null
                   }
                   inputValue={inputValue}
-                  placeholder={"Select Obituary"}
+                  placeholder={"Pokojni/ca"}
                   isSearchable
                   filterOption={(option, inputValue) =>
                     option.label
@@ -489,7 +489,7 @@ const OrbetoryFormComp = ({
                       : null
                   }
                   inputValue={inputValue}
-                  placeholder={"Select Obituary"}
+                  placeholder={"Pokojni/ca"}
                   isSearchable
                   filterOption={(option, inputValue) =>
                     option.label

@@ -136,11 +136,12 @@ const Registration = () => {
   };
 
   return (
-    <form
-      className="relative max-w-[1920px] min-h-screen mobile:pb-[41px] mobile:pt-[71px] desktop:bg-[url('/login_ozadje.avif')] tablet:bg-[url('/ozadje_klop_tablica.avif')]
-      mobile:bg-[url('/mobi_ozadje.avif')]
-      bg-cover bg-center w-full desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[79px] flex flex-col justify-center items-center mx-auto"
-    >
+    <form className="relative max-w-[1920px] min-h-screen mobile:pb-[41px] mobile:pt-[71px]  w-full desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[79px] flex flex-col justify-center items-center mx-auto">
+      <img
+        src="/user/main_background.png"
+        alt="funeral banner"
+        className="w-full h-full object-cover absolute top-0 left-0 z-0"
+      />
       <div
         className="w-[550px] tablet:pt-[79px] tablet:pb-[54px] desktop:pt-[79px] desktop:pb-[54px] mobile:max-w-[340px] mobile:w-full mobile:mx-2 flex flex-col
      tablet:bg-gray-300/30 desktop:bg-gray-300/30 desktop:backdrop-blur tablet:backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] desktop:shadow-lg tablet:shadow-lg mobile:border-[0px]"

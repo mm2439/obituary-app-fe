@@ -104,11 +104,11 @@ Op. Na naši strani mi teh kartic in mesečnega Skrbnika ne ponujamo. </p>
             </div>
             <div className="text-container mt-[36px] flex justify-center">
                         <Image
-    src="/mobile-cards/iphone.png"
-    alt="iPad Landscape"
-        width={250} 
-    height={500} 
-    />
+                          src="/mobile-cards/iphone.png"
+                          alt="iPad Landscape"
+                              width={250} 
+                          height={500} 
+                          />
             </div>
               <div className="inner-div mt-[45px] text-center">
                  <h3 className="text-[#22281C] text-[20px] font-medium">BREZPLAČNO v vaši cvetličarni.</h3>

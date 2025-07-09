@@ -4,11 +4,11 @@ export const useBreakpoint = () => {
   const [breakpoint, setBreakpoint] = useState(null);
 
   const calculateBreakpoint = () => {
-    const width = window.innerWidth;
+    const width = document.documentElement.clientWidth;
     console.log("Window width:", width);
 
     if (width >= 1280) return "desktop";
-    if (width >= 1024) return "laptop";
+    if (width >= 1024) return "tablet";
     if (width >= 640) return "tablet";
     return "mobile";
   };

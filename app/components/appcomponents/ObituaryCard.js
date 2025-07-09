@@ -26,7 +26,7 @@ const ObituaryCard = ({ data, key, index, mob }) => {
 
   const age = calculateAge(data.birthDate, data.deathDate);
 
-  const imageUrl = data.image ? `${data.image}` : "/user5.jpeg";
+  const imageUrl = data.image ? `${API_BASE_URL}/${data.image}` : "/user5.jpeg";
 
   const funeralDate = new Date(data.deathDate);
   const funeralDateFormatted = `${funeralDate

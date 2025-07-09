@@ -1575,7 +1575,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                       return dateA - dateB;
                     })
                     .map((event, index) => (
-                      <div key={event.eventName || index} className="my-4">
+                      <div key={index} className="my-4">
                         {" "}
                         {/* Added key prop */}
                         <div className="text-[16px] text-[#1E2125] font-normal leading-6">

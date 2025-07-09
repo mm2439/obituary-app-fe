@@ -184,7 +184,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary }) => {
                       <Image
                         src={
                           data.image
-                            ? `${API_BASE_URL}/${data.image}`
+                            ? `${data.image}`
                             : data.gender === "Male"
                             ? "/img_profile.png"
                             : "/woman.png"

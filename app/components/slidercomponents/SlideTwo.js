@@ -10,7 +10,7 @@ const SlideTwo = () => {
   // === Desktop Layout ===
   if (breakpoint === "desktop") {
     return (
-      <div className="bg-[#F8EDE366] text-[#22281C] w-full h-[970px]">
+      <div className="bg-[#F5F0E8] text-[#22281C] w-full h-[970px]">
         <div className="flex justify-center p-[179px]">
           <div className="text-container w-[560px]">
             <h2 className="text-[40px] leading-[100%] h-[73px]">
@@ -59,7 +59,7 @@ const SlideTwo = () => {
 
   if (breakpoint === "laptop") {
     return (
-      <div className="bg-[#F8EDE366] text-[#22281C] w-[1280px]">
+      <div className="bg-[#F5F0E8] text-[#22281C] w-[1280px]">
         <div className="flex justify-center p-[179px]">
           <div className="text-container w-[560px]">
             <h2 className="text-[40px] leading-[100%] h-[73px]">
@@ -109,7 +109,7 @@ const SlideTwo = () => {
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-      <div className="bg-[#F8EDE366] h-auto text-[#22281C] p-[64px] flex justify-center">
+      <div className="bg-[#F5F0E8] h-auto text-[#22281C] p-[64px] flex justify-center">
         <div className="image-container w-[560px]">
           <h2 className="text-center text-[40px] mt-[16px]">
             Spominska stran{" "}
@@ -157,7 +157,7 @@ const SlideTwo = () => {
   // === Mobile Layout ===
   if (breakpoint === "mobile") {
     return (
-      <div className="bg-[#F8EDE366] h-auto text-[#22281C] py-[69px] flex justify-center text-center">
+      <div className="bg-[#F5F0E8] h-auto text-[#22281C] py-[69px] flex justify-center text-center">
         <div className="image-container w-[560px]">
           <h2 className="text-center text-[28px]">
             Spominska stran{" "}

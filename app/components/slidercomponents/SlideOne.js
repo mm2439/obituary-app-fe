@@ -7,7 +7,7 @@ const SlideOne = () => {
   if (breakpoint === "desktop") {
     return (
       <>
-        <div className="bg-[#f1f6fd] text-[#22281C] w-full h-[891px]">
+        <div className="bg-[#F5F0E8] text-[#22281C] w-full h-[891px]">
           <div className="flex justify-center my-[80px]">
             <div className="mt-[18px] image-container w-1/2 flex justify-end">
               <img
@@ -41,7 +41,7 @@ const SlideOne = () => {
   if (breakpoint === "laptop") {
     return (
       <>
-        <div className="bg-[#f1f6fd] text-[#22281C] w-[1280px] h-[891px]">
+        <div className="bg-[#F5F0E8] text-[#22281C] w-[1280px] h-[891px]">
           <div className="flex justify-center my-[80px]">
             <div className="mt-[18px] image-container w-1/2 flex justify-end">
               <img
@@ -74,7 +74,7 @@ const SlideOne = () => {
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-      <div className="bg-[#f1f6fd] text-[#22281C] h-auto">
+      <div className="bg-[#F5F0E8] text-[#22281C] h-auto">
         <div className="p-[64px] text-center">
           <div className="text-center text-container mx-auto pl-[35px] w-[464px]">
             <h2 className="text-[40px]">Žalna stran</h2>
@@ -105,7 +105,7 @@ const SlideOne = () => {
   // === Mobile Layout ===
   if (breakpoint === "mobile") {
     return (
-      <div className="bg-[#f1f6fd] text-[#22281C] h-auto">
+      <div className="bg-[#F5F0E8] text-[#22281C] h-auto">
         <div className="py-[69px] text-center">
           <div className="text-center text-container mx-auto w-[303px]">
             <h2 className="text-[28px]">Žalna stran</h2>

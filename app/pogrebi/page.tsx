@@ -11,6 +11,7 @@ import FloristsComp from "../components/appcomponents/FloristsComp";
 import { useSearchParams } from "next/navigation";
 import MainOptions from "../components/appcomponents/MainOptions";
 import Carousel from "../components/slidercomponents/Carousel"
+import PogrebiLocalFloristComp from "../components/PogrebiLocalFloristComp"
 const ObituaryListContent = () => {
   const searchParams = useSearchParams();
   const city = searchParams.get("city");
@@ -20,8 +21,11 @@ const ObituaryListContent = () => {
       <ObituaryListBanner image={"/pogrebi_ozadje.png"} label={"Pogrebi"}  />
       <ObituaryListComponent city={city} />
       <Carousel />
+      
+      <hr className="mt-[41px] tablet:mt-[63px] desktop:mt-[115px] mb-[51px] tablet:mb-[83px] desktop:mb-[93px]  h-2 bg-zinc-300 border-2" />
+
       <MainOptions />
-      <FloristsComp />
+      <PogrebiLocalFloristComp />
       <SponsorComponent text="To stran so omogočili"/>
     </>
   );

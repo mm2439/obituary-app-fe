@@ -261,9 +261,10 @@ export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
                 />
               </button>
               {visibleIndexes[index] && (
-                <div className="flex w-full flex-col mt-2 mb-6 px-6 mobile:px-0 text-[16px] text-[#3C3E41] font-[400] leading-[24px]">
-                  {faq.answer}
-                </div>
+                <div className="w-full  mt-2 mb-6 px-6 mobile:px-0 text-[16px] text-[#413c3c] font-[400] leading-[24px]"
+                dangerouslySetInnerHTML={{ __html: faq.answer }}
+                />
+             
               )}
             </>
           ))

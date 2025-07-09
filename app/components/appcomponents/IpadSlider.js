@@ -23,7 +23,7 @@ const IpadSlider = ({ data }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       instanceRef.current?.next();
-    }, 4000);
+    }, 122000);
     return () => clearInterval(interval);
   }, [instanceRef]);
 

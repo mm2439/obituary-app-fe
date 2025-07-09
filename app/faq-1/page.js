@@ -9,19 +9,20 @@ export default function Faq1() {
   const faqData = [
     {
       question: "Registracija",
-      answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      answer: `Registrirajte podjetje <u style="color: #0A85C2;><span style="color: #0A85C2;">tukaj</span></u>. Vaš uporabniški račun bo ustvarjen in lahko se sprehodite po gumbih. Nekaj je statistike, obrazec za brezplačna darila in seveda pomočnik za izdelavo vaše strani. Za aktivacijo preostalih stvari, si boste <strong>najprej ustvarili svojo spletno stran.</strong><br></br> Ko bo vaša stran podjetja objavljena, postanete naš partner. Vaše podjetje bo prikazano v imenikih in prostorih za oglaševanje, omogočeni bodo brezplačni vnos osmrtnic in pogrebov, brezplačne digitalne kartice vabil, sožalij, zahval, mesečni Skrbnik.`,
     },
     {
       question: "Izdelava spletne strani  ",
-      answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      answer: "Zelo enostavno je in avtomatizirano. Za vnos slik in vsebine boste rabili <strong>približno pol ure.</strong><br></br>V kolikor slik nimate pripravljenih, lahko začasno uporabite naše začasne, ki so priložene in svoje dodate kasneje. Vaši vnosi se vmes avtomatsko shranjujejo, tako da lahko nadaljujete kasneje in ko končate, pritisnete gumb Objavi. <br></br>Vašo vsebino bomo pregledali, stran pripravili in jo najkasneje v 48 urah tudi objavili.  ",
     },
     {
       question: "Objava osmrtnice ",
-      answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      answer: `Objava osmrtnic je praviloma v domeni pogrebnih podjetij, bomo pa občasno ta privilegij ponudili tudi izbranim cvetličarnam sploh v okoljih, kjer pogrebna podjetja še niso pristopila k sodelovanju. <br></br>Osmrtnice se vnašajo na željo najbližjih svojcev. Praviloma morajo priložiti uradni dokument&nbsp;&nbsp;  - Potrdilo o smrti, da se prepreči spam in objavljanje lažnih osmrtnic. Za vnos osmrtnice je sicer <strong>potrebna manj kot minuta.</strong><br></br>Objava osmrtnic, poleg možnosti poglabljanja stikov s strankami, prinaša še dodatne koristi&nbsp;&nbsp; – navedbo cvetličarne s kontaktnimi podatki v spodnjem delu spominske strani in se jo hkrati poudarjeno izpostavi kot prvo v bloku Cvetličarne, kar zagotavlja večjo vidnost. `
+,
     },
     {
       question: "Darila vašim strankam  ",
-      answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      answer: "Darila za stranke = dobrodošla priložnost za brezplačno promocijo vašega podjetja.<br></br>Uporaba je enostavna – vzame vam le pol minute časa, ki jo bodo stranke cenile in pomnile, še posebej, ker te produkte potrebujejo prav zdaj. Ker gre za popolno novost, bodo o tem govorili v svojem krogu in vas tako promovirali - ker pri vas se to dobi, v sosednji cvetličarni, ki morda (še) ni naš partner, pa pač ne. Razen tega bo večina, ki pride po darilo v vašo trgovino, največkrat tudi kaj kupila. Zdaj, ko še niso vse cvetličarne vključene, je najboljši čas za to promocijo.<br></br>Povežite se s strankami in povečajte njihovo zvestobo – omenite jim brezplačna darila!",
     },
     {
       question: "Imamo že svojo spletno stran. Ne rabimo še vaše.",
@@ -29,7 +30,7 @@ export default function Faq1() {
     },
     {
       question: "Imamo več cvetličarn. Dostavljamo v več mest.",
-      answer: "Stran lahko naredite v pol ure. Vpisali bomo vse podatke, ki jih imate, in vam pošljemo povezavo na e-mail. Stran lahko kasneje dopolnite, posodobite. Enostavno je.",
+      answer: "Odlično, potem je prav ta rešitev prava za vaše podjetje! Na svoji spletni strani in imenikih boste lahko oglaševali vse. Cena za matično cvetličarno se obračuna kot običajno, cena za vsako naslednjo cvetličarno pa znaša samo 50% siceršnje cene. <br></br>Ste mobilni ter opravljate dostavo in prodajo po več mestih? Da bi se cvetličarna izpisovala v več mestih = kot lokalna, boste morali ta mesta dodati. Matična cvetličarna se obračuna kot običajno, cena za vsako naslednjo občino pa znaša 50% siceršnje cene (in tam se bo vaša cvetličarna izpisovala kot lokalna cvetličarna).  ",
     },
   ];
     return (

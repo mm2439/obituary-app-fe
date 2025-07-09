@@ -119,7 +119,7 @@ function ObituaryHeader({ from }) {
                             : "text-[#1E2125]"
                         }`}
                       >
-                        Pogrebna p.
+                        Podrobno
                       </Link>
                     </li>
                     <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center ">
@@ -131,7 +131,7 @@ function ObituaryHeader({ from }) {
                             : "text-[#1E2125]"
                         }`}
                       >
-                        Priložnost
+                        Pogrebna
                       </Link>
                     </li>
                   </ul>

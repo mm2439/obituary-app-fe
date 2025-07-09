@@ -3,6 +3,9 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 const SlideTwo = () => {
   const breakpoint = useBreakpoint();
+  console.log(breakpoint)
+
+  
 
   // === Desktop Layout ===
   if (breakpoint === "desktop") {
@@ -36,7 +39,7 @@ const SlideTwo = () => {
                 digitalni obliki in jih ohranimo za vedno.{" "}
               </p>
             </div>
-            <div className="btn-container px-[89px]">
+            <div className="btn-container ">
               <button className="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
                 Več o Skrbniku
               </button>
@@ -44,7 +47,7 @@ const SlideTwo = () => {
           </div>
           <div className="img-container">
             <img
-              className="mx-[111px]"
+              className="mx-[111px] object-cover h-full"
               src="/mobile-cards/slider-mobile.png"
               alt="iPad Landscape"
             />

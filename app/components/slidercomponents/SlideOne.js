@@ -2,6 +2,8 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 const SlideOne = () => {
   const breakpoint = useBreakpoint();
+
+  
   if (breakpoint === "desktop") {
     return (
       <>

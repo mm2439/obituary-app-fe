@@ -4,7 +4,7 @@ import sponser2 from "@/public/sponser2.png";
 import sponser3 from "@/public/sponser3.png";
 import sponser5 from "@/public/sponser5.png";
 import Image from "next/image";
-const SponsorComponent = () => {
+const SponsorComponent = ({text = ""}) => {
   return (
     <div className="relative max-w-[1920px]  overflow-hidden mx-auto flex py-[115px] mobile:py-[100px] justify-center items-center bg-[#F5F7F9]"> 
       <div
@@ -12,8 +12,10 @@ const SponsorComponent = () => {
                     w-[1084px] h-[139.45px] 
                     tablet:w-[603px] tablet:h-[123.75px]
                     mobile:w-[360px] mobile:h-[90.52px]">
-        <div className="flex w-[96px] h-[28px] text-[#1E2125] text-[24px] mt-[-3px] font-variation-customOpt24">
-          Sponzorji
+        <div className="  text-[#1E2125] text-[24px] mt-[-3px] font-variation-customOpt24">
+          {text ? "To stran so omogočili" : "Sponzorji"}
+          
+          
         </div>
         <div className="flex w-full h-[63.75px] mobile:h-[30.52px] items-center">
           <Image

@@ -6,58 +6,15 @@ import API_BASE_URL from "@/config/apiConfig";
 import Image from "next/image";
 // 7 October 2024 - bela_ikebana.avif, sopek.avif
 
-const defaultList = [
-  {
-    image: "/bela_ikebana.avif",
-    title: "Čudoviti aranžma št. 1",
-  },
-  {
-    image: "/sopek.avif",
-    title: "Čudoviti aranžma št. 1",
-  },
-  {
-    image: "/sopek.avif",
-    title: "Čudoviti aranžma št. 1",
-  },
-  {
-    image: "/sopek.avif",
-    title: "Čudoviti aranžma št. 1",
-  },
-  {
-    image: "/bela_ikebana.avif",
-    title: "Čudoviti aranžma št. 5 od 80€ naprej",
-  },
-  {
-    image: "/sopek.avif",
-    title: "Čudoviti aranžma št. 6 od 80€ naprej",
-  },
-  {
-    image: "/f3.png",
-    title: "Čudoviti aranžma št. 7 od 40€ naprej",
-  },
-  {
-    image: "/sopek.avif",
-    title: "Čudoviti aranžma št. 8 od 60€ naprej",
-  },
-];
+const defaultText =
+  "Dodate osem produktov iz vaše ponudbe in dodate pod njimi svoje tekste. Seveda ni nujno, da so vsi produkti iz žalnega programa. Tudi naslov lahko poimenujete drugače.";
+
 const SadProgram = ({ data }) => {
-  const [list, setList] = useState(defaultList);
+  const [list, setList] = useState([]);
 
   useEffect(() => {
-    const customPackages = data?.packages || [];
-
-    if (customPackages.length > 8) {
-      setList(customPackages);
-    } else if (customPackages.length > 0) {
-      const updatedList = [...defaultList];
-      for (let i = 0; i < customPackages.length; i++) {
-        updatedList[i] = customPackages[i];
-      }
-      setList(updatedList);
-    } else {
-      setList(defaultList);
-    }
-  }, [data]);
+    setList(data?.packages || []);
+  }, [data?.packages]);
 
   return (
     <div className="relative max-w-[1920px] bg-[#F5F7F9] w-full py-16 tablet:py-12 mobile:py-8  overflow-hidden mx-auto justify-center items-center flex ">
@@ -68,11 +25,9 @@ const SadProgram = ({ data }) => {
           <div className="text-[40px] mt-[-8px] text-[#1E2125] mobile:text-[32px] mobile:font-variation-customOpt32 font-variation-customOpt40">
             Žalni program
           </div>
-          {/* <div className="text-[16px] text-[#939393] font-variation-customOpt16 leading-[24px] mt-[11px]">
-            Dodate osem produktov iz vaše ponudbe in dodate pod njimi svoje
-            tekste. Seveda ni nujno, da so vsi produkti iz žalnega programa.
-            Tudi naslov lahko poimenujete drugače.
-          </div> */}
+          <div className="text-[16px] text-[#939393] font-variation-customOpt16 leading-[24px] mt-[11px]">
+            {data?.offer_subtitle || defaultText}
+          </div>
         </div>
 
         {/*Contianer for grid*/}
@@ -83,7 +38,7 @@ const SadProgram = ({ data }) => {
             {list.length > 0 &&
               list.map((item, index) => (
                 <div
-                  key={index}
+                  key={`${item.id}-${index}`}
                   className=" bg-gradient-to-br from-white to-[#ffffff30] border-white border-2 desktop:w-[211px] desktop:h-[295px] w-[292px] h-[295px] flex items-center flex-col rounded-lg shadow-custom-light-dark mobile:hidden"
                 >
                   <Image
@@ -97,8 +52,9 @@ const SadProgram = ({ data }) => {
                     width={120}
                     height={135}
                   />
-                  <div className="text-[16px] text-[#1E2125] font-variation-customOpt16 mt-[40.46px] text-center w-[157px]">
+                  <div className="text-[16px] line-clamp-2 text-[#1E2125] font-variation-customOpt16 mt-[40.46px] text-center w-[157px]">
                     {item.title}
+                    {item?.price ? `od ${item?.price}€` : ""}
                   </div>
                 </div>
               ))}
@@ -106,7 +62,7 @@ const SadProgram = ({ data }) => {
             {/*List for Mobile*/}
             {list.map((item, index) => (
               <div
-                key={index}
+                key={`${item.id}-${index}`}
                 className=" bg-gradient-to-br from-white to-[#ffffff30] border-white border-2 w-[292px] h-[295px] items-center flex-col rounded-lg shadow-custom-light-dark mobile:flex hidden"
               >
                 <Image
@@ -122,6 +78,7 @@ const SadProgram = ({ data }) => {
                 />
                 <div className="text-[16px] text-[#1E2125] font-variation-customOpt16 mt-[40.46px] text-center w-[157px]">
                   {item.title}
+                  {item?.price ? `od ${item?.price}€` : ""}
                 </div>
               </div>
             ))}

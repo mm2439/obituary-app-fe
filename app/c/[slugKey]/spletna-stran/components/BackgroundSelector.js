@@ -38,7 +38,7 @@ export default function BackgroundSelector({ setFile }) {
           {selectedBackground === background.id && (
             <div className="absolute top-0 left-0 w-full h-full bg-[#00000066] flex items-center justify-center">
               <img
-                src="icon_tick.png"
+                src="/icon_tick.png"
                 alt="Spletna stran"
                 className="w-[24px] h-[24px]"
               />
@@ -101,7 +101,7 @@ export function BackgroundSelectorStep2({ setFile }) {
           {selectedBackground === background.id && (
             <div className="absolute top-0 left-0 w-full h-full bg-[#00000066] flex items-center justify-center">
               <img
-                src="icon_tick.png"
+                src="/icon_tick.png"
                 alt="Spletna stran"
                 className="w-[24px] h-[24px]"
               />
@@ -166,7 +166,7 @@ export function IconSelectorStep4({ setBoxIcon }) {
           {selectedBackground === background.id && (
             <div className="absolute top-0 left-0 w-full h-full bg-[#00000066] flex items-center justify-center">
               <img
-                src="icon_tick.png"
+                src="/icon_tick.png"
                 alt="Spletna stran"
                 className="w-[24px] h-[24px]"
               />

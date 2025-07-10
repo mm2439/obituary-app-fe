@@ -1,14 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import Layout from "../../components/appcomponents/Layout";
 import ObituaryPublished from "../../components/appcomponents/ObituaryPublished";
 import FlowerShops from "../../components/appcomponents/FlowerShops";
 import ShippingNotifications from "../../components/appcomponents/ShippingNotifications";
 import MemorialPageTopComp from "../../components/appcomponents/MemorialPageTopComp";
-import Condolences from "../../components/appcomponents/Condolences";
-import ImageWall from "../../components/appcomponents/ImageWall";
-import SanctifiedComp from "../../components/appcomponents/SanctifiedComp";
 import ModalLibrary from "../../components/appcomponents/ModalLibrary";
 import ImageFullView from "../../components/appcomponents/ImageFullView";
 import imgUp from "@/public/ico_up.png";
@@ -18,7 +15,7 @@ import { toast } from "react-hot-toast";
 import AnnouncementBlock from "../../components/appcomponents/AnnouncementBlock";
 import { FlowerShops2 } from "../../components/appcomponents/FlowerShops";
 import { useRouter } from "next/navigation";
-import Card1 from "@/app/components/mobile-cards/card1";
+import { getTemplateCardImages } from "@/utils/commonUtils";
 
 const MemoryPage = ({ params }) => {
   const { slugKey, user } = params;
@@ -51,7 +48,6 @@ const MemoryPage = ({ params }) => {
         );
         return;
       }
-      console.log("MemoryPage obituary data:", response.obituary);
 
       setObituary(response.obituary);
 
@@ -126,71 +122,81 @@ const MemoryPage = ({ params }) => {
       }
     }
   };
+
   return (
-    <Layout
-      from={"3"}
-      onChangeMemory={handleMemoryChange}
-      forFooter={"memorypage"}
-    >
-      <div className="flex flex-1 flex-col mx-auto bg-[#ecf0f3] pt-[20px] max-w-[100vw] overflow-x-hidden">
-        <ModalLibrary
-          isShowModal={isShowModal}
-          setIsShowModal={setIsShowModal}
-          select_id={select_id}
-          set_Id={setSelect_Id}
-          selectedImage={selectedImage}
-          data={obituary}
-          updateObituary={updateObituary}
-        />
-        <ImageFullView
-          showImageView={showImageView}
-          imageId={imageId}
-          setShowImageView={setShowImageView}
-          data={obituary?.Photos}
-        />
-        <MemorialPageTopComp
-          set_Id={setSelect_Id}
-          setModal={setIsShowModal}
-          data={obituary}
-          updateObituary={updateObituary}
-        />
+    <>
+      <Layout
+        from={"3"}
+        onChangeMemory={handleMemoryChange}
+        forFooter={"memorypage"}
+      >
+        <div className="flex flex-1 flex-col mx-auto bg-[#ecf0f3] pt-[20px] max-w-[100vw] overflow-x-hidden">
+          <ModalLibrary
+            isShowModal={isShowModal}
+            setIsShowModal={setIsShowModal}
+            select_id={select_id}
+            set_Id={setSelect_Id}
+            selectedImage={selectedImage}
+            data={obituary}
+            updateObituary={updateObituary}
+          />
+          <ImageFullView
+            showImageView={showImageView}
+            imageId={imageId}
+            setShowImageView={setShowImageView}
+            data={obituary?.Photos}
+          />
+          <MemorialPageTopComp
+            set_Id={setSelect_Id}
+            setModal={setIsShowModal}
+            data={obituary}
+            updateObituary={updateObituary}
+          />
 
-        {obituary?.Keepers?.length === 0 && <AnnouncementBlock />}
+          {obituary?.Keepers?.length === 0 && <AnnouncementBlock />}
 
-        <ShippingNotifications
-          set_Id={setSelect_Id}
-          setModal={setIsShowModal}
-        />
-        <FlowerShops
-          setIsOpen={(value) => {
-            setShowShops(value);
-          }}
-          data={obituary}
-          showShop={showShops}
-        />
+          <ShippingNotifications
+            set_Id={setSelect_Id}
+            setModal={setIsShowModal}
+            images={getTemplateCardImages(obituary?.cardImages)}
+            blurredImages={Boolean(obituary?.cardImages?.length)}
+          />
 
-        <FlowerShops2
-          setIsOpen={(value) => {
-            setShowShops(value);
-          }}
-          showShop={showShops}
-        />
+          <FlowerShops
+            setIsOpen={(value) => {
+              setShowShops(value);
+            }}
+            data={obituary}
+            showShop={showShops}
+          />
 
-        <ObituaryPublished
-          set_Id={setSelect_Id}
-          setModal={setIsShowModal}
-          data={obituary}
-        />
-        <a
-          className="z-50 bottom-10 right-10 fixed w-[48px] h-[48px] mt-[26px] 
+          <FlowerShops2
+            setIsOpen={(value) => {
+              setShowShops(value);
+            }}
+            showShop={showShops}
+          />
+
+          <ObituaryPublished
+            set_Id={setSelect_Id}
+            setModal={setIsShowModal}
+            data={obituary}
+          />
+          <a
+            className="z-50 bottom-10 right-10 fixed w-[48px] h-[48px] mt-[26px] 
                 shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
                 flex justify-center items-center rounded-lg"
-          href="#memoryPageTop"
-        >
-          <Image src={imgUp} alt="imgPrevious" className=" w-[24px] h-[24px]" />
-        </a>
-      </div>
-    </Layout>
+            href="#memoryPageTop"
+          >
+            <Image
+              src={imgUp}
+              alt="imgPrevious"
+              className=" w-[24px] h-[24px]"
+            />
+          </a>
+        </div>
+      </Layout>
+    </>
   );
 };
 

@@ -6,7 +6,10 @@ import telephone_icon from "@/public/telephone_icon.png";
 
 function ObituaryHeader({ from, data }) {
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 ">
+    <header
+      key={data?.id}
+      className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 "
+    >
       <div className=" flex w-full justify-center">
         <div
           className=" flex 

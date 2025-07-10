@@ -34,10 +34,10 @@ const FloristsDetailsPage = ({ params }) => {
           <div className="flex flex-col mx-auto w-full bg-[#F5F7F9]">
             <FloristsSunFlowerView data={company} />
             <Offer data={company} />
-            <SadProgram data={company} />
+            <SadProgram key={company?.id} data={company} />
             <Qualityflowers data={company} />
-            <SpecialOffer data={company} />
-            <SunflowerFlorist data={company} />
+            <SpecialOffer key={company?.id} data={company} />
+            <SunflowerFlorist key={company?.id} data={company} />
           </div>
           {company === null && (
             <>

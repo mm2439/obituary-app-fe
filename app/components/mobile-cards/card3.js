@@ -1,53 +1,68 @@
+import {
+  formatDayAndTimeSlovenian,
+  formatToDottedDate,
+} from "@/utils/dateUtils";
+import Image from "next/image";
 import React from "react";
 
-const Card3 = () => {
-
+const Card3 = ({ data = {}, cardRefs, index }) => {
   return (
     <div
-      className="w-[360px] bg-[#36556C] min-h-[720px] shadow-md overflow-hidden text-white"
-      style={{ fontFamily: "Roboto Flex"}}
+      ref={(el) => {
+        if (cardRefs?.current) {
+          cardRefs.current[index] = el;
+        }
+      }}
+      className="w-[360px] flex items-center justify-center relative bg-[#36556C] min-h-[720px] shadow-md overflow-hidden text-white"
+      style={{ fontFamily: "Roboto Flex" }}
     >
-      <div className="flex justify-between items-center px-4 py-4 text-sm font-semibold max-h-[50px]">
-        <span className="text-[#F8EDE3] ml-3">9:41</span>
-        <div className="flex space-x-1 text-xs">
-          <img src="/mobile-cards/mini-off.png" alt="Status Icons" />
+      <Image
+        src={"/mobile-cards/blue-card-overlay.png"}
+        alt="bg-card3"
+        fill
+        className="object-cover w-full h-full absolute top-0 left-0"
+      />
+
+      <div>
+        <div className="inner-container mt-[53px] py-1 h-[60px]">
+          <div className="img-container py-5 flex justify-center">
+            <p className="font-greatVibes text-[48px] leading-[36px] text-[#F8EDE3] text-center [text-shadow:0px_2px_2px_#00000040]">
+              V spomin
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="inner-container mt-[53px] py-1 h-[60px]">
-        <div className="img-container py-5 flex justify-center">
-
-        <p className="font-greatVibes text-[48px] leading-[36px] text-[#F8EDE3] text-center [text-shadow:0px_2px_2px_#00000040]">
-          V spomin
-        </p>
-
-        </div>
-      </div>
-
-      <div className="text-container h-[72px] mt-[108px] w-[328px] mx-auto">
-         <div className="img-container py-5 flex flex-col align-middle text-center">
-          <h2
-            className="text-[40px] text-[#F8EDE3] font-normal text-center leading-[36px]"
+        <div className="text-container h-[72px] mt-[108px] w-[328px] mx-auto">
+          <div className="img-container py-5 flex flex-col align-middle text-center">
+            <h2
+              className="text-[40px] text-[#F8EDE3] font-normal text-center leading-[36px]"
               style={{
-               textShadow: '0px 3px 3px #00000040',
+                textShadow: "0px 3px 3px #00000040",
               }}
-          >
-            Mario Danilo Primo
-          </h2>
+            >
+              {data?.name} {data?.sirName}
+            </h2>
 
-          <p style={{ letterSpacing: '3px' }} className="text-[#F8EDE3] h-[18px] mx-auto mt-[34px] text-[18px] font-light">14.01.1948 - 21.05.2025</p>
+            <p
+              style={{ letterSpacing: "3px" }}
+              className="text-[#F8EDE3] h-[18px] mx-auto mt-[34px] text-[18px] font-light"
+            >
+              {formatToDottedDate(data?.birthDate)} -{" "}
+              {formatToDottedDate(data?.deathDate)}
+            </p>
+          </div>
         </div>
-      </div>
-
 
         <div className="name-year-container text-[#F8EDE3] mt-[177px]">
-          <h1 className="text-center text-[24px] font-medium h-[20px]">23.05.2025 ob 11:00</h1>
-          <p className="text-center mx-auto mt-[14px] text-[18px] h-[20px]">Pokopališče v Gabrskem</p>
+          <h1 className="text-center text-[24px] font-medium h-[20px]">
+            {formatToDottedDate(data?.funeralTimestamp)} ob{" "}
+            {formatDayAndTimeSlovenian(data?.funeralTimestamp).time}
+          </h1>
+          <p className="text-center mx-auto mt-[16px] text-[18px] h-[20px]">
+            {data?.Cemetry?.funeralCemetery} v {data?.funeralLocation}
+          </p>
         </div>
-
-         <div className="mt-[112px]">
-         <img src="/mobile-cards/tool-bar.png" alt="" className="w-full" />
-        </div>
+      </div>
     </div>
   );
 };

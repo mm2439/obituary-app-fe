@@ -23,30 +23,75 @@ const NextArrow = ({ onClick }) => (
   />
 );
 
-const calendarData = [
-  { day: "Ned", date: 20, month: "APR", isToday: false },
-  { day: "Pon", date: 21, month: "APR", isToday: true },
-  { day: "Tor", date: 22, month: "APR", isToday: false },
-  { day: "Sre", date: 23, month: "APR", isToday: false },
-  { day: "Čet", date: 24, month: "APR", isToday: false },
-  { day: "Pet", date: 25, month: "APR", isToday: false },
-  { day: "Sob", date: 26, month: "APR", isToday: false },
-  { day: "Ned", date: 27, month: "APR", isToday: false },
-  { day: "Pon", date: 28, month: "APR", isToday: false },
+const initialCalendarData = [
+  { day: "Ned", date: 20, month: "APR" },
+  { day: "Pon", date: 21, month: "APR" },
+  { day: "Tor", date: 22, month: "APR" },
+  { day: "Sre", date: 23, month: "APR" },
+  { day: "Čet", date: 24, month: "APR" },
+  { day: "Pet", date: 25, month: "APR" },
+  { day: "Sob", date: 26, month: "APR" },
+  { day: "Ned", date: 27, month: "APR" },
+  { day: "Pon", date: 28, month: "APR" },
 ];
 
-const scheduleData = [
-  { time: "9:00", name: "John Wayne", city: "Berlin" },
-  { time: "11:30", name: "Johanna Wayne", city: "Oslo" },
-  { time: "15:30", name: "Jean Paul Belmondo", city: "Manchester" },
-  { time: "16:00", name: "Paula Schmidt", city: "Barcelona" },
-];
+
+const scheduleMap = {
+  0: [
+    { time: "9:00", name: "John Wayne", city: "Berlin" },
+    { time: "10:00", name: "Lily Ivanova", city: "Sofia" },
+    { time: "11:15", name: "Ahmed Rami", city: "Cairo" },
+  ],
+  1: [
+    { time: "11:30", name: "Johanna Wayne", city: "Oslo" },
+    { time: "13:00", name: "Ivan Petrov", city: "Moscow" },
+    { time: "14:45", name: "Maria Lopez", city: "Madrid" },
+  ],
+  2: [
+    { time: "15:30", name: "Jean Paul Belmondo", city: "Paris" },
+    { time: "17:00", name: "Amélie Poulain", city: "Lyon" },
+    { time: "18:10", name: "Luc Dubois", city: "Nice" },
+    { time: "19:00", name: "Sophie Marceau", city: "Toulouse" },
+  ],
+  3: [
+    { time: "16:00", name: "Paula Schmidt", city: "Barcelona" },
+    { time: "18:30", name: "Carlos Martinez", city: "Madrid" },
+    { time: "20:00", name: "Isabella Cruz", city: "Valencia" },
+  ],
+  4: [
+    { time: "10:30", name: "Greta Keller", city: "Vienna" },
+    { time: "12:00", name: "Hans Zimmer", city: "Hamburg" },
+    { time: "13:30", name: "Erika Mustermann", city: "Munich" },
+    { time: "15:00", name: "Max Müller", city: "Berlin" },
+  ],
+  5: [
+    { time: "09:45", name: "Antonio Banderas", city: "Seville" },
+    { time: "11:00", name: "Pedro Sanchez", city: "Toledo" },
+  ],
+  6: [
+    { time: "14:00", name: "Sven Svensson", city: "Stockholm" },
+    { time: "15:15", name: "Erik Karlsson", city: "Uppsala" },
+    { time: "16:30", name: "Anna Lind", city: "Gothenburg" },
+  ],
+  7: [
+    { time: "08:30", name: "Fatima Zahra", city: "Casablanca" },
+    { time: "10:00", name: "Mohammed Ali", city: "Rabat" },
+    { time: "11:30", name: "Youssef Benali", city: "Fes" },
+  ],
+  8: [
+    { time: "17:00", name: "George Michael", city: "London" },
+    { time: "18:00", name: "Adele Adkins", city: "Manchester" },
+    { time: "19:00", name: "Ed Sheeran", city: "Ipswich" },
+    { time: "20:00", name: "Emma Watson", city: "Oxford" },
+  ]
+};
+
 
 const Carousel = () => {
   const settings = {
     className: "slider variable-width",
     dots: false,
-    infinite: true,
+    infinite: false,
     centerMode: false,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -54,65 +99,92 @@ const Carousel = () => {
     arrows: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
- 
   };
+
+  const sliderRef = React.useRef(null);
+  const [activeIndex, setActiveIndex] = React.useState(1);
+
 
   return (
     <div className="flex items-center justify-center flex-col">
       <div className="slider-container gap-5 w-[240px] tablet:w-[500px] desktop:w-[610px] py-12 bg-[#f9fafb] hidden tablet:block desktop:block">
-        <Slider {...settings}>
-          {calendarData.map((item, i) => (
-            <div key={i} style={{ width: item.isToday ? 160 :115 ,  }}   >
-              {item.isToday ? (
-                <div className="relative h-[210px] w-[140px]  right-0">
-                  <img src="/active-date-top.png" alt="active-top" />
-                  <img
-                    src="/active-date-bottom.png"
-                    alt="active-bottom"
-                    className="scale-[1.4] bottom-[-13px] relative"
-                  />
-                  <div className="absolute w-[138px] justify-center z-10 top-4 flex items-center">
-                    <h1 className="font-[900] text-white">{item.month}</h1>
+        <Slider ref={sliderRef} {...settings}>
+
+
+          {initialCalendarData.map((item, i) => {
+            const isToday = i === activeIndex;
+            return (
+          <div
+            key={i}
+            onClick={() => setActiveIndex(i)}
+            style={{ width: isToday ? 160 : 115 }} // Dynamic width for animation
+            className={`transition-[width] duration-300 ease-in-out transform ${
+              isToday ? 'scale-100 opacity-100' : 'scale-90 opacity-90'
+            } cursor-pointer `}
+          >
+            {(() => {
+              const isActive = isToday;
+
+              const containerClass = isActive
+                ? "relative h-[210px] w-[140px] right-0 transform transition-transform duration-600 ease-in-out scale-100 mb-5"
+                : "relative h-[140px] w-[103px] top-[37px] transform transition-transform duration-600 ease-in-out scale-95";
+
+              const topImageSrc = isActive ? "/active-date-top.png" : "/date-top.png";
+              const bottomImageProps = isActive
+                ? { src: "/active-date-bottom.png", className: "scale-[1.4] bottom-[-13px] relative" }
+                : { src: "/date-bottom.png", className: "relative top-[-6px] left-0]" };
+
+              const monthClass = isActive
+                ? "absolute w-[138px] justify-center z-10 top-4 flex items-center"
+                : null;
+
+              const monthTextClass = isActive
+                ? "font-[900] text-white"
+                : null;
+
+              const dateClass = isActive
+                ? "absolute w-[138px] justify-center z-10 top-1/3 flex items-center"
+                : "absolute w-[90px] justify-center z-10 top-1/3 flex items-center";
+
+              const dateTextClass = isActive
+                ? "font-semibold text-[#3C3E41] text-[48px]"
+                : "font-normal text-[#3C3E41] text-[32px]";
+
+              const dayClass = isActive
+                ? "absolute w-[138px] justify-center z-10 bottom-[33px] flex items-center"
+                : "absolute w-[90px] justify-center z-10 bottom-[18px] flex items-center";
+
+              const dayTextClass = isActive
+                ? "font-light text-[#808080] text-[24px]"
+                : "font-light text-[#808080] text-[16px]";
+
+              return (
+                <div className={containerClass}>
+                  <img src={topImageSrc} alt="date-top" />
+                  <img src={bottomImageProps.src} alt="date-bottom" className={bottomImageProps.className} />
+                  {isActive && (
+                    <div className={monthClass}>
+                      <h1 className={monthTextClass}>{item.month}</h1>
+                    </div>
+                  )}
+                  <div className={dateClass}>
+                    <h1 className={dateTextClass}>{item.date}</h1>
                   </div>
-                  <div className="absolute w-[138px] justify-center z-10 top-1/3 flex items-center">
-                    <h1 className="font-semibold text-[#3C3E41] text-[48px]">
-                      {item.date}
-                    </h1>
-                  </div>
-                  <div className="absolute w-[138px] justify-center z-10 bottom-[33px] flex items-center">
-                    <p className="font-light text-[#808080] text-[24px]">
-                      {item.day}
-                    </p>
+                  <div className={dayClass}>
+                    <p className={dayTextClass}>{item.day}</p>
                   </div>
                 </div>
-              ) : (
-                <div className="relative h-[140px]  w-[103px] top-[37px]">
-                  <img src="/date-top.png" alt="date-top" />
-                  <img
-                    src="/date-bottom.png"
-                    alt="date-bottom"
-                    className="relative top-[-6px] left-0]"
-                  />
-                  <div className="absolute w-[90px] justify-center z-10 top-1/3 flex items-center">
-                    <h1 className="font-normal text-[#3C3E41] text-[32px]">
-                      {item.date}
-                    </h1>
-                  </div>
-                  <div className="absolute w-[90px] justify-center z-10 bottom-[18px] flex items-center">
-                    <p className="font-light text-[#808080] text-[16px]">
-                      {item.day}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-            
-          ))}
+              );
+            })()}
+          </div>
+            );
+          })}
+
         </Slider>
       </div>
 
 
-      <div className="slider-container gap-5 w-[210px]  py-12 bg-[#f9fafb] block tablet:hidden desktop:hidden">
+      {/* <div className="slider-container gap-5 w-[210px]  py-12 bg-[#f9fafb] block tablet:hidden desktop:hidden">
         <Slider {...settings}>
            {calendarData.map((item, i) => (
             <div key={i} style={{ width: item.isToday ? 90 :65 }}  >
@@ -162,10 +234,10 @@ const Carousel = () => {
             
           ))}
         </Slider>
-      </div>
+      </div> */}
 
       <div className="flex-col hidden tablet:flex desktop:flex">
-        {scheduleData.map((item, index) => (
+        {(scheduleMap[activeIndex] || []).map((item, index) => (
           <div
             key={index}
             className="flex flex-row items-center border-t border-b border-[#D4D4D4] tablet:w-[691px] desktop:w-[900px] h-[64px]"
@@ -185,12 +257,12 @@ const Carousel = () => {
             <button>
               <img src="/arrow-next.png" className="w-6 h-6 hidden desktop:block" />
               <img src="/icon_right.png" className="w-2 h-3 tablet:block desktop:hidden object-contain" />
-
             </button>
           </div>
         ))}
-      </div>
 
+      </div>
+{/* 
       <div className="flex tablet:hidden desktop:hidden flex-col">
         {scheduleData.map((item, index) => (
           <div
@@ -216,7 +288,7 @@ const Carousel = () => {
 
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className="w-[317px] tablet:w-[680px] desktop:w-[915px] mt-[72px] tablet:mt-20 desktop:mt-20">
         <p className="text-[#3C3E41] hidden tablet:block desktop:block">

@@ -8,7 +8,7 @@ const SlideOne = () => {
     return (
       <>
         <div className="bg-[#F5F0E8] text-[#22281C] w-full h-[891px]">
-          <div className="flex justify-center my-[80px]">
+          <div className="flex justify-center pt-10">
             <div className="mt-[18px] image-container w-1/2 flex justify-end">
               <img
                 className="h-[761.1px]"
@@ -74,7 +74,7 @@ const SlideOne = () => {
   // === Tablet Layout ===
   if (breakpoint === "tablet") {
     return (
-      <div className="bg-[#E0E9F3] text-[#22281C] h-auto">
+      <div className="bg-[#E0E9F3] text-[#22281C] h-full">
         <div className="p-[64px] text-center">
           <div className="text-center text-container mx-auto pl-[35px] w-[464px]">
             <h2 className="text-[40px]">Žalna stran</h2>
@@ -105,7 +105,7 @@ const SlideOne = () => {
   // === Mobile Layout ===
   if (breakpoint === "mobile") {
     return (
-      <div className="bg-[#E0E9F3] text-[#22281C] h-auto">
+      <div className="bg-[#E0E9F3] text-[#22281C] h-full">
         <div className="py-[69px] text-center">
           <div className="text-center text-container mx-auto w-[321px]">
             <h2 className="text-[28px]">Žalna stran</h2>
@@ -118,7 +118,7 @@ const SlideOne = () => {
             </p>
           </div>
           <div className="image-container flex justify-center">
-            <img src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" />
+            <img src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" className=" h-[613px]  object-fill" />
           </div>
           <button class="px-[25px] rounded-[8px] py-[12px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
             Več o žalni strani

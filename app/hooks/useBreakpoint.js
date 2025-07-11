@@ -9,7 +9,7 @@ export const useBreakpoint = () => {
 
     if (width >= 1280) return "desktop";
     if (width >= 1024) return "tablet";
-    if (width >= 744) return "tablet";
+    if (width >= 720) return "tablet";
     return "mobile";
   };
 

@@ -49,8 +49,8 @@ const config: Config = {
       },
       screens: {
         smmobile: { max: "400px" },
-        mobile: { max: "743px" },
-        tablet: { min: "744", max: "1199px" },
+        mobile: { max: "719px" },
+        tablet: { min: "720px", max: "1199px" },
         desktop: { min: "1200px" },
         //For user account screens
         desktopUserAcc: { min: "1280px" },

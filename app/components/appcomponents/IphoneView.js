@@ -70,7 +70,7 @@ const IphoneView = () => {
       </p>
       <div className="inner-div mt-[32px]">
         <h3 className="text-[#22281C] text-[20px] font-medium">
-          BREZPLAČNO TESTING ASDASD v vaši cvetličarni.
+          BREZPLAČNO v vaši cvetličarni.
         </h3>
       </div>
     </div>

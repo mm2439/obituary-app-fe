@@ -149,25 +149,27 @@ const ObituaryListComponent = ({ city }) => {
                 className="bg-white border-[#7C7C7C] placeholder-[#7C7C7C] text-[16px] font-[400] leading-[24px] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full px-4 text-[#7C7C7C] focus:outline-none"
               />
             </div>
+         
             {/* Dropdown for Občina*/}
             <Dropdown
+              data={cityOptions}
               label={"Občina"}
+              isFromNotification={false}
+              isFromFlower={false}
+              selectedValue={selectedCity}
+              onSelect={handleCitySelect}
+            />
+               {/* Dropdown for Regija*/}
+            <Dropdown
+              label={"Regija"}
               isFromNotification={false}
               isFromFlower={false}
               data={regionOptions}
               selectedValue={selectedRegion}
               onSelect={handleRegionSelect}
             />
-            {/* Dropdown for Regija*/}
-            <Dropdown
-              data={cityOptions}
-              label={"Regija"}
-              isFromNotification={false}
-              isFromFlower={false}
-              selectedValue={selectedCity}
-              onSelect={handleCitySelect}
-            />
             {/* Search container and magnifying glass image */}
+            
             <div
               onClick={() => fetchObituary()}
               className="hidden desktop:flex justify-center items-center w-12 h-full desktop:aspect-square rounded-lg bg-[#414141]"
@@ -187,23 +189,24 @@ const ObituaryListComponent = ({ city }) => {
             flex tablet:flex-wrap flex-row gap-4 mt-[69.07px] tablet:mt-[63px] mobile:mt-[40px] mobile:mb-[42px] tablet:mb-[53px] mb-[23.93px]"
           >
           
+            
             {/* Dropdown for Mesto*/}
             <Dropdown
+              data={cityOptions}
               label={"Mesto"}
+              isFromNotification={false}
+              isFromFlower={false}
+              selectedValue={selectedCity}
+              onSelect={handleCitySelect}
+            />
+            {/* Dropdown for Regija*/}
+            <Dropdown
+              label={"Regija"}
               isFromNotification={false}
               isFromFlower={false}
               data={regionOptions}
               selectedValue={selectedRegion}
               onSelect={handleRegionSelect}
-            />
-            {/* Dropdown for Regija*/}
-            <Dropdown
-              data={cityOptions}
-              label={"Regija"}
-              isFromNotification={false}
-              isFromFlower={false}
-              selectedValue={selectedCity}
-              onSelect={handleCitySelect}
             />
 
               {/* Input field for  Išči po imenu / priimku*/}
@@ -243,26 +246,28 @@ const ObituaryListComponent = ({ city }) => {
               />
             </div>
 
+          
             {/* Dropdown for Mesto*/}
             <Dropdown
-              label={"Mesto"}
-              isFromNotification={false}
-              isFromFlower={false}
-              isFrom={'pogrebi'}
-              data={regionOptions}
-              selectedValue={selectedRegion}
-              onSelect={handleRegionSelect}
-            />
-            {/* Dropdown for Regija*/}
-            <Dropdown
               data={cityOptions}
-              label={"Regija"}
+              label={"Mesto"}
               isFromNotification={false}
               isFromFlower={false}
               isFrom={'pogrebi'}
 
               selectedValue={selectedCity}
               onSelect={handleCitySelect}
+            />
+
+              {/* Dropdown for Regija*/}
+            <Dropdown
+              label={"Regija"}
+              isFromNotification={false}
+              isFromFlower={false}
+              isFrom={'pogrebi'}
+              data={regionOptions}
+              selectedValue={selectedRegion}
+              onSelect={handleRegionSelect}
             />
 
            

@@ -34,11 +34,11 @@ const IphoneView = () => {
       </div>
     </div>
     <div className="text-container mt-[98px] z-50">
-                        <Image
-    src="/mobile-cards/iphone.png"
-    alt="iPad Landscape"
-        width={250} 
-    height={500} 
+    <img
+      src="/mobile-cards/iphone.png"
+      alt="iPad Landscape"
+          width={250} 
+      height={500} 
     />
     </div>
   </div>
@@ -103,7 +103,7 @@ const IphoneView = () => {
 Op. Na naši strani mi teh kartic in mesečnega Skrbnika ne ponujamo. </p>
             </div>
             <div className="text-container mt-[36px] flex justify-center">
-                        <Image
+                        <img
                           src="/mobile-cards/iphone.png"
                           alt="iPad Landscape"
                               width={250} 

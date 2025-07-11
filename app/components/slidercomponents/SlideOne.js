@@ -7,7 +7,7 @@ const SlideOne = () => {
   if (breakpoint === "desktop") {
     return (
       <>
-        <div className="bg-[#F5F0E8] text-[#22281C] w-full h-[891px]">
+        <div className="bg-[#E0E9F3] text-[#22281C] w-full h-[891px]">
           <div className="flex justify-center pt-10">
             <div className="mt-[18px] image-container w-1/2 flex justify-end">
               <img

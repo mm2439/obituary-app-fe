@@ -12,7 +12,7 @@ import { useSearchParams } from "next/navigation";
 import MainOptions from "../components/appcomponents/MainOptions";
 import Carousel from "../components/slidercomponents/Carousel"
 import PogrebiLocalFloristComp from "../components/PogrebiLocalFloristComp"
-import FuneralPromoFooter from "../components/funeralpromo/FuneralPromoFooter"
+import PogrebiFooter from "../components/appcomponents/PogrebiFooter"
 
 const ObituaryListContent = () => {
   const searchParams = useSearchParams();
@@ -24,12 +24,12 @@ const ObituaryListContent = () => {
       <PogrebiListComponent city={city} />
       <Carousel />
       
-      <hr className="mt-[41px] tablet:mt-[63px] desktop:mt-[115px] mb-[51px] tablet:mb-[83px] desktop:mb-[93px]  h-2 bg-zinc-300 border-2" />
+      <hr className="mt-[41px] tablet:mt-[63px] desktop:mt-[115px] mb-[51px] tablet:mb-[83px] desktop:mb-[93px] mobile:h-[2px]  h-2 bg-zinc-300 border-2" />
 
       <MainOptions />
       <PogrebiLocalFloristComp />
       <SponsorComponent text="To stran so omogočili"/>
-      <FuneralPromoFooter />
+      <PogrebiFooter />
 
     </>
   );

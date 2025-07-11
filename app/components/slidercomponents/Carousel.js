@@ -4,6 +4,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useBreakpoint } from "@/app/hooks/useBreakpoint";
 
 const PrevArrow = ({ onClick }) => (
   <img
@@ -88,6 +89,9 @@ const scheduleMap = {
 
 
 const Carousel = () => {
+  const todayIndex = 5
+  const breakpoint = useBreakpoint()
+  
   const settings = {
     className: "slider variable-width",
     dots: false,
@@ -99,17 +103,13 @@ const Carousel = () => {
     arrows: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
+    initialSlide: breakpoint === "mobile" ? todayIndex : (todayIndex > 0 ? todayIndex - 1 : 0), 
+    
   };
 
   const sliderRef = React.useRef(null);
-  const [activeIndex, setActiveIndex] = React.useState(1);
-// 👇 Auto scroll to active item on mobile mount
-  React.useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (isMobile && sliderRef.current) {
-      sliderRef.current.slickGoTo(activeIndex);
-    }
-  }, []);
+  const [activeIndex, setActiveIndex] = React.useState(todayIndex);
+
 
   return (
     <div className="flex items-center justify-center flex-col bg-transparent">

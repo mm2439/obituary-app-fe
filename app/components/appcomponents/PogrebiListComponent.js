@@ -135,33 +135,33 @@ const ObituaryListComponent = ({ city }) => {
       {/* Main Container */}
       <div className=" flex flex-col items-center w-full tablet:w-full mobile:w-full">
         {/* Main container for inputs main container */}
-        <div className="w-full tablet:w-full mobile:w-full flex flex-col items-center">
+        <div className="w-full hidden desktop:flex tablet:w-full mobile:w-full  flex-col items-center">
           {/* Inputs main Container */}
           <div
             className="w-[777px] tablet:w-[600px] h-[48px] tablet:h-[112px] tablet:columns-2 mobile:w-[296px] mobile:h-[240px] mobile:flex-wrap 
             flex tablet:flex-wrap flex-row gap-4 mt-[69.07px] tablet:mt-[63px] mobile:mt-[40px] mobile:mb-[42px] tablet:mb-[53px] mb-[23.93px]"
           >
-            {/* Input field for  Išči po imenu / priimku*/}
+            {/* Input field for  Išči po imenu*/}
             <div className="flex w-[227px] tablet:w-[292px] h-[48px] mobile:w-[296px] justify-center items-center">
               <input
                 type="text"
-                placeholder="Išči po imenu / priimku"
+                placeholder="Išči po imenu"
                 className="bg-white border-[#7C7C7C] placeholder-[#7C7C7C] text-[16px] font-[400] leading-[24px] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full px-4 text-[#7C7C7C] focus:outline-none"
               />
             </div>
-            {/* Dropdown for Išči po regiji*/}
+            {/* Dropdown for Občina*/}
             <Dropdown
-              label={"Išči po regiji"}
+              label={"Občina"}
               isFromNotification={false}
               isFromFlower={false}
               data={regionOptions}
               selectedValue={selectedRegion}
               onSelect={handleRegionSelect}
             />
-            {/* Dropdown for Išči po kraju*/}
+            {/* Dropdown for Regija*/}
             <Dropdown
               data={cityOptions}
-              label={"Išči po kraju"}
+              label={"Regija"}
               isFromNotification={false}
               isFromFlower={false}
               selectedValue={selectedCity}
@@ -180,7 +180,105 @@ const ObituaryListComponent = ({ city }) => {
           </div>
         </div>
 
-    
+        <div className="w-full tablet:w-full mobile:w-full tablet:flex hidden flex-col items-center">
+          {/* Inputs main Container */}
+          <div
+            className="w-[777px] tablet:w-[600px] h-[48px] tablet:h-[112px] tablet:columns-2 mobile:w-[296px] mobile:h-[240px] mobile:flex-wrap 
+            flex tablet:flex-wrap flex-row gap-4 mt-[69.07px] tablet:mt-[63px] mobile:mt-[40px] mobile:mb-[42px] tablet:mb-[53px] mb-[23.93px]"
+          >
+          
+            {/* Dropdown for Mesto*/}
+            <Dropdown
+              label={"Mesto"}
+              isFromNotification={false}
+              isFromFlower={false}
+              data={regionOptions}
+              selectedValue={selectedRegion}
+              onSelect={handleRegionSelect}
+            />
+            {/* Dropdown for Regija*/}
+            <Dropdown
+              data={cityOptions}
+              label={"Regija"}
+              isFromNotification={false}
+              isFromFlower={false}
+              selectedValue={selectedCity}
+              onSelect={handleCitySelect}
+            />
+
+              {/* Input field for  Išči po imenu / priimku*/}
+            <div className="flex w-[227px] tablet:w-[292px] h-[48px] mobile:w-[296px] justify-center items-center">
+              <input
+                type="text"
+                placeholder="Išči po imenu / priimku"
+                className="bg-white border-[#7C7C7C] placeholder-[#7C7C7C] text-[16px] font-[400] leading-[24px] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full px-4 text-[#7C7C7C] focus:outline-none"
+              />
+            </div>
+
+            {/* Search container and magnifying glass image */}
+            <div
+              onClick={() => fetchObituary()}
+              className="hidden desktop:flex justify-center items-center w-12 h-full desktop:aspect-square rounded-lg bg-[#414141]"
+            >
+              <MagnifyingGlassIcon className="w-5 h-5 text-white hidden desktop:block" />
+            </div>
+            <div className="tablet:w-[292px] mobile:w-[296px] h-[48px] mobile:text-[16px] mobile:text-[#F6F6F6] rounded-lg tablet:leading-6 tablet:text-[16px] tablet:text-[#F6F6F6] bg-[#414141] tablet:font-[400px] hidden tablet:flex mobile:flex justify-center items-center">
+              Prikaži
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full tablet:w-full mobile:w-full mobile:flex hidden flex-col items-center">
+          {/* Inputs main Container */}
+          <div
+            className="w-[777px] tablet:w-[600px] h-[48px] tablet:h-[112px] tablet:columns-2 mobile:w-[296px] mobile:h-[240px] mobile:flex-wrap 
+            flex tablet:flex-wrap flex-row gap-4 mt-[69.07px] tablet:mt-[63px] mobile:mt-[40px] mobile:mb-[42px] tablet:mb-[53px] mb-[23.93px]"
+          >
+            {/* Input field for  Išči po imenu / priimku*/}
+            <div className="flex w-[227px] tablet:w-[292px] h-[48px] mobile:w-[296px] justify-center items-center">
+              <input
+                type="text"
+                placeholder="Išči po imenu / priimku"
+                className="bg-white border-[#7C7C7C] placeholder-[#7C7C7C] text-[16px] font-[400] leading-[24px] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full px-4 text-[#7C7C7C] focus:outline-none"
+              />
+            </div>
+
+            {/* Dropdown for Mesto*/}
+            <Dropdown
+              label={"Mesto"}
+              isFromNotification={false}
+              isFromFlower={false}
+              isFrom={'pogrebi'}
+              data={regionOptions}
+              selectedValue={selectedRegion}
+              onSelect={handleRegionSelect}
+            />
+            {/* Dropdown for Regija*/}
+            <Dropdown
+              data={cityOptions}
+              label={"Regija"}
+              isFromNotification={false}
+              isFromFlower={false}
+              isFrom={'pogrebi'}
+
+              selectedValue={selectedCity}
+              onSelect={handleCitySelect}
+            />
+
+           
+
+            {/* Search container and magnifying glass image */}
+            <div
+              onClick={() => fetchObituary()}
+              className="hidden desktop:flex justify-center items-center w-12 h-full desktop:aspect-square rounded-lg bg-[#414141]"
+            >
+              <MagnifyingGlassIcon className="w-5 h-5 text-white hidden desktop:block" />
+            </div>
+            <div className="tablet:w-[292px] mobile:w-[296px] h-[48px] mobile:text-[16px] mobile:text-[#F6F6F6] rounded-lg tablet:leading-6 tablet:text-[16px] tablet:text-[#F6F6F6] bg-[#414141] tablet:font-[400px] hidden tablet:flex mobile:flex justify-center items-center">
+              Prikaži
+            </div>
+          </div>
+        </div>
 
         {/* Hitri izbor heading and list for tablet */}
         <div className="tablet:w-[660px] desktop:hidden mobile:w-[304px] tablet:justify-end  tablet:flex tablet:flex-row  mobile:hidden text-[24px] mobile:text-[28px] font-[400px] leading-[28.13px] text-[#1E2125]">

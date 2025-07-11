@@ -9,7 +9,11 @@ export default function Faq1() {
   const faqData = [
     {
       question: "Registracija",
-      answer: `Registrirajte podjetje <u style="color: #0A85C2;><span style="color: #0A85C2;">tukaj</span></u>. Vaš uporabniški račun bo ustvarjen in lahko se sprehodite po gumbih. Nekaj je statistike, obrazec za brezplačna darila in seveda pomočnik za izdelavo vaše strani. Za aktivacijo preostalih stvari, si boste <strong>najprej ustvarili svojo spletno stran.</strong><br></br> Ko bo vaša stran podjetja objavljena, postanete naš partner. Vaše podjetje bo prikazano v imenikih in prostorih za oglaševanje, omogočeni bodo brezplačni vnos osmrtnic in pogrebov, brezplačne digitalne kartice vabil, sožalij, zahval, mesečni Skrbnik.`,
+      answer: `Registrirajte podjetje <u style="color: #0A85C2;><span style="color: #0A85C2;">tukaj</span></u>. 
+      Vaš uporabniški račun bo ustvarjen in lahko se sprehodite po gumbih. Nekaj je statistike, obrazec za brezplačna darila 
+      in seveda pomočnik za izdelavo vaše strani. Za aktivacijo preostalih stvari, si boste <strong>najprej ustvarili svojo spletno stran.
+      </strong><br></br> Ko bo vaša stran podjetja objavljena, postanete naš partner. Vaše podjetje bo prikazano v imenikih in prostorih za 
+      oglaševanje, omogočeni bodo brezplačni vnos osmrtnic in pogrebov, brezplačne digitalne kartice vabil, sožalij, zahval, mesečni Skrbnik.`,
     },
     {
       question: "Izdelava spletne strani  ",
@@ -34,7 +38,7 @@ export default function Faq1() {
     },
   ];
     return (
-      <div className="bg-[#F9EBD4] tablet:bg-[#F8EDE3] mobile:bg-[#E0E9F3] min-h-[100vh]">
+      <div className="bg-[#E0E9F3] tablet:bg-[#E0E9F3] mobile:bg-[#E0E9F3] min-h-[100vh]">
         <FAQHeader />
         <div className="w-full hidden mobile:flex gap-[16px] absolute top-[80px] left-0 right-0 justify-center items-center">
           <div className="w-[140px] h-[35px] flex items-center justify-center rounded-[2px] text-[14px] text-[#FFFFFF]" 

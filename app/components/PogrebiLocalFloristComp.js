@@ -31,17 +31,16 @@ const cityOptions =  [
     <div className=' mx-auto w-full '>
         
 
-      <div className='relative flex tablet:justify-start  desktop:justify-center items-center flex-row w-full mx-auto dekstop:h-[300px] tablet:h-[284px] mobile:h-[235px]'>
+      <div className='relative flex tablet:justify-start desktop:justify-center items-center flex-row w-full mx-auto desktop:h-[300px] tablet:h-[284px] mobile:h-[235px]'>
         <img
           src='/pogrebi-flowers.jpg'
           alt='pogrebi-flowers'
           className='h-full  w-full object-cover'
         />
-       
 
-
-        <div className='absolute flex justify-start tablet:justify-center items-center w-[330px] h-[141px]
-            tablet:w-[391px] desktop:w-[1054px] tablet:h-[167px] desktop:h-full ml-8 pl-5 tablet:pl-8 desktop:pl-8 rounded-2xl  
+        <div className='absolute mobile:left-1/2 mobile:top-1/2 mobile:transform mobile:-translate-x-1/2 mobile:-translate-y-1/2
+ flex justify-start tablet:justify-center items-center w-[330px] h-[141px]
+            tablet:w-[391px] desktop:w-[1054px] tablet:h-[167px] desktop:h-full tablet:ml-11 desktop:ml-11 pl-5 tablet:pl-8 desktop:pl-8 rounded-2xl  
             bg-gradient-to-r  desktop:bg-transparent from-[#EDF1F3]   to-[#ffffff4d] desktop:from-white/0 desktop:via-white/0 desktop:to-white/0  backdrop-blur-sm desktop:backdrop-blur-none border 
             border-white/30 desktop:border-none shadow-2xl desktop:shadow-none'>
           <div

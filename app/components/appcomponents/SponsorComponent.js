@@ -6,13 +6,13 @@ import sponser5 from "@/public/sponser5.png";
 import Image from "next/image";
 const SponsorComponent = ({text = ""}) => {
   return (
-    <div className="relative max-w-[1920px]  overflow-hidden mx-auto flex py-[115px] mobile:py-[100px] justify-center items-center bg-[#F5F7F9]"> 
+    <div className="relative max-w-[1920px] overflow-hidden mx-auto flex py-[51px] mobile:py-[43px] justify-center items-center bg-[#F5F7F9]"> 
       <div
         className="flex flex-col items-center justify-between
                     w-[1084px] h-[139.45px] 
                     tablet:w-[603px] tablet:h-[123.75px]
-                    mobile:w-[360px] mobile:h-[90.52px]">
-        <div className="  text-[#1E2125] text-[24px] mt-[-3px] font-variation-customOpt24">
+                    mobile:w-[360px] mobile:h-[80.52px]">
+        <div className="  text-[#3C3E41] mobile:text-[16px] text-[24px] mt-[-3px] font-variation-customOpt24">
           {text ? "To stran so omogočili" : "Sponzorji"}
           
           

@@ -158,23 +158,20 @@ const SlideTwo = () => {
   if (breakpoint === "mobile") {
     return (
       <div className="bg-[#F5F0E8] h-auto text-[#22281C] py-[69px] flex justify-center text-center">
-        <div className="image-container w-[560px]">
+        <div className="image-container w-[352px]">
           <h2 className="text-center text-[28px]">
             Spominska stran{" "}
+            <br />
             <span className="text-[#de222e] font-medium">s skrbnikom</span>
           </h2>
           <p className="text-[#414141] text-[16px] mt-[16px] leading-6">
-            Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame
-            skrb nad objavljenimi vsebinami vseh ostalih (podobno kot ena oseba,
-            ki skrbi za grob in odloča). Upravljanje je zelo enostavno; vsak je
-            lahko Skrbnik. Skrbnik, ki je pokojnega dobro poznal, s tem omogoči
-            objavo številnih dodatnih vsebin celotni družini, prijateljem in
-            znancem ter na ta način omogoči izdelavo prave spominske strani, na
-            katero se bodo bližnji radi vračali in jo dopolnjevali.
+            Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih in s tem omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali tudi kasneje. 
+            Upravljanje je enostavno; vsak je lahko Skrbnik. 
+
           </p>
 
           <img
-            className="mt-[33px] mx-auto"
+            className="mt-[33px] mx-auto w-[150px] h-[300px]"
             src="/mobile-cards/slider-mobile.png"
             alt="iPad Landscape"
           />
@@ -185,7 +182,7 @@ const SlideTwo = () => {
             </button>
           </div>
 
-          <div className="inner-div mt-[54px]">
+          <div className="inner-div mt-[54px] w-[313px]">
             <h3 className="text-[#22281C] text-[24px] font-medium mt-[16px]">
               Spomini niso večni
             </h3>

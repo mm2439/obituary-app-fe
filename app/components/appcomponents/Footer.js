@@ -487,11 +487,49 @@ export function FooterForFaq() {
       <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[340px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto">
         <Image src={logoWhite} width={160} height={20} alt="c" className="w-[160px] h-[20px] mobile:hidden" />
         <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
-          <Link href="/" className="text-[#DAEBF1] underline">Začetna</Link>
+          <Link href="/" className="text-[#DAEBF1] ">Prva stran</Link>
           <div className="w-[5px] h-[5px] bg-[#DAEBF1] rounded-full"></div>
-          <Link href="/" className="text-[#DAEBF1] underline">Stran za cvetličarne</Link>
+          <Link href="/" className="text-[#DAEBF1] ">Stran za cvetličarne</Link>
           <div className="w-[5px] h-[5px] bg-[#DAEBF1] rounded-full"></div>
-          <Link href="/" className="text-[#DAEBF1] underline">Pogrebna podjetja</Link>
+          <Link href="/" className="text-[#DAEBF1] ">Pogrebna podjetja</Link>
+        </div>
+      </div>
+      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] mx-auto bg-[#D4D4D4] h-[1px] mt-[18px] mobile:hidden"></div>
+      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto mt-[18px] mobile:hidden">
+        <div className="flex flex-col">
+        <Image src={logo2} width={160} height={20} alt="c" className="w-[160px] h-[20px] hidden mobile:flex mb-[5px]" />
+
+        <span className="text-[12px] text-[#C7C7C7] font-normal leading-[24px]">© 2025 Vse pravice zadržane</span>
+        </div>
+        <div className="inline-flex gap-[30px] mobile:gap-[16px]">
+          <Link href="/" className="text-[#A7C6E3] underline w-[65px] text-[14px]">Pišite nam</Link>
+          <Link href="/" className="">
+            <Image src={"/promo_footer_facebook_white.png"} width={18} height={18} alt="Facebook Icon" />
+          </Link>
+          <Link href="/" className="">
+            <Image src={"/promo_footer_instagram_white.png"} width={18} height={18} alt="Instagram Icon" />
+          </Link>
+        </div>
+      </div>
+      <div className="text-center text-[#1A6F8D] font-[400] text-[12px] leading-[100%] mt-[12px] mb-[6px] hidden mobile:block">
+      www.osmrtnica.com @ 2025.  Vse pravice zadržane
+      </div>
+    </div>
+  )
+}
+
+export function FooterForFaq2() {
+  return (
+    <div className="bg-[#083545] border-l-1 border-r-1 border-t-1 border-b-1 border-color-[#E3E8EC] pt-[29px] mobile:pt-[15px] pb-[9px]">
+      <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[340px] desktop:w-[1190px] px-[15px] mobile:px-[5px] mx-auto">
+        <Image src={logoWhite} width={160} height={20} alt="c" className="w-[160px] h-[20px] mobile:hidden" />
+        <div className="inline-flex gap-[10px] mobile:gap-[8px] text-[14px] items-center mobile:justify-center mobile:w-full">
+          <Link href="/" className="text-[#DAEBF1]  underline">Prva stran</Link>
+          <div className="w-[5px] h-[5px] bg-[#DAEBF1] rounded-full underline"></div>
+          <Link href="/" className="text-[#DAEBF1] mobile:hidden underline">Stran za cvetličarne</Link>
+          <Link href="/" className="text-[#DAEBF1] mobile:block hidden underline">Cvetličarne</Link>
+          <div className="w-[5px] h-[5px] bg-[#DAEBF1] rounded-full underline"></div>
+          <Link href="/" className="text-[#DAEBF1]  underline">Pogrebna podjetja</Link>
         </div>
       </div>
       <div className="flex justify-between items-center tablet:w-[695px] mobile:w-[320px] desktop:w-[1190px] mx-auto bg-[#D4D4D4] h-[1px] mt-[18px] mobile:hidden"></div>

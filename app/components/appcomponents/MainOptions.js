@@ -259,7 +259,7 @@ export default function MainOptions() {
                   style={{
                     background:
                       selectedIndex === index
-                        ? "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)"
+                        ? "linear-gradient(113.63deg, #E3E8EC 0%, #0A85C2 100%)"
                         : "linear-gradient(113.63deg, #C3C6C8 0%, #E3E5E5 100%)",
                   }}
                   key={item.id}
@@ -269,6 +269,19 @@ export default function MainOptions() {
                 ></div>
               );
             })}
+
+            <div
+                  className={`w-[16px] h-[16px] rounded-[10px] cursor-pointer hidden mobile:block`}
+                  style={{
+                    background:
+                      selectedIndex === 13
+                        ? "linear-gradient(113.63deg, #E3E8EC 0%, #0A85C2 100%)"
+                        : "linear-gradient(113.63deg, #C3C6C8 0%, #E3E5E5 100%)",
+                  }}
+                  onClick={() => {
+                    setSelectedIndex(13);
+                  }}
+                ></div>
           </div>
         </div>
       </div>

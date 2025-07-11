@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FrequentlyAskedQuestionView2, FrequentlyAskedQuestionView3 } from "../components/appcomponents/FrequentlyAskedQuestionView";
 import { FooterForFaq } from "../components/appcomponents/Footer";
 
-export default function Faq1() {
+export default function Faq2() {
   const faqData = [
     {
       question: "Registracija",

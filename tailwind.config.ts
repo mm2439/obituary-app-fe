@@ -49,13 +49,13 @@ const config: Config = {
       },
       screens: {
         smmobile: { max: "400px" },
-        mobile: { max: "719px" },
-        tablet: { min: "720px", max: "1199px" },
-        desktop: { min: "1200px" },
+        mobile: { max: "739px" },
+        tablet: { min: "740px", max: "1279px" },
+        desktop: { min: "1280px" },
         //For user account screens
         desktopUserAcc: { min: "1280px" },
-        tabletUserAcc: { min: "745px", max: "1279px" },
-        mobileUserAcc: { max: "744px" },
+        tabletUserAcc: { min: "739px", max: "1279px" },
+        mobileUserAcc: { max: "740px" },
       },
       fontVariationSettings: {
         customOpt12:

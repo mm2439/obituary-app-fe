@@ -10,9 +10,13 @@ export default function Faq1() {
 
     if (breakpoint === "desktop" || breakpoint === "tablet") {
       return (
-    <div className="bg-[#F9EBD4] min-h-[100vh] text-[#3C3E41]">
+    <div className="bg-[#F9EBD4] min-h-[100vh] text-[#3C3E41] relative">
       <FAQHeader />
-     
+      <div className="tablet:w-[700px] desktop:w-[1200px] absolute top-[108px] left-1/2 -translate-x-1/2 flex items-end justify-end">
+        <h1 className="text-[#0A85C2] text-[18px] desktop:text-[20px] mobile:hidden">
+          CVETLIČARNE
+        </h1>
+      </div>
 
       <div className="flex flex-col items-center pt-[200px] w-full px-4 max-w-[720px] mx-auto">
         <Image src="/faq_page_icon.png" alt="FAQ" width={94} height={94} />
@@ -50,7 +54,7 @@ export default function Faq1() {
               <span className="font-bold underline"> do 30. avgusta 2025</span>
             </p>
 
-            <ul className="list-disc list-inside text-[16px] mt-4 space-y-4">
+            <ul className="list-disc list-inside text-[16px] mt-4 space-y-0">
               <li>
                 <span className="text-[#0A85C2] font-bold">
                   Podvojena doba Skrbnikov
@@ -79,12 +83,12 @@ export default function Faq1() {
               </li>
             </ul>
 
-            <p className="font-light text-[16px] mt-6">
+            <p className="font-light text-[16px] mt-12">
               Cvetličarne, ki pristopijo <span className="font-bold underline">do 10. avgusta</span>{" "}
               prejmejo dodatno še
             </p>
 
-            <ul className="list-disc list-inside text-[16px] mt-4 space-y-4">
+            <ul className="list-disc list-inside text-[16px] mt-4 space-y-0">
               <li>
                 <span className="text-[#0A85C2] font-bold">Garantirano enako ceno</span>  letne
                 naročnine
@@ -168,7 +172,7 @@ export default function Faq1() {
           za prve cvetličarne
         </h2>
 
-        <section className="mt-10 text-[16px] space-y-6 leading-[1.6] mobile:w-[360px] w-[720px]">
+        <section className="mt-10 text-[16px] space-y-6 leading-[1.6] mobile:w-[354px] w-[720px]">
           <div className="w-full bg-[#083545] relative h-12 flex items-center text-[#D4D4D4] text-[18px] pl-2">
             <h3 className="font-medium mb-1">
              Dodatne ugodnosti za prve naročnike 
@@ -186,7 +190,7 @@ export default function Faq1() {
               <span className="font-bold underline"> do 30. avgusta 2025</span>
             </p>
 
-            <ul className="list-disc list-inside text-[16px] mt-4 space-y-4">
+            <ul className="list-disc list-inside text-[16px] mt-4 space-y-0">
               <li>
                 <span className="text-[#0A85C2] font-bold">
                   Podvojena doba Skrbnikov
@@ -215,12 +219,12 @@ export default function Faq1() {
               </li>
             </ul>
 
-            <p className="font-light text-[16px] mt-6">
+            <p className="font-light text-[16px] mt-12">
               Cvetličarne, ki pristopijo <span className="font-bold underline">do 10. avgusta</span>{" "}
               prejmejo dodatno še
             </p>
 
-            <ul className="list-disc list-inside text-[16px] mt-4 space-y-4">
+            <ul className="list-disc list-inside text-[16px] mt-4 space-y-0">
               <li>
                 <span className="text-[#0A85C2] font-bold">Garantirano enako ceno</span>  letne
                 naročnine
@@ -241,16 +245,16 @@ export default function Faq1() {
                 <span className="text-[#0A85C2] font-bold">Dva tedna oglaševanja</span> na
                 notranjih straneh <br /><span className="pl-5"></span> brezplačno 
                 <span className="text-[#6D778E] mt-1 pl-1">
-                   (zaradi optimalnega delovanja bomo<br /><span className="pl-5"></span> mi sami določili kje in kdaj bo to oglaševanje
-                  <br /><span className="pl-5"></span>izvršeno; bo pa to zagotovo v vašem lokalnem <br /><span className="pl-5"></span>okolju in do konca leta 2025)
+                   (zaradi optimalnega delovanja <br /><span className="pl-5"></span>bomo mi sami določili kje in kdaj bo to <br /><span className="pl-5"></span> oglaševanje
+                 izvršeno; bo pa to zagotovo<br /><span className="pl-5"></span> v vašem lokalnem okolju in do konca leta 2025)
                 </span>
               </li>
 
               <li>
                 Možnost vpisovanja brezplačnih osmrtnic že<br /><span className="pl-5"></span> od začetka
                 <span className="text-[#6D778E] mt-1 pl-1">
-                  (priložnost za še večjo promocijo, ko <br /><span className="pl-5"></span> drugi še niso vključeni in ko je darilo za
-                  stranke  <br /><span className="pl-5"></span> še  bolj nepričakovano / ko o tem še ne vedo)
+                  (priložnost za še večjo promocijo,<br /><span className="pl-5"></span> ko  drugi še niso vključeni in ko je darilo za
+                  <br /><span className="pl-5"></span>stranke še  bolj nepričakovano / ko o tem še ne <br /><span className="pl-5"></span>vedo)
                 </span>
               </li>
             </ul>
@@ -274,7 +278,7 @@ export default function Faq1() {
       <div className="w-full hidden mobile:flex pr-7 mb-10 mt-3   justify-end items-center">
         <div className="w-[140px] h-[35px] flex items-center justify-center rounded-[2px] text-[14px] text-[#FFFFFF]" 
         style={{background: "linear-gradient(180deg, #0D94E8 4.81%, #1860A3 100%)", border: "2px solid #6D778E"}}>
-        PRILOŽNOST
+        PRIDRUŽI SE
         </div>
        
       </div>

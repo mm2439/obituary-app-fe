@@ -10,9 +10,13 @@ export default function Faq1() {
 
     if (breakpoint === "desktop" || breakpoint === "tablet") {
       return (
-    <div className="bg-[#ECF0F3] min-h-[100vh] text-[#3C3E41]">
+    <div className="bg-[#ECF0F3] min-h-[100vh] text-[#3C3E41] relative">
       <FAQHeader />
-     
+      <div className="tablet:w-[700px] desktop:w-[1200px] absolute top-[108px] left-1/2 -translate-x-1/2 flex items-end justify-end">
+        <h1 className="text-[#0A85C2] text-[18px] desktop:text-[20px] mobile:hidden">
+          POGREBNA PODJETJA
+        </h1>
+      </div>
 
       <div className="flex flex-col items-center pt-[200px] w-full px-4 max-w-[720px] mx-auto">
         <Image src="/faq_page_icon.png" alt="FAQ" width={94} height={94} />
@@ -114,6 +118,8 @@ export default function Faq1() {
         </div>
       </div>
 
+     
+
        <div className="flex flex-col items-center pt-[200px] w-full px-4 max-w-[720px] mx-auto">
         <Image src="/faq_page_icon.png" alt="FAQ" width={94} height={94} />
         <h1 className="text-[40px] font-light mt-4 text-center mobile:text-[26px]">
@@ -123,7 +129,7 @@ export default function Faq1() {
           za prve partnerje
         </h2>
 
-        <section className="mt-10 text-[16px] space-y-6 leading-[1.6] mobile:w-[360px] w-[720px]">
+        <section className="mt-10 text-[16px] space-y-6 leading-[1.6] mobile:w-[354px] w-[720px]">
           <div className="w-full bg-[#083545] relative h-12 flex items-center text-[#D4D4D4] text-[18px] pl-6">
             <h3 className="font-medium mb-1">
               Dodatne ugodnosti za prve partnerje  
@@ -202,7 +208,7 @@ export default function Faq1() {
       <div className="w-full hidden mobile:flex pr-7 mb-10 mt-3   justify-end items-center">
         <div className="w-[140px] h-[35px] flex items-center justify-center rounded-[2px] text-[14px] text-[#FFFFFF]" 
         style={{background: "linear-gradient(180deg, #0D94E8 4.81%, #1860A3 100%)", border: "2px solid #6D778E"}}>
-        PRIDRUŽI
+        PRIDRUŽI SE
         </div>
        
       </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import OpenableBlock from "../components/OpenAbleBlock";
 import {
   BackgroundSelectorStep2,
@@ -11,7 +10,7 @@ import { useState, useEffect } from "react";
 import Switch from "../components/Switch";
 import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
-import Link from "next/link";
+import CompanyPreview from "../components/company-preview";
 
 export default function Step4({ data, onChange, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
@@ -161,22 +160,7 @@ export default function Step4({ data, onChange, handleStepChange }) {
                 </div>
               </div>
             </div>
-            {companyId && (
-              <Link href={`/floristdetails/${companyId}`} target="blank">
-                <div className="inline-flex gap-[8px] cursor-pointer">
-                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                    Predogled strani
-                  </span>
-                  <Image
-                    src="/external_open.png"
-                    alt="Predogled strani"
-                    width={20}
-                    height={20}
-                    className="shrink-0 w-[20px] h-[20px]"
-                  />
-                </div>
-              </Link>
-            )}
+            {companyId && <CompanyPreview companyData={data} />}
           </div>
           <div className="space-y-[8px]">
             {boxes.map((block) => (

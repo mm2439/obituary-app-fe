@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import companyService from "@/services/company-service";
 import shopService from "@/services/shop-service";
 import toast from "react-hot-toast";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import CompanyPreview from "../components/company-preview";
 
 export default function Step6({ data, onChange, handleStepChange }) {
   const [openBlock, setOpenBlock] = useState(1);
@@ -189,22 +189,7 @@ export default function Step6({ data, onChange, handleStepChange }) {
                 </div>
               </div>
             </div>
-            {companyId && (
-              <Link href={`/floristdetails/${companyId}`} target="blank">
-                <div className="inline-flex gap-[8px] cursor-pointer">
-                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                    Predogled strani
-                  </span>
-                  <Image
-                    src="/external_open.png"
-                    alt="Predogled strani"
-                    width={20}
-                    height={20}
-                    className="shrink-0 w-[20px] h-[20px]"
-                  />
-                </div>
-              </Link>
-            )}
+            {companyId && <CompanyPreview companyData={data} />}
           </div>
           <div className="space-y-[8px]">
             <OpenableBlock
@@ -448,7 +433,7 @@ function SliderBlock({
     <OpenableBlock
       isDefaultOpen={false}
       title={title}
-      index={index}
+      index={index + 1}
       openBlock={openBlock === 2}
       handleOpenBlock={() => setOpenBlock(2)}
     >

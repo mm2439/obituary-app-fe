@@ -54,7 +54,9 @@ const SadProgram = ({ data }) => {
                   />
                   <div className="text-[16px] line-clamp-2 text-[#1E2125] font-variation-customOpt16 mt-[40.46px] text-center w-[157px]">
                     {item.title}
-                    {item?.price ? `od ${item?.price}€` : ""}
+                    {item?.price && Number(item?.price) > 0
+                      ? `od ${item?.price}€`
+                      : ""}
                   </div>
                 </div>
               ))}
@@ -78,7 +80,9 @@ const SadProgram = ({ data }) => {
                 />
                 <div className="text-[16px] text-[#1E2125] font-variation-customOpt16 mt-[40.46px] text-center w-[157px]">
                   {item.title}
-                  {item?.price ? `od ${item?.price}€` : ""}
+                  {item?.price && Number(item?.price)
+                    ? `od ${item?.price}€`
+                    : ""}
                 </div>
               </div>
             ))}

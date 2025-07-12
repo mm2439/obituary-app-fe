@@ -27,7 +27,7 @@ const SlideOne = () => {
                 Vse navedeno je BREZPLAČNO.
               </p>
 
-              <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] px-[25px] py-[12px] rounded-[8px] mt-[81px] max-w-[169px]">
+              <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] px-[25px] py-[12px] rounded-[8px] mt-[81px] w-[175px]">
                 Več o žalni strani
               </button>
             </div>
@@ -61,7 +61,7 @@ const SlideOne = () => {
                 Vse navedeno je BREZPLAČNO.
               </p>
 
-              <button class="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] px-[25px] py-[12px] rounded-[8px] mt-[81px] max-w-[169px]">
+              <button class="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] px-[25px] py-[12px] rounded-[8px] mt-[81px] max-w-[175px]">
                 Več o žalni strani
               </button>
             </div>

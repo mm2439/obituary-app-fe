@@ -39,12 +39,19 @@ const FuneralCompany = ({ params }) => {
     <Layout from={"5"} data={company} forFooter={"company"}>
       <div className="w-full items-center flex-col flex">
         <div className="flex flex-col mx-auto w-full desktop:bg-[#F5F7F9] bg-white">
-          <FuneralsCompanyBanner data={company} />
-          <LastObituariesList />
-          <FuneralInFewDays data={company} />
-          <Cemeteries data={company} />
-          <Pride data={company} />
-          <FrequentlyAskedQuestionView data={company} from={"2"} />
+          <FuneralsCompanyBanner key={`${company?.id}-banner`} data={company} />
+          <LastObituariesList key={`${company?.id}-last-obituaries`} />
+          <FuneralInFewDays
+            key={`${company?.id}-funeral-in-few-days`}
+            data={company}
+          />
+          <Cemeteries key={`${company?.id}-cemeteries`} data={company} />
+          <Pride key={`${company?.id}-pride`} data={company} />
+          <FrequentlyAskedQuestionView
+            key={`${company?.id}-faq`}
+            data={company}
+            from={"2"}
+          />
         </div>
         {company === null && (
           <>

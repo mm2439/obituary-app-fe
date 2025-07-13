@@ -6,7 +6,7 @@ import ImageSelector from "../components/ImageSelector";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
-import Link from "next/link";
+import FuneralCompanyPreview from "../components/funeral-company-preview";
 
 export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
@@ -134,22 +134,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
                 </div>
               </div>
             </div>
-            {companyId && (
-              <Link href={`/funeralcompany/${companyId}`} target="blank">
-                <div className="inline-flex gap-[8px] cursor-pointer">
-                  <span className="text-[14px] text-[#3C3E41] leading-[24px]">
-                    Predogled strani
-                  </span>
-                  <Image
-                    src="/external_open.png"
-                    alt="Predogled strani"
-                    width={20}
-                    height={20}
-                    className="shrink-0 w-[20px] h-[20px]"
-                  />
-                </div>
-              </Link>
-            )}
+            {companyId && <FuneralCompanyPreview company={data} />}
           </div>
           <div className="space-y-[8px]">
             <OpenableBlock

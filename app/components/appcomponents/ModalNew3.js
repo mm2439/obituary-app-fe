@@ -70,7 +70,7 @@ export default function ModalNew3({
                    Podatki bodo prikazovani na seznamu pogrebnih podjetij, zato so nujni.                     
                   </p>
                   
-                  <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
+                  <div className=" text-[#6D778E]  leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
                     <div className="mb-2.5 text-[#414141]">POGREBNO PODJETJE ali ENOTA</div>
                     <div className="px-[10px] mobile:pl-4 pl-6 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
@@ -80,7 +80,7 @@ export default function ModalNew3({
                     </div>
                   </div>
 
-                   <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
+                   <div className=" text-[#6D778E]  leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
                     <div className="mb-2.5 text-[#414141]">NASLOV </div>
                     <div className="px-[10px] mobile:pl-4 pl-6 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
@@ -90,7 +90,7 @@ export default function ModalNew3({
                     </div>
                   </div>
 
-                   <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
+                   <div className=" text-[#6D778E]  leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
                     <div className="mb-2.5 text-[#414141]">SPLETNA STRAN</div>
                     <div className="px-[10px] pl-6 m mobile:pl-4t-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
@@ -100,7 +100,7 @@ export default function ModalNew3({
                     </div>
                   </div>
 
-                   <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
+                   <div className=" text-[#6D778E]  leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
                     <div className="mb-2.5 text-[#414141]">E-NASLOV</div>
                     <div className="px-[10px] pl-6 mobile:pl-4 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
@@ -110,7 +110,7 @@ export default function ModalNew3({
                     </div>
                   </div>
 
-                   <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[142px] flex flex-col justify-start items-start mb-[30px]">
+                   <div className=" text-[#6D778E]  leading-[20px] font-[400px] w-full mt-[10px] h-[142px] flex flex-col justify-start items-start mb-[30px]">
                     <div className="mb-2.5 text-[#414141]">FOTOGRAFIJA <br className="hidden mobile:block"/> <span className="text-[#6D778E]"> (glavne stavbe ali dela pokopališča)</span></div>
                     <div className="px-[10px] pl-6 mobile:pl-4 mt-[4px] mobile:h-[85px] h-[100px] rounded-[6px] 
                     bg-[#F2F8FF66] shadow-custom-dark-to-white w-full flex flex-col items-center pt-[22px]">

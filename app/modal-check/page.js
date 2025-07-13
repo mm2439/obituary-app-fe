@@ -6,6 +6,8 @@ import ModalNew from "../components/appcomponents/ModalNew";
 import ModalNew2 from "../components/appcomponents/ModalNew2";
 import ModalNew3 from "../components/appcomponents/ModalNew3";
 import ModalNew4 from "../components/appcomponents/ModalNew4";
+import ModalNew5 from "../components/appcomponents/ModalNew5";
+
 
 const MemoryPage = ({ params }) => {
   const handleMemoryChange = () => {
@@ -19,6 +21,8 @@ const MemoryPage = ({ params }) => {
   const [isShowModal2, setIsShowModal2] = useState(false);
   const [isShowModal3, setIsShowModal3] = useState(false);
   const [isShowModal4, setIsShowModal4] = useState(false);
+  const [isShowModal5, setIsShowModal5] = useState(false);
+
   return (
     <Layout
       from={"3"}
@@ -55,6 +59,12 @@ const MemoryPage = ({ params }) => {
           set_Id={setSelect_Id}
         />
 
+         <ModalNew5
+          isShowModal={isShowModal5}
+          setIsShowModal={setIsShowModal5}
+          select_id={select_id}
+          set_Id={setSelect_Id}
+        />
 
         {/* Button Box */}
         <div className="bg-zinc-400 shadow-md rounded-xl p-8 w-full max-w-md space-y-4 text-center">
@@ -84,6 +94,13 @@ const MemoryPage = ({ params }) => {
               className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200">
               Modal 4
             </button>
+
+             <button
+              onClick={() => setIsShowModal5(true)}
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200">
+              Modal 5
+            </button>
+
           </div>
         </div>
       </div>

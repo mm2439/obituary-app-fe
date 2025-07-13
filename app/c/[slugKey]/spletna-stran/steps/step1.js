@@ -68,13 +68,13 @@ export default function Step1({ data, onChange, handleStepChange }) {
       } else {
         response = await companyService.createCompany(formData, "florist");
 
-        toast.success("Company Created Successfully");
+        toast.success("Podjetje je ustvarjeno");
       }
 
       onChange(response.company);
       return true;
     } catch (err) {
-      console.error("Failed to create company:", err);
+      console.error("Podjetje ni ustvarjeno:", err);
       return false;
     }
   };

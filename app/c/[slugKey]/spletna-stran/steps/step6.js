@@ -71,7 +71,7 @@ export default function Step6({ data, onChange, handleStepChange }) {
 
       const response = await companyService.updateCompany(formData, companyId);
       onChange(response.company);
-      toast.success("Company Updated Successfully");
+      toast.success("Podatki so shranjeni");
 
       console.log(response);
       return true;
@@ -92,7 +92,7 @@ export default function Step6({ data, onChange, handleStepChange }) {
     );
 
     if (hasEmpty) {
-      toast.error("Please fill in all Shops data");
+      toast.error("Vpišite vse podatke o trgovini");
       return false;
     }
 
@@ -125,7 +125,7 @@ export default function Step6({ data, onChange, handleStepChange }) {
         shops: response.shops,
       };
       onChange(updatedCompany);
-      toast.success("Shops Created,Company Sent For Approval Successfully");
+      toast.success("Trgovine so ustvarjene, podjetje je poslano za odobritev");
       router.push(`/floristdetails/${companyId}`);
 
       console.log(response);

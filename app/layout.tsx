@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-        <head>
+    <html lang="sl">
+      <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400&display=swap"
           rel="stylesheet"
@@ -26,16 +26,16 @@ export default function RootLayout({
         className={`${robotoFlex.className} ${sourceSerif.variable} ${greatVibes.variable}`}
       >
         <Toaster
-          position='top-right'
+          position="top-right"
           toastOptions={{
             style: {
-              margin: '15px',
-              background: '#828282',
-              color: '#fff',
-              fontSize: '15px',
-              width: '340px',
+              margin: "15px",
+              background: "#828282",
+              color: "#fff",
+              fontSize: "15px",
+              width: "340px",
             },
-            className: 'text-base',
+            className: "text-base",
             duration: 3000,
           }}
         />

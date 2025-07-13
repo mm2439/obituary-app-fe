@@ -94,6 +94,10 @@ export default function Step2({ data, onChange, handleStepChange }) {
       //   toast.error("Each offer must have an image and description"); // "Each offer must have an image and description"
       //   return;
       // }
+      if (!offers.length) {
+        toast.error("Dodajte vsaj eno ponudbo");
+        return;
+      }
       const formData = new FormData();
       formData.append("offer_subtitle", subtitle);
       offers.forEach((offer, i) => {
@@ -115,14 +119,14 @@ export default function Step2({ data, onChange, handleStepChange }) {
       }
       const response = await companyService.updateCompany(formData, companyId);
       onChange(response.company);
-      toast.success("Company Updated Successfully");
+      toast.success("Podatki so shranjeni");
       console.log(response);
       return true;
     } catch (error) {
       console.error("Error:", error);
       toast.error(
         error?.response?.data?.error ||
-          "Failed to update company. Please try again."
+          "Podatki niso shranjeni. Poskusite znova."
       );
       return false;
     }

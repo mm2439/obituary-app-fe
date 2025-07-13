@@ -1,9 +1,8 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
-const images = [
+const defaultImages = [
   "/memory_demo/1.png",
   "/memory_demo/2.png",
   "/memory_demo/3.png",
@@ -11,7 +10,12 @@ const images = [
   "/memory_demo/5.png",
 ];
 
-const ShippingNotifications = ({ set_Id, setModal }) => {
+const ShippingNotifications = ({
+  set_Id,
+  setModal,
+  images = defaultImages,
+  blurredImages = false,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const widthDivRef = useRef(null);
   const heightDivRef = useRef(null);
@@ -79,7 +83,7 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
             key={index}
             src={image}
             alt={`Slide ${index}`}
-            className={`relative hidden desktop:inline object-cover my-auto h-[300px] w-[156px] ml-4 rounded shadow-custom-light-dark-box-image-wall `}
+            className={`relative hidden desktop:inline object-cover my-auto h-full w-full  `}
           />
         ) : null}
       </>
@@ -87,16 +91,17 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
   };
 
   return (
-    <div className="relative bg-[url('../public/pisano_ozadje.avif')]  bg-cover border-t-[1px] border-[#0F0671]  py-24 tablet:py[65px] w-full overflow-hidden mx-auto justify-center items-center flex flex-col"
-    >
+    <div className="relative bg-[url('../public/pisano_ozadje.avif')]  bg-cover border-t-[1px] border-[#0F0671]  py-24 tablet:py[65px] w-full overflow-hidden mx-auto justify-center items-center flex flex-col">
       <div className="max-w-[1000px] tablet:w-[700px] w-full flex flex-row mobile:flex-col gap-[77px] tablet:gap-[50px] mobile:gap-[39px] justify-evenly mobile:px-7">
         <div className="w-[368.5px] tablet:w-[347px] shrink-0 mobile:pl-0 mobile:w-full mx-3 mobile:mx-0 mobile:text-center  ">
           <div className="text-[40px] leading-[100%] mobile:text-[28px] mobile:leading-[33px] whitespace-nowrap font-normal text-[#1E2125]">
             Obvestila za pošiljanje
           </div>
           <div className="text-[16px] leading-6 mt-4 font-normal text-[#414141]">
-          Prenesite si že pripravljena obvestila za pošiljanje naprej po emailu ali preko mobilnega telefona. <br/> <br />
-          Predloge dobite brezplačno pri vašem cvetličarju, ki je v našem imeniku in s pošiljanjem naprej lahko začnete takoj.   
+            Prenesite si že pripravljena obvestila za pošiljanje naprej po
+            emailu ali preko mobilnega telefona. <br /> <br />
+            Predloge dobite brezplačno pri vašem cvetličarju, ki je v našem
+            imeniku in s pošiljanjem naprej lahko začnete takoj.
           </div>
           <div className="text-[20px] font-normal text-[#0977AE] mt-[65px] mobile:mt-[30px]">
             Obvestilo o pogrebu
@@ -108,9 +113,7 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
             Vabilo
           </div>
           <div className=" mobile:hidden flex flex-row items-end mt-20 mobile:justify-center whitespace-nowrap">
-            <div
-              className="text-[28px] tablet:text-[28px] mobile:[24px] mobile:leading-[28px] leading-[38px] font-normal text-[#1E2125]"
-            >
+            <div className="text-[28px] tablet:text-[28px] mobile:[24px] mobile:leading-[28px] leading-[38px] font-normal text-[#1E2125]">
               BREZPLAČNO
             </div>
             <div className="text-[20px] font-normal text-[#1E2125] ml-[5px]">
@@ -144,29 +147,35 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
                 className="flex justify-center items-center h-[74px] w-[74px] "
                 onClick={handlePrev}
               >
-                <Image src="/memory_demo_left.png" alt="arrow-left" width={74} height={74} />
+                <Image
+                  src="/memory_demo_left.png"
+                  alt="arrow-left"
+                  width={74}
+                  height={74}
+                />
               </button>
               <div className="inline-flex flex-row gap-[10px] desktop:hidden">
                 {images.map((image, index) => (
                   <>
-                    {
-                      index === currentIndex ? (
-                        <div className="w-[16px] h-[16px] bg-white rounded-full"
+                    {index === currentIndex ? (
+                      <div
+                        className="w-[16px] h-[16px] bg-white rounded-full"
                         style={{
-                          background: 'linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)',
-                          boxShadow: '5px 5px 10px 0px #C2C2C280, -5px -5px 10px 0px #FFFFFF'
+                          background:
+                            "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
+                          boxShadow:
+                            "5px 5px 10px 0px #C2C2C280, -5px -5px 10px 0px #FFFFFF",
                         }}
-                        >
-                          
-                        </div>
-                      ) : <div className="w-[16px] h-[16px] bg-white rounded-full"
-                      style={{
-                        background: 'linear-gradient(113.63deg, #C3C6C8 0%, #E3E5E5 100%)'
-                      }}
-                      >
-                          
-                      </div>
-                    }
+                      ></div>
+                    ) : (
+                      <div
+                        className="w-[16px] h-[16px] bg-white rounded-full"
+                        style={{
+                          background:
+                            "linear-gradient(113.63deg, #C3C6C8 0%, #E3E5E5 100%)",
+                        }}
+                      ></div>
+                    )}
                   </>
                 ))}
               </div>
@@ -174,10 +183,15 @@ const ShippingNotifications = ({ set_Id, setModal }) => {
                 className="flex justify-center items-center h-[74px] w-[74px]"
                 onClick={handleNext}
               >
-                <Image src="/memory_demo_right.png" alt="arrow-right" width={74} height={74} />
+                <Image
+                  src="/memory_demo_right.png"
+                  alt="arrow-right"
+                  width={74}
+                  height={74}
+                />
               </button>
             </div>
-              
+
             <div className="mobile:flex hidden flex-row items-end mt-5 mobile:justify-center whitespace-nowrap">
               <div
                 onClick={() => {

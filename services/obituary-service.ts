@@ -341,6 +341,19 @@ const getMemoryId = async (queryParams?: {
   }
 };
 
+const uploadObituaryTemplateCards = async (id: string, data: FormData) => {
+  try {
+    const endpoint = `/obituary/${id}/template-cards`;
+    const response = await axios.patch(endpoint, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Uploading Obituary Template Cards:", error);
+    throw error;
+  }
+};
+
 const obituaryService = {
   getObituaryById,
   createObituary,
@@ -368,6 +381,7 @@ const obituaryService = {
   getCompanyObituaries,
   getMonthlyCompanyData,
   getCompanyLogs,
+  uploadObituaryTemplateCards,
 };
 
 export default obituaryService;

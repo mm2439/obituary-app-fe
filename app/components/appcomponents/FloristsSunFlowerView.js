@@ -2,18 +2,21 @@ import React from "react";
 import API_BASE_URL from "@/config/apiConfig";
 import Image from "next/image";
 
+function getBackground(background = "") {
+  if (!background) return "/soncnica.avif";
+  if (background.includes("companyUploads")) {
+    return `${API_BASE_URL}/${background}`;
+  }
+  return background;
+}
+
 const FloristsSunFlowerView = ({ data }) => {
   return (
     <div className="flex flex-col ">
       <div className="flex desktop:mt-[92.02px] tablet:mt-[80px]  mt-[72px] justify-center h-[451px] tablet:h-[415px] desktop:h-[456px] w-full shadow-custom-light-dark-banner">
         <Image
-          src={
-            data?.background
-              ? data.background.includes("companyUploads")
-                ? `${API_BASE_URL}/${data.background}`
-                : data.background
-              : "/soncnica.avif"
-          }
+          key={data?.background}
+          src={getBackground(data?.background)}
           alt="soncnica"
           width={0}
           height={0}

@@ -44,7 +44,7 @@ const DirectoryEntry = () => {
         {
             id: 2,
             title: "Brezplačna darila za vaše stranke",
-            discription: "Digitalne kartice za pošiljanje naprej, prilagojene mobilnemu telefonu (Obveščanje o pogrebu, Sožalje, Zahvala). Enomesečnega Skrbnika. Mi teh produktov ne nudimo na naših straneh.  "
+            discription: "Predloge za mobilne telefone za pošiljanje naprej (Zahvala in Obveščanje o pogrebu). Siceršnja cena je 10€/kom. Eno od naštetega na posamezno spominsko stran: Zahvalo, Spomin, Zadnji pozdrav. Siceršnja cena je 10€/kom. Enomesečnega Skrbnika (izjemoma samo tekom otvoritvene promocije nudimo tudi enomesečnega Skrbnika spominske strani; kasneje tak skrbnik ni predviden)."
         },
         {
             id: 3,

@@ -8,6 +8,14 @@ import imgTelephone from "@/public/img_telephone.png";
 import Image from "next/image";
 import API_BASE_URL from "@/config/apiConfig";
 
+const getLogo = (logo) => {
+  if (!logo) return "/suniflo_logo.avif";
+  if (logo?.includes("companyUploads")) {
+    return `${API_BASE_URL}/${logo}`;
+  }
+  return logo;
+};
+
 const SunflowerFlorist = ({ data }) => {
   const ProgressBar = ({ currentSlide, totalSlides }) => {
     return (
@@ -66,7 +74,10 @@ const SunflowerFlorist = ({ data }) => {
           <img src="/img_back.png" alt="Next" className="h-[40px] w-[17px]" />
         </button>
         {/* First detail Container for heading and flower image */}
-        <div className="max-w-[596px] w-full mobile:w-full tablet:h-full desktop:h-full mobile:mx-auto items-center flex flex-col">
+        <div
+          key={`${data?.id}-${currentIndex}`}
+          className="max-w-[596px] w-full mobile:w-full tablet:h-full desktop:h-full mobile:mx-auto items-center flex flex-col"
+        >
           <div className="text-[#1E2125] mobile:hidden text-[40px] mt-[58px] tablet:mt-[34px] leading-[46.88px] font-variation-customOpt40">
             {data?.name || "Cvetličarna Suniflower"}
           </div>
@@ -104,11 +115,8 @@ const SunflowerFlorist = ({ data }) => {
 
           <div className="flex flex-row">
             <Image
-              src={
-                data?.logo
-                  ? `${API_BASE_URL}/${data?.logo}`
-                  : "/suniflo_logo.avif"
-              }
+              key={`${data?.id}-${currentIndex}-logo-${data?.logo}`}
+              src={getLogo(data?.logo)}
               alt="sunflower_img"
               width={370}
               height={240}

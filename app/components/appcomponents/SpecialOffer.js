@@ -28,25 +28,27 @@ const defaultSlides = [
   },
 ];
 
+const getSlideImage = (slide = {}) => {
+  if (slide?.image?.includes("floristSlideUploads")) {
+    return `${API_BASE_URL}/${slide.image}`;
+  }
+  return slide.image;
+};
+
 const SpecialOffer = ({ data }) => {
   const [slides, setSlides] = useState([]);
 
   useEffect(() => {
-    const customSlides = data?.slides || [];
-    if (customSlides.length > 3) {
-      setSlides(customSlides);
-    } else if (customSlides.length > 0) {
-      const updatedList = [...defaultSlides];
-      for (let i = 0; i < customSlides.length; i++) {
-        updatedList[i] = customSlides[i];
-      }
-      setSlides(updatedList);
+    if (data?.slides?.length) {
+      setSlides(data?.slides);
     } else {
       setSlides(defaultSlides);
     }
-  }, [data]);
+  }, [data?.slides]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const activeSlide = slides?.[currentIndex] || defaultSlides?.[0] || {};
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
@@ -71,24 +73,24 @@ const SpecialOffer = ({ data }) => {
         </button>
 
         {slides && slides.length > 0 && (
-          <div className="h-full max-w-[1023px] w-full py-28 tablet:py-8 mobile:py-6 flex desktop:flex-row flex-col-reverse justify-between items-center">
+          <div
+            key={`${activeSlide?.id}-${currentIndex}`}
+            className="h-full max-w-[1023px] w-full py-28 tablet:py-8 mobile:py-6 flex desktop:flex-row flex-col-reverse justify-between items-center"
+          >
             <div className=" flex  flex-col w-[450px] mobile:w-[300px]">
               <div className="text-[40px] leading-[47px mobile:leading-[38px] font-variation-customOpt40  text-[#000000] mobile:text-[32px] ">
-                {slides[currentIndex].title}
+                {activeSlide.title}
               </div>
               <div className="text-[16px] text-[#414141] font-variation-customOpt16 leading-[24px] mt-[20px]">
-                {slides[currentIndex].description}
+                {activeSlide.description}
               </div>
             </div>
             <div className=" relative tablet:mb-6 mobile:mb-8">
               <Image
                 width={350}
                 height={350}
-                src={
-                  slides[currentIndex].image.includes("floristSlideUploads")
-                    ? `${API_BASE_URL}/${slides[currentIndex].image}`
-                    : slides[currentIndex].image
-                }
+                src={getSlideImage(activeSlide)}
+                alt={activeSlide.title || "slide"}
                 className=" w-[351px] h-[351px] tablet:w-[450px] tablet:h-[411px] mobile:w-[296px] mobile:h-[296px]  rounded"
               />
               {currentIndex > 0 && (

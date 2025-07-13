@@ -52,32 +52,35 @@ export default function ModalNew3({
                 className="w-[46px] h-[46px] mobile:w-[33px] mobile:h-[33px] cursor-pointer relative top-4 right-4"
               />
             </div>
-            <div className="flex w-[600px] mobile:w-[344px] z-50 mobile:px-[2px] px-7 pb-11 mobile:mt-11 mt-12  items-center justify-center">
-                <div className="mobile:w-[314px] w-[511px] bg-[#E0E9F3]  rounded-2xl border-[#6D778E] border pt-12 mobile:px-6 px-8 pb-7 flex flex-col">
+            <div className="flex w-[587px] mobile:w-[344px] z-50 mobile:px-[2px] px-7 pb-11 mobile:mt-11 mt-12  items-center justify-center">
+                <div className="mobile:w-[314px] w-[500px] bg-[#E0E9F3]  rounded-2xl border-[#6D778E] border pt-12 mobile:px-6 px-8 pb-7 flex flex-col">
                   <h1 className="text-[#1E2125] text-2xl mobile:text-xl block mobile:hidden font-medium mb-2.5">
-                    Vpis v seznam pogrebnih podjetij
+                    Dodaj pokopališče
                   </h1>
 
                   <h1 className="text-[#1E2125] text-2xl mobile:text-xl mobile:block hidden font-medium mb-2.5">
-                    Dopolni podatke
+                    Dodaj pokopališče
                   </h1>
 
-                  <p className="text-[#3C3E41] mobile:hidden text-md h-[49px] mb-2.5">
-                    Ti podatki bodo prikazovani na seznamu pogrebnih podjetij, zato so nujni.   
+                  <p className="text-[#3C3E41] mobile:hidden tracking-tighter text-md h-[104px] mb-2.5">
+                    Omogočilo bo pravilen prikaz pri pogrebih, prikaz poti na zemljevidu, slika pa bo prikazana na vaši strani.  
+                    <br />
+                    Vnesite vsa, tudi tista, kjer se pokopi ne opravljajo več, so pa še v uporabi.   
                   </p>
 
-                  <p className="text-[#3C3E41] desktop:hidden tablet:hidden tracking-tight  text-[14px] h-[58px] mb-2.5">
-                   Podatki bodo prikazovani na seznamu pogrebnih podjetij, zato so nujni.                     
+                  <p className="text-[#3C3E41] desktop:hidden tablet:hidden tracking-tight  text-[14px] h-[139px] mb-2.5">
+                   Omogočilo bo pravilen prikaz pri pogrebih, prikaz poti na zemljevidu, slika pa bo prikazana na vaši strani.  
+                    <br />
+                    Vnesite vsa, tudi tista, kjer se pokopi ne opravljajo več, so pa še v uporabi.                      
                   </p>
                   
-                  <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
-                    <div className="mb-2.5 text-[#414141]">POGREBNO PODJETJE ali ENOTA</div>
-                    <div className="px-[10px] mobile:pl-4 pl-6 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
-                      <input
-                        type="text"
-                        className="w-full h-full bg-transparent  focus:outline-none text-[#ACAAAA]"
-                      />
+                  <div className="w-full rounded-sm border border-[#6D778E] bg-white flex flex-row items-center h-12">
+                    <div>
+
                     </div>
+                    <button>
+                      asd
+                    </button>
                   </div>
 
                    <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">

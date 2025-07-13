@@ -5,6 +5,7 @@ import Layout from "../components/appcomponents/Layout";
 import ModalNew from "../components/appcomponents/ModalNew";
 import ModalNew2 from "../components/appcomponents/ModalNew2";
 import ModalNew3 from "../components/appcomponents/ModalNew3";
+import ModalNew4 from "../components/appcomponents/ModalNew4";
 
 const MemoryPage = ({ params }) => {
   const handleMemoryChange = () => {
@@ -17,7 +18,7 @@ const MemoryPage = ({ params }) => {
   const [isShowModal1, setIsShowModal1] = useState(false);
   const [isShowModal2, setIsShowModal2] = useState(false);
   const [isShowModal3, setIsShowModal3] = useState(false);
-
+  const [isShowModal4, setIsShowModal4] = useState(false);
   return (
     <Layout
       from={"3"}
@@ -47,6 +48,14 @@ const MemoryPage = ({ params }) => {
           set_Id={setSelect_Id}
         />
 
+         <ModalNew4
+          isShowModal={isShowModal4}
+          setIsShowModal={setIsShowModal4}
+          select_id={select_id}
+          set_Id={setSelect_Id}
+        />
+
+
         {/* Button Box */}
         <div className="bg-zinc-400 shadow-md rounded-xl p-8 w-full max-w-md space-y-4 text-center">
           <h1 className="text-2xl font-semibold text-gray-800">Choose a Modal</h1>
@@ -70,7 +79,9 @@ const MemoryPage = ({ params }) => {
             >
               Modal 3
             </button>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200">
+            <button
+              onClick={() => setIsShowModal4(true)}
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200">
               Modal 4
             </button>
           </div>

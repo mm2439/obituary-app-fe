@@ -4,7 +4,7 @@ import sponser2 from "@/public/sponser2.png";
 import sponser3 from "@/public/sponser3.png";
 import sponser5 from "@/public/sponser5.png";
 import Image from "next/image";
-const SponsorComponent = ({text}) => {
+const SponsorComponent = ({text = ""}) => {
   return (
     <div className="relative max-w-[1920px]  overflow-hidden mx-auto flex py-[115px] mobile:py-[100px] justify-center items-center bg-[#F5F7F9]"> 
       <div

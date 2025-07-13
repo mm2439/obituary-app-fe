@@ -35,7 +35,7 @@ export default function ModalNew2({
         backdrop: "bg-[#344054B2] bg-opacity-70", 
       }}
     >
-      <ModalContent className="flex items-center justify-center w-full ">
+      <ModalContent className="flex items-center justify-center w-full mt-32">
         <div className="flex flex-col w-full items-center justify-center desktop:w-[600px]">
           <div className="flex  " />
           {/* {/ <div className="flex flex-col tablet:w-[600px] desktop:w-[600px] w-full mobile:w-[95%] bg-[#E8F0F6]  rounded-2xl  p-4  "> /} */}
@@ -53,7 +53,7 @@ export default function ModalNew2({
               />
             </div>
             <div className="flex w-[600px] mobile:w-[344px] z-50 mobile:px-[2px] px-7 pb-11 mobile:mt-11 mt-12  items-center justify-center">
-                <div className="mobile:w-[314px] w-[511px] bg-[#E0E9F3]  rounded-2xl border-[#6D778E] border pt-12 mobile:px-6 px-8 pb-7 flex flex-col">
+                <div className="mobile:w-[314px] w-[511px] bg-[#E1E6EC]  rounded-2xl border-[#6D778E] border pt-12 mobile:px-6 px-8 pb-7 flex flex-col">
                   <h1 className="text-[#1E2125] text-2xl mobile:text-xl font-medium mb-2.5">
                     Vpis v seznam cvetličarn
                   </h1>

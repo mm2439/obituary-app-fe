@@ -6,7 +6,7 @@ import LoginFooter from "../components/appcomponents/LoginFooter";
 import ModalLibrary from "../components/appcomponents/ModalLibrary";
 
 const Obituaryform = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(true);
   const [select_id, setSelect_Id] = useState("");
   return (
     <div className="flex flex-1 flex-col bg-[#F5F7F9]">

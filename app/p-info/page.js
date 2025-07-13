@@ -9,7 +9,7 @@ export default function Faq1() {
     <div className="bg-[#ECF0F3] min-h-[100vh] relative text-[#3C3E41]">
       <FAQHeader />
 
-       <div className="tablet:w-[700px] desktop:w-[1200px] absolute top-[108px] left-1/2 -translate-x-1/2 flex items-end justify-end">
+      <div className="tablet:w-[700px] desktop:w-[1200px] absolute top-[108px] left-1/2 -translate-x-1/2 flex items-end justify-end">
         <h1 className="text-[#0A85C2] text-[18px] desktop:text-[20px] mobile:hidden">
           POGREBNA PODJETJA
         </h1>

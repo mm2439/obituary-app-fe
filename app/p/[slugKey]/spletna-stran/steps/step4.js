@@ -112,8 +112,8 @@ export default function Step4({ data, onChange, handleStepChange }) {
                   type="text"
                   className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
                   placeholder="Naš ponos"
-                  value={secondaryDescription}
-                  onChange={(e) => setSecondaryDescription(e.target.value)}
+                  value={secondaryTitle}
+                  onChange={(e) => setSecondaryTitle(e.target.value)}
                 />
               </div>
               <div className="space-y-[8px]">
@@ -124,8 +124,8 @@ export default function Step4({ data, onChange, handleStepChange }) {
                   type="text"
                   className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
                   placeholder="Projekt prenove trboveljskega pokopališča je bil leta"
-                  value={secondaryTitle}
-                  onChange={(e) => setSecondaryTitle(e.target.value)}
+                  value={secondaryDescription}
+                  onChange={(e) => setSecondaryDescription(e.target.value)}
                 />
               </div>
               <div className="space-y-[8px]">

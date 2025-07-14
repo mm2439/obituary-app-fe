@@ -8,8 +8,6 @@ import ButtonWhiteBG, {
 } from "@/app/components/appcomponents/buttonwhitebg";
 import obituaryService from "@/services/obituary-service";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import ButtonLightGreen from "@/app/components/appcomponents/buttonLightGreen";
 
 export default function Funeral() {
   const [isMobilSideBarOpen, setIsMobilSideBarOpen] = useState(true);

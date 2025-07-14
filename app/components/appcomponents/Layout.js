@@ -110,7 +110,7 @@ const Layout = ({
 
       <main className="flex bg-[#F5F7F9]">{children}</main>
       {forFooter == "company" ? (
-        <CompanyFooter />
+        <CompanyFooter key={`${data?.id}-footer`} data={data || {}} />
       ) : forFooter == "memorypage" ? null : (
         <Footer />
       )}

@@ -1,21 +1,62 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import iconFb from "@/public/icon_facebook.png";
+import iconEmail from "@/public/ico_message.png";
+
 import iconWeb from "@/public/icon_web.png";
 import API_BASE_URL from "@/config/apiConfig";
 import Link from "next/link";
+import classNames from "classnames";
+const getBackgroundImage = (data) => {
+  if (!data) return "/pok_gabrsko4.avif";
+  if (data.background && data.background.includes("companyUploads")) {
+    return `${API_BASE_URL}/${data.background}`;
+  }
+  return data.background || "/pok_gabrsko4.avif";
+};
+
+const getLogoImage = (data) => {
+  if (!data) return "/logo_funeral_company.png";
+  if (data.logo && data.logo.includes("companyUploads")) {
+    return `${API_BASE_URL}/${data.logo}`;
+  }
+  return data.logo || "/logo_funeral_company.png";
+};
+
+const IconLinkComponent = ({ link, icon, alt, className }) => {
+  const formattedLink = link
+    ? link.startsWith("http://") || link.startsWith("https://")
+      ? link
+      : `https://${link}`
+    : "#";
+
+  return (
+    <div
+      className={classNames(
+        " w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white",
+        className
+      )}
+    >
+      <Link href={formattedLink} target="_blank" rel="noopener noreferrer">
+        <Image
+          key={`${link}-icon`}
+          src={icon}
+          className=" h-[24px] w-[24px]"
+          alt={alt}
+          width={1000}
+          height={1000}
+        />
+      </Link>
+    </div>
+  );
+};
 
 const FuneralsCompanyBanner = ({ data }) => {
   return (
     <div className="relative bg-gradient-to-b to-[#E8F0F5] from-[#EBEDEF] flex-col w-full overflow-hidden mx-auto desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[80px] flex justify-center items-center">
       <Image
-        src={
-          data?.background
-            ? data.background.includes("companyUploads")
-              ? `${API_BASE_URL}/${data.background}`
-              : data.background
-            : "/pok_gabrsko4.avif"
-        }
+        key={`${data?.id}-background`}
+        src={getBackgroundImage(data)}
         alt="pok_gabrsko"
         width={1280}
         height={300}
@@ -25,11 +66,8 @@ const FuneralsCompanyBanner = ({ data }) => {
         <div className="w-full flex mobile:flex-col items-center">
           <div className="min-w-200 mobile:min-w-[184px] max-w-[252px] w-full">
             <Image
-              src={
-                data?.logo
-                  ? `${API_BASE_URL}/${data?.logo}`
-                  : "/logo_funeral_company.png"
-              }
+              key={`${data?.id}-logo`}
+              src={getLogoImage(data)}
               alt="App Logo"
               width={1000}
               height={1000}
@@ -38,88 +76,37 @@ const FuneralsCompanyBanner = ({ data }) => {
           </div>
 
           <h1 className="w-full text-[#1E2125] text-[24px] font-semibold leading-[28px] mobile:mt-2">
-            {data?.name}
+            {data?.User?.company || data?.name}
           </h1>
-          <div className="hidden desktop:flex w-[102px]">
-            <div className=" w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white mr-2">
-              {data?.website ? (
-                <Link
-                  href={
-                    data.website.startsWith("http://") ||
-                    data.website.startsWith("https://")
-                      ? data.website
-                      : `https://${data.website}`
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src={iconWeb}
-                    className="h-[24px] w-[24px]"
-                    alt="Website Icon"
-                    width={24}
-                    height={24}
-                  />
-                </Link>
-              ) : (
-                <Image
-                  src={iconWeb}
-                  className=" h-[24px] w-[24px]"
-                  alt="Facebook Icon"
-                  width={1000}
-                  height={1000}
-                />
-              )}
-            </div>
-            <div className=" w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white">
-              {data?.facebook ? (
-                <Link
-                  href={
-                    data.facebook.startsWith("http://") ||
-                    data.facebook.startsWith("https://")
-                      ? data.facebook
-                      : `https://${data.facebook}`
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src={iconFb}
-                    className=" h-[24px] w-[24px]"
-                    alt="Facebook Icon"
-                    width={1000}
-                    height={1000}
-                  />
-                </Link>
-              ) : (
-                <Image
-                  src={iconFb}
-                  className=" h-[24px] w-[24px]"
-                  alt="Facebook Icon"
-                  width={1000}
-                  height={1000}
-                />
-              )}
-            </div>
+          <div className="hidden desktop:flex min-w-[150px] gap-2">
+            <IconLinkComponent
+              link={data?.email}
+              icon={iconEmail}
+              alt="Email Icon"
+            />
+            <IconLinkComponent
+              link={data?.website}
+              icon={iconWeb}
+              alt="Website Icon"
+            />
+            <IconLinkComponent
+              link={data?.facebook}
+              icon={iconFb}
+              alt="Facebook Icon"
+            />
           </div>
         </div>
 
-        <div class="hidden  desktop:flex justify-between items-center mt-3">
+        <div
+          key={`${data?.id}-address`}
+          class="hidden  desktop:flex justify-between items-center mt-3"
+        >
           <div>
             <div className="w-full text-[#939393] text-[14px] font-normal leading-[16px] whitespace-nowrap">
               NASLOV
             </div>
             <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-              {data?.address} {data?.city}
-            </div>
-          </div>
-          <div className="h-6 w-[2px] bg-[#D4D4D4]" />
-          <div>
-            <div className="w-full text-[#939393] text-[14px] font-normal leading-[16px] whitespace-nowrap">
-              EMAIL
-            </div>
-            <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-              {data?.email || "javno.podjetje@komunala-trbovlje.si"}
+              {data?.address}
             </div>
           </div>
           <div className="h-6 w-[2px] bg-[#D4D4D4]" />
@@ -144,13 +131,16 @@ const FuneralsCompanyBanner = ({ data }) => {
           </div>
         </div>
 
-        <div class="hidden  tablet:flex justify-between items-center mt-3">
+        <div
+          key={`${data?.id}-address-tablet`}
+          class="hidden  tablet:flex justify-between items-center mt-3"
+        >
           <div className="flex flex-1 flex-col">
             <div className="w-full text-[#939393] text-[14px] font-normal leading-[16px] whitespace-nowrap">
               NASLOV
             </div>
             <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-              {data?.address} {data?.city}
+              {data?.address}
             </div>
           </div>
           <div className="flex flex-1 items-center">
@@ -166,7 +156,10 @@ const FuneralsCompanyBanner = ({ data }) => {
           </div>
         </div>
 
-        <div class="hidden  tablet:flex justify-between items-center mt-4">
+        <div
+          key={`${data?.id}-address-mobile`}
+          class="hidden  tablet:flex justify-between items-center mt-4"
+        >
           <div className="flex flex-1 flex-col">
             <div className="w-full text-[#939393] text-[14px] font-normal leading-[16px] whitespace-nowrap">
               TELEFON
@@ -175,96 +168,35 @@ const FuneralsCompanyBanner = ({ data }) => {
               {data?.phone}
             </div>
           </div>
-          <div className="flex flex-1 items-center">
-            <div className="h-6 w-[2px] bg-[#D4D4D4] mr-9 ml-1" />
-            <div>
-              <div className="w-full text-[#939393] text-[14px] font-normal leading-[16px] whitespace-nowrap">
-                EMAIL
-              </div>
-              <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-                {data?.email || "javno.podjetje@komunala-trbovlje.si"}
-              </div>
-            </div>
-          </div>
-          <div className="hidden tablet:flex w-[102px]">
-            <div className=" w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white mr-2">
-              {data?.website ? (
-                <Link
-                  href={
-                    data.website.startsWith("http://") ||
-                    data.website.startsWith("https://")
-                      ? data.website
-                      : `https://${data.website}`
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src={iconWeb}
-                    className=" h-[24px] w-[24px]"
-                    alt="Website Icon"
-                    width={1000}
-                    height={1000}
-                  />
-                </Link>
-              ) : (
-                <Image
-                  src={iconWeb}
-                  className=" h-[24px] w-[24px]"
-                  alt="Facebook Icon"
-                  width={1000}
-                  height={1000}
-                />
-              )}
-            </div>
-            <div className=" w-12 h-12 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white">
-              {data?.facebook ? (
-                <Link
-                  href={
-                    data.facebook.startsWith("http://") ||
-                    data.facebook.startsWith("https://")
-                      ? data.facebook
-                      : `https://${data.facebook}`
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src={iconFb}
-                    className=" h-[24px] w-[24px]"
-                    alt="Facebook Icon"
-                    width={1000}
-                    height={1000}
-                  />
-                </Link>
-              ) : (
-                <Image
-                  src={iconFb}
-                  className=" h-[24px] w-[24px]"
-                  alt="Facebook Icon"
-                  width={1000}
-                  height={1000}
-                />
-              )}
-            </div>
+          <div className="hidden tablet:flex min-w-[150px] gap-2">
+            <IconLinkComponent
+              link={data?.email}
+              icon={iconEmail}
+              alt="Email Icon"
+            />
+            <IconLinkComponent
+              link={data?.website}
+              icon={iconWeb}
+              alt="Website Icon"
+            />
+            <IconLinkComponent
+              link={data?.facebook}
+              icon={iconFb}
+              alt="Facebook Icon"
+            />
           </div>
         </div>
 
-        <div class="hidden  mobile:flex flex-col mt-10">
+        <div
+          key={`${data?.id}-address-mobile`}
+          class="hidden  mobile:flex flex-col mt-10"
+        >
           <div className=" flex flex-col flex-1">
             <div className="w-full text-[#939393] text-[14px] font-normal leading-[16px] whitespace-nowrap">
               NASLOV
             </div>
             <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
               {data?.address}
-            </div>
-          </div>
-          <div className=" flex flex-col flex-1 mt-[14px]">
-            <div className="w-full text-[#939393] text-[14px] font-normal leading-[16px] whitespace-nowrap">
-              EMAIL
-            </div>
-            <div className="w-full text-[#1E2125] text-[16px] font-normal leading-[24px] whitespace-nowrap ">
-              {data?.email || "javno.podjetje@komunala-trbovlje.si"}
             </div>
           </div>
 
@@ -286,73 +218,34 @@ const FuneralsCompanyBanner = ({ data }) => {
                 {data?.phone}
               </div>
             </div>
-            <div className="hidden mobile:flex w-[80px]">
-              <div className=" w-9 h-9 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white mr-2">
-                {data?.website ? (
-                  <Link
-                    href={
-                      data.website.startsWith("http://") ||
-                      data.website.startsWith("https://")
-                        ? data.website
-                        : `https://${data.website}`
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={iconWeb}
-                      className=" h-[24px] w-[24px]"
-                      alt="Facebook Icon"
-                      width={1000}
-                      height={1000}
-                    />
-                  </Link>
-                ) : (
-                  <Image
-                    src={iconWeb}
-                    className=" h-[24px] w-[24px]"
-                    alt="Facebook Icon"
-                    width={1000}
-                    height={1000}
-                  />
-                )}
-              </div>
-              <div className=" w-9 h-9 flex justify-center items-center rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white">
-                {data?.facebook ? (
-                  <Link
-                    href={
-                      data.facebook.startsWith("http://") ||
-                      data.facebook.startsWith("https://")
-                        ? data.facebook
-                        : `https://${data.facebook}`
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={iconFb}
-                      className=" h-[24px] w-[24px]"
-                      alt="Facebook Icon"
-                      width={1000}
-                      height={1000}
-                    />
-                  </Link>
-                ) : (
-                  <Image
-                    src={iconFb}
-                    className=" h-[24px] w-[24px]"
-                    alt="Facebook Icon"
-                    width={1000}
-                    height={1000}
-                  />
-                )}
-              </div>
+            <div className="hidden mobile:flex w-[120px]">
+              <IconLinkComponent
+                link={data?.email}
+                icon={iconEmail}
+                alt="Email Icon"
+                className=" w-9 h-9"
+              />
+              <IconLinkComponent
+                link={data?.website}
+                icon={iconWeb}
+                alt="Website Icon"
+                className=" w-9 h-9"
+              />
+              <IconLinkComponent
+                link={data?.facebook}
+                icon={iconFb}
+                alt="Facebook Icon"
+                className=" w-9 h-9"
+              />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="  h-[565px] mobile:h-[937px] tablet:h-[606pxpx] max-w-[1280px] w-full flex justify-center items-end">
+      <div
+        key={`${data?.id}-description`}
+        className="  h-[565px] mobile:h-[937px] tablet:h-[606pxpx] max-w-[1280px] w-full flex justify-center items-end"
+      >
         <div className="max-w-[1009px] w-full tablet:w-[597.23px] mobile:w-[296px] flex mobile:flex-col justify-between desktop:px-6 mb-16 mobile:mb-12">
           <div className=" relative desktop:w-[452px] desktop:h-[295px] tablet:w-[276px] tablet:h-[235.81px] flex flex-col justify-center">
             <div className="text-[#1E2125] mobile:text-[28px] text-[40px] font-normal leading-[47px] mobile:leading-[33px] whitespace-nowrap mobile:text-center">
@@ -369,8 +262,8 @@ const FuneralsCompanyBanner = ({ data }) => {
               width={265}
               height={256}
               src={
-                data?.funeral_section_one_image_two
-                  ? `${API_BASE_URL}/${data.funeral_section_one_image_two}`
+                data?.funeral_section_one_image_one
+                  ? `${API_BASE_URL}/${data.funeral_section_one_image_one}`
                   : "/pokopalisce_gabrsko1.avif"
               }
               alt="Slika"
@@ -380,8 +273,8 @@ const FuneralsCompanyBanner = ({ data }) => {
               width={162}
               height={156}
               src={
-                data?.funeral_section_one_image_one
-                  ? `${API_BASE_URL}/${data.funeral_section_one_image_one}`
+                data?.funeral_section_one_image_two
+                  ? `${API_BASE_URL}/${data.funeral_section_one_image_two}`
                   : "/pokopalisce_gabrsko2.avif"
               }
               alt="Slika"

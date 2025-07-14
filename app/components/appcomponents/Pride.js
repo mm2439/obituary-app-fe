@@ -4,6 +4,7 @@ import API_BASE_URL from "@/config/apiConfig";
 const Pride = ({ data }) => {
   return (
     <div
+      key={`${data?.id}-pride`}
       className="max-w-[1920px] relative w-full tablet:h-[359px] mobile:h-[567px] desktop:pt-[64px] desktop:pb-[64px] 
          tablet:bg-gradient-to-r tablet:from-[#E6EBFA66] tablet:to-[#E2EEFC66]
          mobile:bg-gradient-to-r mobile:from-[#E6EBFA66] mobile:to-[#E2EEFC66]

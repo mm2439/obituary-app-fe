@@ -11,6 +11,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import ButtonLightGreen from "@/app/components/appcomponents/buttonLightGreen";
 import UserCompanyHeaderNew from "@/app/components/appcomponents/UserCompanyHeaderNew";
+import authService from "@/services/auth-service";
 
 export default function Funeral() {
   const [isMobilSideBarOpen, setIsMobilSideBarOpen] = useState(true);
@@ -249,8 +250,10 @@ export default function Funeral() {
                 </Link>
               </div>
               <div
-                onClick={() => logoutUser()}
-                className="mt-[35px] mobileUserAcc:mt-[15px] w-[184px] border-2 border-[#1860A335] rounded-[10px] "
+                onClick={() => {
+                  logoutUser();
+                }}
+                className="mt-[35px] cursor-pointer mobileUserAcc:mt-[15px] w-[184px] border-2 border-[#1860A335] rounded-[10px] "
               >
                 <div className=" rounded-lg w-[180px] h-[55px] flex justify-center items-center bg-gradient-to-b from-[#FFFFFF40] via-[rgba(12,104,244,0.15)] to-[#FFFFFF40]">
                   <div className="text-[16px] leading-[24px] font-variation-customOpt16 text-[#6D778E] ">

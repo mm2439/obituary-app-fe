@@ -253,9 +253,9 @@ export default function Funeral() {
               </div>
               <div
                 onClick={() => logoutUser()}
-                className="mt-[35px] mobileUserAcc:mt-[15px] w-[184px] border-2 border-[#1860A335] rounded-[10px] "
+                className="mt-[35px] cursor-pointer mobileUserAcc:mt-[15px] w-[184px] border-2 border-[#1860A335] rounded-[10px] "
               >
-                <div className=" rounded-lg w-[180px] h-[55px] flex justify-center items-center bg-gradient-to-b from-[#FFFFFF40] via-[rgba(12,104,244,0.15)] to-[#FFFFFF40]">
+                <div className=" cursor-pointer rounded-lg w-[180px] h-[55px] flex justify-center items-center bg-gradient-to-b from-[#FFFFFF40] via-[rgba(12,104,244,0.15)] to-[#FFFFFF40]">
                   <div className="text-[16px] leading-[24px] font-variation-customOpt16 text-[#6D778E] ">
                     ODJAVA IZ RAČUNA
                   </div>

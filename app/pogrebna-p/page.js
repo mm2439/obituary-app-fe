@@ -6,11 +6,10 @@ import FuneralsLocalFloristComp from "../components/appcomponents/FuneralsLocalF
 import FuneralList from "../components/appcomponents/FuneralList";
 import SponsorComponent from "../components/appcomponents/SponsorComponent";
 import PartnersCompo from "../components/appcomponents/PartnersCompo";
-import CommonFooter from "../components/appcomponents/CommonFooter";
 
 const FuneralsList = () => {
   return (
-    <Layout from={"18"} currentPage="pogrebna-p"  forFooter={'memorypage'}>
+    <Layout from={"2"} forFooter={""}>
       <div className="flex flex-col mx-auto bg-[#F5F7F9] w-full">
         <ObituaryListBanner
           image={"/belo_ozadje.jpg"}
@@ -19,10 +18,8 @@ const FuneralsList = () => {
         <FuneralList />
         <WorkTogetherComp />
         <PartnersCompo />
-        <SponsorComponent text="S podporo naših partnerjev"/>
+        <SponsorComponent />
         <FuneralsLocalFloristComp />
-        <CommonFooter currentPage="/pogrebna-p"/>
-
       </div>
     </Layout>
   );

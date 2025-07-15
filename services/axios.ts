@@ -45,8 +45,8 @@ axiosInstance.interceptors.response.use(
       localStorage.removeItem("refresh-token");
       localStorage.removeItem("user");
       toast.error("Token Expired Please Relogin!");
-      // if (window.location.pathname !== "/registracija") {
-      //   window.location.href = "/registracija";
+      // if (window.location.pathname !== "/registrationpage") {
+      //   window.location.href = "/registrationpage";
       // }
     } else if (error.response.status === 403) {
       if (window.location.pathname !== "/") {

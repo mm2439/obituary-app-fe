@@ -1,13 +1,34 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Dropdown from "@/app/components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
 import regionsAndCities from "@/utils/regionAndCities";
 import { useState } from "react";
+import companyService from "@/services/company-service";
+import API_BASE_URL from "@/config/apiConfig";
+
 const FuneralList = () => {
-  const [selectedRegion, setSelectedRegion] = useState(null);
+  const [selectedRegion, setSelectedRegion] = useState("osrednjeslovenska");
+  const [companies, setCompanies] = useState([
+    {
+      logo: "/zasava_1.jpeg",
+      name: "KSP Hrastnik",
+      CompanyPage: {
+        address: "Cesta 3. julija 7, Hrastnik",
+        website: "www.ksphrastnik.si",
+      },
+    },
+    {
+      logo: "/pok_gabrsko4.avif",
+      name: "Komunala Trbovlje",
+      CompanyPage: {
+        address: "Savinjska cesta 11 a, Trbovlje",
+        website: "www.komunala-trbovlje.si",
+      },
+    },
+  ]);
   const regionOptions = Object.keys(regionsAndCities).map((region) => ({
     place: region,
     id: region,
@@ -15,64 +36,34 @@ const FuneralList = () => {
 
   const handleRegionSelect = (item) => {
     setSelectedRegion(item.place);
+    fetchFuneralCompany(item.place);
   };
-  const arrRegions = [
-    {
-      place: "Company 1",
-      url: "/funeralcompany",
-    },
-    {
-      place: "Company 2",
-      url: "/funeralcompany",
-    },
-    {
-      place: "Company 3",
-      url: "/funeralcompany",
-    },
-    {
-      place: "Company 4",
-      url: "/funeralcompany",
-    },
-    {
-      place: "Company 5",
-      url: "/funeralcompany",
-    },
-  ];
 
-  const floristslist = [
-    {
-      img: "/zasava_1.jpeg",
-      name: "KSP Hrastnik",
-      isPartner: true,
-      add: "Cesta 3. julija 7, Hrastnik",
-      web: "www.ksphrastnik.si",
-      osmr: "95 osmrtnic",
-    },
-    {
-      img: "/pok_gabrsko4.avif",
-      name: "Komunala Trbovlje",
-      isPartner: true,
-      add: "Savinjska cesta 11 a, Trbovlje",
-      web: "www.komunala-trbovlje.si",
-      osmr: "178 osmrtnic",
-    },
-    {
-      img: "/zasava_3.jpeg",
-      name: "Komunala Zagorje",
-      isPartner: true,
-      add: "Cesta zmage 57, Zagorje",
-      web: "www.komunala-zagorje.si",
-      osmr: "146 osmrtnic",
-    },
-    {
-      img: "/zasava_4.jpeg",
-      name: "KSP Litija",
-      isPartner: true,
-      add: "Ponoviška cesta 15, Litija",
-      web: "",
-      osmr: "18 osmrtnic",
-    },
-  ];
+  const floristslist = [];
+
+  useEffect(() => {
+    fetchFuneralCompany();
+  }, []);
+  const fetchFuneralCompany = async (place) => {
+    try {
+      let params = {
+        type: "FUNERAL",
+      };
+
+      if (place) {
+        if (selectedRegion) params.region = place;
+      } else {
+        params.region = selectedRegion;
+      }
+
+      const response = await companyService.getCompanies(params);
+      console.log(response);
+      setCompanies(response.companies);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="max-w-[1920px] w-full pb-[81px] tablet:pb-[55px] desktop:pb-[121px]  tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">
       <div className=" flex flex-col items-center w-full tablet:w-full mobile:w-full">
@@ -94,7 +85,7 @@ const FuneralList = () => {
                 isFrom={"florist"}
                 data={regionOptions}
                 selectedValue={selectedRegion}
-                onSelect={() => handleRegionSelect()}
+                onSelect={handleRegionSelect}
               />
             </div>
             <div className="flex tablet:hidden  justify-center items-center w-12 h-full desktop:aspect-square rounded-lg bg-[#414141]">
@@ -126,7 +117,7 @@ const FuneralList = () => {
       "
       >
         <div>
-          {floristslist?.map((item, index) => (
+          {companies?.map((item, index) => (
             <FuneralBlock item={item} index={index} key={index} />
           ))}
         </div>
@@ -155,7 +146,7 @@ const FuneralBlock = ({ item, index, key }) => {
           : "flex mt-6 tablet:mt-6 desktop:mt-8 w-full"
       }`}
     >
-      <Link href={"/resitve-za-pogrebna-podjetja"}>
+      <Link href={"/funeralpromo"}>
         <button
           className="
         flex flex-col tablet:flex-row desktop:flex-row 
@@ -174,7 +165,11 @@ const FuneralBlock = ({ item, index, key }) => {
               shadow-custom-light-dark-box-image bg-gradient-to-br p-1 from-[#E3E8EC] to-[#FFFFFF] "
           >
             <Image
-              src={item?.img}
+              src={
+                item.logo.includes("companyUploads")
+                  ? `${API_BASE_URL}/${item.logo}`
+                  : `${item.logo}`
+              }
               alt="Slika"
               width={500}
               height={500}
@@ -194,26 +189,15 @@ const FuneralBlock = ({ item, index, key }) => {
                     {item?.name}
                   </div>
                 </div>
-                {item?.isPartner ? (
-                  <div className="flex items-center h-full tablet:h-5 desktop:h-4 desktop:mt-[3px] ">
-                    <div
-                      className={`${
-                        index == 3 ? "text-[#CC6F6F]" : "text-[#6F94CC]"
-                      } font-variation-customOpt12 font-normal text-[12px] `}
-                    >
-                      PARTNER
-                    </div>
-                  </div>
-                ) : null}
               </div>
               <div className="flex items-center h-[16px] tablet:h-6 desktop:h-6 mt-[10px] tablet:mt-4 desktop:mt-4">
                 <p className="flex font-variation-customOpt12 tablet:font-variation-customOpt16 desktop:font-variation-customOpt16 font-normal text-left desktop:text-[16px] tablet:text-[16px] text-[12px]  text-[#414141] leading-[24px]">
-                  {item?.add}
+                  {item?.CompanyPage?.address}
                 </p>
               </div>
               <div className="flex items-center h-[16px] tablet:h-6 desktop:h-6 mt-1 desktop:mt-2">
                 <p className="font-variation-customOpt12 tablet:font-variation-customOpt16 desktop:font-variation-customOpt16 font-normal text-left desktop:text-[16px] tablet:text-[16px] text-[12px]  text-[#414141] leading-[24px]">
-                  {item?.web}
+                  {item?.CompanyPage?.website}
                 </p>
               </div>
               <div className="flex w-full  h-[30px] tablet:h-6 justify-between mt-[10px] tablet:mt-[2px] desktop:mt-2 tablet:pr-2">

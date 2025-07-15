@@ -71,9 +71,10 @@ const Offer = ({ data }) => {
             <div className="h-[48px] w-full font-semibold text-[24px] mobile:h-[96px] text-[#939393] text-center leading-[24px] font-variation-customOpt16 flex desktop:hidden mobile:mt-[1px]">
               {data?.offer_subtitle}
             </div>
-            <div className="text-[24px] font-semibold text-[#939393] text-center leading-[24px] font-variation-customOpt16 tablet:hidden desktop:flex mobile:hidden">
+            {/* disable subtitle */}
+            {/* <div className="text-[24px] font-semibold text-[#939393] text-center leading-[24px] font-variation-customOpt16 tablet:hidden desktop:flex mobile:hidden">
               {data?.offer_subtitle}
-            </div>
+            </div> */}
           </div>
         )}
 

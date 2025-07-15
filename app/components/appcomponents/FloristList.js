@@ -1,14 +1,17 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Dropdown from "@/app/components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import API_BASE_URL from "@/config/apiConfig";
 
 import regionsAndCities from "@/utils/regionAndCities";
+import shopService from "@/services/shop-service";
 const FloristList = () => {
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCity, setSelectedCity] = useState("Ljubljana");
+  const [floristList, setFloristList] = useState([]);
   const cityOptions = Object.values(regionsAndCities)
     .flat()
     .map((city) => ({
@@ -19,7 +22,7 @@ const FloristList = () => {
 
   const handleCitySelect = (item) => {
     setSelectedCity(item.place);
-    console.log(selectedCity);
+    getFlowerShops(item.place);
   };
   // 17 September 2024
   const arrPlace = [
@@ -91,6 +94,25 @@ const FloristList = () => {
     },
   ];
 
+  const getFlowerShops = async (city) => {
+    try {
+      const params = {};
+      if (city) {
+        params.city = city;
+      } else {
+        params.city = selectedCity;
+      }
+      const response = await shopService.getShops(params);
+      setFloristList(response.shops);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getFlowerShops();
+  }, []);
+
   return (
     <div className="max-w-[1920px] w-full pb-[81px] tablet:pb-[55px] desktop:pb-[121px] tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">
       <div className=" flex flex-col items-center w-full tablet:w-full mobile:w-full">
@@ -134,7 +156,7 @@ const FloristList = () => {
                 isFromNotification={false}
                 isFromFlower={false}
                 data={cityOptions}
-                onSelect={() => handleCitySelect()}
+                onSelect={handleCitySelect}
               />
             </div>
             {/* <div> */}
@@ -199,7 +221,7 @@ const FloristList = () => {
       "
       >
         <div>
-          {floristslist?.map((item, index) => (
+          {floristList?.map((item, index) => (
             <FloristlistCom item={item} index={index} key={index} />
           ))}
         </div>
@@ -248,14 +270,14 @@ const FloristlistCom = ({ item, index, key }) => {
           //   "
         >
           <Image
-            src={item?.img}
+            src={`${API_BASE_URL}/${item.logo}`}
             alt="Slika"
             width={500}
             height={500}
             className="
             mobile:rounded-[5px]
             mobile:object-cover
-                    h-full w-full 
+                    h-full w-full object-cover
                       rounded-lg "
           />
         </div>
@@ -271,20 +293,13 @@ const FloristlistCom = ({ item, index, key }) => {
             <div className="flex justify-between h-[18px] tablet:h-7 desktop:h-7 w-full tablet:pr-[8px] desktop:pr-[10px]   ">
               <div className="flex items-center h-full">
                 <div className="font-variation-customOpt24 text-left desktop:text-[24px] tablet:text-[24px] mobile:text-[15px]  text-[#1E2125] leading-[28.13px]">
-                  {item?.name}
+                  {item?.shopName}
                 </div>
               </div>
-              {item?.isPartner ? (
-                <div className="hidden tablet:flex desktop:flex items-center h-4 mt-[3px]">
-                  <div className="text-[#CC6F6F] desktop:text-[14px] ">
-                    Partner
-                  </div>
-                </div>
-              ) : null}
             </div>
             <div className="flex items-center h-[18px] tablet:h-6 desktop:h-6 mt-[10px] tablet:mt-4 desktop:mt-4">
               <p className="hidden tablet:flex desktop:flex font-variation-customOpt14 tablet:font-variation-customOpt16 desktop:font-variation-customOpt16 text-left desktop:text-[16px] tablet:text-[16px] mobile:text-[14px]  text-[#414141] leading-[24px]">
-                {item?.add}
+                {item?.address}
               </p>
               <p className="flex tablet:hidden desktop:hidden font-variation-customOpt14 text-left text-[14px]  text-[#414141] leading-[24px]">
                 Mesto
@@ -296,13 +311,13 @@ const FloristlistCom = ({ item, index, key }) => {
                 Tel:
               </p>
               <p className="font-variation-customOpt14 tablet:font-variation-customOpt16 desktop:font-variation-customOpt16 text-left desktop:text-[16px] tablet:text-[16px] mobile:text-[14px]  text-[#414141] leading-[24px]">
-                {item?.num}
+                {item?.telephone}
               </p>
             </div>
             <div className="hidden tablet:flex desktop:flex w-full mt-4 h-8 justify-between tablet:h-6 tablet:items-center  ">
               <div className="flex items-center h-6">
                 <p className="font-variation-customOpt14 tablet:font-variation-customOpt16 desktop:font-variation-customOpt16 text-left desktop:text-[16px] tablet:text-[16px] mobile:text-[14px]  text-[#414141] leading-[24px]">
-                  {item?.web}
+                  {"www.somewebsite.com"}
                 </p>
               </div>
               <div className="flex h-4 desktop:w-[92px] justify-end items-center desktop:mt-3">

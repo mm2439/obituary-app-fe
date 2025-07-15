@@ -31,6 +31,14 @@ const getFloristCompany = async (queryParams?: {
   const response = await axios.get(endpoint, { params: queryParams });
   return response.data;
 };
+const getCompanies = async (queryParams?: {
+  type?: string;
+  region?: string;
+}) => {
+  const endpoint = `/company/`;
+  const response = await axios.get(endpoint, { params: queryParams });
+  return response.data;
+};
 
 const updateCompany = async (formData: FormData, id: String) => {
   const endpoint = `/company/${id}`;
@@ -46,6 +54,7 @@ const companyService = {
   updateCompany,
   getFloristCompany,
   getCompleteCompany,
+  getCompanies,
 };
 
 export default companyService;

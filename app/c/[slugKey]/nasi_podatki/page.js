@@ -62,19 +62,20 @@ export default function AccountSettings() {
           <div className="space-y-[18px]">
             <div className="flex items-center gap-[12px]">
               <span className="uppercase">Podjetje:</span>
-              <span className="text-[#3C3E41]">{data?.CompanyPage?.name}</span>
+              <span className="text-[#3C3E41]">{data?.company}</span>
             </div>
             <div className="flex items-center gap-[12px]">
+              <span className="uppercase">CVETLIČARNA:</span>
+              <span className="text-[#3C3E41]">{data?.name}</span>
+            </div>
+            {/* <div className="flex items-center gap-[12px]">
               <span className="uppercase">Naslov:</span>
               <span className="text-[#3C3E41]">
                 {data?.CompanyPage?.FloristShops[0]?.address}
                 {data?.city ? `, ${data.city}` : ""}
               </span>
-            </div>
-            <div className="flex items-center gap-[12px]">
-              <span className="uppercase">tel. številka:</span>
-              <span className="text-[#3C3E41]">{data?.CompanyPage?.phone}</span>
-            </div>
+            </div> */}
+
             <div className="flex items-center gap-[12px]">
               <span className="uppercase">email:</span>
               <span className="text-[#3C3E41]">{data?.email}</span>
@@ -85,10 +86,11 @@ export default function AccountSettings() {
                 {data?.CompanyPage?.website}
               </span>
             </div>
-            <div className="flex items-center gap-[12px]">
-              <span className="uppercase">kontaktna oseba:</span>
-              {data?.CompanyPage?.emergencyPhone}
-            </div>
+            <button className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden">
+              <span className="text-[#2c7ba3] text-[14px]   ">
+                DODAJ CVETLIČARNO
+              </span>
+            </button>
           </div>
           <div className="space-y-[18px]">
             <div className="flex items-center gap-[12px]">
@@ -143,11 +145,19 @@ export default function AccountSettings() {
                 data?.CompanyPage?.FloristShops?.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 text-[#3C3E41]"
+                    className="flex flex-col gap-2 text-[#3C3E41] "
                   >
-                    <span className="text-[16px]">{item.shopName},</span>
-                    <span className="text-[14px]">{item.address}</span>
-                    {/* <span className="text-[14px]">{item.address}</span> */}
+                    <div className="my-5 flex flex-col">
+                      <span className="uppercase">CVETLIČARNA:</span>
+
+                      <span className="  uppercase">NASLOV:</span>
+
+                      <span className=" uppercase">TEL. ŠTEVILKA:</span>
+
+                      <span className=" uppercase">EMAIL:</span>
+
+                      <span className=" uppercase">SPLETNA STRAN:</span>
+                    </div>
                   </div>
                 ))}
             </div>

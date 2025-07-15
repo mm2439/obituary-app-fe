@@ -23,6 +23,7 @@ export default function AccountSettings() {
       const queryParams = {};
       queryParams.type = "FUNERAL";
       const response = await companyService.getCompleteCompany(queryParams);
+      console.log(response);
       setData(response.user);
     } catch (error) {
       console.log(error);
@@ -63,33 +64,37 @@ export default function AccountSettings() {
           <div className="space-y-[18px]">
             <div className="flex items-center gap-[12px]">
               <span className="uppercase">Podjetje:</span>
-              <span className="text-[#3C3E41]">{data?.name}</span>
+              <span className="text-[#3C3E41]">{data?.company}</span>
             </div>
             <div className="flex items-center gap-[12px]">
+              <span className="uppercase">Enote:</span>
+              <span className="text-[#3C3E41]">{data?.name}</span>
+            </div>
+
+            {/* <div className="flex items-center gap-[12px]">
               <span className="uppercase">Naslov:</span>
               <span className="text-[#3C3E41]">
                 {data?.CompanyPage?.address}
-                {data?.city ? `, ${data.city}` : ""}
+                {data?.city ? `, ${data.city}` : ""} 
               </span>
-            </div>
+            </div> */}
+
             <div className="flex items-center gap-[12px]">
-              <span className="uppercase">tel. številka:</span>
-              <span className="text-[#3C3E41]">{data?.CompanyPage?.phone}</span>
-            </div>
-            <div className="flex items-center gap-[12px]">
-              <span className="uppercase">email:</span>
+              <span className="uppercase">Email:</span>
               <span className="text-[#3C3E41]">{data?.email}</span>
             </div>
+
             <div className="flex items-center gap-[12px]">
               <span className="uppercase">spletna stran:</span>
               <span className="text-[#3C3E41]">
-                {data?.CompanyPage?.website}
+                {/* {data?.CompanyPage?.website} */}
               </span>
             </div>
-            <div className="flex items-center gap-[12px]">
-              <span className="uppercase">kontaktna oseba:</span>
-              {data?.CompanyPage?.emergencyPhone}
-            </div>
+            <button className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden">
+              <span className="text-[#2c7ba3] text-[14px]   ">
+                DOPOLNI PODATKE
+              </span>
+            </button>
           </div>
           <div className="space-y-[18px]">
             <div className="flex items-center gap-[12px]">
@@ -113,7 +118,7 @@ export default function AccountSettings() {
         <hr className="my-[28px]" />
         <div className="space-y-4 text-[#6D778E] text-[14px]">
           <div className="space-y-1">
-            <span className="uppercase">mesto:</span>
+            <span className="uppercase">OBČINA:</span>
             <div className="grid grid-cols-2 gap-[12px] px-6 pb-[10px]">
               <div className="flex items-center gap-[12px] ">
                 <span className="uppercase">Primarno:</span>

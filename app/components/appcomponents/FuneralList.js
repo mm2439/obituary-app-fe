@@ -11,7 +11,24 @@ import API_BASE_URL from "@/config/apiConfig";
 
 const FuneralList = () => {
   const [selectedRegion, setSelectedRegion] = useState("osrednjeslovenska");
-  const [companies, setCompanies] = useState([]);
+  const [companies, setCompanies] = useState([
+    {
+      logo: "/zasava_1.jpeg",
+      name: "KSP Hrastnik",
+      CompanyPage: {
+        address: "Cesta 3. julija 7, Hrastnik",
+        website: "www.ksphrastnik.si",
+      },
+    },
+    {
+      logo: "/pok_gabrsko4.avif",
+      name: "Komunala Trbovlje",
+      CompanyPage: {
+        address: "Savinjska cesta 11 a, Trbovlje",
+        website: "www.komunala-trbovlje.si",
+      },
+    },
+  ]);
   const regionOptions = Object.keys(regionsAndCities).map((region) => ({
     place: region,
     id: region,
@@ -22,40 +39,7 @@ const FuneralList = () => {
     fetchFuneralCompany(item.place);
   };
 
-  const floristslist = [
-    {
-      img: "/zasava_1.jpeg",
-      name: "KSP Hrastnik",
-      isPartner: true,
-      add: "Cesta 3. julija 7, Hrastnik",
-      web: "www.ksphrastnik.si",
-      osmr: "95 osmrtnic",
-    },
-    {
-      img: "/pok_gabrsko4.avif",
-      name: "Komunala Trbovlje",
-      isPartner: true,
-      add: "Savinjska cesta 11 a, Trbovlje",
-      web: "www.komunala-trbovlje.si",
-      osmr: "178 osmrtnic",
-    },
-    {
-      img: "/zasava_3.jpeg",
-      name: "Komunala Zagorje",
-      isPartner: true,
-      add: "Cesta zmage 57, Zagorje",
-      web: "www.komunala-zagorje.si",
-      osmr: "146 osmrtnic",
-    },
-    {
-      img: "/zasava_4.jpeg",
-      name: "KSP Litija",
-      isPartner: true,
-      add: "Ponoviška cesta 15, Litija",
-      web: "",
-      osmr: "18 osmrtnic",
-    },
-  ];
+  const floristslist = [];
 
   useEffect(() => {
     fetchFuneralCompany();
@@ -181,7 +165,11 @@ const FuneralBlock = ({ item, index, key }) => {
               shadow-custom-light-dark-box-image bg-gradient-to-br p-1 from-[#E3E8EC] to-[#FFFFFF] "
           >
             <Image
-              src={`${API_BASE_URL}/${item.logo}`}
+              src={
+                item.logo.includes("companyUploads")
+                  ? `${API_BASE_URL}/${item.logo}`
+                  : `${item.logo}`
+              }
               alt="Slika"
               width={500}
               height={500}

@@ -11,7 +11,20 @@ import regionsAndCities from "@/utils/regionAndCities";
 import shopService from "@/services/shop-service";
 const FloristList = () => {
   const [selectedCity, setSelectedCity] = useState("Ljubljana");
-  const [floristList, setFloristList] = useState([]);
+  const [floristList, setFloristList] = useState([
+    {
+      logo: "/flologo1.avif",
+      shopName: "Cvetličarna Suniflower",
+      address: "Ulica cvetličarn 28, Mesto",
+      telephone: "055-0045655",
+    },
+    {
+      logo: "/flologo2.avif",
+      shopName: "Cvetličarna Lucijan",
+      address: "Trg svobode 134, Mesto ",
+      telephone: "055-0012345",
+    },
+  ]);
   const cityOptions = Object.values(regionsAndCities)
     .flat()
     .map((city) => ({
@@ -60,22 +73,6 @@ const FloristList = () => {
 
   //  7 October 2024
   const floristslist = [
-    {
-      img: "/flologo1.avif",
-      name: "Cvetličarna Suniflower",
-      isPartner: true,
-      add: "Ulica cvetličarn 28, Mesto",
-      num: "055-0045655",
-      web: "www.suniflower.co",
-    },
-    {
-      img: "/flologo2.avif",
-      name: "Cvetličarna Lucijan",
-      isPartner: false,
-      add: "Trg svobode 134, Mesto ",
-      num: "055-0012345",
-      web: "www.cvlucijan.si",
-    },
     {
       img: "/flologo4.avif",
       name: "Mestna cvetličarna",
@@ -270,7 +267,11 @@ const FloristlistCom = ({ item, index, key }) => {
           //   "
         >
           <Image
-            src={`${API_BASE_URL}/${item.logo}`}
+            src={
+              item.logo.includes("floristShopUploads")
+                ? `${API_BASE_URL}/${item.logo}`
+                : `${item.logo}`
+            }
             alt="Slika"
             width={500}
             height={500}
@@ -283,13 +284,7 @@ const FloristlistCom = ({ item, index, key }) => {
         </div>
         <div className="flex items-start flex-col mt-1 tablet:mt-1 desktop:mt-1 w-[216px] tablet:w-[390px] desktop:w-[514px] tablet:pr-[10px] ">
           <div className="flex flex-1 flex-col w-full">
-            <div className="flex w-full justify-end tablet:hidden desktop:hidden h-[14px] pr-2">
-              {item?.isPartner || index == 1 ? (
-                <div className="text-[#CC6F6F] mobile:text-[12px] text-[14px] ">
-                  Partner
-                </div>
-              ) : null}
-            </div>
+            {/* <div className="flex w-full justify-end tablet:hidden desktop:hidden h-[14px] pr-2"></div> */}
             <div className="flex justify-between h-[18px] tablet:h-7 desktop:h-7 w-full tablet:pr-[8px] desktop:pr-[10px]   ">
               <div className="flex items-center h-full">
                 <div className="font-variation-customOpt24 text-left desktop:text-[24px] tablet:text-[24px] mobile:text-[15px]  text-[#1E2125] leading-[28.13px]">

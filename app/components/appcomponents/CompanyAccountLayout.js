@@ -77,6 +77,7 @@ const CompanyAccountLayout = ({ children }) => {
     switch (route) {
       case "/nasi_podatki":
         setHeadingOne("Račun in nastavitve");
+
         break;
       case "/nase_osmrtnice":
         setHeadingOne("Vnešene osmrtnice");
@@ -241,7 +242,8 @@ const CompanyAccountLayout = ({ children }) => {
                     }}
                     className="pt-[10px] flex text-[32px] text-[#0A85C2] font-medium"
                   >
-                    {headingOne}{" "}
+                    {headingOne}
+
                     {pathname === "/potrditev-objave" ? (
                       <div
                         style={{

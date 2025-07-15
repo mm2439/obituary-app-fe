@@ -29,7 +29,7 @@ export function formatToDottedDate(
 export function formatDayAndTimeSlovenian(
   timestamp: number | null | undefined
 ): { dayName: string; time: string } {
-  if (timestamp == null || isNaN(Number(timestamp))) {
+  if (timestamp == null) {
     return { dayName: "", time: "" };
   }
   const date = new Date(timestamp);

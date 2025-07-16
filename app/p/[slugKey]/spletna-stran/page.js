@@ -8,7 +8,6 @@ import Step3 from "./steps/step3";
 import Step4 from "./steps/step4";
 import Step5 from "./steps/step5";
 import Step6 from "./steps/step6";
-import { TrophyIcon } from "@heroicons/react/24/solid";
 import companyService from "@/services/company-service";
 
 export default function SpletnaStran() {
@@ -102,6 +101,7 @@ export default function SpletnaStran() {
           data={company}
           onChange={handleCompanyChange}
           handleStepChange={handleStepChange}
+          key={`faq-${company?.id}`}
         />
       ),
     },

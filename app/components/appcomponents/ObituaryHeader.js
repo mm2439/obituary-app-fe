@@ -57,7 +57,7 @@ function ObituaryHeader({ from }) {
             </Link>
             <div className="flex">
               <div className="hidden tablet:flex desktop:flex tablet:mr-[30px] desktop:mr-[60px]">
-                {pathname == "/memorypromo" || pathname == "/keeperpromo" ? (
+                {pathname == "/zalna-stran" || pathname == "/spominska" ? (
                   <ul className="flex items-center gap-[40px] tablet:gap-[16px]">
                     <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
                       <Link
@@ -71,7 +71,7 @@ function ObituaryHeader({ from }) {
                       <Link
                         href={"#"}
                         className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${
-                          pathname == "/memorypromo"
+                          pathname == "/zalna-stran"
                             ? "!text-[#0A85C2] underline"
                             : "text-[#1E2125]"
                         }`}
@@ -83,7 +83,7 @@ function ObituaryHeader({ from }) {
                       <Link
                         href={"/osmrtnice"}
                         className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${
-                          pathname == "/keeperpromo"
+                          pathname == "/spominska"
                             ? "!text-[#0A85C2] underline"
                             : "text-[#1E2125]"
                         }`}
@@ -114,24 +114,24 @@ function ObituaryHeader({ from }) {
                       <Link
                         href={"/osmrtnice"}
                         className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${
-                          pathname == "/funeralpromo"
+                          pathname == "/resitve-za-pogrebna-podjetja"
                             ? "!text-[#0A85C2] underline"
                             : "text-[#1E2125]"
                         }`}
                       >
-                        Pogrebna p.
+                        Podrobno
                       </Link>
                     </li>
                     <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center ">
                       <Link
                         href={"/cvetlicarne"}
                         className={`font-normal  hover:text-blue-500  transition duration-200 tablet:text-[18px] desktop:text-[20px] ${
-                          pathname == "/floristspromo"
+                          pathname == "/resitve-za-cvetlicarne"
                             ? "!text-[#0A85C2] underline"
                             : "text-[#1E2125]"
                         }`}
                       >
-                        Priložnost
+                        Pogrebna
                       </Link>
                     </li>
                   </ul>
@@ -140,7 +140,7 @@ function ObituaryHeader({ from }) {
               <Image
                 src={iconMenu}
                 className={`mobile:block desktop:hidden h-[20px] w-[20px] ${
-                  pathname == "/keeperpromo" || pathname == "/memorypromo"
+                  pathname == "/spominska" || pathname == "/zalna-stran"
                     ? "block"
                     : "hidden"
                 }`}
@@ -148,7 +148,7 @@ function ObituaryHeader({ from }) {
 
               <Image
                 src={
-                  pathname == "/keeperpromo" || pathname == "/memorypromo"
+                  pathname == "/spominska" || pathname == "/zalna-stran"
                     ? iconMenu
                     : iconMainUser
                 }

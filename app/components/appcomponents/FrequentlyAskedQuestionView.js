@@ -28,11 +28,20 @@ const defaultQuestions = [
 
 export const FrequentlyAskedQuestionView = ({ from, data }) => {
   const [visibleIndexes, setVisibleIndexes] = useState({});
-  const [faqs, setFaqs] = useState(defaultQuestions);
+  const [faqs, setFaqs] = useState([]);
   useEffect(() => {
     const customFaq = data?.faqs || [];
-    if (customFaq.length > 0) {
+
+    if (customFaq.length > 4) {
       setFaqs(customFaq);
+    } else if (customFaq.length > 0) {
+      const updatedList = [...defaultQuestions];
+      for (let i = 0; i < customFaq.length; i++) {
+        updatedList[i] = customFaq[i];
+      }
+      setFaqs(updatedList);
+    } else {
+      setFaqs(defaultQuestions);
     }
   }, [data]);
   return (
@@ -190,6 +199,7 @@ export const FrequentlyAskedQuestionView2 = ({ from, data }) => {
                       dangerouslySetInnerHTML={{ __html: faq.answer }}
                       className="text-[#1E2125] w-full prose mt-3 mb-6 px-6"
                     ></div>
+
                   )}
                 </>
               ))
@@ -202,7 +212,7 @@ export const FrequentlyAskedQuestionView2 = ({ from, data }) => {
 
 export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
   const [visibleIndexes, setVisibleIndexes] = useState({});
-  const [faqs, setFaqs] = useState(defaultQuestions);
+  const [faqs, setFaqs] = useState([]);
   useEffect(() => {
     const customFaq = data?.faqs || [];
 
@@ -254,9 +264,10 @@ export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
                 />
               </button>
               {visibleIndexes[index] && (
-                <div className="flex w-full flex-col mt-2 mb-6 px-6 mobile:px-0 text-[16px] !text-[#1E2125] font-[400] leading-[24px]">
-                  {faq.answer}
-                </div>
+                <div className="w-full  mt-2 mb-6 px-6 mobile:px-0 text-[16px] text-[#413c3c] font-[400] leading-[24px]"
+                dangerouslySetInnerHTML={{ __html: faq.answer }}
+                />
+             
               )}
             </>
           ))
@@ -265,4 +276,3 @@ export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
   );
 };
 
-export default FrequentlyAskedQuestionView2;

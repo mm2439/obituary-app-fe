@@ -77,11 +77,11 @@ const ownWebsite = () => {
                 </div>
 
                 {/*Bottom contianer for mobile*/}
-                <Link href={"/companyregistrationpage"} className="w-full h-[48px] rounded-lg text-black justify-center items-center self-center mt-12 shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] hidden mobile:flex">Začni</Link>
+                <Link href={"/podjetja"} className="w-full h-[48px] rounded-lg text-black justify-center items-center self-center mt-12 shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] hidden mobile:flex">Začni</Link>
             </div>
 
             {/*Bottom contianer*/}
-            <Link href={"/companyregistrationpage"} className="w-[89px] h-[48px] rounded-lg text-black justify-center items-center self-center mt-12 shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] hidden desktop:flex">Začni</Link>
+            <Link href={"/podjetja"} className="w-[89px] h-[48px] rounded-lg text-black justify-center items-center self-center mt-12 shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] hidden desktop:flex">Začni</Link>
         </div>
     </div>
   )

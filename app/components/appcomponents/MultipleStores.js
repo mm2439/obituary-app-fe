@@ -6,7 +6,7 @@ const MultipleStores = () => {
     <div className="w-full bg-[#E0E9F3]">
     <div className="relative max-w-[1920px]  h-[560px] tablet:h-[680px] mobile:h-[707px] w-full overflow-hidden flex mx-auto justify-center items-center">
       {/*Main Container for desktop*/}
-      <div className="w-[1088px] h-[295px] hidden desktop:flex">
+      <div className="w-[1164px] h-[295px] hidden desktop:flex justify-between">
         {/*header container*/}
         <div className="flex w-[496px] flex-col">
           <h1 className="text-[40px] text-[#3C3E41] font-variation-customOpt40 mt-[39px]">
@@ -23,10 +23,10 @@ const MultipleStores = () => {
         </div>
 
         {/*image container*/}
-        <div className="w-[569px] flex justify-end ml-[79.58px] relative">
+        <div className="w-[635px] flex justify-end relative">
           <img
             src="/cvetlicarna_laptop.png"
-            className="relative z-10"
+            className="relative z-10 h-[401px] w-[635px]  object-cover"
           />
           <div className="absolute top-full left-1/2 -translate-x-1/2  w-full flex justify-center items-center bg-[#000000] h-[9px] blur-[44px]" />
         </div>
@@ -51,7 +51,7 @@ const MultipleStores = () => {
 
         {/*image for mobile */}
         <Image
-          src={"/cvetlicarna_mobile.png"}
+          src={"/cvetlicarna_laptop.png"}
           width={336}
           height={217}
           className="w-[336px] h-[217px] self-center mt-[79px] hidden mobile:flex"

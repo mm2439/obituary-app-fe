@@ -39,17 +39,17 @@ const DirectoryEntry = () => {
         {
             id: 1,
             title: "In brez rizika tudi kasneje",
-            discription: "Odpoved naročniškega razmerja je možna kadarkoli, brez navedbe razloga. V primeru letne naročnine vam povrnemo plačilo za nekoriščene mesece nazaj brez vprašanj. Tako zelo smo prepričani v dolgoročno sodelovanje in koristi, ki jih nudi naša spletna storitev."
+            discription: "Odpoved naročniškega razmerja je možna kadarkoli, brez navedbe razloga. V primeru letne naročnine vam povrnemo plačilo za nekoriščene mesece nazaj brez vprašanj. Tako zelo smo prepričani v dolgoročno sodelovanje in koristi, ki jih nudi naša spletna storitev. "
         },
         {
             id: 2,
             title: "Brezplačna darila za vaše stranke",
-            discription: "Predloge za mobilne telefone za pošiljanje naprej (Zahvala in Obveščanje o pogrebu). Siceršnja cena je 10€/kom. Eno od naštetega na posamezno spominsko stran: Zahvalo, Spomin, Zadnji pozdrav. Siceršnja cena je 10€/kom. Enomesečnega Skrbnika (izjemoma samo tekom otvoritvene promocije nudimo tudi enomesečnega Skrbnika spominske strani; kasneje tak skrbnik ni predviden)."
+            discription: "Digitalne kartice za pošiljanje naprej, prilagojene mobilnemu telefonu (Obveščanje o pogrebu, Sožalje, Zahvala). Enomesečnega Skrbnika. Mi teh produktov ne nudimo na naših straneh.   "
         },
         {
             id: 3,
             title: "Več strank",
-            discription: "Tudi zaradi teh brezplačnih daril bo več strank prišlo v vašo trgovino, kot pa v cvetličarno, ki ni v našem sistemu. Če koristi siceršnjega oglaševanja povsem odmislimo."
+            discription: "Tudi zaradi teh brezplačnih daril bo več strank prišlo v vašo trgovino, kot pa v cvetličarno, ki ni v našem sistemu. Če koristi siceršnjega oglaševanja povsem odmislimo.   "
         },
         {
             id: 4,
@@ -88,14 +88,14 @@ const DirectoryEntry = () => {
                                                 SAMO VPIS
                                             </div>
                                         </div>
-                                        <div className="flex self-center">
+                                        <div className="flex self-center mt-[15px]">
                                             <div style={{                                              
                                                 textShadow: "0px 4px 4px #00000025"
                                                 }} className="text-[24px] text-[#2D3D48] font-normal " >
                                                 BREZPLAČNO
                                             </div>
                                         </div>
-                                        <div className="flex flex-col mt-[50px] ">
+                                        <div className="flex flex-col mt-[10px] ">
                                             {containerArray1?.map((item, index) => (
                                                 <ContainerView item={item} index={index} key={index} />
                                             ))}
@@ -155,8 +155,13 @@ const DirectoryEntry = () => {
                                     Kako naprej?
                                 </div>
                                 <p className="text-[#3C3E41] text-[10px] font-normal " >
-                                    Po 30 dneh vam bomo poslali ponudbo za sklenitev mesečne ali letne naročnine. V primeru, da vam sodelovanje ne prinaša koristi, enostavno počakate dva tedna, ko bo po 45 dneh vaša stran umaknjena in enako dostop do uporabniškega računa. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še nekaj tednov kasneje, v kolikor si premislite, kasneje pa gre v izbris. <br />
-                                    Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna. V primeru prekinitve letne pogodbe se tako obračunajo koriščeni meseci po ceni mesečnega najema, preostanek pa se vrne naročniku brez vprašanj. S tem zagotovimo naročniku prijazno pogodbo, brez rizika zaradi dolgoročnosti.
+                                    Po 30 dneh vam bomo poslali ponudbo za sklenitev mesečne ali letne naročnine.<br/> V primeru, da vam sodelovanje ne
+                                    prinaša koristi, enostavno počakajte do konca junija, ko bo vaša stran umaknjena in enako dostop do uporabniškega
+                                    računa. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še do konca julija, v kolikor si
+                                    premislite, kasneje pa gre v izbris.<br/> Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna. 
+                                    V primeru prekinitve letne pogodbe se tako obračunajo koriščeni meseci po ceni mesečnega najema, vnaprej plačan
+                                    preostanek pa se vrne naročniku brez vprašanj. S tem zagotovimo naročniku prijazno pogodbo, brez rizika zaradi
+                                    dolgoročnosti.
                                 </p>
 
                             </div>
@@ -167,7 +172,7 @@ const DirectoryEntry = () => {
                         <div className="flex w-full mobile:flex-col  flex-row tablet:justify-between ">
                             <div className="flex tablet:w-[310px] w-[333px]  bg-[#FFFFFF] flex-col ">
                                 <div className="w-full h-[8px] bg-[#EB1D1D]" />
-                                <div className="flex flex-col w-full mobile:h-[653px] h-[670px] py-[10px]  items-center">
+                                <div className="flex flex-col w-full mobile:h-[579px] h-[670px] py-[10px]  items-center">
                                     <div className="flex flex-col w-[299px] ">
                                         <div className="flex self-center desktop:h-[33px] ">
                                             <div className="text-[14px] text-[#3090D5] font-normal " >
@@ -212,8 +217,9 @@ const DirectoryEntry = () => {
                                             Kako naprej?
                                         </div>
                                         <p className="text-[#3C3E41] text-[10px] font-normal " >
-                                            Po 30 dneh vam bomo poslali ponudbo za sklenitev mesečne ali letne naročnine. V primeru, da vam sodelovanje ne prinaša koristi, enostavno počakate dva tedna, ko bo po 45 dneh vaša stran umaknjena in enako dostop do uporabniškega računa. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še nekaj tednov kasneje, v kolikor si premislite, kasneje pa gre v izbris. <br />
-                                            Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna. V primeru prekinitve letne pogodbe se tako obračunajo koriščeni meseci po ceni mesečnega najema, preostanek pa se vrne naročniku brez vprašanj. S tem zagotovimo naročniku prijazno pogodbo, brez rizika zaradi dolgoročnosti.
+                                            V prvih dneh junija vam bomo poslali ponudbo za sklenitev mesečne ali letne naročnine. 
+                                            <br /><br /> V primeru, da vam sodelovanje ne prinaša koristi, enostavno počakajte dva tedna, ko bo okrog 20 junija vaša stran umaknjena in enako dostop do uporabniškega računa. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še do konca julija, v kolikor si premislite, kasneje pa gre v izbris. 
+                                            <br /><br />Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna. V primeru prekinitve letne pogodbe se tako obračunajo koriščeni meseci po ceni mesečnega najema, vnaprej plačan preostanek pa se vrne naročniku brez vprašanj. S tem zagotovimo naročniku prijazno pogodbo, brez rizika zaradi dolgoročnosti.  
                                         </p>
 
                                     </div>
@@ -224,13 +230,13 @@ const DirectoryEntry = () => {
 
                 </div>
                 <div className="flex flex-col items-center mobile:mt-[40px] mt-[78px] ">
-                    <div className="flex mobile:h-[64px] h-[48px] items-center mobile:w-[300px] ">
-                        <div className="text-[24px] text-[#1E2125] text-center font-variation-customOpt24 font-bold leading-[32px] ">
-                            Oglej si primer strani za cvetličarne
+                    <div className="flex mobile:h-[32px] h-[48px] items-center mobile:w-[300px] ">
+                        <div className="text-[24px] text-[#1E2125] mobile:text-[20px] mobile:w-full text-center font-variation-customOpt24 font-bold leading-[32px] ">
+                            Primer strani za cvetličarne
                         </div>
                     </div>
-                    <div className="flex mobile:w-[298px] w-[99px] h-[48px] rounded-lg mt-2 items-center justify-center bg-[#BCD7F4] shadow-custom-light-dark ">
-                            <Link href={"/floristdetails"}>
+                    <div className="flex mobile:w-[99px] w-[99px] h-[48px] rounded-lg mt-2 items-center justify-center bg-[#BCD7F4] shadow-custom-light-dark ">
+                            <Link href={"/c-primer"}>
                              <div className="text-[16px] text-[#000000] font-variation-customOpt16 font-normal " >
                                 Vzorec
                             </div>

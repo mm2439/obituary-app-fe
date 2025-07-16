@@ -50,7 +50,7 @@ const FloristsFlower = () => {
           </div>
           {/* 17 September 2024 removed /floristspromo */}
           <Link
-            href={"/companyregistrationpage"}
+            href={"/podjetja"}
             className="flex w-[107px] h-[48px] bg-white items-center justify-center text-[20px] text-[#1E2125] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-lg font-variation-customOpt20wght500 mb-[2px] tablet:shadow-custom-light-dark-with-whiteBlack mobile:shadow-custom-light-dark-with-whiteBlack"
           >
             Naprej

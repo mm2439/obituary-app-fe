@@ -1,6 +1,4 @@
 import { useBreakpoint } from "../../hooks/useBreakpoint"
-import Image from 'next/image';
-
 
 const IphoneView = () => {
 
@@ -34,11 +32,11 @@ const IphoneView = () => {
       </div>
     </div>
     <div className="text-container mt-[98px] z-50">
-                        <Image
-    src="/mobile-cards/iphone.png"
-    alt="iPad Landscape"
-        width={250} 
-    height={500} 
+    <img
+      src="/mobile-new.png"
+      alt="iPad Landscape"
+          width={250} 
+      height={500} 
     />
     </div>
   </div>
@@ -77,8 +75,8 @@ const IphoneView = () => {
       </div>
     </div>
     <div className="text-container mt-[98px] z-50">
-                        <Image
-    src="/mobile-cards/iphone.png"
+                        <img
+    src="/mobile-new.png"
     alt="iPad Landscape"
         width={250} 
     height={500} 
@@ -103,12 +101,12 @@ const IphoneView = () => {
 Op. Na naši strani mi teh kartic in mesečnega Skrbnika ne ponujamo. </p>
             </div>
             <div className="text-container mt-[36px] flex justify-center">
-                        <Image
-    src="/mobile-cards/iphone.png"
-    alt="iPad Landscape"
-        width={250} 
-    height={500} 
-    />
+                        <img
+                          src="/mobile-new.png"
+                          alt="iPad Landscape"
+                              width={250} 
+                          height={500} 
+                          />
             </div>
               <div className="inner-div mt-[45px] text-center">
                  <h3 className="text-[#22281C] text-[20px] font-medium">BREZPLAČNO v vaši cvetličarni.</h3>
@@ -128,8 +126,8 @@ Op. Na naši strani mi teh kartic in mesečnega Skrbnika ne ponujamo. </p>
                <p className="text-[#3C3E41] text-[16px] mt-[16px]">Op. Na naši strani mi teh kartic ne ponujamo. </p>
             </div>
             <div className="text-container mt-[36px] flex justify-center">
-                        <Image
-    src="/mobile-cards/iphone.png"
+                        <img
+    src="/mobile-new.png"
     alt="iPad Landscape"
         width={250} 
     height={500} 

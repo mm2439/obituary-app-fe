@@ -1,6 +1,8 @@
 "use client";
 import Header from "./Header";
 import ObituaryHeader from "./ObituaryHeader";
+import CommonHeader from "./CommonHeader";
+
 import TopBar from "./TopBar";
 import Header7 from "./Header7";
 
@@ -25,6 +27,7 @@ const Layout = ({
   megaMenu,
   data = {},
   onChangeMemory = () => {},
+  currentPage = ""
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -72,7 +75,14 @@ const Layout = ({
         <Header7 data={data} from={7} />
       ) : from == "3" ? (
         <MemoryHeader onChange={onChangeMemory} />
-      ) : (
+      ) : from == "18" ? (
+        <CommonHeader currentPage = {currentPage}
+            setIsModalVisible={setIsModalVisible}
+            setIsMessageModalVisible={setIsMessageModalVisible}
+            setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
+            setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible}
+        />
+)       : (
         <>
           {from == "2" ? <div className="flex  h-[45px]" /> : null}
           <ObituaryHeader from={from} />
@@ -110,7 +120,7 @@ const Layout = ({
 
       <main className="flex bg-[#F5F7F9]">{children}</main>
       {forFooter == "company" ? (
-        <CompanyFooter key={`${data?.id}-footer`} data={data || {}} />
+        <CompanyFooter />
       ) : forFooter == "memorypage" ? null : (
         <Footer />
       )}

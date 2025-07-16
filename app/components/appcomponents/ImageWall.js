@@ -144,7 +144,7 @@ const ImageWall = ({
               set_Id("6");
               setModal(true);
             }}
-            // href={"/memorypromo"}
+            // href={"/zalna-stran"}
             className="flex cursor-pointer items-center mt-10 rounded-lg h-[48px] w-[155px] justify-center  shadow-custom-light-dark-with-white bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
           >
             <img

@@ -38,12 +38,12 @@ const FreePrice = () => {
             Oglej si primer strani za pogrebna podjetja
           </div>
 
-          <div className="w-[99px] h-[48px] bg-[#BCD7F4] mx-auto flex mt-[8px] justify-center items-center rounded-lg">
+          <div className="w-[110px] h-[48px] bg-[#BCD7F4] mx-auto flex mt-[8px] justify-center items-center rounded-lg">
             <Link
-              href="/funeralcompany"
+              href="/p/primer"
               className="font-variation-customOpt16 leading-[24px] text-[16px] text-[#1E2125] text-center"
             >
-              Vzorec
+              Primer strani
             </Link>
           </div>
         </div>

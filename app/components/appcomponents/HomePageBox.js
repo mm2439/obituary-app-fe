@@ -4,6 +4,7 @@ import ipadImage from "@/public/spominska_tab.avif";
 import ipadImageTablet from "@/public/spominska_tablica1.avif";
 import ipadImageMobile from "@/public/tablica_mobi.avif";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
+import Link from "next/link";
 
 const HomePageBox = () => {
   const breakpoint = useBreakpoint();
@@ -40,9 +41,11 @@ const HomePageBox = () => {
               na vrhu strani.
             </p>
 
+            <Link href={"/registracija"}>
             <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
               Prijavi se
             </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -81,9 +84,11 @@ const HomePageBox = () => {
               na vrhu strani.
             </p>
 
+            <Link href={"/registracija"}>
             <button class="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
               Prijavi se
             </button>
+            </Link>
           </div>
         </div>
       </div>

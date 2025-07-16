@@ -206,7 +206,7 @@ const ContactMenuCompo = ({ setActiveButton }) => {
                         // 24 October 2024
                         if (item.title === "Login in Registracija") {
 
-                          router.push("/registrationpage")
+                          router.push("/registracija")
 
                         } else {
 
@@ -320,7 +320,7 @@ const ContactMenuCompo = ({ setActiveButton }) => {
             </p>
 
             {/* 6th title contianer */}
-            <Link href={"/floristspromo"}>
+            <Link href={"/resitve-za-cvetlicarne"}>
               <div className="flex flex-row items-center mt-12">
                 <div className="text-[12px] font-normal text-[#41C0FF] leading-[22px] mr-[10px]">
                   Več o promociji

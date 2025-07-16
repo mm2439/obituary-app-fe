@@ -13,7 +13,7 @@ const WorkTogether = () => {
               Sodelujmo!
             </div>
             <Link
-              href={"/companyregistrationpage"}
+              href={"/podjetja"}
               className="mt-6 w-[133px]  h-[48px] rounded-lg bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF]
                 flex justify-center items-center"
             >
@@ -32,7 +32,7 @@ const WorkTogether = () => {
           Sodelujmo!
         </div>
         <Link
-          href={"/companyregistrationpage"}
+          href={"/podjetja"}
           className="mt-6 w-[133px]  h-[48px] rounded-lg bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF]
                 flex justify-center items-center"
         >

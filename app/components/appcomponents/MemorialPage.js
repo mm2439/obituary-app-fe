@@ -37,7 +37,7 @@ const MemorialPage = () => {
 
           {/*Button Container*/}
           <Link
-            href={"/keeperpromo"}
+            href={"/spominska"}
             className="w-[155px] flex h-[48px] mobile:w-[295px] mt-2 mobile:mt-[33px] tablet:mt-6 text-[16px] font-variation-customOpt16 rounded-lg text-[#1E2125] justify-center items-center 
         shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF]"
           >

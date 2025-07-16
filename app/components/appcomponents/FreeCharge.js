@@ -31,7 +31,7 @@ const FreeCharge = () => {
           {/*image for mobile */}
           {/* 7 October 2024 To be confirmed */}
           <img
-            src="/image_mobile_offer.png"
+            src="/image_desktop_offer.png"
             className="w-[336px] h-[217px] self-center mt-[42px] hidden mobile:flex"
           ></img>
 

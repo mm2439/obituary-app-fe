@@ -89,7 +89,7 @@ const PartnersCompo = () => {
 
               <div className="tablet:flex hidden tablet:w-[293px] tablet:h-[288px] ml-[23px] tablet:mt-[12px]">
                 <Link
-                  href={"./companyregistrationpage"}
+                  href={"./podjetja"}
                   className="flex w-[211px] h-[73px] bg-[#083545] justify-center items-center text-[16px] text-[#F6F6F6] rounded-2xl "
                 >
                   Stopimo skupaj
@@ -100,7 +100,7 @@ const PartnersCompo = () => {
 
           {/*Bottom button*/}
           <Link
-            href={"./companyregistrationpage"}
+            href={"/kontakt"}
             className="flex w-[164px] h-[48px] mt-[40px] mobile:mt-[42px] tablet:hidden bg-white
          mobile:bg-[#3C3E41] items-center justify-center text-[16px] text-[#1E2125] mobile:text-[#F6F6F6] 
          desktop:bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-lg font-variation-customOpt16 self-center"

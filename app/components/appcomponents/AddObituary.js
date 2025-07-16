@@ -88,7 +88,7 @@ const AddObituary = ({ set_Id, setModal }) => {
     const storedUser = localStorage.getItem("user");
     if (!storedUser) {
       toast.error("You must be logged in to access this page.");
-      router.push("/registrationpage");
+      router.push("/registracija");
     } else {
       const parsedUser = JSON.parse(storedUser);
       console.log(parsedUser, "ParsedUser");

@@ -24,7 +24,7 @@ const FreeTrial = () => {
                     <div className='text-[18px] text-[#3C3E41] mt-[48px]  px-11 tablet:w-[600px] text-center flex justify-center 
                     mobile:leading-[32px] leading-[48px] font-variation-customOpt18'>
                         <div className='flex mobile:hidden'>
-                        Brezplačna izdelava. Brezplačna domena in gostovanje. Brezplačno testiranje 45 dni. Brez pogodbe. 
+                        Brezplačna izdelava. Brezplačna domena in gostovanje. Brezplačno testiranje 50 dni. Brez pogodbe. 
                         </div>
 
                         <div className='hidden mobile:flex flex-col mx-auto '>
@@ -37,7 +37,7 @@ const FreeTrial = () => {
                             </div>
 
                             <div>
-                            Brezplačno testiranje 45 dni.
+                            Brezplačno testiranje 50 dni.
                             </div>
                             <div>
                             Brez pogodbe. 

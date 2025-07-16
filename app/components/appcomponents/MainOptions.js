@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function MainOptions() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(13);
   const data = [
     {
       hasId: true,
@@ -109,11 +109,13 @@ export default function MainOptions() {
         className="
         desktop:w-[1280px] desktop:pl-[57px] desktop:pr-[55px]
         tablet:w-[680px]
-        mobile:py-[63px] py-[83px] mobile:mb-[62.76px] mobile:w-[310px] "
+        mobile:pb-[63px] pb-[83px] mobile:mb-[62.76px] mobile:w-[310px] "
       >
-        <h1 className="text-[#1E2125] text-[40px] font-regular text-center mb-[40px]">
-          Možnosti
+        <h1 className="text-[#1E2125] text-[28px] tablet:text-[32px] desktop:text-[40px] font-regular text-center mb-3 tablet:mb-7 desktop:mb-7">
+          Ponekod vam podarijo virtualno svečko
         </h1>
+        <p className="text-[#3C3E41] text-center text-[16px] tablet:text-2xl desktop:text-2xl font-light mb-10 tablet:mb-[68px] desktop:mb-[86px]">Pri nas dobite več</p>
+        
         <div className="flex gap-[130px] mobile:flex-col tablet:gap-[80px] mobile:gap-[40px] justify-center items-center">
           <div
             className={`flex flex-col gap-[15px] w-[310px] ${
@@ -257,7 +259,7 @@ export default function MainOptions() {
                   style={{
                     background:
                       selectedIndex === index
-                        ? "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)"
+                        ? "linear-gradient(113.63deg, #E3E8EC 0%, #0A85C2 100%)"
                         : "linear-gradient(113.63deg, #C3C6C8 0%, #E3E5E5 100%)",
                   }}
                   key={item.id}
@@ -267,6 +269,19 @@ export default function MainOptions() {
                 ></div>
               );
             })}
+
+            <div
+                  className={`w-[16px] h-[16px] rounded-[10px] cursor-pointer hidden mobile:block`}
+                  style={{
+                    background:
+                      selectedIndex === 13
+                        ? "linear-gradient(113.63deg, #E3E8EC 0%, #0A85C2 100%)"
+                        : "linear-gradient(113.63deg, #C3C6C8 0%, #E3E5E5 100%)",
+                  }}
+                  onClick={() => {
+                    setSelectedIndex(13);
+                  }}
+                ></div>
           </div>
         </div>
       </div>

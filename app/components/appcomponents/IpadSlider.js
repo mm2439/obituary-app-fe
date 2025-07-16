@@ -23,12 +23,12 @@ const IpadSlider = ({ data }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       instanceRef.current?.next();
-    }, 4000);
+    }, 122000);
     return () => clearInterval(interval);
   }, [instanceRef]);
 
   return (
-    <section className="w-auto h-auto overflow-hidden border-y border-solid" style={{ borderColor: '#36556C33' }}>
+    <section className="w-auto mobile:h-[1010px] h-auto  overflow-hidden border-y border-solid" style={{ borderColor: '#36556C33' }}>
       <div className="relative w-screen">
         <div ref={sliderRef} className="keen-slider w-full">
           <div className="keen-slider__slide w-full">

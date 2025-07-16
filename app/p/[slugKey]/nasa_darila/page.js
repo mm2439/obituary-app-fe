@@ -53,7 +53,7 @@ export default function Darila() {
                 className="w-6 h-6 object-contain"
               />
               <Link
-                href={"/floristsgifts"}
+                href={"/darila"}
                 className="text-[16px] text-[#6D778E] leading-none"
               >
                 PODARI SKRBNIKA
@@ -90,7 +90,7 @@ export default function Darila() {
                 className="w-6 h-6 object-contain"
               />
               <Link
-                href={"/floristsgifts"}
+                href={"/darila"}
                 className="text-[16px] text-[#6D778E] leading-none"
               >
                 MOBI PREDLOGE

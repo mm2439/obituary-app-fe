@@ -177,7 +177,7 @@ const Login = () => {
         {/* Last text container */}
         <div className="mx-auto text-[14px] font-[400px] mt-[40px] text-[#3C3E41]">
           Nov uporabnik?{" "}
-          <Link href={"/registrationpage"}>Registriraj se tukaj.</Link>
+          <Link href={"/registracija"}>Registriraj se tukaj.</Link>
         </div>
       </div>
     </div>

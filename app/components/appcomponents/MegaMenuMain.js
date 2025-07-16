@@ -460,7 +460,7 @@ const MegaMenu = () => {
                               item.title ===
                               "Moj račun (prijava / registracija)"
                             ) {
-                              router.push("/registrationpage");
+                              router.push("/registracija");
                             }
                           }}
                           className="text-[16px] cursor-pointer font-medium text-[#1E2125]"
@@ -1452,7 +1452,7 @@ const MegaMenu = () => {
                           if (
                             item.title === "Moj račun (prijava / registracija)"
                           ) {
-                            router.push("/registrationpage");
+                            router.push("/registracija");
                           }
                         }}
                         className="text-[16px] cursor-pointer font-medium text-[#1E2125]"

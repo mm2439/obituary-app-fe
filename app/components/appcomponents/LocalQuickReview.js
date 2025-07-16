@@ -157,7 +157,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
 
           <div className="flex justify-center mt-[18px]">
             <Link
-              href={"/registrationpage"}
+              href={"/registracija"}
               className="text-[#1860A3] text-center text-[18px] leading-[32px] font-semibold underline"
             >
               Prijavi se

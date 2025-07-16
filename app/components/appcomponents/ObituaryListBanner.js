@@ -2,7 +2,7 @@ import React from "react";
 
 const ObituaryListBanner = ({ image, label }) => {
   return (
-    <div className="relative w-full overflow-hidden mx-auto desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[80px] flex justify-center items-center">
+    <div className="relative w-full overflow-hidden mx-auto desktop:mt-[92.02px] mobile:mt-[68px] tablet:mt-[80px] flex justify-center items-center">
       <img
         src={image}
         alt="Slika"

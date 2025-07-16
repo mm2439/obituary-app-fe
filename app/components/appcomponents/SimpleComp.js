@@ -32,7 +32,7 @@ const SimpleComp = () => {
                     Registriraj se
                   </div>
                   <Link
-                    href={"/registrationpage"}
+                    href={"/registracija"}
                     className="w-[81px] flex h-[48px] rounded-lg text-[#3C3E41] justify-center items-center self-center mt-5 shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] "
                   >
                     Vpis
@@ -80,7 +80,7 @@ const SimpleComp = () => {
                 Registriraj se
               </div>
               <Link
-                href={"/registrationpage"}
+                href={"/registracija"}
                 className="flex w-[81px] h-[48px] rounded-lg text-[#3C3E41] justify-center items-center self-center mt-[16px] shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF]"
               >
                 Vpis

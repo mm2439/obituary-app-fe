@@ -170,7 +170,7 @@ const MegaMenuCompo = ({ setActiveButton }) => {
 
                 {/* text container */}
                 <div className="flex flex-col px-3 justify-center">
-                  <Link href={"/obituarylist"}>
+                  <Link href={"/osmrtnice"}>
                     <div className="text-[14px] font-medium text-[#535353] leading-[22px]">
                       Pregled osmrtnic
                     </div>
@@ -391,7 +391,7 @@ const MegaMenuCompo = ({ setActiveButton }) => {
             </div>
 
             {/* 6th title contianer */}
-            <Link href={"/floristspromo"}>
+            <Link href={"/resitve-za-cvetlicarne"}>
               <div className="flex flex-row items-center mt-[14px]">
                 <div className="text-[12px] font-normal text-[#41C0FF] leading-[22px] mr-[10px]">
                   Več o promociji

@@ -162,7 +162,7 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
         response.message || "Registration successful! You can now log in."
       );
 
-      router.push("/registrationpage");
+      router.push("/registracija");
     } catch (error) {
       toast.error("Registration failed. Please try again.");
     }
@@ -285,7 +285,7 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
           </div>
           <div className="h-[38px] mt-[4px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
             <Dropdown
-              label="Select a City"
+              label="Občina"
               isFrom={"companyregistration"}
               data={cityOptions}
               selectedValue={selectedCity}
@@ -348,7 +348,7 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
       {/* Last two buttons */}
       <div className="w-[653px] mobile:w-full mt-[60px] mx-auto px-[29px] h-[43px] flex flex-row justify-between items-center mobile:flex-col mobile:gap-[20px] mobile:h-auto">
         <Link
-          href={"./registrationpage"}
+          href={"./registracija"}
           className="text-[16px] px-[25px] mobile:py-[8px] text-[#414B5A] h-full flex items-center bg-white/50 rounded-[8px] 
         shadow-custom-dark-to-white leading-[24px] font-variation-customOpt18 border-[1px] border-[#FFFFFF]"
         >

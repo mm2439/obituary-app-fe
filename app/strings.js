@@ -23,7 +23,7 @@ const strings = {
   Ime: 'Ime',
   Zadeva: 'Zadeva',
   Sporočilo: 'Sporočilo',
-  ObičajnoOdgovorimoVNekajUrah: 'Običajno odgovorimo v nekaj urah',
+  ObičajnoOdgovorimoVNekajUrah: 'Običajno odgovorimo še isti dan. ',
   ImateVprašanjePredlogeKomentarje: 'Imate vprašanje, predloge, komentarje?',
   Objavi: 'Objavi',
   POŠLJINOVOGESLO: 'POŠLJI NOVO GESLO',

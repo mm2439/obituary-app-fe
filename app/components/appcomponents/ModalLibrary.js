@@ -27,9 +27,10 @@ export default function ModalLibrary({
       isOpen={isShowModal}
       onOpenChange={() => {}}
       scrollBehavior={scrollBehavior}
-      className={
-        "flex flex-1 min-h-screen items-center justify-center  py-10 bg-[#00000070]"
-      }
+     classNames={{
+        backdrop: "bg-[#00000070] min-h-screen flex items-center justify-center py-10",
+      }}
+
     >
       <ModalContent className="flex items-center justify-center w-full ">
         <div className="flex flex-col w-full items-center justify-center">

@@ -33,9 +33,9 @@ const WorkTogetherComp = () => {
            <div  className="hidden desktop:flex font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
               Prikaži več
             </div>
-            <div className="flex desktop:hidden font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
+            <Link href={"/kontakt"} className="flex desktop:hidden font-variation-customOpt16 text-[16px] text-[#1E2125] text-center">
             Kontaktirajte nas
-            </div>
+            </Link >
           </div>
         </div>
       </div>

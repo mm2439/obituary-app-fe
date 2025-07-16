@@ -143,7 +143,7 @@ const Registration = () => {
         className="w-full h-full object-cover absolute top-0 left-0 z-0"
       />
       <div
-        className="w-[550px] z-1 tablet:pt-[79px] tablet:pb-[54px] desktop:pt-[79px] desktop:pb-[54px] mobile:max-w-[340px] mobile:w-full mobile:mx-2 flex flex-col
+        className="w-[550px] tablet:pt-[79px] tablet:pb-[54px] desktop:pt-[79px] desktop:pb-[54px] mobile:max-w-[340px] mobile:w-full mobile:mx-2 flex flex-col
      tablet:bg-gray-300/30 desktop:bg-gray-300/30 desktop:backdrop-blur tablet:backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] desktop:shadow-lg tablet:shadow-lg mobile:border-[0px]"
       >
         {/* register and Login buttons */}
@@ -380,18 +380,15 @@ const Registration = () => {
 
       {activeDiv == "register" && (
         <div
-          onClick={() => {
-            console.log("clicked");
-            router.push("/companyregistrationpage");
-          }}
+          onClick={() => router.push("/podjetja")}
           style={{ cursor: "pointer" }}
-          className="w-[550px] relative z-1  mobile:w-max-[340px] flex justify-end mobile:justify-start items-center mt-[30px] mobile:w-[310px] h-[43px]"
+          className="w-[550px] mobile:w-max-[340px] flex justify-end mobile:justify-start items-center mt-[30px] mobile:w-[310px] h-[43px]"
         >
           <div
             link
             className="border-[1px] border-[#FFFFFF] rounded-[8px] tablet:shadow-custom-light-dark desktop:shadow-custom-light-dark bg-transparent mobile:border-[0px]"
           >
-            <div className="px-[25px] mobile:px-[10px] py-[12px] text-[16px] text-[#3C3E41] mobile:text-[#414141] leading-[19px] font-variation-customOpt16">
+            <div className="px-[25px] mobile:px-[10px] py-[12px] text-[16px] text-[#FFFFFF] mobile:text-[#414141] leading-[19px] font-variation-customOpt16">
               Registracija za podjetja
             </div>
           </div>

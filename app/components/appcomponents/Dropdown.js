@@ -30,8 +30,11 @@ const Dropdown = ({
           ? "dropdown w-full h-full"
           : isFrom == "companyregistration"
           ? "dropdown w-full h-full "
+          : isFrom == "pogrebi"
+          ? "dropdown w-full h-12"
           : isFromObituary == "obituaryform"
           ? "dropdown w-full h-full mobile:h-[20px]"
+          
           : isFromNotification
           ? label == "Mesto"
             ? "dropdown w-[306px] mobile:w-[240px] h-[48.48px]"

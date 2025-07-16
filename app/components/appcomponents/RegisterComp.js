@@ -70,21 +70,21 @@ const RegisterComp = () => {
                 </div>
 
                 {/*Bottom contianer for mobile*/}
-                <Link href={"/companyregistrationpage"} className='self-center hidden mobile:flex w-full mt-[51px]'>
+                <Link href={"/podjetja"} className='self-center hidden mobile:flex w-full mt-[51px]'>
                     <div className="w-full h-12 rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF]">
                         Registriraj se
                     </div>
                 </Link>
 
                 {/*Bottom contianer for tablet*/}
-                <Link href={"/companyregistrationpage"} className='self-center hidden tablet:flex'>
+                <Link href={"/podjetja"} className='self-center hidden tablet:flex'>
                     <div className="w-full tablet:w-[295px] h-[48px] rounded-lg text-black justify-center items-center self-center mt-[51px] shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] hidden tablet:flex">Začni</div>
                 </Link>
 
             </div>
 
             {/*Bottom contianer for desktop*/}
-            <Link href={"/companyregistrationpage"} className='self-center hidden desktop:flex'>
+            <Link href={"/podjetja"} className='self-center hidden desktop:flex'>
                 <div className="w-[141px] h-[48px] rounded-lg text-[#1E2125] justify-center items-center hidden desktop:flex mt-16 shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF]  text-[16px] font-variation-customOpt16">Registriraj se</div>
             </Link>
 

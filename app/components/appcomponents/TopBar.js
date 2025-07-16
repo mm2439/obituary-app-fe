@@ -24,7 +24,7 @@ const TopBar = ({
 
   const handleNavigation = () => {
     if (!user) {
-      router.push("/registrationpage");
+      router.push("/registracija");
       return;
     }
 

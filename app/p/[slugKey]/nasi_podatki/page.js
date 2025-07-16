@@ -9,6 +9,7 @@ import regionsAndCities from "@/utils/regionAndCities";
 import DropdownWithSearch from "@/app/components/appcomponents/DropdownWithSearch";
 import userService from "@/services/user-service";
 import toast from "react-hot-toast";
+import ModalNew3 from "@/app/components/appcomponents/ModalNew3";
 
 export default function AccountSettings() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -18,6 +19,8 @@ export default function AccountSettings() {
   }, []);
   const [data, setData] = useState({});
   const [selectedCity, setSelectedCity] = useState(null);
+  const [isShowModal1, setIsShowModal1] = useState(false);
+  const [select_id, setSelect_Id] = useState("");
   const getCompleteCompanyData = async () => {
     try {
       const queryParams = {};
@@ -90,7 +93,12 @@ export default function AccountSettings() {
                 {/* {data?.CompanyPage?.website} */}
               </span>
             </div>
-            <button className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden">
+            <button
+              onClick={() => {
+                setIsShowModal1(true);
+              }}
+              className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden"
+            >
               <span className="text-[#2c7ba3] text-[14px]   ">
                 DOPOLNI PODATKE
               </span>
@@ -192,6 +200,16 @@ export default function AccountSettings() {
       {isModalVisible && (
         <ChangePasswordModal setModalVisible={setIsModalVisible} />
       )}
+      <ModalNew3
+        isShowModal={isShowModal1}
+        setIsShowModal={setIsShowModal1}
+        select_id={select_id}
+        set_Id={setSelect_Id}
+        data={data?.id}
+        onChange={(updatedShops) => {
+          console.log(updatedShops, "====");
+        }}
+      />
     </CompanyAccountLayout>
   );
 }

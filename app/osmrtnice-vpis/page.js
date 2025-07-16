@@ -7,23 +7,28 @@ import ModalLibrary from "../components/appcomponents/ModalLibrary";
 import Layout from "../components/appcomponents/Layout";
 
 const Obituaryform = () => {
-  const [isShowModal, setIsShowModal] = useState(true);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
   return (
-  <Layout megaMenu={""} isMegaMenuVisible={false} from={"18"}  currentPage="" forFooter={'memorypage'}>
-    <div className="flex flex-1 flex-col bg-[#F5F7F9]">
-      <ModalLibrary
-        isShowModal={isShowModal}
-        setIsShowModal={setIsShowModal}
-        select_id={select_id}
-        set_Id={setSelect_Id}
-      />
-      {/* <HeaderRegistration isfrom={"ObituaryForm"} /> */}
+    <Layout
+      megaMenu={""}
+      isMegaMenuVisible={false}
+      from={"18"}
+      currentPage=""
+      forFooter={"memorypage"}
+    >
+      <div className="flex flex-1 flex-col bg-[#F5F7F9]">
+        <ModalLibrary
+          isShowModal={isShowModal}
+          setIsShowModal={setIsShowModal}
+          select_id={select_id}
+          set_Id={setSelect_Id}
+        />
+        {/* <HeaderRegistration isfrom={"ObituaryForm"} /> */}
 
-      <AddObituary set_Id={setSelect_Id} setModal={setIsShowModal} />
-    </div>
-  </Layout>
-
+        <AddObituary set_Id={setSelect_Id} setModal={setIsShowModal} />
+      </div>
+    </Layout>
   );
 };
 

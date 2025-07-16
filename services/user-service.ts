@@ -47,6 +47,22 @@ const updateMyUser = async (userData: {
   }
 };
 
+const updateUserAndCompany = async (formData: FormData, id: string) => {
+  try {
+    const endpoint = `/user/${id}`;
+
+    const response = await axios.patch(endpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    return new Error("Network error or no response");
+  }
+};
+
 const deleteMyUser = async () => {
   try {
     const endpoint = "/user/me";
@@ -76,6 +92,7 @@ const userService = {
   updateMyUser,
   deleteMyUser,
   changeSlug,
+  updateUserAndCompany,
 };
 
 export default userService;

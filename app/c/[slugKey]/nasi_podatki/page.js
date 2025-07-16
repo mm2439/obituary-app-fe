@@ -9,6 +9,7 @@ import regionsAndCities from "@/utils/regionAndCities";
 import DropdownWithSearch from "@/app/components/appcomponents/DropdownWithSearch";
 import userService from "@/services/user-service";
 import toast from "react-hot-toast";
+import ModalNew from "../../../components/appcomponents/ModalNew";
 
 export default function AccountSettings() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -18,6 +19,9 @@ export default function AccountSettings() {
   }, []);
   const [data, setData] = useState({});
   const [selectedCity, setSelectedCity] = useState(null);
+  const [isShowModal1, setIsShowModal1] = useState(false);
+  const [select_id, setSelect_Id] = useState("");
+
   const getCompleteCompanyData = async () => {
     try {
       const queryParams = {};
@@ -55,6 +59,10 @@ export default function AccountSettings() {
       toast.error("Error Updating City");
     }
   };
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   return (
     <CompanyAccountLayout>
       <div className="w-full max-w-[1000px] min-w-[720px]">
@@ -86,7 +94,10 @@ export default function AccountSettings() {
                 {data?.CompanyPage?.website}
               </span>
             </div>
-            <button className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden">
+            <button
+              onClick={() => setIsShowModal1(true)}
+              className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden"
+            >
               <span className="text-[#2c7ba3] text-[14px]   ">
                 DODAJ CVETLIČARNO
               </span>
@@ -148,22 +159,30 @@ export default function AccountSettings() {
                     className="flex flex-col gap-2 text-[#3C3E41] "
                   >
                     <div className="my-5 flex flex-col">
-                      <span className="uppercase">CVETLIČARNA:</span>
+                      <span className="uppercase">
+                        CVETLIČARNA: {item.shopName}
+                      </span>
 
-                      <span className="  uppercase">NASLOV:</span>
+                      <span className="  uppercase">
+                        NASLOV: {item.address}
+                      </span>
 
-                      <span className=" uppercase">TEL. ŠTEVILKA:</span>
+                      <span className=" uppercase">
+                        TEL. ŠTEVILKA: {item.telephone}
+                      </span>
 
-                      <span className=" uppercase">EMAIL:</span>
+                      <span className=" uppercase">EMAIL: {item.email}</span>
 
-                      <span className=" uppercase">SPLETNA STRAN:</span>
+                      <span className=" uppercase">
+                        SPLETNA STRAN: {item?.website}
+                      </span>
                     </div>
                   </div>
                 ))}
             </div>
           </div>
           <div className="space-y-1">
-            <span className="uppercase">mesto:</span>
+            <span className="uppercase">OBČINA:</span>
             <div className="grid grid-cols-2 gap-[12px] px-6 pb-[10px]">
               <div className="flex items-center gap-[12px] ">
                 <span className="uppercase">Primarno:</span>
@@ -247,6 +266,24 @@ export default function AccountSettings() {
       {isModalVisible && (
         <ChangePasswordModal setModalVisible={setIsModalVisible} />
       )}
+
+      <ModalNew
+        isShowModal={isShowModal1}
+        setIsShowModal={setIsShowModal1}
+        select_id={select_id}
+        set_Id={setSelect_Id}
+        data={data?.CompanyPage}
+        onChange={(updatedShops) => {
+          console.log(updatedShops, "====");
+          setData((prevData) => ({
+            ...prevData,
+            CompanyPage: {
+              ...prevData.CompanyPage,
+              FloristShops: updatedShops,
+            },
+          }));
+        }}
+      />
     </CompanyAccountLayout>
   );
 }

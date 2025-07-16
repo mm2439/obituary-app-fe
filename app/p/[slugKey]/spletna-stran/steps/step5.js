@@ -1,40 +1,42 @@
 "use client";
 
-import Image from "next/image";
 import OpenableBlock from "../components/OpenAbleBlock";
-import { BackgroundSelectorStep2 } from "../components/BackgroundSelector";
-import ImageSelector from "../components/ImageSelector";
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import faqService from "@/services/faq-service";
 import { toast } from "react-hot-toast";
-import Link from "next/link";
 import FuneralCompanyPreview from "../components/funeral-company-preview";
+import RichTexEditor from "@/app/components/form/rich-editor";
+
+const defaultFaqs = [
+  {
+    index: 1,
+    question: "",
+    answer: "",
+  },
+  {
+    index: 2,
+    question: "",
+    answer: "",
+  },
+  {
+    index: 3,
+    question: "",
+    answer: "",
+  },
+  {
+    index: 4,
+    question: "",
+    answer: "",
+  },
+];
 
 export default function Step5({ data, onChange, handleStepChange }) {
-  const [faqs, setFaqs] = useState([
-    {
-      index: 1,
-      question: "",
-      answer: "",
-    },
-    {
-      index: 2,
-      question: "",
-      answer: "",
-    },
-    {
-      index: 3,
-      question: "",
-      answer: "",
-    },
-    {
-      index: 4,
-      question: "",
-      answer: "",
-    },
-  ]);
-  const [companyId, setCompanyId] = useState(null);
+  const [faqs, setFaqs] = useState(() => {
+    return data?.faqs?.length > 0 ? data?.faqs : defaultFaqs;
+  });
+
+  const [companyId, setCompanyId] = useState(data?.id);
   const [user, setUser] = useState(null);
   const router = useRouter();
   useEffect(() => {
@@ -43,35 +45,7 @@ export default function Step5({ data, onChange, handleStepChange }) {
       return;
     }
     setUser(JSON.parse(currUser));
-  }, [router]);
-  useEffect(() => {
-    if (data && data !== null) {
-      setCompanyId(data.id);
-      if (data.faqs && data.faqs.length > 0) {
-        const updatedFaqs = data.faqs.map((faq, index) => ({
-          ...faq,
-          index: index + 1,
-          updated: false,
-        }));
-
-        const paddedFaqs = [...updatedFaqs];
-
-        while (paddedFaqs.length < 4) {
-          paddedFaqs.push({
-            index: paddedFaqs.length + 1,
-            answer: "",
-            question: "",
-          });
-        }
-
-        setFaqs(paddedFaqs);
-      }
-    }
-  }, [data]);
-
-  useEffect(() => {
-    console.log(faqs);
-  }, [data]);
+  }, []);
 
   const handleFaqChange = (index, updatedFaq) => {
     const updatedFaqs = [...faqs];
@@ -81,6 +55,31 @@ export default function Step5({ data, onChange, handleStepChange }) {
     };
     setFaqs(updatedFaqs);
   };
+
+  const handleQuestionChange = useCallback((index, value) => {
+    setFaqs((prevFaqs) => {
+      const updatedFaqs = [...prevFaqs];
+      updatedFaqs[index] = {
+        ...updatedFaqs[index],
+        question: value,
+        updated: true,
+      };
+      return updatedFaqs;
+    });
+  }, []);
+
+  const handleAnswerChange = useCallback((index, value) => {
+    setFaqs((prevFaqs) => {
+      const updatedFaqs = [...prevFaqs];
+      updatedFaqs[index] = {
+        ...updatedFaqs[index],
+        answer: value,
+        updated: true,
+      };
+      return updatedFaqs;
+    });
+  }, []);
+
   const validateFields = () => {
     const hasEmpty = faqs.some(
       (faq) => faq.question.trim() === "" || faq.answer.trim() === ""
@@ -95,8 +94,8 @@ export default function Step5({ data, onChange, handleStepChange }) {
   };
   const handleSubmit = async () => {
     try {
-      // if (!validateFields()) return;
-      console.log(faqs);
+      if (!validateFields()) return;
+
       const faqsToSend = faqs
         .filter((faq) => faq.question.trim() !== "" && faq.answer.trim() !== "")
         .filter((faq) => !faq.id || (faq.id && faq.updated));
@@ -160,13 +159,14 @@ export default function Step5({ data, onChange, handleStepChange }) {
             {companyId && <FuneralCompanyPreview company={data} />}
           </div>
           <div className="space-y-[8px]">
-            {faqs.map((block) => (
+            {faqs.map((block, index) => (
               <SliderBlock
-                key={block.index}
-                index={block.index}
-                title={`Vprašanje ${block.index}`}
+                key={`faq-${block.id || index + 1}`}
+                index={block.index || index + 1}
+                title={`Vprašanje ${block.index || index + 1}`}
                 faq={block}
-                onChange={handleFaqChange}
+                handleAnswerChange={handleAnswerChange}
+                handleQuestionChange={handleQuestionChange}
               />
             ))}
             <div className="flex items-center justify-end pt-[8px] pb-[16px]">
@@ -228,11 +228,15 @@ export default function Step5({ data, onChange, handleStepChange }) {
   );
 }
 
-function SliderBlock({ index, title, faq, onChange }) {
+const SliderBlock = React.memo(function SliderBlock({
+  index,
+  title,
+  faq,
+  handleAnswerChange,
+  handleQuestionChange,
+}) {
   const [isDefaultOpen, setIsDefaultOpen] = useState(index === 1);
-  const handleChange = (e) => {
-    onChange(index - 1, { ...faq, [e.target.name]: e.target.value });
-  };
+
   return (
     <OpenableBlock isDefaultOpen={isDefaultOpen} title={title} index={index}>
       <div className="space-y-[16px]">
@@ -245,24 +249,27 @@ function SliderBlock({ index, title, faq, onChange }) {
             name="question"
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
             placeholder="Kaj storiti, ko se zgodi"
-            value={faq.question}
-            onChange={handleChange}
+            value={faq.question || ""}
+            onChange={(e) => {
+              handleQuestionChange(index - 1, e.target.value);
+            }}
           />
         </div>
         <div className="space-y-[8px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Odgovor
           </label>
-          <textarea
-            type="text"
-            name="answer"
-            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] placeholder:leading-[100%] leading-[24px] min-h-[160px]"
-            placeholder="SMRT NA DOMU Svojci umrlega morajo o smrti na domu na območju občine Trbovlje  obvestiti organ, ki na tem področju opravlja mrliško pregledno službo (dežurni zdravnik preglednik: 03 56 52 605). Mrliški preglednik opravi mrliški pregled in izda potrebno dokumentacijo  – potrdilo o opravljenem mrliškem pregledu. Po mrliškem pregledu svojci pokojnega pokličejo pogrebno službo Komunale Trbovlje na 041 599 742,  da se "
-            value={faq.answer}
-            onChange={handleChange}
-          />
+          <div>
+            <RichTexEditor
+              key={index}
+              value={faq.answer || ""}
+              handleChange={(val) => {
+                handleAnswerChange(index - 1, val);
+              }}
+            />
+          </div>
         </div>
       </div>
     </OpenableBlock>
   );
-}
+});

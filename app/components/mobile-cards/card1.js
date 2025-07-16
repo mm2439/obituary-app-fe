@@ -68,16 +68,14 @@ const Card1 = ({ data, cardRefs, index }) => {
               </p>
             </div>
 
-            <div className="mt-[163px]">
+            <div className="mt-[153px]">
               <h1 className="text-[#D89B1C] text-[24px] font-semibold">
                 {dayName} ob {time}
               </h1>
-              <p className="mt-3 pb-10">{formatDate(data?.funeralTimestamp)}</p>
-              {data?.funeralLocation && data?.Cemetry?.funeralCemetery && (
-                <p>
-                  {data?.Cemetry?.funeralCemetery} v {data?.funeralLocation}
-                </p>
-              )}
+              <p className="">{formatDate(data?.funeralTimestamp)}</p>
+              <p className="text-[#fff] pb-10">
+                {data?.Cemetry?.funeralCemetery} v {data?.funeralLocation}
+              </p>
             </div>
           </div>
         </div>

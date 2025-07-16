@@ -52,6 +52,16 @@ export default function Step4({ data, onChange, handleStepChange }) {
     try {
       const formData = new FormData();
 
+      if (secondaryTitle && secondaryTitle?.length > 100) {
+        toast.error("Naslov ne sme biti daljši od 100 znakov.");
+        return false;
+      }
+
+      if (secondaryDescription && secondaryDescription?.length > 500) {
+        toast.error("Tekst ne sme biti daljši od 500 znakov.");
+        return false;
+      }
+
       if (secondaryTitle != null) {
         formData.append("secondary_title", secondaryTitle);
       }

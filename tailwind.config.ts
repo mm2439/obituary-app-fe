@@ -197,6 +197,7 @@ const config: Config = {
       addUtilities(newUtilities, ["responsive", "hover"]);
     },
     require("daisyui"),
+    require("@tailwindcss/typography"),
   ],
 };
 export default config;

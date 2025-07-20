@@ -27,7 +27,9 @@ const Layout = ({
   megaMenu,
   data = {},
   onChangeMemory = () => {},
-  currentPage = ""
+  handleCloseModal = () => {},
+  isModalLayout = false,
+  currentPage = "",
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -70,19 +72,28 @@ const Layout = ({
           from={from}
         />
       ) : from == "5" ? (
-        <Header7 data={data} from={5} />
+        <Header7
+          data={data}
+          from={5}
+          handleCloseModal={isModalLayout ? handleCloseModal : undefined}
+        />
       ) : from == "7" ? (
-        <Header7 data={data} from={7} />
+        <Header7
+          data={data}
+          from={7}
+          handleCloseModal={isModalLayout ? handleCloseModal : undefined}
+        />
       ) : from == "3" ? (
         <MemoryHeader onChange={onChangeMemory} />
       ) : from == "18" ? (
-        <CommonHeader currentPage = {currentPage}
-            setIsModalVisible={setIsModalVisible}
-            setIsMessageModalVisible={setIsMessageModalVisible}
-            setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
-            setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible}
+        <CommonHeader
+          currentPage={currentPage}
+          setIsModalVisible={setIsModalVisible}
+          setIsMessageModalVisible={setIsMessageModalVisible}
+          setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
+          setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible}
         />
-)       : (
+      ) : (
         <>
           {from == "2" ? <div className="flex  h-[45px]" /> : null}
           <ObituaryHeader from={from} />
@@ -120,7 +131,7 @@ const Layout = ({
 
       <main className="flex bg-[#F5F7F9]">{children}</main>
       {forFooter == "company" ? (
-        <CompanyFooter />
+        <CompanyFooter data={data || {}} key={`${data?.id}-company-footer`} />
       ) : forFooter == "memorypage" ? null : (
         <Footer />
       )}

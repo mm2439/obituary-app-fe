@@ -62,7 +62,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
               >
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <Link
-                    href={`/obituarylist`}
+                    href={`/osmrtnice`}
                     className="flex flex-row justify-between items-center pl-[24px] gap-[17px]"
                   >
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
@@ -101,27 +101,32 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
-                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
-                    <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
-                      5
-                    </h4>
+                  <Link
+                    href={`/pogrebi`}
+                    className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative block"
+                  >
+                    <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
+                      <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
+                        5
+                      </h4>
 
-                    <div className="flex flex-row gap-[9px] items-end">
-                      <span className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">
-                        Pogrebov
-                      </span>
-                      <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">
-                        danes in jutri
-                      </span>
+                      <div className="flex flex-row gap-[9px] items-end">
+                        <span className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">
+                          Pogrebov
+                        </span>
+                        <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">
+                          danes in jutri
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <Image
-                    src={"/arrow_right_ico.png"}
-                    alt="Right_arrow"
-                    width={24}
-                    height={24}
-                    className="mr-[6px]"
-                  />
+                    <Image
+                      src={"/arrow_right_ico.png"}
+                      alt="Right_arrow"
+                      width={24}
+                      height={24}
+                      className="mr-[6px]"
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -157,7 +162,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
 
           <div className="flex justify-center mt-[18px]">
             <Link
-              href={"/registracija"}
+              href={"/pogrebi"}
               className="text-[#1860A3] text-center text-[18px] leading-[32px] font-semibold underline"
             >
               Prijavi se

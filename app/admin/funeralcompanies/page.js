@@ -4,14 +4,26 @@ import Image from "next/image";
 import SideMenuAdmin from "../../components/appcomponents/SideMenuAdmin";
 import Dropdown from "../../components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import companyService from "@/services/company-service";
+import userService from "@/services/user-service";
 
 // verify
 const FuneralCompanyData = () => {
   const [whichScreen, setWhichScreen] = useState(1);
+  const [companies, setCompanies] = useState([]);
 
   const [whichTab, setWhichTab] = useState("");
-
+  const getCompanyData = async () => {
+    try {
+      const response = await companyService.getCompanies();
+      console.log(response);
+      setCompanies(response.companies);
+    } catch (error) {
+      console.log("Something Went Wrong");
+    }
+  };
   useEffect(() => {
+    getCompanyData();
     if (whichScreen == 2) {
       setWhichTab("Company - Statistics");
     } else if (whichScreen == 5) {
@@ -20,6 +32,42 @@ const FuneralCompanyData = () => {
       setWhichTab("Funeral Companies");
     }
   }, [whichScreen]);
+  const formatDate = (timestamp) => {
+    const funeralDate = new Date(timestamp);
+    if (isNaN(funeralDate.getTime())) return "";
+
+    const day = funeralDate.getDate().toString().padStart(2, "0");
+    const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = funeralDate.getFullYear().toString().slice(-2);
+
+    return `${day}.${month}.${year}`;
+  };
+
+  const updatePermissions = async (id, type, value) => {
+    try {
+      console.log(id, type, value);
+      const userData = {
+        [type]: value,
+      };
+
+      console.log(userData, id);
+      const response = await userService.updateUser(id, userData);
+
+      setCompanies((prevCompanies) =>
+        prevCompanies.map((company) =>
+          company.id === id
+            ? {
+                ...company,
+                [type]: value,
+              }
+            : company
+        )
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="w-[1920px] bg-[#ECF0F3]  min-h-screen pt-[80px] flex flex-row justify-start">
       <div>
@@ -227,10 +275,10 @@ const FuneralCompanyData = () => {
           </div>
           <div className="flex justify-between">
             <div>
-              
               <p
-              style={{fontVariationSettings: "'wdth' 50"}}
-              className="font-sourcesans text-[32px] font-semibold leading-[37.5px] text-[#0A85C2]">
+                style={{ fontVariationSettings: "'wdth' 50" }}
+                className="font-sourcesans text-[32px] font-semibold leading-[37.5px] text-[#0A85C2]"
+              >
                 Funeral Companies only
               </p>
             </div>
@@ -1045,7 +1093,7 @@ const FuneralCompanyData = () => {
                   </p>
                 </div>
                 <div className="text-[16px] text-[#1E2125] font-medium font-variation-customOpt14 leading-[16px]">
-                  Cities covered 
+                  Cities covered
                 </div>
               </div>
 
@@ -1165,8 +1213,9 @@ const FuneralCompanyData = () => {
           <div className="flex justify-between">
             <div>
               <p
-              style={{fontVariationSettings: "'wdth' 50"}}
-              className="font-sourcesans text-[32px] font-semibold leading-[37.5px] text-[#0A85C2]">
+                style={{ fontVariationSettings: "'wdth' 50" }}
+                className="font-sourcesans text-[32px] font-semibold leading-[37.5px] text-[#0A85C2]"
+              >
                 New Orleans
               </p>
             </div>
@@ -1860,7 +1909,7 @@ const FuneralCompanyData = () => {
               <div className="flex justify-between">
                 <div>
                   <p className="font-sourcesans text-[16px] font-medium leading-[18.75px] text-[#1E2125] m-[0]">
-                    Cities covered 
+                    Cities covered
                   </p>
                 </div>
 
@@ -1930,6 +1979,7 @@ const FuneralCompanyData = () => {
               </p>
             </div>
             <thead>
+              //
               <tr className="h-[70px] uppercase">
                 <th className="w-[78px] text-center pt-[55px]">
                   <p className="font-sourcesans text-[13px] font-semibold leading-[24px] text-[#3C3E41]">
@@ -2068,397 +2118,206 @@ const FuneralCompanyData = () => {
                 </th>
               </tr>
             </thead>
-
+            {/* here is the code */}
             <tbody>
-              <tr className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] bg-[#FFFFFF66]">
-                <td className="w-[78px] text-center">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    S105
-                  </p>
-                </td>
+              {companies?.length > 0 &&
+                companies.map((item, index) => (
+                  <tr className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] bg-[#FFFFFF66]">
+                    <td className="w-[78px] text-center">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {item.id}
+                      </p>
+                    </td>
 
-                <td className="w-[190px]">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Adios Funeral Comp
-                  </p>
-                  <p className="text-left font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#ACAAAA]">
-                    Blue Roses
-                  </p>
-                </td>
+                    <td className="w-[190px]">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {item?.name}
+                      </p>
+                      <p className="text-left font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#ACAAAA]">
+                        {item?.CompanyPage?.address}
+                      </p>
+                    </td>
 
-                <td className="w-[120px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Santa Monica
-                  </p>
-                </td>
+                    <td className="w-[120px] text-left">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {item?.city}
+                      </p>
+                    </td>
 
-                <td className="w-[150px] text-left ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Oszdrinja Slo
-                  </p>
-                </td>
+                    <td className="w-[150px] text-left ">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {item?.region}
+                      </p>
+                    </td>
 
-                <td className="w-[74px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    21.05.24
-                  </p>
-                </td>
+                    <td className="w-[74px] text-left">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {formatDate(item?.createdTimestamp)}
+                      </p>
+                    </td>
 
-                <td className="w-[131px] text-center ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">
-                    1{" "}
-                    <span className="mx-[5px] font-sourcesans text-[12px] font-light leading-[16px] text-[#D4D4D4]">
-                      |
-                    </span>{" "}
-                    1
-                  </p>
-                </td>
+                    <td className="w-[131px] text-center ">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">
+                        1
+                        <span className="mx-[5px] font-sourcesans text-[12px] font-light leading-[16px] text-[#D4D4D4]">
+                          |
+                        </span>
+                        {item?.secondaryCity ? "2" : "1"}
+                      </p>
+                    </td>
 
-                <td className="w-[90px] h-[64px]  flex justify-center items-center">
-                  <Image src={"/verify.png"} width={24} height={24}></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="ml-[28px]"
-                  ></Image>
-                </td>
+                    <td className="w-[90px] h-[64px]  flex justify-center items-center">
+                      {item.createObituaryPermission === false ? (
+                        <Image
+                          onClick={() => {
+                            updatePermissions(
+                              item.id,
+                              "createObituaryPermission",
+                              true
+                            );
+                          }}
+                          src={"/reject.png"}
+                          width={18}
+                          height={18}
+                          className="m-auto"
+                        ></Image>
+                      ) : (
+                        <Image
+                          onClick={() => {
+                            updatePermissions(
+                              item.id,
+                              "createObituaryPermission",
+                              false
+                            );
+                          }}
+                          src={"/verify.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                        ></Image>
+                      )}
+                    </td>
+                    <td className="w-[90px] ">
+                      {item.assignKeeperPermission === false ? (
+                        <Image
+                          onClick={() => {
+                            updatePermissions(
+                              item.id,
+                              "assignKeeperPermission",
+                              true
+                            );
+                          }}
+                          src={"/reject.png"}
+                          width={18}
+                          height={18}
+                          className="m-auto"
+                        ></Image>
+                      ) : (
+                        <Image
+                          onClick={() => {
+                            updatePermissions(
+                              item.id,
+                              "assignKeeperPermission",
+                              false
+                            );
+                          }}
+                          src={"/verify.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                        ></Image>
+                      )}
+                    </td>
+                    <td className="w-[90px] ">
+                      {item.sendMobilePermission === false ? (
+                        <Image
+                          onClick={() => {
+                            updatePermissions(
+                              item.id,
+                              "sendMobilePermission",
+                              true
+                            );
+                          }}
+                          src={"/reject.png"}
+                          width={18}
+                          height={18}
+                          className="m-auto"
+                        ></Image>
+                      ) : (
+                        <Image
+                          onClick={() => {
+                            updatePermissions(
+                              item.id,
+                              "sendMobilePermission",
+                              false
+                            );
+                          }}
+                          src={"/verify.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                        ></Image>
+                      )}
+                    </td>
+                    <td className="w-[90px] ">
+                      {item.sendGiftsPermission === false ? (
+                        <Image
+                          onClick={() => {
+                            updatePermissions(
+                              item.id,
+                              "sendGiftsPermission",
+                              true
+                            );
+                          }}
+                          src={"/reject.png"}
+                          width={18}
+                          height={18}
+                          className="m-auto"
+                        ></Image>
+                      ) : (
+                        <Image
+                          onClick={() => {
+                            updatePermissions(
+                              item.id,
+                              "sendGiftsPermission",
+                              false
+                            );
+                          }}
+                          src={"/verify.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                        ></Image>
+                      )}
+                    </td>
 
-                <td className="w-[50px] ">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
+                    <td className="w-[50px] ">
+                      <Image
+                        src={"/reject.png"}
+                        width={18}
+                        height={18}
+                        className="m-auto"
+                      ></Image>
+                    </td>
+                    <td className="w-[90px] ">
+                      <Image
+                        src={"/reject.png"}
+                        width={18}
+                        height={18}
+                        className="m-auto"
+                      ></Image>
+                    </td>
 
-                <td className="w-[55px]">
-                  <Image
-                    src={"/disableNote.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                {/* 28 October 2024 */}
-                {/* <td className="w-[60px] ">
-                  <Image
-                    src={"/disable@.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td> */}
-                <td className="w-[60px] ">
-                  <Image
-                    src={"/disbleGift.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="pl-[45px] w-[60px] text-center">
-                  <p className="font-sourcesans text-[20px] font-bold leading-[23.3px] text-[#EB1D1D]">
-                    4
-                  </p>
-                </td>
-                <td className="w-[60px] ">
-                  <Image
-                    src={"/yellowright.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[60px]">
-                  <Image
-                    src={"/ico_green_check.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-
-                <td className="pl-[30px] w-[60px] ">
-                  <Image
-                    src={"/icon_arrowright.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-              </tr>
-
-              <tr
-                className="h-[64px] border-l-[0.5px] border-l-[solid] border-l-[#A1B1D4]
-    border-r-[0.5px] border-r-[solid] border-r-[#A1B1D4]
-    border-b-[0.5px] border-b-[solid] border-b-[#A1B1D4]
-    "
-              >
-                <td className="w-[78px] text-center">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    SI11A
-                  </p>
-                </td>
-
-                <td className="w-[148px] ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    ABC Gmbh
-                  </p>
-                  <p className="text-left font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#ACAAAA]">
-                    1st funeral company
-                  </p>
-                </td>
-
-                <td className="w-[120px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Beverly Hills
-                  </p>
-                </td>
-
-                <td className="w-[150px] text-left ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Osrednja Slo
-                  </p>
-                </td>
-
-                <td className="w-[74px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    05.12.23
-                  </p>
-                </td>
-
-                <td className="w-[131px] text-center ">
-                  <p className="m-auto  flex justify-center font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">
-                    1{" "}
-                    <span className="  ml-[5px] font-sourcesans text-[12px] font-light leading-[16px] text-[#D4D4D4]">
-                      |{" "}
-                    </span>{" "}
-                    <h1 className=" ml-[5px] font-sourcesans text-[20px] font-medium leading-[23.44px] text-[#EB1D1D]">
-                      2
-                    </h1>
-                  </p>
-                </td>
-
-                <td className="w-[90px] h-[64px]  flex justify-center items-center">
-                  <Image src={"/verify.png"} width={24} height={24}></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/disableverify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px]">
-                  <Image
-                    src={"/disableverify.png"}
-                    width={24}
-                    height={24}
-                    className="ml-[28px]"
-                  ></Image>
-                </td>
-
-                <td className="w-[50px]">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px]">
-                  <Image
-                    src={"/enablereject.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-
-                <td className="w-[55px]">
-                  <Image
-                    src={"/enablenote.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                {/* 28 October 2024 - Commented */}
-                {/* <td className="w-[60px]">
-                  <Image
-                    src={"/enable@.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td> */}
-                <td className="w-[60px] ">
-                  <Image
-                    src={"/disbleGift.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="pl-[45px] w-[60px] text-center">
-                  <p className="font-sourcesans text-[20px] font-bold leading-[23.3px] text-[#6D778E]">
-                    3
-                  </p>
-                </td>
-                <td className="w-[60px] "></td>
-                <td className="w-[60px]"></td>
-
-                <td className="pl-[30px] w-[60px] ">
-                  <Image
-                    src={"/icon_arrowright.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-              </tr>
-
-              <tr
-                className="h-[64px] border-l-[0.5px] border-l-[solid] border-l-[#A1B1D4]
-    border-r-[0.5px] border-r-[solid] border-r-[#A1B1D4]
-    border-b-[0.5px] border-b-[solid] border-b-[#A1B1D4]
-    "
-              >
-                <td className="w-[78px] text-center">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    SI35C
-                  </p>
-                </td>
-
-                <td className="w-[148px] ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Last Wishes LCC
-                  </p>
-                  <p className="text-left font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#ACAAAA]">
-                    Hollywood Funerals
-                  </p>
-                </td>
-
-                <td className="w-[120px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Hollywood
-                  </p>
-                </td>
-
-                <td className="w-[150px] text-left ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Osrednja Slo
-                  </p>
-                </td>
-
-                <td className="w-[74px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    16.02.24
-                  </p>
-                </td>
-
-                <td className="w-[131px] text-center ">
-                  <p className="m-auto  flex justify-center font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">
-                    1{" "}
-                    <span className=" mx-[5px] font-sourcesans text-[12px] font-light leading-[16px] text-[#D4D4D4]">
-                      |{" "}
-                    </span>{" "}
-                    1
-                  </p>
-                </td>
-
-                <td className="w-[90px]  h-[64px]  flex justify-center items-center">
-                  <Image src={"/verify.png"} width={24} height={24}></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/disableverify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/disableverify.png"}
-                    width={24}
-                    height={24}
-                    className="ml-[28px]"
-                  ></Image>
-                </td>
-
-                <td className="w-[50px] ">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
-
-                <td className="w-[55px]">
-                  <Image
-                    src={"/enablenote.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                {/* 28 October 2024 */}
-                {/* <td className="w-[60px] ">
+                    <td className="w-[55px]">
+                      <Image
+                        src={"/disableNote.png"}
+                        width={24}
+                        height={24}
+                        className="m-auto"
+                      ></Image>
+                    </td>
+                    {/* 28 October 2024 */}
+                    {/* <td className="w-[60px] ">
                   <Image
                     src={"/disable@.png"}
                     width={24}
@@ -2466,31 +2325,46 @@ const FuneralCompanyData = () => {
                     className="m-auto"
                   ></Image>
                 </td> */}
-                <td className="w-[60px] ">
-                  <Image
-                    src={"/disbleGift.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="pl-[45px] w-[60px] text-center">
-                  <p className="font-sourcesans text-[20px] font-bold leading-[23.3px] text-[#6D778E]">
-                    2
-                  </p>
-                </td>
-                <td className="w-[60px] "></td>
-                <td className="w-[60px]"></td>
+                    <td className="w-[60px] ">
+                      <Image
+                        src={"/disbleGift.png"}
+                        width={24}
+                        height={24}
+                        className="m-auto"
+                      ></Image>
+                    </td>
+                    <td className="pl-[45px] w-[60px] text-center">
+                      <p className="font-sourcesans text-[20px] font-bold leading-[23.3px] text-[#EB1D1D]">
+                        4
+                      </p>
+                    </td>
+                    <td className="w-[60px] ">
+                      <Image
+                        src={"/yellowright.png"}
+                        width={24}
+                        height={24}
+                        className="m-auto"
+                      ></Image>
+                    </td>
+                    <td className="w-[60px]">
+                      <Image
+                        src={"/ico_green_check.png"}
+                        width={24}
+                        height={24}
+                        className="m-auto"
+                      ></Image>
+                    </td>
 
-                <td className="pl-[30px] w-[60px] ">
-                  <Image
-                    src={"/icon_arrowright.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-              </tr>
+                    <td className="pl-[30px] w-[60px] ">
+                      <Image
+                        src={"/icon_arrowright.png"}
+                        width={24}
+                        height={24}
+                        className="m-auto"
+                      ></Image>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

@@ -100,7 +100,9 @@ const FloristList = () => {
         params.city = selectedCity;
       }
       const response = await shopService.getShops(params);
-      setFloristList(response.shops);
+      if (response?.shops?.length > 0) {
+        setFloristList(response.shops);
+      }
     } catch (error) {
       console.log(error);
     }

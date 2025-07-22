@@ -58,7 +58,9 @@ const FuneralList = () => {
 
       const response = await companyService.getCompanies(params);
       console.log(response);
-      setCompanies(response.companies);
+      if (response?.companies?.length > 0) {
+        setCompanies(response.companies);
+      }
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -97,7 +99,7 @@ const FuneralList = () => {
           </div>
         </div>
       </div>
-      <div
+      {/* <div
         className=" 
       hidden desktop:flex
       w-[1088px] h-[28px] items-center mb-[31px]
@@ -106,7 +108,7 @@ const FuneralList = () => {
         <div className="font-variation-customOpt24 text-left text-[24px]  text-[#1E2125] leading-[28.13px]">
           Zasavska regija
         </div>
-      </div>
+      </div> */}
       <div
         className=" 
       flex justify-center

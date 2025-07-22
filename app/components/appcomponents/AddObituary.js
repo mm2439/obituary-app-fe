@@ -48,6 +48,15 @@ const AddObituary = ({ set_Id, setModal }) => {
   const [obituaryResponse, setObituaryResponse] = useState(null);
   const cardRefs = useRef([]);
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser) {
+      toast.error("You must be logged in to access this page.");
+      router.push("/registracija");
+    } else {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
   const [events, setEvents] = useState([
     {
       eventName: "",
@@ -1759,7 +1768,10 @@ const AddObituary = ({ set_Id, setModal }) => {
                   >
                     Na prejšnjo stran
                   </div>
-                  <div
+
+                  <button
+                    type="button"
+                    disabled={user && user.createObituaryPermission === false}
                     onClick={!loading ? handleSubmit : null} // Disable onClick when isLoading is true
                     className={`flex flex-1 px-[90px] py-3 mobile:px-10 text-center justify-center items-center rounded-lg shadow-custom-dual text-[16px] cursor-pointer ${
                       loading
@@ -1768,7 +1780,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                     }`}
                   >
                     {loading ? "Shranjujem..." : "Objavi novo osmrtnico"}
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

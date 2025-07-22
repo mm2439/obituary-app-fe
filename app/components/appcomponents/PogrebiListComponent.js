@@ -9,7 +9,7 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
 import regionsAndCities from "@/utils/regionAndCities";
-const ObituaryListComponent = ({ city }) => {
+const ObituaryListComponent = ({ city, from }) => {
   const languages = [
     "Ljubljana",
     "Maribor",
@@ -36,7 +36,6 @@ const ObituaryListComponent = ({ city }) => {
     "Nova Gorica",
   ];
 
-  
   const [obituaries, setObituaries] = useState([]);
   const allRegionsOption = {
     place: "- Pokaži vse regije - ",
@@ -149,7 +148,7 @@ const ObituaryListComponent = ({ city }) => {
                 className="bg-white border-[#7C7C7C] placeholder-[#7C7C7C] text-[16px] font-[400] leading-[24px] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full px-4 text-[#7C7C7C] focus:outline-none"
               />
             </div>
-         
+
             {/* Dropdown for Občina*/}
             <Dropdown
               data={cityOptions}
@@ -159,7 +158,7 @@ const ObituaryListComponent = ({ city }) => {
               selectedValue={selectedCity}
               onSelect={handleCitySelect}
             />
-               {/* Dropdown for Regija*/}
+            {/* Dropdown for Regija*/}
             <Dropdown
               label={"Regija"}
               isFromNotification={false}
@@ -169,7 +168,7 @@ const ObituaryListComponent = ({ city }) => {
               onSelect={handleRegionSelect}
             />
             {/* Search container and magnifying glass image */}
-            
+
             <div
               onClick={() => fetchObituary()}
               className="hidden desktop:flex justify-center items-center w-12 h-full desktop:aspect-square rounded-lg bg-[#414141]"
@@ -188,8 +187,6 @@ const ObituaryListComponent = ({ city }) => {
             className="w-[777px] tablet:w-[600px] h-[48px] tablet:h-[112px] tablet:columns-2 mobile:w-[296px] mobile:h-[240px] mobile:flex-wrap 
             flex tablet:flex-wrap flex-row gap-4 mt-[69.07px] tablet:mt-[63px] mobile:mt-[40px] mobile:mb-[42px] tablet:mb-[53px] mb-[23.93px]"
           >
-          
-            
             {/* Dropdown for Mesto*/}
             <Dropdown
               data={cityOptions}
@@ -209,7 +206,7 @@ const ObituaryListComponent = ({ city }) => {
               onSelect={handleRegionSelect}
             />
 
-              {/* Input field for  Išči po imenu / priimku*/}
+            {/* Input field for  Išči po imenu / priimku*/}
             <div className="flex w-[227px] tablet:w-[292px] h-[48px] mobile:w-[296px] justify-center items-center">
               <input
                 type="text"
@@ -246,31 +243,27 @@ const ObituaryListComponent = ({ city }) => {
               />
             </div>
 
-          
             {/* Dropdown for Mesto*/}
             <Dropdown
               data={cityOptions}
               label={"Mesto"}
               isFromNotification={false}
               isFromFlower={false}
-              isFrom={'pogrebi'}
-
+              isFrom={"pogrebi"}
               selectedValue={selectedCity}
               onSelect={handleCitySelect}
             />
 
-              {/* Dropdown for Regija*/}
+            {/* Dropdown for Regija*/}
             <Dropdown
               label={"Regija"}
               isFromNotification={false}
               isFromFlower={false}
-              isFrom={'pogrebi'}
+              isFrom={"pogrebi"}
               data={regionOptions}
               selectedValue={selectedRegion}
               onSelect={handleRegionSelect}
             />
-
-           
 
             {/* Search container and magnifying glass image */}
             <div
@@ -311,7 +304,6 @@ const ObituaryListComponent = ({ city }) => {
           </div>
         </div>
 
-        
         {/* Hitri izbor heading and list for mobile*/}
         <div className="tablet:w-[660px] desktop:hidden mobile:w-[304px] tablet:justify-end  tablet:hidden tablet:flex-row  mobile:flex-col text-[24px] mobile:text-[28px] font-[400px] leading-[28.13px] text-[#1E2125]">
           <div>
@@ -341,10 +333,10 @@ const ObituaryListComponent = ({ city }) => {
         {/* list horizontal container for desktop*/}
 
         <div className="mt-[18px] block mobile:hidden tablet:hidden ">
-            {/* Hitri izbor heading for desktop*/}
-            <div className=" w-full block mobile:hidden tablet:hidden text-[24px] font-[400px] leading-[28.13px] text-[#1E2125] mb-5">
-                <div>Hitri izbor</div>
-            </div>
+          {/* Hitri izbor heading for desktop*/}
+          <div className=" w-full block mobile:hidden tablet:hidden text-[24px] font-[400px] leading-[28.13px] text-[#1E2125] mb-5">
+            <div>Hitri izbor</div>
+          </div>
           <ul className="flex flex-row list-none">
             {languages.map((language, index) => (
               <li key={language} className="flex items-center">
@@ -368,41 +360,43 @@ const ObituaryListComponent = ({ city }) => {
           </ul>
         </div>
 
-
         {/* Grid Contaner */}
-        <div className="mx-auto mobile:hidden tablet:hidden desktop:grid desktop:grid-cols-2 grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
-          {obituaries.map((obituary, index) => (
-            <ObituaryCard
-              data={obituary}
-              index={index}
-              key={index}
-              mob={false}
-            />
-          ))}
-        </div>
-        <div className="mx-auto hidden tablet:grid desktop:hidden grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
-          {obituaries.map((obituary, index) => (
-            <ObituaryCard
-              data={obituary}
-              index={index}
-              key={index}
-              mob={false}
-            />
-          ))}
-        </div>
 
-        <div className="mx-auto grid tablet:hidden desktop:hidden  grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
-          {obituaries.map((obituary, index) => (
-            <ObituaryCard
-              data={obituary}
-              index={index}
-              key={index}
-              mob={true}
-            />
-          ))}
-        </div>
+        {from === "progrebi" ? null : (
+          <>
+            <div className="mx-auto mobile:hidden tablet:hidden desktop:grid desktop:grid-cols-2 grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
+              {obituaries.map((obituary, index) => (
+                <ObituaryCard
+                  data={obituary}
+                  index={index}
+                  key={index}
+                  mob={false}
+                />
+              ))}
+            </div>
+            <div className="mx-auto hidden tablet:grid desktop:hidden grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
+              {obituaries.map((obituary, index) => (
+                <ObituaryCard
+                  data={obituary}
+                  index={index}
+                  key={index}
+                  mob={false}
+                />
+              ))}
+            </div>
 
-      
+            <div className="mx-auto grid tablet:hidden desktop:hidden  grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
+              {obituaries.map((obituary, index) => (
+                <ObituaryCard
+                  data={obituary}
+                  index={index}
+                  key={index}
+                  mob={true}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

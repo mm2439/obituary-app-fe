@@ -359,7 +359,6 @@ const FuneralCompanyData = () => {
                         src={"/arraydownward.png"}
                         width={8}
                         height={12}
-                        //   className="w-[24px] h-[30px] m-[0]"
                       ></Image>
                     </div>
                   </th>
@@ -433,7 +432,6 @@ const FuneralCompanyData = () => {
                         src={"/arraydownward.png"}
                         width={8}
                         height={12}
-                        //   className="w-[24px] h-[30px] m-[0]"
                       ></Image>
                     </div>
                   </th>
@@ -502,7 +500,6 @@ const FuneralCompanyData = () => {
                         src={"/arraydownward.png"}
                         width={8}
                         height={12}
-                        //   className="w-[24px] h-[30px] m-[0]"
                       ></Image>
                     </div>
                   </th>
@@ -647,7 +644,6 @@ const FuneralCompanyData = () => {
                       src={"/icon_arrowright.png"}
                       width={24}
                       height={24}
-                      //   className="w-[24px] h-[30px] m-[0]"
                     ></Image>
                   </td>
                 </tr>
@@ -788,7 +784,6 @@ const FuneralCompanyData = () => {
                       src={"/icon_arrowright.png"}
                       width={24}
                       height={24}
-                      //   className="w-[24px] h-[30px] m-[0]"
                     ></Image>
                   </td>
                 </tr>
@@ -929,7 +924,6 @@ const FuneralCompanyData = () => {
                       src={"/icon_arrowright.png"}
                       width={24}
                       height={24}
-                      //   className="w-[24px] h-[30px] m-[0]"
                     ></Image>
                   </td>
                 </tr>
@@ -1822,7 +1816,6 @@ const FuneralCompanyData = () => {
           </div>
         </div>
       ) : (
-        // 28 October
         <div className="w-full bg-[#e5eaf1] pt-[60px]  py-[2px] px-[20px] flex flex-col">
           <div className="flex gap-x-[20px] mb-[80px] justify-between">
             <div className="flex">
@@ -1979,7 +1972,6 @@ const FuneralCompanyData = () => {
               </p>
             </div>
             <thead>
-              //
               <tr className="h-[70px] uppercase">
                 <th className="w-[78px] text-center pt-[55px]">
                   <p className="font-sourcesans text-[13px] font-semibold leading-[24px] text-[#3C3E41]">
@@ -2044,7 +2036,6 @@ const FuneralCompanyData = () => {
                       src={"/arraydownward.png"}
                       width={8}
                       height={12}
-                      //   className="w-[24px] h-[30px] m-[0]"
                     ></Image>
                   </div>
                 </th>
@@ -2122,7 +2113,10 @@ const FuneralCompanyData = () => {
             <tbody>
               {companies?.length > 0 &&
                 companies.map((item, index) => (
-                  <tr className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] bg-[#FFFFFF66]">
+                  <tr
+                    key={index}
+                    className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] bg-[#FFFFFF66]"
+                  >
                     <td className="w-[78px] text-center">
                       <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
                         {item.id}

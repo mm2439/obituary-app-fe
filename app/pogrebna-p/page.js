@@ -10,17 +10,23 @@ import CommonFooter from "../components/appcomponents/CommonFooter";
 
 const FuneralsList = () => {
   return (
-    <Layout from={"2"} forFooter={""}>
+    <Layout
+      from={"18"}
+      megaMenu={""}
+      forFooter={"memorypage"}
+      currentPage="cvetlicarne"
+      isMegaMenuVisible={false}
+    >
       <div className="flex flex-col mx-auto bg-[#F5F7F9] w-full">
         <ObituaryListBanner
-          image={"/roza_ozadje.avif"}
+          image={"/belo_ozadje.jpg"}
           label={"Pogrebna podjetja"}
         />
-
         <FuneralList />
         <WorkTogetherComp />
         <PartnersCompo />
-        <SponsorComponent />
+        <SponsorComponent text=" S podporo naših najtesnejših partnerjev" />
+
         <FuneralsLocalFloristComp />
         <CommonFooter currentPage="/cvetlicarne" />
       </div>

@@ -264,38 +264,42 @@ const AddObituary = ({ set_Id, setModal }) => {
   const handleUploadTemplateCards = async () => {
     setLoading(true);
 
-    // Wait for cardRefs to be populated
     let attempts = 0;
     while (!cardRefs.current && attempts < 10) {
       await new Promise((resolve) => setTimeout(resolve, 50));
       attempts++;
     }
-    if (!obituaryResponse || !cardRefs.current) return;
-    const { images, pdfs } = await getCardsImageAndPdfsFiles(cardRefs.current);
-    const formData = new FormData();
-    images.forEach((image) => {
-      formData.append(`cardImages`, image);
-    });
-    pdfs.forEach((pdf) => {
-      formData.append(`cardPdfs`, pdf);
-    });
-    const response = await obituaryService.uploadObituaryTemplateCards(
-      obituaryResponse.id,
-      formData
-    );
-    if (response.error) {
-      toast.error(response.error || "Failed to upload template cards.");
+
+    if (!obituaryResponse || !cardRefs.current) {
+      setLoading(false);
+      toast.error("Obituary or card references not available.");
       return;
     }
-    if (response.message.includes("successfully")) {
-      setLoading(false);
+
+    const { images, pdfs } = await getCardsImageAndPdfsFiles(cardRefs.current);
+
+    const formData = new FormData();
+    images.forEach((image) => formData.append(`cardImages`, image));
+    pdfs.forEach((pdf) => formData.append(`cardPdfs`, pdf));
+
+    try {
+      const response = await obituaryService.uploadObituaryTemplateCards(
+        obituaryResponse.id,
+        formData
+      );
+
+      if (response?.error || !response.message?.includes("successfully")) {
+        toast.error(response?.error || "Failed to upload template cards.");
+        return;
+      }
 
       toast.success("Template cards uploaded successfully!");
-
       router.push(`/m/${obituaryResponse.slugKey}`);
-    } else {
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast.error("Unexpected error uploading template cards.");
+    } finally {
       setLoading(false);
-      return;
     }
   };
 

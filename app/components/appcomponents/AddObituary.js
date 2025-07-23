@@ -287,9 +287,16 @@ const AddObituary = ({ set_Id, setModal }) => {
       toast.error(response.error || "Failed to upload template cards.");
       return;
     }
-    toast.success("Template cards uploaded successfully!");
-    setLoading(false);
-    router.push(`/m/${obituaryResponse.slugKey}`);
+    if (response.message.includes("successfully")) {
+      setLoading(false);
+
+      toast.success("Template cards uploaded successfully!");
+
+      router.push(`/m/${obituaryResponse.slugKey}`);
+    } else {
+      setLoading(false);
+      return;
+    }
   };
 
   const handleSubmit = async () => {

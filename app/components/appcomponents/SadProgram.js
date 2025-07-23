@@ -6,19 +6,62 @@ import API_BASE_URL from "@/config/apiConfig";
 import Image from "next/image";
 // 7 October 2024 - bela_ikebana.avif, sopek.avif
 
+const defaultList = [
+  {
+    image: "/bela_ikebana.avif",
+    title: "Čudoviti aranžma št. 1",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 1",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 1",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 1",
+  },
+  {
+    image: "/bela_ikebana.avif",
+    title: "Čudoviti aranžma št. 5 od 80€ naprej",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 6 od 80€ naprej",
+  },
+  {
+    image: "/f3.png",
+    title: "Čudoviti aranžma št. 7 od 40€ naprej",
+  },
+  {
+    image: "/sopek.avif",
+    title: "Čudoviti aranžma št. 8 od 60€ naprej",
+  },
+];
+
 const defaultText =
-  "Dodate osem produktov iz vaše ponudbe in dodate pod njimi svoje tekste. Seveda ni nujno, da so vsi produkti iz žalnega programa. Tudi naslov lahko poimenujete drugače.";
+  "S spoštovanjem in nežnostjo oblikujemo žalne aranžmaje, ki s svežim cvetjem in subtilno eleganco tolažijo in večno ohranjajo spomin na ljubljene.";
 
 const SadProgram = ({ data }) => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    // setList(data?.packages || []);
-    setList(data?.packages?.slice(0, 4) || []);
+    const userPackages = (data?.packages || []).filter((pkg) => pkg?.image);
+    const filledList = [
+      ...userPackages.slice(0, 4),
+      ...defaultList.filter(
+        (def, i) =>
+          // Only add as many defaults as needed to reach 4
+          userPackages.slice(0, 4).length + i < 4
+      ),
+    ].slice(0, 4);
+    setList(filledList);
   }, [data?.packages]);
 
   return (
-    <div className="relative max-w-[1920px] bg-[#F5F7F9] w-full py-16 tablet:py-12 mobile:py-8  overflow-hidden mx-auto justify-center items-center flex ">
+    <div className="relative max-w-[1920px] bg-[#F5F7F9] w-full py-16 pb-36 tablet:py-12 tablet:pb-24 mobile:py-8 mobile:pb-16 overflow-hidden mx-auto justify-center items-center flex ">
       {/*Main Contianer (chlid contianer)*/}
       <div className="flex w-[901px] max-h-[869px] tablet:w-[613px] tablet:max-h-[1395px] mobile:max-h-[1492px] mobile:w-[292px] flex-col">
         {/*Header contianer*/}

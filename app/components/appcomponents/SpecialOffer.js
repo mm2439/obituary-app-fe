@@ -78,7 +78,7 @@ const SpecialOffer = ({ data }) => {
             className="h-full max-w-[1023px] w-full py-28 tablet:py-8 mobile:py-6 flex desktop:flex-row flex-col-reverse justify-between items-center"
           >
             <div className=" flex  flex-col w-[450px] mobile:w-[300px]">
-              <div className="text-[40px] leading-[47px mobile:leading-[38px] font-variation-customOpt40  text-[#000000] mobile:text-[32px] ">
+              <div className="text-[32px] leading-[47px mobile:leading-[38px] font-variation-customOpt40  text-[#000000] mobile:text-[24px] ">
                 {activeSlide.title}
               </div>
               <div className="text-[16px] text-[#414141] font-variation-customOpt16 leading-[24px] mt-[20px]">

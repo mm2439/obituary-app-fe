@@ -66,7 +66,7 @@ const Offer = ({ data }) => {
         {images.length > 0 && (
           <div className="flex w-[537px] h-[70px] tablet:w-[488.57px] mobile:w-[296px] mobile:h-[142px] items-center flex-col">
             <div className="text-[40px] mobile:text-[32px] text-[#000000] font-variation-customOpt40 mobile:font-variation-customOpt32 mt-[-6px] mobile:mt-[-18px]">
-              Naša ponudba
+              Cvetje za vse priložnosti
             </div>
             <div className="h-[48px] w-full font-semibold text-[24px] mobile:h-[96px] text-[#939393] text-center leading-[24px] font-variation-customOpt16 flex desktop:hidden mobile:mt-[1px]">
               {data?.offer_subtitle}

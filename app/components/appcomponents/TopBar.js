@@ -7,7 +7,8 @@ const TopBar = ({
   setIsModalVisible,
   setIsMessageModalVisible,
   setIsLocalQuickModalVisible,
-  setIsLocalQuickModalReviewVisible,
+  setIsLocalQuickReviewModalVisible,
+  onLocalQuickReviewClick, // New prop
 }) => {
   const popuButtonRef = React.useRef();
   const [user, setUser] = useState(null);
@@ -49,6 +50,21 @@ const TopBar = ({
     }
   };
 
+  // Update the local quick review button click handler
+  const handleLocalQuickReviewClick = () => {
+    if (onLocalQuickReviewClick) {
+      onLocalQuickReviewClick();
+    } else {
+      // Fallback to old behavior
+      const user = localStorage.getItem("user");
+      if (user) {
+        setIsLocalQuickReviewModalVisible(true);
+      } else {
+        setIsLocalQuickModalVisible(true);
+      }
+    }
+  };
+
   return (
     <div className="flex w-full h-[45px] flex-col items-center justify-between bg-[#414141] ">
       <div className=" w-full desktop:w-[1200px] mobile:px-[24px] my-auto flex flex-row justify-between">
@@ -68,7 +84,7 @@ const TopBar = ({
                 setIsMessageModalVisible(true);
                 setIsModalVisible(false);
                 setIsLocalQuickModalVisible(false);
-                setIsLocalQuickModalReviewVisible(false);
+                setIsLocalQuickReviewModalVisible(false);
               }}
             >
               <img
@@ -83,7 +99,7 @@ const TopBar = ({
                 setIsModalVisible(true);
                 setIsMessageModalVisible(false);
                 setIsLocalQuickModalVisible(false);
-                setIsLocalQuickModalReviewVisible(false);
+                setIsLocalQuickReviewModalVisible(false);
               }}
             >
               <img
@@ -102,7 +118,7 @@ const TopBar = ({
                 onClick={() => {
                   setIsModalVisible(false);
                   setIsMessageModalVisible(false);
-                  setIsLocalQuickModalReviewVisible(false);
+                  setIsLocalQuickReviewModalVisible(false);
                   setIsLocalQuickModalVisible(true);
                 }}
               >
@@ -123,7 +139,7 @@ const TopBar = ({
                 onClick={() => {
                   setIsModalVisible(false);
                   setIsMessageModalVisible(false);
-                  setIsLocalQuickModalReviewVisible(true);
+                  setIsLocalQuickReviewModalVisible(true);
                   setIsLocalQuickModalVisible(false);
                 }}
               >

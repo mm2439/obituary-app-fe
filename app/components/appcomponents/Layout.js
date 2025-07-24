@@ -28,6 +28,7 @@ const Layout = ({
   data = {},
   onChangeMemory = () => { },
   currentPage = ""
+
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -68,14 +69,24 @@ const Layout = ({
           from={from}
         />
       ) : from == "5" ? (
-        <Header7 data={data} from={5} />
+        <Header7
+          data={data}
+          from={5}
+          handleCloseModal={isModalLayout ? handleCloseModal : undefined}
+        />
       ) : from == "7" ? (
-        <Header7 data={data} from={7} />
+        <Header7
+          data={data}
+          from={7}
+          handleCloseModal={isModalLayout ? handleCloseModal : undefined}
+        />
       ) : from == "3" ? (
         <MemoryHeader onChange={onChangeMemory} />
       ) : from == "18" ? (
+
         // CommonHeader now handles its own modals
         <CommonHeader currentPage={currentPage} />
+
       ) : (
         <>
           {from == "2" ? <div className="flex h-[45px]" /> : null}
@@ -120,7 +131,7 @@ const Layout = ({
 
       {/* Footer */}
       {forFooter == "company" ? (
-        <CompanyFooter />
+        <CompanyFooter data={data || {}} key={`${data?.id}-company-footer`} />
       ) : forFooter == "memorypage" ? null : (
         <Footer />
       )}

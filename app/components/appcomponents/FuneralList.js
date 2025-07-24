@@ -59,6 +59,7 @@ const FuneralList = () => {
 
       console.log("API Params:", params);
       const response = await companyService.getCompanies(params);
+
       console.log("API Response:", response);
       setCompanies(response.companies || []);
 
@@ -97,6 +98,7 @@ const FuneralList = () => {
 
       console.log("Obituary counts per company:", counts);
       setObituariesCount(counts);
+
     } catch (error) {
       console.error("Error fetching obituaries count:", error);
       setObituariesCount({});
@@ -185,7 +187,6 @@ const FuneralList = () => {
       </div>
 
 
-
       {/* Results Section */}
       <div className="flex justify-center  w-[310px] tablet:w-[612px] desktop:w-[1088px] desktop:justify-between">
         <div className="w-full">
@@ -211,6 +212,8 @@ const FuneralList = () => {
               )}
             </div>
           )}
+
+     
         </div>
 
         {/* Sidebar */}

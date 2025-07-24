@@ -73,11 +73,13 @@ const FloristList = () => {
         params.city = cityParam.trim();
       }
 
+
       console.log("Fetching shops with params:", params);
       const response = await shopService.getFloristShops(params);
       console.log("API Response:", response);
 
       setFloristList(response.shops || []);
+
     } catch (error) {
       console.error("Error fetching florist shops:", error);
       setFloristList([]);

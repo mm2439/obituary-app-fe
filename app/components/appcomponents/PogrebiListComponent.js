@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
 import regionsAndCities from "@/utils/regionAndCities";
 
+
 const ObituaryListComponent = ({ city }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -19,6 +20,7 @@ const ObituaryListComponent = ({ city }) => {
   const [selectedCity, setSelectedCity] = useState(searchParams.get('city') || city || null);
   const [selectedRegion, setSelectedRegion] = useState(searchParams.get('region') || null);
   const [searchTerm, setSearchTerm] = useState('');
+
   const [obituaries, setObituaries] = useState([]);
 
   // Dropdown options
@@ -179,7 +181,7 @@ const ObituaryListComponent = ({ city }) => {
               onSelect={handleRegionSelect}
             />
 
-            {/* City Dropdown */}
+           
             <Dropdown
               data={cityOptions}
               label={"Občina"}
@@ -205,6 +207,7 @@ const ObituaryListComponent = ({ city }) => {
           <div className="w-[600px] h-[112px] columns-2 flex flex-wrap flex-row gap-4 mt-[63px] mb-[53px]">
 
             {/* Region Dropdown */}
+
             <Dropdown
               label={"Regija"}
               isFromNotification={false}
@@ -214,7 +217,28 @@ const ObituaryListComponent = ({ city }) => {
               onSelect={handleRegionSelect}
             />
 
-            {/* City Dropdown */}
+            {/* Search container and magnifying glass image */}
+
+            <div
+              onClick={() => fetchObituary()}
+              className="hidden desktop:flex justify-center items-center w-12 h-full desktop:aspect-square rounded-lg bg-[#414141]"
+            >
+              <MagnifyingGlassIcon className="w-5 h-5 text-white hidden desktop:block" />
+            </div>
+            <div className="tablet:w-[292px] mobile:w-[296px] h-[48px] mobile:text-[16px] mobile:text-[#F6F6F6] rounded-lg tablet:leading-6 tablet:text-[16px] tablet:text-[#F6F6F6] bg-[#414141] tablet:font-[400px] hidden tablet:flex mobile:flex justify-center items-center">
+              Prikaži
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full tablet:w-full mobile:w-full tablet:flex hidden flex-col items-center">
+          {/* Inputs main Container */}
+          <div
+            className="w-[777px] tablet:w-[600px] h-[48px] tablet:h-[112px] tablet:columns-2 mobile:w-[296px] mobile:h-[240px] mobile:flex-wrap 
+            flex tablet:flex-wrap flex-row gap-4 mt-[69.07px] tablet:mt-[63px] mobile:mt-[40px] mobile:mb-[42px] tablet:mb-[53px] mb-[23.93px]"
+          >
+            {/* Dropdown for Mesto*/}
+
             <Dropdown
               data={cityOptions}
               label={"Mesto"}
@@ -227,6 +251,7 @@ const ObituaryListComponent = ({ city }) => {
 
             {/* Search Input */}
             <div className="flex w-[292px] h-[48px] justify-center items-center">
+
               <input
                 type="text"
                 placeholder="Išči po imenu / priimku"
@@ -261,11 +286,12 @@ const ObituaryListComponent = ({ city }) => {
               />
             </div>
 
-            {/* Region Dropdown */}
+
             <Dropdown
               label={"Regija"}
               isFromNotification={false}
               isFromFlower={false}
+
               isFrom={'pogrebi'}
               data={regionOptions}
               selectedValue={selectedRegion}
@@ -273,11 +299,13 @@ const ObituaryListComponent = ({ city }) => {
             />
 
             {/* City Dropdown */}
+
             <Dropdown
               data={cityOptions}
               label={"Mesto"}
               isFromNotification={false}
               isFromFlower={false}
+
               isFrom={'pogrebi'}
               selectedValue={selectedCity}
               onSelect={handleCitySelect}
@@ -285,6 +313,7 @@ const ObituaryListComponent = ({ city }) => {
             />
 
             {/* Search Button */}
+
             <div
               onClick={handleSearch}
               className="w-[296px] h-[48px] text-[16px] text-[#F6F6F6] rounded-lg leading-6 bg-[#414141] font-[400] flex justify-center items-center cursor-pointer"
@@ -294,8 +323,10 @@ const ObituaryListComponent = ({ city }) => {
           </div>
         </div>
 
+
         {/* Quick Selection remains the same... */}
         {/* ... rest of your existing quick selection code ... */}
+
 
       </div>
     </div>

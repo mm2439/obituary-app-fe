@@ -216,7 +216,7 @@ export default function Obituaries() {
                         </td>
                         <td className="pr-[25px]">
                           <Link
-                            href={`/obituaryform/${obituary.id}`}
+                            href={`/osmrtnice-vpis/${obituary.id}`}
                             className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto "
                           >
                             <img

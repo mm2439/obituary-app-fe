@@ -41,18 +41,32 @@ export default function ModalNew2({
         return;
       }
 
+      // Get user ID from local storage
+      const user = JSON.parse(localStorage.getItem("user"));
+      const userId = user?.id;
+
       const payload = {
         companyId: data?.id,
+        userId: userId, // Add userId to payload
         shops,
       };
+      console.log("first", payload);
 
       const response = await shopService.createShop(payload);
       onChange(response?.shops);
       toast.success("Trgovine so ustvarjene, podjetje je poslano za odobritev");
 
       console.log(response);
+
+      // Close the modal after successful submission
+      setIsShowModal(false);
+
+      // Optional: Reset the form
+      setShops([{}]);
     } catch (error) {
       console.log(error);
+      // Optional: Show error toast
+      toast.error("Napaka pri shranjevanju podatkov");
     }
   };
 

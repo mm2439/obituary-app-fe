@@ -57,8 +57,6 @@ const getFunerals = async (queryParams?: {
 }) => {
   try {
     const endpoint = "/obituary/funerals";
-
-
     console.log(endpoint, queryParams);
     const response = await axios.get(endpoint, { params: queryParams });
     return response.data;

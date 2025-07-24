@@ -98,8 +98,8 @@ export default function AccountSettings() {
               onClick={() => setIsShowModal1(true)}
               className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden"
             >
-              <span className="text-[#2c7ba3] text-[14px]">
-                DODAJ CVETLIČARNO
+              <span className="text-[#2c7ba3] text-[14px]   ">
+                DODAJ CVETLIČARNO
               </span>
             </button>
           </div>
@@ -140,10 +140,7 @@ export default function AccountSettings() {
                 >
                   Cvetličarna
                 </h4>
-                <button
-                  onClick={() => setIsShowModal1(true)}
-                  className="inline-flex items-center gap-3"
-                >
+                <Link href="" className="inline-flex items-center gap-3">
                   <img
                     src="/plus_icon_blue.png"
                     alt="add icon"
@@ -152,7 +149,7 @@ export default function AccountSettings() {
                   <span className="text-[#2c7ba3] text-[14px] uppercase underline">
                     dodaj cvetličarno
                   </span>
-                </button>
+                </Link>
               </div>
 
               {data?.CompanyPage?.FloristShops &&

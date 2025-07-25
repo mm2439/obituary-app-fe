@@ -17,44 +17,15 @@ function RichTexEditor({ value, handleChange }: Props) {
     <div className="relative bg-white text-[#3C3E41] border rounded-lg h-full overflow-auto">
       <ReactQuill
         ref={ref}
-        className="custom-editor border [&_.ql-container]:min-h-[180px] [&_.ql-container]:border-none [&_.ql-toolbar]:border-t-0 [&_.ql-toolbar]:border-borderBg [&_.ql-toolbar]:rounded"
+        className="custom-editor border [&_.ql-container]:min-h-[180px] [&_.ql-container]:max-h-[300px] [&_.ql-container]:overflow-y-auto [&_.ql-container]:border-none [&_.ql-toolbar]:border-t-0 [&_.ql-toolbar]:border-borderBg [&_.ql-toolbar]:rounded"
         theme="snow"
         value={value}
         onChange={handleChange}
-        formats={[
-          "header",
-          "bold",
-          "italic",
-          "blockquote",
-          "align",
-          "underline",
-          "strike",
-          "list",
-          "color",
-          "link",
-        ]}
+        formats={["bold", "italic", "underline", "list", "link"]}
         modules={{
           toolbar: {
             container: [
-              [{ header: [3, 4, 5, 6, false] }],
-              ["bold", "italic", "underline", "strike", "blockquote"],
-              [{ align: [] }],
-              [
-                {
-                  color: [
-                    "#2563eb", // Blue
-                    "#16a34a", // Green
-                    "#dc2626", // Red
-                    "#9333ea", // Purple
-                    "#ea580c", // Orange
-                    "#0d9488", // Teal
-                    "#be185d", // Pink
-                    "#854d0e", // Amber
-                    "#1e293b", // Slate
-                    "#4338ca", // Indigo
-                  ],
-                },
-              ],
+              ["bold", "italic", "underline"],
               [{ list: "ordered" }, { list: "bullet" }],
               ["link"],
             ],

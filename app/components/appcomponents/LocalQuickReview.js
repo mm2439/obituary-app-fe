@@ -62,7 +62,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
               >
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <Link
-                    href={`/osmrtnice`}
+                    href={`/obituarylist`}
                     className="flex flex-row justify-between items-center pl-[24px] gap-[17px]"
                   >
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
@@ -101,32 +101,27 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent shadow-lg shadow-[#A6ABBD]/50 rounded-[10px]" />
                 <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
-                  <Link
-                    href={`/pogrebi`}
-                    className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative block"
-                  >
-                    <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
-                      <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
-                        5
-                      </h4>
+                  <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
+                    <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
+                      5
+                    </h4>
 
-                      <div className="flex flex-row gap-[9px] items-end">
-                        <span className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">
-                          Pogrebov
-                        </span>
-                        <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">
-                          danes in jutri
-                        </span>
-                      </div>
+                    <div className="flex flex-row gap-[9px] items-end">
+                      <span className="text-[20px] leading-[24px] font-bold text-[#3C3E41]">
+                        Pogrebov
+                      </span>
+                      <span className="text-[14px] leading-[21px] font-light text-[#3C3E41]">
+                        danes in jutri
+                      </span>
                     </div>
-                    <Image
-                      src={"/arrow_right_ico.png"}
-                      alt="Right_arrow"
-                      width={24}
-                      height={24}
-                      className="mr-[6px]"
-                    />
-                  </Link>
+                  </div>
+                  <Image
+                    src={"/arrow_right_ico.png"}
+                    alt="Right_arrow"
+                    width={24}
+                    height={24}
+                    className="mr-[6px]"
+                  />
                 </div>
               </div>
             </div>
@@ -162,7 +157,7 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
 
           <div className="flex justify-center mt-[18px]">
             <Link
-              href={"/pogrebi"}
+              href={"/registracija"}
               className="text-[#1860A3] text-center text-[18px] leading-[32px] font-semibold underline"
             >
               Prijavi se
@@ -177,10 +172,6 @@ const LocalQuickReview = ({ setIsLocalQuickModalVisible }) => {
 const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
   const [user, setUser] = useState(null);
   const [obituaries, setObituaries] = useState([]);
-  const [obituaryCount, setObituaryCount] = useState(0);
-  const [funerals, setFunerals] = useState([]);
-  const [funeralCount, setFuneralCount] = useState(0);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const currUser = localStorage.getItem("user");
@@ -188,10 +179,10 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
       const parsedUser = JSON.parse(currUser);
       setUser(parsedUser);
 
-      const fetchData = async () => {
+      const fetchObituaries = async () => {
         try {
-          setLoading(true);
           const today = new Date();
+
           const yesterday = new Date();
           yesterday.setDate(today.getDate() - 1);
           const tomorrow = new Date();
@@ -214,39 +205,18 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
             city: parsedUser.city,
             startDate: formattedToday,
             endDate: formattedTomorrow,
+
           };
 
-          console.log("Fetching obituaries with params:", obituaryParams);
-          console.log("Fetching funerals with params:", funeralParams);
-
-          // Fetch both obituaries and funerals
-          const [obituaryResponse, funeralResponse] = await Promise.all([
-            obituaryService.getObituary(obituaryParams),
-            obituaryService.getFunerals(funeralParams),
-          ]);
-
-          console.log("Obituary response:", obituaryResponse);
-          console.log("Funeral response:", funeralResponse);
-
-          // Set obituaries data
-          setObituaries(obituaryResponse?.obituaries || []);
-          setObituaryCount(obituaryResponse?.total || 0);
-
-          // Set funerals data
-          setFunerals(funeralResponse?.obituaries || []);
-          setFuneralCount(funeralResponse?.total || 0);
+          const response = await obituaryService.getObituary(queryParams);
+          setObituaries(response);
+          console.log(response.obituaries);
         } catch (error) {
-          console.error("Error fetching data:", error);
-          setObituaries([]);
-          setObituaryCount(0);
-          setFunerals([]);
-          setFuneralCount(0);
-        } finally {
-          setLoading(false);
+          console.log(error);
         }
       };
 
-      fetchData();
+      fetchObituaries();
     }
   }, []);
 
@@ -267,24 +237,6 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
     const year = today.getFullYear();
     return `${dayName}, ${day}.${month}.${year}`;
   };
-
-  if (loading) {
-    return (
-      <div
-        className="fixed z-[1000] top-0 left-0 w-full bg-[#000000B2] h-screen py-[80px]"
-        onClick={() => setIsLocalQuickReviewModalVisible(false)}
-      >
-        <div
-          className="relative mx-auto max-w-[1280px] flex justify-center mobile:w-[360px] w-full h-full mt-[5px]"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="w-[550px] h-[550px] bg-[#E7EEF3] rounded-[16px] p-[6px] flex items-center justify-center">
-            <p className="text-[#3C3E41] text-[18px]">Nalaganje podatkov...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div
@@ -311,7 +263,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
             </div>
             <div className="bg-gradient-to-b from-[#0D94E8] to-[#1860A3] border-[1px] border-[#0a85c25e] px-[30px] py-[14px] flex justify-between items-center shadow-md scale-[1.02] rounded-[1px]">
               <div className="text-[22px] font-semibold text-[#FFFFFF] leading-[24px]">
-                {user?.city || "Vaše mesto"}
+                {user?.city}
               </div>
               <img
                 src={"./pencil.png"}
@@ -321,7 +273,6 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
             </div>
 
             <div className="space-y-[19px] px-[16px] py-[29px]">
-              {/* Obituaries Section */}
               <div
                 className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]"
                 style={{
@@ -335,12 +286,12 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
                 }}
               >
                 <Link
-                  href={`/osmrtnice?city=${user?.city}`}
+                  href={`/obituarylist?city=${user?.city}`}
                   className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative"
                 >
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
-                      {obituaryCount}
+                      {obituaries?.total || 0}
                     </h4>
 
                     <div className="flex flex-row gap-[9px] items-end">
@@ -361,8 +312,6 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
                   />
                 </Link>
               </div>
-
-              {/* Funerals Section */}
               <div
                 className="relative p-[1px] rounded-[10px] bg-[#E7EBF0]"
                 style={{
@@ -375,13 +324,10 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
                     "5px 5px 10px 0px #A6ABBD, -5px -5px 10px 0px #FAFBFF",
                 }}
               >
-                <Link
-                  href={`/pogrebi?city=${user?.city}`}
-                  className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative"
-                >
+                <div className="w-full bg-[#E7EBF0] rounded-[10px] flex items-center justify-between py-[15px] px-[8px] min-h-[60px] relative">
                   <div className="flex flex-row justify-between items-center pl-[24px] gap-[17px]">
                     <h4 className="text-[#0D94E8] text-[32px] font-bold leading-[24px]">
-                      {funeralCount}
+                      {obituaries?.funeralCount || 0}
                     </h4>
 
                     <div className="flex flex-row gap-[9px] items-end">
@@ -400,11 +346,10 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
                     height={24}
                     className="mr-[6px]"
                   />
-                </Link>
+                </div>
               </div>
             </div>
 
-            {/* Memory Pages Section */}
             <div
               className="border-[1px] border-[#0A85C2] h-[28px] flex justify-between items-center shadow-md shadow-[#00000073] pl-[58px] pr-[30px]"
               style={{
@@ -414,7 +359,7 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
             >
               <div className="flex flex-row justify-between items-center gap-[15px]">
                 <div className="text-[20px] leading-[24px] font-semibold text-[#FFFFFF]">
-                  {obituaryCount}
+                  {obituaries?.total || 0}
                 </div>
                 <div className="text-[#FFFFFF] text-[14px] leading-[24px] font-[300]">
                   Novih spominskih strani

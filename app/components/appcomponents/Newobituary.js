@@ -3,6 +3,7 @@ import { Checkbox } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Newobituary = ({ focusRef, setFile, setName, setRelation, onSubmit }) => {
@@ -10,6 +11,8 @@ const Newobituary = ({ focusRef, setFile, setName, setRelation, onSubmit }) => {
   const [nameValue, setNameValue] = useState("");
   const [relationValue, setRelationValue] = useState("");
   const [confirmationCheck, setConfirmationCheck] = useState(true);
+  const [user, setUser] = useState(null);
+  const router = useRouter();
 
   const handleEmailInput = (event) => {
     setInputValuePic(event.target.value);
@@ -25,7 +28,13 @@ const Newobituary = ({ focusRef, setFile, setName, setRelation, onSubmit }) => {
     setRelationValue(e.target.value);
     setRelation(event.target.value);
   };
-
+  useEffect(() => {
+    const currUser = localStorage.getItem("user");
+    if (currUser) {
+      setUser(JSON.parse(currUser));
+      console.log(JSON.parse(currUser));
+    }
+  }, [router]);
   return (
     <div
       ref={focusRef}
@@ -96,6 +105,7 @@ const Newobituary = ({ focusRef, setFile, setName, setRelation, onSubmit }) => {
 
         <div className="w-[470px] mobile:w-[297px] h-[48px] mt-[40px] mx-auto">
           <button
+            disabled={user && user.assignKeeperPermission === false}
             onClick={onSubmit}
             className="flex w-full h-full bg-white items-center justify-center text-[16px] leading-[24px] font-variation-customOpt16 text-[#FFFFFF] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-lg"
           >
@@ -163,6 +173,7 @@ const Newobituary = ({ focusRef, setFile, setName, setRelation, onSubmit }) => {
 
         <div className="w-[470px] mobile:w-[297px] h-[48px] mt-[35px] mx-auto">
           <button
+            disabled={user && user.assignKeeperPermission === false}
             onClick={onSubmit}
             className="flex w-full h-full bg-white items-center justify-center text-[16px] leading-[24px] font-variation-customOpt16 text-[#FFFFFF] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-lg"
           >

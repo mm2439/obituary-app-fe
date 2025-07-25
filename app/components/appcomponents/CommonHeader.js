@@ -11,42 +11,45 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TopBar from "./TopBar";
 
- const headerLinkSets = {
-    "/osmrtnice": [
-      { label: "Osmrtnice", path: "/osmrtnice", active : false },
-      { label: "Pogrebi", path: "/pogrebi", active : false },
-    ],
-    "/pogrebi": [
-      { label: "Osmrtnice", path: "/osmrtnice", active : false },
-      { label: "Pogrebi", path: "/pogrebi", active : false },
-    ],
-    "/pogrebna-p": [
-      { label: "Cvetličarne", path: "/cvetlicarne", active : false },
-      { label: "Pogrebna podjetja", path: "/pogrebna-p", active : false },
-    ],
-    "/cvetlicarne": [
-       { label: "Cvetličarne", path: "/cvetlicarne", active : false },
-      { label: "Pogrebna podjetja", path: "/pogrebna-p", active : false },
-    ],
-    "/zalna-stran": [
-      { label: "Žalna stran", path: "/zalna-stran", active : false },
-      { label: " Spominska", path: "/spominska", active : false },
-    ],
-    "/spominska": [
-      { label: "Žalna stran", path: "/zalna-stran", active : false },
-      { label: " Spominska", path: "/spominska", active : false },
-    ],
-    "/resitve-za-cvetlicarne": [
-      { label: "Cvetličarne", path: "/resitve-za-cvetlicarne", active : false },
-      { label: " PRILOŽNOST", path: "/c-priloznost", active : true },
-      { label: "Pogrebna podjetja", path: "/resitve-za-pogrebna-podjetja", active : false },
-    ],
-    "/resitve-za-pogrebna-podjetja": [
-      { label: "Cvetličarne", path: "/resitve-za-cvetlicarne", active : false },
-      { label: "Pogrebna podjetja", path: "/resitve-za-pogrebna-podjetja", active : false },
-      { label: " PRILOŽNOST", path: "/p-priloznost", active : true },
-    ],
-  };
+
+const headerLinkSets = {
+  "/osmrtnice": [
+    { label: "Osmrtnice", path: "/osmrtnice", active: false },
+    { label: "Pogrebi", path: "/pogrebi", active: false },
+  ],
+  "/pogrebi": [
+    { label: "Osmrtnice", path: "/osmrtnice", active: false },
+    { label: "Pogrebi", path: "/pogrebi", active: false },
+  ],
+
+  "/pogrebna-p": [
+    { label: "Cvetličarne", path: "/cvetlicarne", active: false },
+    { label: "Pogrebna podjetja", path: "/pogrebna-p", active: false },
+  ],
+  "/cvetlicarne": [
+    { label: "Cvetličarne", path: "/cvetlicarne", active: false },
+    { label: "Pogrebna podjetja", path: "/pogrebna-p", active: false },
+  ],
+  "/zalna-stran": [
+    { label: "Žalna stran", path: "/zalna-stran", active: false },
+    { label: " Spominska", path: "/spominska", active: false },
+  ],
+  "/spominska": [
+    { label: "Žalna stran", path: "/zalna-stran", active: false },
+    { label: " Spominska", path: "/spominska", active: false },
+  ],
+  "/resitve-za-cvetlicarne": [
+    { label: "Cvetličarne", path: "/resitve-za-cvetlicarne", active: false },
+    { label: " PRILOŽNOST", path: "/c-priloznost", active: true },
+    { label: "Pogrebna podjetja", path: "/resitve-za-pogrebna-podjetja", active: false },
+  ],
+  "/resitve-za-pogrebna-podjetja": [
+    { label: "Cvetličarne", path: "/resitve-za-cvetlicarne", active: false },
+    { label: "Pogrebna podjetja", path: "/resitve-za-pogrebna-podjetja", active: false },
+    { label: " PRILOŽNOST", path: "/p-priloznost", active: true },
+  ],
+};
+
 
 function CommonHeader({
   currentPage,
@@ -58,6 +61,76 @@ function CommonHeader({
   const pathname = usePathname();
   const linksToRender = headerLinkSets[`/${currentPage}`] || []; // Default to empty if not found
   const router = useRouter();
+
+  const linksToRender = headerLinkSets[`/${currentPage}`] || [];
+
+  // Modal states
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
+  const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] = useState(false);
+  const [isLocalQuickReviewModalVisible, setIsLocalQuickReviewModalVisible] = useState(false);
+
+  // User state
+  const [user, setUser] = useState(null);
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
+
+  // Check user authentication on component mount
+  useEffect(() => {
+    const checkUser = () => {
+      try {
+        const currUser = localStorage.getItem("user");
+        if (currUser) {
+          const parsedUser = JSON.parse(currUser);
+          setUser(parsedUser);
+        }
+      } catch (error) {
+        console.error("Error parsing user  from localStorage:", error);
+        setUser(null);
+      } finally {
+        setIsUserLoaded(true);
+      }
+    };
+
+    checkUser();
+  }, []);
+
+  // Handle local quick review click
+  const handleLocalQuickReviewClick = () => {
+    if (!isUserLoaded) return; // Wait for user check to complete
+
+    if (user) {
+      setIsLocalQuickReviewModalVisible(true);
+    } else {
+      setIsLocalQuickModalVisible(true);
+    }
+  };
+
+  // Close all modals
+  const closeAllModals = () => {
+    setIsModalVisible(false);
+    setIsMessageModalVisible(false);
+    setIsLocalQuickModalVisible(false);
+    setIsLocalQuickReviewModalVisible(false);
+  };
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    const isAnyModalOpen = isModalVisible || isMessageModalVisible ||
+      isLocalQuickModalVisible || isLocalQuickReviewModalVisible;
+
+    if (isAnyModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isModalVisible, isMessageModalVisible, isLocalQuickModalVisible, isLocalQuickReviewModalVisible]);
+
+
   return (
     // <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 ">
     <header

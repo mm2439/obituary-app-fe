@@ -28,7 +28,7 @@ const FuneralList = () => {
     const params = new URLSearchParams();
 
     if (region && region.trim() !== "") {
-      params.set('region', region);
+      params.set('region ', region);
     }
 
     const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;

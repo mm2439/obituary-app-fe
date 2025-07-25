@@ -92,14 +92,6 @@ const Carousel = () => {
         <div className="text-left">
           <h2 className="text-[#0A85C2] font-normal text-[40px] leading-tight">
             {getDayName(currentDate)}, {formatDateForDisplay(currentDate)}
-            {/* Show selected filters */}
-            {(selectedCity || selectedRegion) && (
-              <span className="text-sm text-gray-600 block">
-                {selectedCity && `City: ${selectedCity}`}
-                {selectedCity && selectedRegion && ' | '}
-                {selectedRegion && `Region: ${selectedRegion}`}
-              </span>
-            )}
           </h2>
         </div>
 

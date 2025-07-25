@@ -41,16 +41,18 @@ const ObituaryListComponent = ({ city }) => {
     })),
   ];
 
-  // City options - only show cities from selected region
-  const cityOptions = selectedRegion && selectedRegion !== "allRegions"
-    ? [
-      allCitiesOption,
-      ...regionsAndCities[selectedRegion].map((city) => ({
-        place: city,
-        id: city,
-      })),
-    ]
-    : [allCitiesOption]; // Only show "all cities" option if no region selected
+  // City options - show all cities from all regions (independent of region selection)
+  const allCities = Object.values(regionsAndCities)
+    .flat()
+    .sort((a, b) => a.localeCompare(b, "sl")); // Sort alphabetically
+
+  const cityOptions = [
+    allCitiesOption,
+    ...allCities.map((city) => ({
+      place: city,
+      id: city,
+    })),
+  ];
 
   // Update URL with query parameters
   const updateURL = (city, region, search) => {
@@ -70,12 +72,10 @@ const ObituaryListComponent = ({ city }) => {
   const handleRegionSelect = (item) => {
     if (item.id === "allRegions") {
       setSelectedRegion(null);
-      setSelectedCity(null);
-      updateURL(null, null, searchTerm);
+      updateURL(selectedCity, null, searchTerm); // Keep selected city
     } else {
       setSelectedRegion(item.place);
-      setSelectedCity(null); // Reset city when region changes
-      updateURL(null, item.place, searchTerm);
+      updateURL(selectedCity, item.place, searchTerm); // Keep selected city
     }
   };
 
@@ -99,13 +99,14 @@ const ObituaryListComponent = ({ city }) => {
 
   // Handle quick selection (for the quick select buttons)
   const handleQuickSelect = (cityName) => {
+    // Find the region for this city (optional, can be used for reference)
     const region = Object.keys(regionsAndCities).find((region) =>
       regionsAndCities[region].includes(cityName)
     );
 
     setSelectedCity(cityName);
-    setSelectedRegion(region || null);
-    updateURL(cityName, region, searchTerm);
+    // Don't automatically set the region, keep current region selection
+    updateURL(cityName, selectedRegion, searchTerm);
   };
 
   // Handle search/filter
@@ -187,7 +188,6 @@ const ObituaryListComponent = ({ city }) => {
               isFromFlower={false}
               selectedValue={selectedCity}
               onSelect={handleCitySelect}
-              disabled={!selectedRegion || selectedRegion === "allRegions"}
             />
 
             {/* Search Button */}
@@ -222,7 +222,6 @@ const ObituaryListComponent = ({ city }) => {
               isFromFlower={false}
               selectedValue={selectedCity}
               onSelect={handleCitySelect}
-              disabled={!selectedRegion || selectedRegion === "allRegions"}
             />
 
             {/* Search Input */}
@@ -281,7 +280,6 @@ const ObituaryListComponent = ({ city }) => {
               isFrom={'pogrebi'}
               selectedValue={selectedCity}
               onSelect={handleCitySelect}
-              disabled={!selectedRegion || selectedRegion === "allRegions"}
             />
 
             {/* Search Button */}

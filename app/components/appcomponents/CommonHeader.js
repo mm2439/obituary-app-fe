@@ -170,7 +170,7 @@ function CommonHeader({ currentPage }) {
                 </div>
 
                 {/* Local Quick Review Button - Show for all pages */}
-                <button
+                {/* <button
                   onClick={handleLocalQuickReviewClick}
                   className="mr-3 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                   title="Lokalni hitri pregled"
@@ -183,7 +183,7 @@ function CommonHeader({ currentPage }) {
                     height={24}
                     className="h-6 w-6"
                   />
-                </button>
+                </button> */}
 
                 {/* Back Button */}
                 <button

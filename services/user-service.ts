@@ -36,11 +36,40 @@ const updateMyUser = async (userData: {
   region?: string;
   city?: string;
   secondaryCity?: string;
+  createObitaryPermission?: boolean;
+  assignKeeperPermission?: boolean;
+  sendMobilePermission?: boolean;
+  sendGiftsPermission?: boolean;
 }) => {
   try {
     const endpoint = "/user/me";
 
     const response = await axios.patch(endpoint, userData);
+    return response.data;
+  } catch (error: unknown) {
+    return new Error("Network error or no response");
+  }
+};
+
+const updateUser = async (
+  id: string,
+  userData: {
+    name?: string;
+    email?: string;
+    company?: string;
+    region?: string;
+    city?: string;
+    secondaryCity?: string;
+    createObitaryPermission?: boolean;
+    assignKeeperPermission?: boolean;
+    sendMobilePermission?: boolean;
+    sendGiftsPermission?: boolean;
+  }
+) => {
+  try {
+    const endpoint = "/user/";
+
+    const response = await axios.patch(endpoint, { id, userData });
     return response.data;
   } catch (error: unknown) {
     return new Error("Network error or no response");
@@ -93,6 +122,7 @@ const userService = {
   deleteMyUser,
   changeSlug,
   updateUserAndCompany,
+  updateUser,
 };
 
 export default userService;

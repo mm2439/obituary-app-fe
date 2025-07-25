@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import logo from "@/public/app_logo.png";
 import iconMenu from "@/public/icon_menu_black.png";
 import backIcon from "@/public/memory_header_left.png";
@@ -10,10 +10,7 @@ import omr from "@/public/omr.png";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TopBar from "./TopBar";
-import {
-  LocalQuickReview,
-  LocalQuickReviewModal,
-} from "@/app/components/appcomponents/LocalQuickReview";
+
 
 const headerLinkSets = {
   "/osmrtnice": [
@@ -53,9 +50,18 @@ const headerLinkSets = {
   ],
 };
 
-function CommonHeader({ currentPage }) {
+
+function CommonHeader({
+  currentPage,
+  setIsModalVisible,
+  setIsMessageModalVisible,
+  setIsLocalQuickModalVisible,
+  setIsLocalQuickReviewModalVisible,
+}) {
   const pathname = usePathname();
+  const linksToRender = headerLinkSets[`/${currentPage}`] || []; // Default to empty if not found
   const router = useRouter();
+
   const linksToRender = headerLinkSets[`/${currentPage}`] || [];
 
   // Modal states
@@ -124,105 +130,77 @@ function CommonHeader({ currentPage }) {
     };
   }, [isModalVisible, isMessageModalVisible, isLocalQuickModalVisible, isLocalQuickReviewModalVisible]);
 
+
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-        {/* Show TopBar only for specific pages */}
-        {(currentPage === "pogrebi" || currentPage === "osmrtnice") && (
-          <TopBar
-            setIsModalVisible={setIsModalVisible}
-            setIsMessageModalVisible={setIsMessageModalVisible}
-            setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
-            setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible}
-            onLocalQuickReviewClick={handleLocalQuickReviewClick}
-          />
-        )}
-
-        <div className="flex w-full justify-center">
-          <div className="flex w-full h-[68px] tablet:w-[744px] mobile:w-[360px] mx-auto tablet:h-[80px] px-4 tablet:px-6 desktop:w-[1200px] desktop:h-[92.02px] desktop:px-[18px]">
-            <div className="flex justify-between items-center w-full h-full">
-
-              {/* Logo */}
-              <Link href="/" className="flex">
-                <Image
-                  src={omr}
-                  alt="App Logo"
-                  width={500}
-                  height={500}
-                  className="box-border relative bottom-[2px] h-[22px] w-[182.76px] desktop:w-[255.31px] desktop:h-[32px]"
-                />
-              </Link>
-
-              {/* Navigation and Actions */}
-              <div className="flex items-center">
-                {/* Navigation Links */}
-                <div className="hidden tablet:flex desktop:flex tablet:mr-[30px] desktop:mr-[38px]">
-                  <ul className="flex items-center gap-[32px] tablet:gap-[16px]">
-                    {linksToRender.map((link, index) => (
-                      <li
-                        key={index}
-                        className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center"
+    // <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 ">
+    <header
+      className={`fixed top-0 left-0 right-0 bg-white shadow-md z-50`}
+    >
+      {(currentPage === "pogrebi" || currentPage =="osmrtnice") && <TopBar
+        setIsModalVisible={setIsModalVisible}
+        setIsMessageModalVisible={setIsMessageModalVisible}
+        setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
+        setIsLocalQuickModalReviewVisible={setIsLocalQuickReviewModalVisible}
+      />}
+      <div className=" flex w-full justify-center">
+        <div
+          className=" flex 
+                    w-full h-[68px] 
+                    tablet:w-[744px] mobile:w-[360px] mx-auto tablet:h-[80px] px-4 tablet:px-6
+                    desktop:w-[1200px] desktop:h-[92.02px] desktop:px-[18px]  
+                    "
+        >
+          <div
+            className="
+                    flex justify-between items-center
+                    w-full h-full
+                     "
+          >
+           
+           
+            <Link href={"/"} className="flex">
+              <Image
+                src={omr}
+                alt="App Logo"
+                width={500}
+                height={500}
+                className="box-border relative bottom-[2px] h-[22px] w-[182.76px] desktop:w-[255.31px] desktop:h-[32px] "
+              />
+            </Link>
+            <div className="flex">
+              <div className="hidden tablet:flex desktop:flex tablet:mr-[30px] desktop:mr-[38px]">
+                 <ul className="flex items-center gap-[32px] tablet:gap-[16px]">
+                  {linksToRender.map((link, index) => (
+                    <li
+                      key={index}
+                      className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center"
+                    >
+                      <Link
+                        href={link.path}
+                        className={`font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px] ${
+                          link.active ? "!text-[#0A85C2] " : "text-[#1E2125]"
+                        }`}
                       >
-                        <Link
-                          href={link.path}
-                          className={`font-normal hover:text-blue-500 transition duration-200 tablet:text-[18px] desktop:text-[20px] ${link.active ? "!text-[#0A85C2]" : "text-[#1E2125]"
-                            }`}
-                        >
-                          {link.active && <span className="text-[#EB1D1D]">{">>"}</span>}
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Local Quick Review Button - Show for all pages */}
-                <button
-                  onClick={handleLocalQuickReviewClick}
-                  className="mr-3 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                  title="Lokalni hitri pregled"
-                  disabled={!isUserLoaded}
-                >
-                  <Image
-                    src="/quick_review_icon.png" // You'll need to add this icon
-                    alt="Quick Review"
-                    width={24}
-                    height={24}
-                    className="h-6 w-6"
-                  />
-                </button>
-
-                {/* Back Button */}
-                <button
-                  onClick={() => router.back()}
-                  className="p-1 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                  title="Nazaj"
-                >
-                  <Image
-                    src={backIcon}
-                    alt="Back"
-                    className="h-8 w-8 mobile:h-7 mobile:w-7"
-                  />
-                </button>
+                        {link.active && <span className="text-[#EB1D1D]">{">>"}</span>}
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
+              
+              <Image
+                onClick={() => router.back()}
+                src={
+                  backIcon
+                }
+                className="h-8 w-8 mobile:h-7 mobile:w-7  cursor-pointer"
+              />
             </div>
           </div>
         </div>
-      </header>
-
-      {/* Modals */}
-      {isLocalQuickModalVisible && !user && (
-        <LocalQuickReview
-          setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
-        />
-      )}
-
-      {isLocalQuickReviewModalVisible && user && (
-        <LocalQuickReviewModal
-          setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible}
-        />
-      )}
-    </>
+      </div>
+    </header>
   );
 }
 

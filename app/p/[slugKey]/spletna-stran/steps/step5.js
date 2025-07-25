@@ -94,8 +94,6 @@ export default function Step5({ data, onChange, handleStepChange }) {
   };
   const handleSubmit = async () => {
     try {
-      if (!validateFields()) return;
-
       const faqsToSend = faqs
         .filter((faq) => faq.question.trim() !== "" && faq.answer.trim() !== "")
         .filter((faq) => !faq.id || (faq.id && faq.updated));
@@ -253,7 +251,12 @@ const SliderBlock = React.memo(function SliderBlock({
             onChange={(e) => {
               handleQuestionChange(index - 1, e.target.value);
             }}
+            maxLength={30}
           />
+          <p className="text-[14px] text-right text-[#6D778E] leading-[24px] font-normal">
+            {faq.question?.length || 0}
+            <span className="text-[#ACAAAA]"> /30</span>
+          </p>
         </div>
         <div className="space-y-[8px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

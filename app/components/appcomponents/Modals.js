@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import API_BASE_URL from "@/config/apiConfig";
+import { Checkbox } from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 import Image from "next/image";
 import ButtonBlue from "./ButtonBlue";
 import ButtonGreen from "./ButtonGreen";
@@ -25,6 +28,8 @@ import { getYear, getMonth } from "date-fns"; // To extract year and month info
 import obituaryService from "@/services/obituary-service";
 import toast from "react-hot-toast";
 import keeperService from "@/services/keeper-service";
+import authService from "@/services/auth-service";
+import userService from "@/services/user-service";
 
 const Modals = ({
   select_id,
@@ -122,6 +127,7 @@ const Modals = ({
 
     if (!user) {
       toast.error("You must log in to enter your name in list of sorrow book.");
+      setIsRegisterOpen(true);
       return;
     }
     if (isCompany()) {
@@ -174,6 +180,7 @@ const Modals = ({
     }
     if (!user) {
       toast.error("You must log in to add dedication.");
+      setIsRegisterOpen(true);
       return;
     }
     if (isCompany()) {
@@ -221,6 +228,7 @@ const Modals = ({
   const addPhoto = async () => {
     if (!user) {
       toast.error("You must log in to add photo.");
+      setIsRegisterOpen(true);
       return;
     }
 
@@ -266,6 +274,7 @@ const Modals = ({
   const addCondolence = async () => {
     if (!user) {
       toast.error("You must log in to add condolence.");
+      setIsRegisterOpen(true);
       return;
     }
     if (isCompany()) {
@@ -329,6 +338,7 @@ const Modals = ({
   const addReport = async () => {
     if (!user) {
       toast.error("You must log in to update.");
+      setIsRegisterOpen(true);
       return;
     }
     if (isCompany()) {
@@ -398,6 +408,7 @@ const Modals = ({
   const updateMemory = async (field, value) => {
     if (!user) {
       toast.error("You must log in to update.");
+      setIsRegisterOpen(true);
       return;
     }
     if (isCompany()) {
@@ -480,14 +491,6 @@ const Modals = ({
   const minutes = Array.from({ length: 4 }, (_, i) => i * 15);
 
   const [selectMusic, setSelectMusic] = useState("");
-
-  //get current user
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
 
   const isCompany = () => {
     if (user && user.id === data.id) {
@@ -699,20 +702,20 @@ const Modals = ({
   const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
-    if (
-      !data?.candles ||
-      data.candles.length === 0 ||
-      !data.candles[0]?.myLastBurntCandleTime
-    )
+    console.log(data?.candles, "====");
+    if (!data?.candles.lastBurnedCandleTime) {
+      console.log("here 123====");
       return;
+    }
 
     const targetDate =
-      new Date(data?.candles[0].myLastBurntCandleTime).getTime() +
+      new Date(data?.candles.lastBurnedCandleTime).getTime() +
       24 * 60 * 60 * 1000;
 
     const updateCountdown = () => {
       const now = new Date().getTime();
       const difference = targetDate - now;
+
       setTimeLeft(difference > 0 ? difference : 0);
     };
 
@@ -721,7 +724,6 @@ const Modals = ({
 
     return () => clearInterval(timer);
   }, [data?.candles]);
-
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
     const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
@@ -745,6 +747,127 @@ const Modals = ({
     return name.length > maxLength
       ? `${name.substring(0, maxLength)}...${extension}`
       : fileName; // If name is short, return original
+  };
+
+  //login Registration related
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [inputValueEmail, setInputValueEmail] = useState("");
+  const [inputValueGeslo, setInputValueGeslo] = useState("");
+  const [inputValueConfirmGeslo, setInputValueConfirmGeslo] = useState("");
+  const [inputValueChooseUsername, setInputValueChooseUsername] = useState("");
+  const [enableReceiveEmails, setEnableReceiveEmails] = useState(true);
+  const [enableTermsOfUse, setEnableTermsOfUse] = useState(false);
+  const [enabledRememberMe, setEnabledRememberMe] = useState(true);
+  const handleEmailInput = (event) => {
+    setInputValueEmail(event.target.value);
+  };
+
+  const handleGesloInput = (event) => {
+    setInputValueGeslo(event.target.value);
+  };
+
+  const handleConfirmGesloInput = (event) => {
+    setInputValueConfirmGeslo(event.target.value);
+  };
+
+  //get current user
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [isLoginOpen]);
+
+  const handleRegister = async () => {
+    if (!inputValueEmail || !inputValueGeslo || !inputValueConfirmGeslo) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(inputValueEmail)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+    const passwordRegex = /^.{6,}$/;
+    if (!passwordRegex.test(inputValueGeslo)) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
+    if (inputValueGeslo !== inputValueConfirmGeslo) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const payload = {
+        email: inputValueEmail,
+        password: inputValueGeslo,
+        role: "User",
+      };
+
+      const response = await userService.registerUser(payload);
+      if (response.status === 409) {
+        toast.error("Email Already Exists");
+        return;
+      }
+      if (response.error) {
+        toast.error(
+          response.error || "Something went wrong. Please try again!"
+        );
+        return;
+      }
+
+      toast.success(
+        response.message || "Registration successful! You can now log in."
+      );
+      setIsRegisterOpen(false);
+      setIsLoginOpen(true);
+    } catch (error) {
+      console.error(error);
+      toast.error("Registration failed. Please try again.");
+    }
+  };
+
+  const handleLogin = async () => {
+    if (!inputValueEmail || !inputValueGeslo) {
+      toast.error("Email and password are required!");
+      return;
+    }
+
+    console.log(inputValueEmail, inputValueGeslo);
+
+    try {
+      const payload = {
+        email: inputValueEmail,
+        password: inputValueGeslo,
+      };
+
+      const response = await authService.login(payload);
+      console.log(response);
+      if (response.error) {
+        toast.error(
+          response.error || "Something went wrong. Please try again!"
+        );
+        return;
+      }
+
+      localStorage.setItem("user", JSON.stringify(response.user));
+
+      toast.success(response.message || "Login successful!");
+
+      if (response?.user) {
+        const role = response.user.role;
+        const slugKey = response.user.slugKey;
+
+        setIsLoginOpen(false);
+      }
+    } catch (error) {
+      console.error(error, "===erro is her");
+      toast.error("Login failed. Please check your credentials.");
+    }
   };
 
   return (
@@ -2236,6 +2359,316 @@ const Modals = ({
           </div>
         </div>
       ) : null}
+
+      {isRegisterOpen && (
+        <div
+          className="fixed top-0 left-0 h-screen w-screen bg-[#344054B2] backdrop-blur-sm z-50 flex items-center justify-end cursor-pointer"
+          onClick={() => setIsRegisterOpen(false)}
+        >
+          <div
+            className="space-y-[18px] absolute top-[50%] translate-y-[-50%] right-[77px] tabletUserAcc:right-[50%] tabletUserAcc:translate-x-[50%] mobileUserAcc:right-[50%] mobileUserAcc:translate-x-[50%] w-[360px] tabletUserAcc:w-[550px]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mobileUserAcc:px-[12px]">
+              <div
+                className="border border-[#FFFFFF] w-[150px] h-[42px] flex items-center justify-center bg-[#e3e8ec28] rounded-[8px] font-normal text-[15px] [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]"
+                onClick={() => {
+                  setIsRegisterOpen(false);
+                  setIsLoginOpen(true);
+                }}
+              >
+                PRIJAVA
+              </div>
+              <div
+                className="cursor-pointer"
+                onClick={() => setIsRegisterOpen(false)}
+              >
+                <img
+                  src="/white_cencel.png"
+                  alt="close"
+                  className="w-[60px] h-[60px]"
+                />
+              </div>
+            </div>
+            <div
+              className="rounded-[12px] overflow-hidden bg-[url('/card_bg.jpg')] bg-cover bg-center px-[30px] tabletUserAcc:px-[60px] py-[35px]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-center flex-col gap-[5px]">
+                <h4 className="text-[28px] text-[#1E2125] font-semibold leading-none">
+                  Registracija
+                </h4>
+                <h5 className="text-[18px] text-[#3C3E41] font-[400px] leading-none">
+                  novega uporabnika{" "}
+                </h5>
+              </div>
+              <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[29px] h-[62px] flex flex-col justify-start items-start">
+                <div>E-pošta</div>
+                <div className="px-[10px] mt-[4px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
+                  <input
+                    type="email"
+                    value={inputValueEmail}
+                    autoComplete="email"
+                    onChange={handleEmailInput}
+                    className="w-full h-full bg-transparent focus:outline-none text-[#848484]"
+                  />
+                </div>
+              </div>
+              {/* Container for geslo field */}
+              <div className="text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[62px] flex flex-col justify-start items-start">
+                <div>Geslo</div>
+
+                <div className="px-[10px] mt-[4px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
+                  <input
+                    type="password"
+                    value={inputValueGeslo}
+                    autoComplete="current-password"
+                    onChange={handleGesloInput}
+                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#848484]"
+                  />
+                </div>
+              </div>
+              <div className="text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[62px] flex flex-col justify-start items-start">
+                <div>Ponovi geslo</div>
+
+                <div className="px-[10px] mt-[4px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
+                  <input
+                    type="password"
+                    value={inputValueConfirmGeslo}
+                    onChange={handleConfirmGesloInput}
+                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#848484]"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col w-full mt-[12px] gap-[12px]">
+                {/* Checkbox */}
+                <label className="flex flex-1 justify-start mt-[3px] ml-[2px] font-custom400 text-[12px] text-[#6D778E]">
+                  <Checkbox
+                    checked={enabledRememberMe}
+                    onChange={setEnabledRememberMe}
+                    className="mr-[12px] justify-center items-center group w-[18px] h-[18px] rounded-[2px] border-[2px] border-[#6D778E] bg-white/10 ring-white/15 ring-inset data-[checked]:bg-[#6D778E] shrink-0"
+                  >
+                    <CheckIcon className="hidden ml-[-1px] size-4 rotate-6 fill-white group-data-[checked]:block" />
+                  </Checkbox>
+                  Dovoljujem, da me Firma s.p. preko elektronske pošte, do
+                  preklica obvešča o posodobitvah, nadgradnjah, novostih in
+                  ugodnostih.
+                </label>
+                <label className="flex flex-1 justify-start mt-[3px] ml-[2px] font-custom400 text-[12px] text-[#6D778E]">
+                  <Checkbox
+                    checked={enableReceiveEmails}
+                    onChange={setEnableReceiveEmails}
+                    className="mr-[12px] justify-center items-center group w-[18px] h-[18px] rounded-[2px] border-[2px] border-[#6D778E] bg-white/10 ring-white/15 ring-inset data-[checked]:bg-[#6D778E] shrink-0"
+                  >
+                    <CheckIcon className="hidden ml-[-1px] size-4 rotate-6 fill-white group-data-[checked]:block" />
+                  </Checkbox>
+                  Strinjam se s splošnimi pogoji in pravili
+                </label>
+              </div>
+              <button
+                type="button"
+                onClick={handleRegister}
+                className="bg-gradient-to-b from-[#0D94E8] to-[#1860A3] h-[48px] w-full mt-[35px] tabletUserAcc:mt-[18px] mobileUserAcc:mt-[15px] flex items-center justify-center text-[18px] font-medium rounded-[8px]"
+              >
+                Registracija
+              </button>
+
+              <div className="mt-[67px] tabletUserAcc:mt-[26px] mobileUserAcc:mt-[26px] text-center text-[15px] leading-[16px] text-[#414141]">
+                Ali hitra prijava preko
+              </div>
+              <div className="w-[300px]  tabletUserAcc:w-full mobile:w-full tabletUserAcc:gap-[28px] mx-auto mt-[16px] h-[52px] mobile:h-auto mobile:gap-[13px] flex flex-row justify-between items-center">
+                <Link
+                  href={"#"}
+                  className="w-[140px] tabletUserAcc:w-full mobile:w-full h-[52px] mobile:py-[12px] shadow-custom-dark-to-white bg-[#E7EBF0] border-[#FFFFFF40] rounded-[10px] border-[0.5px] flex items-center justify-center"
+                >
+                  <Image
+                    src={"/ico_fb.png"}
+                    width={28}
+                    height={28}
+                    alt="Facebook Icon"
+                  />
+                  <div className="ml-[8px] text-[16px] leading-[100%] font-variation-customOpt16 text-[#414141]">
+                    Facebook
+                  </div>
+                </Link>
+
+                <Link
+                  href={"#"}
+                  className="w-[140px] tabletUserAcc:w-full mobile:w-full h-[52px] mobile:py-[12px] shadow-custom-dark-to-white bg-[#E7EBF0] border-[#FFFFFF40] border-[0.5px] rounded-[10px] flex items-center justify-center"
+                >
+                  <Image
+                    src={"/ico_google.png"}
+                    width={28}
+                    height={28}
+                    alt="Google Icon"
+                  />
+                  <div className="ml-[8px] text-[16px] leading-[100%] font-variation-customOpt16 text-[#414141]">
+                    Google
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-[20px] text-center text-[15px] text-[#3C3E41]">
+                Obstoječ uporabnik? Prijavi se{" "}
+                <Link href={"#"} className="text-[#0A85C2] underline">
+                  tukaj
+                </Link>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <div
+                className="border border-[#FFFFFF] w-[213px] h-[42px] flex items-center justify-center bg-[#e3e8ec28] rounded-[8px] font-normal text-[15px] [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)]"
+                onClick={() => {
+                  setIsRegisterOpen(false);
+                  setIsLoginOpen(true);
+                }}
+              >
+                Registracija za podjetja
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isLoginOpen && (
+        <div
+          className="fixed top-0 left-0 h-screen w-screen bg-[#344054B2] backdrop-blur-sm z-50 flex items-center justify-end"
+          onClick={() => setIsLoginOpen(false)}
+        >
+          <div
+            className="space-y-[18px] absolute top-[50%] translate-y-[-50%] right-[77px] tabletUserAcc:right-[50%] tabletUserAcc:translate-x-[50%] mobileUserAcc:right-[50%] mobileUserAcc:translate-x-[50%] w-[360px] tabletUserAcc:w-[550px]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mobileUserAcc:px-[12px]">
+              <div
+                className="border border-[#FFFFFF] text-white w-[150px] h-[42px] flex items-center justify-center bg-[#e3e8ec28] rounded-[8px] font-normal text-[15px] [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.8)] cursor-pointer"
+                onClick={() => {
+                  setIsRegisterOpen(true);
+                  setIsLoginOpen(false);
+                }}
+              >
+                REGISTRACIJA
+              </div>
+              <div
+                className="cursor-pointer"
+                onClick={() => setIsLoginOpen(false)}
+              >
+                <img
+                  src="/white_cencel.png"
+                  alt="close"
+                  className="w-[60px] h-[60px]"
+                />
+              </div>
+            </div>
+            <div
+              className="rounded-[12px] overflow-hidden bg-[url('/card_bg.jpg')] bg-cover bg-center px-[30px] tabletUserAcc:px-[60px] py-[35px]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-center flex-col gap-[5px]">
+                <h4 className="text-[28px] text-[#1E2125] font-semibold leading-none">
+                  Prijava
+                </h4>
+                <h5 className="text-[18px] text-[#3C3E41] font-[400px] leading-none">
+                  v uporabniški račun{" "}
+                </h5>
+                <p className="text-[#6D778E] text-center text-[12px] leading-[16px] mt-[10px] tabletUserAcc:px-[100px]">
+                  Prijava je potrebna, da se ohrani pieteta do pokojnih in
+                  prepreči smetenje na spominski strani (spam).{" "}
+                </p>
+              </div>
+              <div className=" text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[29px] h-[62px] flex flex-col justify-start items-start">
+                <div>E-pošta</div>
+                <div className="px-[10px] mt-[4px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
+                  <input
+                    value={inputValueEmail}
+                    autoComplete="email"
+                    onChange={handleEmailInput}
+                    type="email"
+                    className="w-full h-full bg-transparent focus:outline-none text-[#848484]"
+                  />
+                </div>
+              </div>
+              {/* Container for geslo field */}
+              <div className="text-[#6D778E] text-[14px] leading-[20px] font-[400px] w-full mt-[10px] h-[62px] flex flex-col justify-start items-start">
+                <div>Geslo</div>
+
+                <div className="px-[10px] mt-[4px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
+                  <input
+                    value={inputValueGeslo}
+                    autoComplete="current-password"
+                    onChange={handleGesloInput}
+                    type="password"
+                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#848484]"
+                  />
+                </div>
+              </div>
+              <div className="flex w-full justify-between items-center mt-[12px]">
+                {/* Checkbox */}
+                <label className="flex flex-1 justify-start mt-[3px] ml-[2px] font-custom400 text-[12px] text-[#6D778E]">
+                  <Checkbox className="mr-[12px] justify-center items-center group w-[18px] h-[18px] rounded-[2px] border-[2px] border-[#6D778E] bg-white/10 ring-white/15 ring-inset data-[checked]:bg-[#6D778E]">
+                    <CheckIcon className="hidden ml-[-1px] size-4 rotate-6 fill-white group-data-[checked]:block" />
+                  </Checkbox>
+                  Zapomni si
+                </label>
+                {/*  */}
+                <Link
+                  href="#"
+                  className="flex font-custom400 mt-[3px] text-[12px] leading-[20px] font-variation-customOpt12 text-[#6D778E] justify-end "
+                >
+                  Pozabljeno geslo
+                </Link>
+              </div>
+              <button
+                type="button"
+                onClick={handleLogin}
+                className="bg-gradient-to-b from-[#0D94E8] to-[#1860A3] h-[48px] w-full mt-[35px] tabletUserAcc:mt-[18px] mobileUserAcc:mt-[15px] flex items-center justify-center text-[18px] font-medium rounded-[8px]"
+              >
+                Prijava
+              </button>
+
+              <div className="mt-[67px] tabletUserAcc:mt-[30px] text-center text-[15px] leading-[16px] text-[#414141]">
+                Ali hitra prijava preko
+              </div>
+              <div className="w-[300px]  tabletUserAcc:w-full mobile:w-full tabletUserAcc:gap-[28px] mx-auto mt-[16px] h-[52px] mobile:h-auto mobile:gap-[13px] flex flex-row justify-between items-center">
+                <Link
+                  href={"#"}
+                  className="w-[140px] tabletUserAcc:w-full mobile:w-full h-[52px] mobile:py-[12px] shadow-custom-dark-to-white bg-[#E7EBF0] border-[#FFFFFF40] rounded-[10px] border-[0.5px] flex items-center justify-center"
+                >
+                  <Image
+                    src={"/ico_fb.png"}
+                    width={28}
+                    height={28}
+                    alt="Facebook Icon"
+                  />
+                  <div className="ml-[8px] text-[16px] leading-[100%] font-variation-customOpt16 text-[#414141]">
+                    Facebook
+                  </div>
+                </Link>
+
+                <Link
+                  href={"#"}
+                  className="w-[140px] tabletUserAcc:w-full mobile:w-full h-[52px] mobile:py-[12px] shadow-custom-dark-to-white bg-[#E7EBF0] border-[#FFFFFF40] border-[0.5px] rounded-[10px] flex items-center justify-center"
+                >
+                  <Image
+                    src={"/ico_google.png"}
+                    width={28}
+                    height={28}
+                    alt="Google Icon"
+                  />
+                  <div className="ml-[8px] text-[16px] leading-[100%] font-variation-customOpt16 text-[#414141]">
+                    Google
+                  </div>
+                </Link>
+              </div>
+              <div className="mt-[20px] text-center text-[15px] text-[#3C3E41]">
+                Nov uporabnik? Registriraj se{" "}
+                <Link href={"#"} className="text-[#0A85C2] underline">
+                  tukaj
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

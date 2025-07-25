@@ -31,11 +31,9 @@ const getFloristCompany = async (queryParams?: {
   const response = await axios.get(endpoint, { params: queryParams });
   return response.data;
 };
-
 const getCompanies = async (queryParams?: {
   type?: string;
   region?: string;
-  city?: string; // Added city parameter
 }) => {
   const endpoint = `/company/`;
   const response = await axios.get(endpoint, { params: queryParams });

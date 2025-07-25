@@ -102,6 +102,14 @@ export default function Step3({ data, onChange, handleStepChange }) {
           currPackage.title.trim() !== "" && currPackage.image !== null
       );
 
+      if (
+        nonEmptyPackages?.length &&
+        (nonEmptyPackages?.length !== 4 || nonEmptyPackages?.length === 8)
+      ) {
+        toast.error("Dodate lahko največ 4 ali 8 paketov");
+        return;
+      }
+
       nonEmptyPackages.forEach((currentPackage, index) => {
         const originalPackage = data.packages?.find(
           (c) => c.id === currentPackage.id

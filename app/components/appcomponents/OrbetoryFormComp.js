@@ -449,6 +449,7 @@ const OrbetoryFormComp = ({
               onClick={() => {
                 focusInput();
               }}
+              disabled={user && user.assignKeeperPermission === false}
               type="button"
               className="mt-[53px] w-full h-[48px] rounded-[8px] bg-[linear-gradient(180deg,_#0D94E8_0%,_#1860A3_100%)]   font-sourcesans text-[16px] font-medium leading-[24px] text-[#ffffff] m-[0]
                tablet:font-normal
@@ -624,13 +625,11 @@ const OrbetoryFormComp = ({
             </button>
 
             <button
+              disabled={user && user.sendGiftsPermission === false}
               type="button"
               className="mt-[53px]   mobile:mb-10 mobile:mt[0] w-[70%] h-[48px] rounded-[8px] bg-[linear-gradient(180deg,_#0D94E8_0%,_#1860A3_100%)]   font-sourcesans text-[16px] font-medium leading-[24px] text-[#ffffff] m-[0]
                tablet:w-[133px] tablet:font-normal
               mobile:w-[185px] mobile:font-normal
-
-
-
                "
               onClick={submitMobileCard}
             >
@@ -687,11 +686,13 @@ const OrbetoryFormComp = ({
             </div>
 
             <button
+              disabled={user && user.sendGiftsPermission === false}
               type="button"
               className="mt-[53px] w-full h-[48px] rounded-[8px] bg-[linear-gradient(180deg,_#0D94E8_0%,_#1860A3_100%)]   font-sourcesans text-[16px] font-medium leading-[24px] text-[#ffffff] m-[0]
                tablet:font-normal
                mobile:font-normal
                "
+              onClick={submitMobileCard}
             >
               POŠLJI
             </button>

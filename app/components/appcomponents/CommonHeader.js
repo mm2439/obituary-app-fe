@@ -24,6 +24,7 @@ const headerLinkSets = {
     { label: "Osmrtnice", path: "/osmrtnice", active: false },
     { label: "Pogrebi", path: "/pogrebi", active: false },
   ],
+
   "/pogrebna-p": [
     { label: "Cvetličarne", path: "/cvetlicarne", active: false },
     { label: "Pogrebna podjetja", path: "/pogrebna-p", active: false },
@@ -77,7 +78,7 @@ function CommonHeader({ currentPage }) {
           setUser(parsedUser);
         }
       } catch (error) {
-        console.error("Error parsing user from localStorage:", error);
+        console.error("Error parsing user  from localStorage:", error);
         setUser(null);
       } finally {
         setIsUserLoaded(true);

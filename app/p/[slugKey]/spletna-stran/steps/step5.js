@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import faqService from "@/services/faq-service";
 import { toast } from "react-hot-toast";
 import FuneralCompanyPreview from "../components/funeral-company-preview";
-import RichTexEditor from "@/app/components/form/rich-editor";
 
 const defaultFaqs = [
   {
@@ -262,15 +261,17 @@ const SliderBlock = React.memo(function SliderBlock({
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Odgovor
           </label>
-          <div>
-            <RichTexEditor
-              key={index}
-              value={faq.answer || ""}
-              handleChange={(val) => {
-                handleAnswerChange(index - 1, val);
-              }}
-            />
-          </div>
+          <textarea
+            type="text"
+            name="answer"
+            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] placeholder:leading-[100%] leading-[24px] min-h-[160px]"
+            placeholder="SMRT NA DOMU Svojci umrlega morajo o smrti na domu na območju občine Trbovlje  obvestiti organ, ki na tem področju opravlja mrliško pregledno službo (dežurni zdravnik preglednik: 03 56 52 605). Mrliški preglednik opravi mrliški pregled in izda potrebno dokumentacijo  – potrdilo o opravljenem mrliškem pregledu. Po mrliškem pregledu svojci pokojnega pokličejo pogrebno službo Komunale Trbovlje na 041 599 742,  da se "
+            value={faq.answer}
+            onChange={(e) => {
+              handleAnswerChange(index - 1, e.target.value);
+            }}
+            maxLength={240}
+          />
         </div>
       </div>
     </OpenableBlock>

@@ -5,6 +5,7 @@ export const getRemoteUrl = (filePath: string) => {
 };
 
 export const getTemplateCardImages = (images?: string[]) => {
-  if (!Array.isArray(images) || !images.length) return undefined;
+  if (!images?.length) return [];
+  if (!Array.isArray(images)) return [];
   return images.map((image) => getRemoteUrl(image));
 };

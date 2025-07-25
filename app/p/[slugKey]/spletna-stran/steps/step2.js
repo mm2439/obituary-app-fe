@@ -111,11 +111,11 @@ export default function Step2({ data, onChange, handleStepChange }) {
                   placeholder="Predstavitev"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  maxLength={24}
+                  maxLength={28}
                 />
                 <p className="text-[14px] text-right text-[#6D778E] leading-[24px] font-normal">
                   {title?.length || 0}
-                  <span className="text-[#ACAAAA]"> /24</span>
+                  <span className="text-[#ACAAAA]"> /28</span>
                 </p>
               </div>
               <div className="space-y-[8px]">
@@ -128,11 +128,11 @@ export default function Step2({ data, onChange, handleStepChange }) {
                   placeholder="Komunala Trbovlje v okviru pogrebnega zavoda "
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  maxLength={280}
+                  maxLength={300}
                 />
                 <p className="text-[14px] text-right text-[#6D778E] leading-[24px] font-normal">
                   {description?.length || 0}
-                  <span className="text-[#ACAAAA]"> /280</span>
+                  <span className="text-[#ACAAAA]"> /300</span>
                 </p>
               </div>
             </OpenableBlock>

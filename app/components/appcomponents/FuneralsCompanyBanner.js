@@ -24,6 +24,7 @@ const getLogoImage = (data) => {
 };
 
 const IconLinkComponent = ({ link, icon, alt, className, type }) => {
+  if (type === "facebook" && !link) return null;
   let formattedLink = link
     ? link.startsWith("http://") || link.startsWith("https://")
       ? link
@@ -103,6 +104,7 @@ const FuneralsCompanyBanner = ({ data }) => {
               link={data?.facebook}
               icon={iconFb}
               alt="Facebook Icon"
+              type="facebook"
             />
           </div>
         </div>
@@ -194,6 +196,7 @@ const FuneralsCompanyBanner = ({ data }) => {
               link={data?.facebook}
               icon={iconFb}
               alt="Facebook Icon"
+              type="facebook"
             />
           </div>
         </div>
@@ -248,6 +251,7 @@ const FuneralsCompanyBanner = ({ data }) => {
                 icon={iconFb}
                 alt="Facebook Icon"
                 className=" w-9 h-9"
+                type="facebook"
               />
             </div>
           </div>

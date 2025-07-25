@@ -99,13 +99,6 @@ function CommonHeader({ currentPage }) {
     }
   };
 
-  // Close all modals
-  const closeAllModals = () => {
-    setIsModalVisible(false);
-    setIsMessageModalVisible(false);
-    setIsLocalQuickModalVisible(false);
-    setIsLocalQuickReviewModalVisible(false);
-  };
 
   // Prevent body scroll when modal is open
   useEffect(() => {

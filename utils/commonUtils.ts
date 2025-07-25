@@ -10,4 +10,5 @@ export const getTemplateCardImages = (images?: string[]) => {
     return undefined;
   }
   return images.map((image) => getRemoteUrl(image));
+
 };

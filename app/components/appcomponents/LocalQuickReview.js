@@ -182,12 +182,30 @@ const LocalQuickReviewModal = ({ setIsLocalQuickReviewModalVisible }) => {
       const fetchObituaries = async () => {
         try {
           const today = new Date();
-          const formattedDate = today.toISOString().split("T")[0];
 
-          const queryParams = {
+          const yesterday = new Date();
+          yesterday.setDate(today.getDate() - 1);
+          const tomorrow = new Date();
+          tomorrow.setDate(today.getDate() + 1);
+
+          // Format dates for API
+          const formattedYesterday = yesterday.toISOString().split("T")[0];
+          const formattedToday = today.toISOString().split("T")[0];
+          const formattedTomorrow = tomorrow.toISOString().split("T")[0];
+
+          // Fetch obituaries from yesterday to today (2 days range)
+          const obituaryParams = {
             city: parsedUser.city,
-            days: 2,
-            date: formattedDate,
+            startDate: formattedYesterday,
+            endDate: formattedToday,
+          };
+
+          // Fetch funerals for today and tomorrow
+          const funeralParams = {
+            city: parsedUser.city,
+            startDate: formattedToday,
+            endDate: formattedTomorrow,
+
           };
 
           const response = await obituaryService.getObituary(queryParams);

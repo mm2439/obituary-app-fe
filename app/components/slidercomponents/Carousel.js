@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useBreakpoint } from '@/app/hooks/useBreakpoint';
 import obituaryService from '@/services/obituary-service';
@@ -170,4 +170,20 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+// Loading component for Suspense fallback
+const CarouselLoading = () => (
+  <div className="relative w-full h-[200px] flex items-center justify-center">
+    <p className="text-gray-500">Nalaganje pogrebov...</p>
+  </div>
+);
+
+// Wrapper component with Suspense boundary
+const CarouselWrapper = () => {
+  return (
+    <Suspense fallback={<CarouselLoading />}>
+      <Carousel />
+    </Suspense>
+  );
+};
+
+export default CarouselWrapper;

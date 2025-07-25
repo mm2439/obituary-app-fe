@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import Dropdown from "@/app/components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
@@ -302,4 +302,22 @@ const ObituaryListComponent = ({ city }) => {
   );
 };
 
-export default ObituaryListComponent;
+// Loading component for Suspense fallback
+const ObituaryListLoading = () => (
+  <div className="max-w-[1920px] w-full pb-[81px] tablet:pb-[55px] desktop:pb-[121px] tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">
+    <div className="flex justify-center items-center h-32">
+      <p className="text-gray-500">Nalaganje osmrtnic...</p>
+    </div>
+  </div>
+);
+
+// Wrapper component with Suspense boundary
+const ObituaryListWrapper = ({ city }) => {
+  return (
+    <Suspense fallback={<ObituaryListLoading />}>
+      <ObituaryListComponent city={city} />
+    </Suspense>
+  );
+};
+
+export default ObituaryListWrapper;

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Dropdown from "@/app/components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
@@ -370,4 +370,22 @@ const FloristlistCom = ({ item, index }) => {
   );
 };
 
-export default FloristList;
+// Loading component for Suspense fallback
+const FloristListLoading = () => (
+  <div className="max-w-[1920px] w-full pb-[81px] tablet:pb-[55px] desktop:pb-[121px] tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">
+    <div className="flex justify-center items-center h-32">
+      <p className="text-gray-500">Nalaganje cvetličarn...</p>
+    </div>
+  </div>
+);
+
+// Wrapper component with Suspense boundary
+const FloristListWrapper = () => {
+  return (
+    <Suspense fallback={<FloristListLoading />}>
+      <FloristList />
+    </Suspense>
+  );
+};
+
+export default FloristListWrapper;

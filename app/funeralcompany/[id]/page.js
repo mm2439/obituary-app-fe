@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import FrequentlyAskedQuestionView from "../../components/appcomponents/FrequentlyAskedQuestionView";
+import { FrequentlyAskedQuestionView } from "../../components/appcomponents/FrequentlyAskedQuestionView";
 import FuneralsCompanyBanner from "../../components/appcomponents/FuneralsCompanyBanner";
 import Pride from "../../components/appcomponents/Pride";
 import Cemeteries from "../../components/appcomponents/Cemeteries";

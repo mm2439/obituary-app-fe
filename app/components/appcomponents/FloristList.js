@@ -219,34 +219,13 @@ const FloristList = () => {
             ) : (
               <div className="flex flex-col items-center justify-center w-full h-32 text-gray-500">
                 <p>
-                  {selectedCity
-                    ? `Ni najdenih cvetličarn v mestu ${selectedCity}.`
-                    : "Ni najdenih cvetličarn."
-                  }
+                  Še ni vnešenih cvetličarn.
                 </p>
-                {selectedCity && (
-                  <button
-                    onClick={clearFilters}
-                    className="mt-2 px-4 py-2 text-sm text-blue-500 hover:text-blue-700 underline"
-                  >
-                    Prikaži vse cvetličarne
-                  </button>
-                )}
+
               </div>
             )}
           </div>
-          <div className="hidden desktop:flex w-[290px] items-end flex-col">
-            <div className="flex items-center justify-center w-[286px] h-[210px] border-[1px] rounded-lg border-[#D4D4D4]">
-              <p className="text-[#414141] text-[24px] font-variation-customOpt24wght100 font-thin">
-                Kmalu
-              </p>
-            </div>
-            <div className="flex items-center justify-center w-[286px] mt-8 h-[695px] border-[1px] rounded-lg border-[#D4D4D4]">
-              <p className="text-[#414141] text-[24px] font-variation-customOpt24wght100 font-thin">
-                Kmalu
-              </p>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>

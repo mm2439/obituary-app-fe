@@ -90,7 +90,7 @@ const Carousel = () => {
       {/* Simple Date Navigation */}
       <div className="flex items-center justify-between py-12 w-full max-w-[900px]">
         <div className="text-left">
-          <h2 className="text-[#0A85C2] font-normal text-[40px] leading-tight">
+          <h2 className="text-[#0A85C2] font-normal text-[24px] tablet:text-[32px] leading-tight">
             {getDayName(currentDate)}, {formatDateForDisplay(currentDate)}
           </h2>
         </div>
@@ -120,7 +120,7 @@ const Carousel = () => {
       <div className="flex flex-col max-w-[900px] w-full tablet:w-full mobile:w-full justify-center mx-auto border-t border-b border-[#D4D4D4]">
         {obituaries.length === 0 ? (
           <div className="text-center py-6 text-[#3C3E41]">
-            Ni pogrebov za ta datum
+            Ni vnešenih pogrebov tega dne.
             {selectedCity && ` v ${selectedCity}`}
             {selectedRegion && ` (${selectedRegion})`}.
           </div>
@@ -147,7 +147,7 @@ const Carousel = () => {
         )}
       </div>
 
-      <div className="w-full mt-[72px] tablet:mt-20 desktop:mt-20 px-4">
+      <div className="w-full mt-[72px]  flex justify-center tablet:mt-20 desktop:mt-20 px-4">
         <p className="text-[#3C3E41] hidden tablet:block desktop:block">
           Če pogreb še ni vnešen, je pa termin že znan,
           zaprosite svojo cvetličarno (ali pogrebno podjetje), da ga vnese.

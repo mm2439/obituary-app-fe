@@ -84,7 +84,7 @@ function CommonHeader({
           setUser(parsedUser);
         }
       } catch (error) {
-        console.error("Error parsing user  from localStorage:", error);
+        console.error("Error parsing user from localStorages:", error);
         setUser(null);
       } finally {
         setIsUserLoaded(true);

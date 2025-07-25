@@ -45,7 +45,7 @@ const Keeperpromo = () => {
         <FrequentlyAskedQuestionView2 data={faqData} />
         {/* </div> */}
         <EverythingIsFree />
-        <CommonFooter currentPage="/spominska" />
+        <CommonFooter currentPage="/spominska"/>
 
       </div>
     </Layout>

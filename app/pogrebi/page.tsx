@@ -13,6 +13,9 @@ import MainOptions from "../components/appcomponents/MainOptions";
 import Carousel from "../components/slidercomponents/Carousel";
 import PogrebiLocalFloristComp from "../components/PogrebiLocalFloristComp";
 import CommonFooter from "../components/appcomponents/CommonFooter";
+import Carousel from "../components/slidercomponents/Carousel";
+import PogrebiLocalFloristComp from "../components/PogrebiLocalFloristComp";
+import CommonFooter from "../components/appcomponents/CommonFooter";
 
 const ObituaryListContent = () => {
   const searchParams = useSearchParams();

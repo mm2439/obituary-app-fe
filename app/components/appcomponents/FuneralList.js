@@ -13,7 +13,9 @@ const FuneralList = () => {
   const searchParams = useSearchParams();
 
   // Get initial values from URL params, default to "Zasavska"
-  const [selectedRegion, setSelectedRegion] = useState(searchParams.get('region') || "Zasavska");
+  const [selectedRegion, setSelectedRegion] = useState(
+    searchParams.get("region") || "Zasavska"
+  );
   const [companies, setCompanies] = useState([]);
   const [obituariesCount, setObituariesCount] = useState({}); // New state for obituary counts
 
@@ -28,10 +30,12 @@ const FuneralList = () => {
     const params = new URLSearchParams();
 
     if (region && region.trim() !== "") {
-      params.set('region ', region);
+      params.set("region ", region);
     }
 
-    const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
+    const newUrl = params.toString()
+      ? `?${params.toString()}`
+      : window.location.pathname;
     router.push(newUrl, { scroll: false });
   };
 
@@ -46,7 +50,7 @@ const FuneralList = () => {
     try {
       // Get current URL parameters
       const urlParams = new URLSearchParams(window.location.search);
-      const regionParam = urlParams.get('region') || "Zasavska"; // Default to Zasavska
+      const regionParam = urlParams.get("region") || "Zasavska"; // Default to Zasavska
 
       let params = {
         type: "FUNERAL",
@@ -59,44 +63,11 @@ const FuneralList = () => {
 
       console.log("API Params:", params);
       const response = await companyService.getCompanies(params);
-      console.log("API Response:", response);
-      setCompanies(response.companies || []);
-
-      // Fetch obituary counts for each company
-      if (response.companies && response.companies.length > 0) {
-        await fetchObituariesCount(response.companies, regionParam);
+      console.log(response);
+      if (response?.companies?.length > 0) {
+        setCompanies(response.companies);
       }
-    } catch (error) {
-      console.error("Error fetching companies:", error);
-      setCompanies([]);
-    }
-  };
-
-  // Updated function to fetch obituary counts for each company
-  const fetchObituariesCount = async (companiesData) => {
-    try {
-      const counts = {};
-
-      // Fetch all obituaries (no region filter - just get all obituaries)
-      const obituaryResponse = await obituaryService.getObituary({});
-      const allObituaries = obituaryResponse.obituaries || [];
-
-      console.log("All obituaries:", allObituaries); // Debug log
-
-      // Count obituaries for each company by matching userId
-      companiesData.forEach(company => {
-        // Count total obituaries for this company/user
-        const companyObituaries = allObituaries.filter(obituary =>
-          obituary.userId === company.id
-        );
-
-        counts[company.id] = companyObituaries.length;
-
-        console.log(`Company ${company.id} (${company.name}): ${companyObituaries.length} obituaries`); // Debug log
-      });
-
-      console.log("Obituary counts per company:", counts);
-      setObituariesCount(counts);
+      console.log(response);
     } catch (error) {
       console.error("Error fetching obituaries count:", error);
       setObituariesCount({});
@@ -110,7 +81,7 @@ const FuneralList = () => {
 
   // Set default region on initial load if no region in URL
   useEffect(() => {
-    if (!searchParams.get('region')) {
+    if (!searchParams.get("region")) {
       updateUrlParams("Zasavska");
     }
   }, []);
@@ -122,7 +93,7 @@ const FuneralList = () => {
 
   // Update state when URL params change
   useEffect(() => {
-    const regionParam = searchParams.get('region') || "Zasavska";
+    const regionParam = searchParams.get("region") || "Zasavska";
     setSelectedRegion(regionParam);
   }, [searchParams]);
 
@@ -132,7 +103,6 @@ const FuneralList = () => {
         <div className="w-full tablet:w-full mobile:w-full flex flex-col items-center">
           {/* Filter Section */}
           <div className="flex flex-col tablet:flex-row desktop:flex-row gap-4 mt-[63px] mb-[63px] mobile:w-[311px] tablet:w-[612px] desktop:w-[1088px] tablet:mt-[63px] tablet:mb-[60px] desktop:mt-[80px] desktop:mb-10 tablet:justify-end desktop:justify-end">
-
             {/* Mobile: Dropdown + Search Icon in same row */}
             <div className="flex tablet:hidden gap-4 w-full">
               {/* Region Dropdown - Mobile */}
@@ -176,15 +146,9 @@ const FuneralList = () => {
             >
               Prikaži
             </button>
-
-
-
-
           </div>
         </div>
       </div>
-
-
 
       {/* Results Section */}
       <div className="flex justify-center  w-[310px] tablet:w-[612px] desktop:w-[1088px] desktop:justify-between">
@@ -238,7 +202,13 @@ const FuneralBlock = ({ item, index, obituaryCount }) => {
   };
 
   return (
-    <div className={`${index === 0 ? "flex mt-0 w-full" : "flex mt-6 tablet:mt-6 desktop:mt-8 w-full"}`}>
+    <div
+      className={`${
+        index === 0
+          ? "flex mt-0 w-full"
+          : "flex mt-6 tablet:mt-6 desktop:mt-8 w-full"
+      }`}
+    >
       <button
         onClick={handleClick}
         className="flex flex-col tablet:flex-row desktop:flex-row w-[276px] h-[259px] pl-[11px] pr-[11px] py-[11px] tablet:w-[600px] tablet:h-[170px] tablet:pl-[28px] tablet:py-[21px] desktop:w-[762px] desktop:h-[200px] desktop:pl-[28px] desktop:pr-[27px] desktop:py-[26px] border-2 border-white shadow-custom-light-dark-box bg-[#EBF0F4] rounded-lg hover:bg-[#E1E6EA] transition-colors cursor-pointer"
@@ -247,7 +217,9 @@ const FuneralBlock = ({ item, index, obituaryCount }) => {
           {item?.CompanyPage?.logo || item?.logo ? (
             <img
               src={
-                (item?.CompanyPage?.logo || item?.logo)?.includes("companyUploads")
+                (item?.CompanyPage?.logo || item?.logo)?.includes(
+                  "companyUploads"
+                )
                   ? `${API_BASE_URL}/${item.CompanyPage?.logo || item.logo}`
                   : item?.CompanyPage?.logo || item?.logo
               }
@@ -260,7 +232,8 @@ const FuneralBlock = ({ item, index, obituaryCount }) => {
                 bg-cover rounded-lg"
               onError={(e) => {
                 e.target.style.display = "none";
-                const fallback = e.target.parentNode.querySelector(".fallback-logo");
+                const fallback =
+                  e.target.parentNode.querySelector(".fallback-logo");
                 if (fallback) fallback.style.display = "flex";
               }}
             />
@@ -268,9 +241,11 @@ const FuneralBlock = ({ item, index, obituaryCount }) => {
 
           <div
             className="fallback-logo flex items-center justify-center h-[99px] w-[245px] tablet:h-[113px] tablet:w-[180px] desktop:h-[140px] desktop:w-[230px] bg-gray-200 rounded-lg text-gray-500 text-sm"
-            style={{ display: (item?.CompanyPage?.logo || item?.logo) ? 'none' : 'flex' }}
+            style={{
+              display: item?.CompanyPage?.logo || item?.logo ? "none" : "flex",
+            }}
           >
-            {item?.CompanyPage?.name || item?.name || 'Company'}
+            {item?.CompanyPage?.name || item?.name || "Company"}
           </div>
         </div>
 
@@ -286,13 +261,17 @@ const FuneralBlock = ({ item, index, obituaryCount }) => {
 
             <div className="flex items-center h-[16px] tablet:h-6 desktop:h-6 mt-[10px] tablet:mt-4 desktop:mt-4">
               <p className="flex font-variation-customOpt12 tablet:font-variation-customOpt16 desktop:font-variation-customOpt16 font-normal text-left desktop:text-[16px] tablet:text-[16px] text-[12px] text-[#414141] leading-[24px]">
-                {item?.CompanyPage?.address || `${item?.city || ""}, ${item?.region || ""}`}
+                {item?.CompanyPage?.address ||
+                  `${item?.city || ""}, ${item?.region || ""}`}
               </p>
             </div>
 
             <div className="flex items-center h-[16px] tablet:h-6 desktop:h-6 mt-1 desktop:mt-2">
               <p className="font-variation-customOpt12 tablet:font-variation-customOpt16 desktop:font-variation-customOpt16 font-normal text-left desktop:text-[16px] tablet:text-[16px] text-[12px] text-[#414141] leading-[24px]">
-                {item?.CompanyPage?.website || item?.CompanyPage?.highlightText || item?.email || ""}
+                {item?.CompanyPage?.website ||
+                  item?.CompanyPage?.highlightText ||
+                  item?.email ||
+                  ""}
               </p>
             </div>
 

@@ -49,11 +49,7 @@ export const FrequentlyAskedQuestionView = ({ from, data }) => {
       className={`overflow-hidden relative flex items-center max-w-[1920px] tablet:max-w-[600px] mobile:max-w-[400px] w-full mx-auto `}
     >
       <div
-        className={`h-full max-w-[1920px] mx-auto w-full flex py-[65px] desktop:py-[105px] tablet:py-[75px] ${
-          from == "7" || from == "8"
-            ? null
-            : " mobile:bg-white tablet:bg-white "
-        } bg-[#F1F8FF] justify-center overflow-hidden `}
+        className={`h-full max-w-[1920px] mx-auto w-full flex py-[65px] desktop:py-[105px] tablet:py-[75px] bg-[#F1F8FF] justify-center overflow-hidden `}
       >
         <div className="h-full  mx-auto max-w-[700px] px-5 w-full flex flex-col items-start tablet:items-center mobile:items-center">
           <div className="flex mobile:flex-col w-full justify-between ">
@@ -76,35 +72,35 @@ export const FrequentlyAskedQuestionView = ({ from, data }) => {
 
           {faqs && faqs.length > 0
             ? faqs.map((faq, index) => (
-                <>
-                  <button
-                    onClick={() =>
-                      setVisibleIndexes((prev) => ({
-                        ...prev,
-                        [index]: !prev[index],
-                      }))
-                    }
-                    className=" flex w-full justify-between items-center mt-8 border-t border-t-[#D4D4D4] px-6 mobile:px-[8px]"
-                  >
-                    <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-[24px] text-[#1E2125] text-center">
-                      {faq.question}
-                    </div>
+              <>
+                <button
+                  onClick={() =>
+                    setVisibleIndexes((prev) => ({
+                      ...prev,
+                      [index]: !prev[index],
+                    }))
+                  }
+                  className=" flex w-full justify-between items-center mt-8 border-t border-t-[#D4D4D4] px-6 mobile:px-[8px]"
+                >
+                  <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-[24px] text-[#1E2125] text-center">
+                    {faq.question}
+                  </div>
 
-                    <Image
-                      src={visibleIndexes[index] ? icon_cancel : icon_plus}
-                      className="h-[9px] w-[9px]"
-                      alt="cross Icon"
-                      width={1000}
-                      height={1000}
-                    />
-                  </button>
-                  {visibleIndexes[index] && (
-                    <div className="flex w-full flex-col mt-4 mb-12 px-14 mobile:px-0 ">
-                      {faq.answer}
-                    </div>
-                  )}
-                </>
-              ))
+                  <Image
+                    src={visibleIndexes[index] ? icon_cancel : icon_plus}
+                    className="h-[9px] w-[9px]"
+                    alt="cross Icon"
+                    width={1000}
+                    height={1000}
+                  />
+                </button>
+                {visibleIndexes[index] && (
+                  <div className="flex w-full flex-col mt-4 mb-12 px-14 mobile:px-0 ">
+                    {faq.answer}
+                  </div>
+                )}
+              </>
+            ))
             : null}
         </div>
       </div>
@@ -148,11 +144,7 @@ export const FrequentlyAskedQuestionView2 = ({ from, data }) => {
       className={`overflow-hidden relative flex items-center max-w-[1920px] tablet:max-w-[600px] mobile:max-w-[400px] w-full mx-auto `}
     >
       <div
-        className={`h-full max-w-[1920px] mx-auto w-full flex py-[65px] desktop:py-[105px] tablet:py-[75px] ${
-          from == "7" || from == "8"
-            ? null
-            : " mobile:bg-white tablet:bg-white "
-        } bg-[#F1F8FF] justify-center overflow-hidden `}
+        className={`h-full max-w-[1920px] mx-auto w-full flex py-[65px] desktop:py-[105px] tablet:py-[75px]  justify-center overflow-hidden `}
       >
         <div className="h-full  mx-auto max-w-[700px] px-5 w-full flex flex-col items-start tablet:items-center mobile:items-center">
           <div className="flex mobile:flex-col w-full justify-between mb-[27px]">
@@ -163,46 +155,44 @@ export const FrequentlyAskedQuestionView2 = ({ from, data }) => {
 
           {faqs && faqs.length > 0
             ? faqs.map((faq, index) => (
-                <>
-                  <button
-                    onClick={() =>
-                      setVisibleIndexes((prev) => ({
-                        ...prev,
-                        [index]: !prev[index],
-                      }))
-                    }
-                    className={`flex w-full justify-between items-center h-[48px] border-t border-t-[#D4D4D4] px-3 mobile:px-0 ${
-                      visibleIndexes[index] ? "bg-[#083545]" : ""
+              <>
+                <button
+                  onClick={() =>
+                    setVisibleIndexes((prev) => ({
+                      ...prev,
+                      [index]: !prev[index],
+                    }))
+                  }
+                  className={`flex w-full justify-between items-center h-[48px] border-t border-t-[#D4D4D4] px-3 mobile:px-0 ${visibleIndexes[index] ? "bg-[#083545]" : ""
                     }`}
-                  >
-                    <div
-                      className={`flex font-variation-customOpt16 font-normal text-[18px] leading-6 text-[#1E2125] text-center ${
-                        visibleIndexes[index] ? "text-[#FFFFFF]" : ""
+                >
+                  <div
+                    className={`flex font-variation-customOpt16 font-normal text-[18px] leading-6 text-[#1E2125] text-center ${visibleIndexes[index] ? "text-[#FFFFFF]" : ""
                       }`}
-                    >
-                      {faq.question}
-                    </div>
+                  >
+                    {faq.question}
+                  </div>
 
-                    <Image
-                      src={
-                        visibleIndexes[index] ? icon_cancel_white : icon_plus
-                      }
-                      className=" h-[12.5px] w-[12.5px]"
-                      alt="cross Icon"
-                      width={1000}
-                      height={1000}
-                    />
-                  </button>
-                  {visibleIndexes[index] && (
-                    <div
-                      key={index}
-                      dangerouslySetInnerHTML={{ __html: faq.answer }}
-                      className="text-[#1E2125] w-full prose mt-3 mb-6 px-6"
-                    ></div>
+                  <Image
+                    src={
+                      visibleIndexes[index] ? icon_cancel_white : icon_plus
+                    }
+                    className=" h-[12.5px] w-[12.5px]"
+                    alt="cross Icon"
+                    width={1000}
+                    height={1000}
+                  />
+                </button>
+                {visibleIndexes[index] && (
+                  <div
+                    key={index}
+                    dangerouslySetInnerHTML={{ __html: faq.answer }}
+                    className="text-[#1E2125] w-full prose mt-3 mb-6 px-6"
+                  ></div>
 
-                  )}
-                </>
-              ))
+                )}
+              </>
+            ))
             : null}
         </div>
       </div>
@@ -224,53 +214,51 @@ export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
     <>
       {faqs && faqs.length > 0
         ? faqs.map((faq, index) => (
-            <>
-              <button
-                onClick={() =>
-                  setVisibleIndexes((prev) => ({
-                    ...prev,
-                    [index]: !prev[index],
-                  }))
-                }
-                className={`flex w-full justify-between items-center border-t border-t-[#D4D4D4] px-[23px] py-[12px] mobile:px-0 ${
-                  visibleIndexes[index]
-                    ? "tablet:bg-[#083545] desktop:bg-[#083545]"
-                    : ""
+          <>
+            <button
+              onClick={() =>
+                setVisibleIndexes((prev) => ({
+                  ...prev,
+                  [index]: !prev[index],
+                }))
+              }
+              className={`flex w-full justify-between items-center border-t border-t-[#D4D4D4] px-[23px] py-[12px] mobile:px-0 ${visibleIndexes[index]
+                ? "tablet:bg-[#083545] desktop:bg-[#083545]"
+                : ""
                 }`}
-              >
-                <div
-                  className={`flex font-variation-customOpt16 font-medium text-[18px] leading-6 text-[#1E2125] text-start ${
-                    visibleIndexes[index]
-                      ? "text-[#FFFFFF] mobile:text-[#1E2125]"
-                      : ""
+            >
+              <div
+                className={`flex font-variation-customOpt16 font-medium text-[18px] leading-6 text-[#1E2125] text-start ${visibleIndexes[index]
+                  ? "text-[#FFFFFF] mobile:text-[#1E2125]"
+                  : ""
                   }`}
-                >
-                  {faq.question}
-                </div>
+              >
+                {faq.question}
+              </div>
 
-                <Image
-                  src={visibleIndexes[index] ? icon_cancel_white : icon_plus}
-                  className=" h-[12.5px] w-[12.5px] mobile:hidden"
-                  alt="cross Icon"
-                  width={1000}
-                  height={1000}
-                />
-                <Image
-                  src={visibleIndexes[index] ? icon_cancel_dark : icon_plus}
-                  className=" h-[12.5px] w-[12.5px] hidden mobile:flex"
-                  alt="cross Icon"
-                  width={1000}
-                  height={1000}
-                />
-              </button>
-              {visibleIndexes[index] && (
-                <div className="w-full  mt-2 mb-6 px-6 mobile:px-0 text-[16px] text-[#413c3c] font-[400] leading-[24px]"
+              <Image
+                src={visibleIndexes[index] ? icon_cancel_white : icon_plus}
+                className=" h-[12.5px] w-[12.5px] mobile:hidden"
+                alt="cross Icon"
+                width={1000}
+                height={1000}
+              />
+              <Image
+                src={visibleIndexes[index] ? icon_cancel_dark : icon_plus}
+                className=" h-[12.5px] w-[12.5px] hidden mobile:flex"
+                alt="cross Icon"
+                width={1000}
+                height={1000}
+              />
+            </button>
+            {visibleIndexes[index] && (
+              <div className="w-full  mt-2 mb-6 px-6 mobile:px-0 text-[16px] text-[#413c3c] font-[400] leading-[24px]"
                 dangerouslySetInnerHTML={{ __html: faq.answer }}
-                />
-             
-              )}
-            </>
-          ))
+              />
+
+            )}
+          </>
+        ))
         : null}
     </>
   );

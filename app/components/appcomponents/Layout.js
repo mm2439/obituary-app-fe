@@ -33,38 +33,40 @@ const Layout = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
-
-  const OnDrawerButtonClicked = (item) => {
-    console.log(item.name);
-  };
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
   const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] =
     useState(false);
-  const [isLocalQuickModalReviewVisible, setIsLocalQuickReviewModalVisible] =
-    useState(false);
+  const [isLocalQuickReviewModalVisible, setIsLocalQuickReviewModalVisible] =
+    useState(false); // Fixed prop name
+
+  const OnDrawerButtonClicked = (item) => {
+    console.log(item.name);
+  };
 
   useEffect(() => {
     const currUser = localStorage.getItem("user");
     if (currUser) {
       setUser(JSON.parse(currUser));
-      console.log(JSON.parse(currUser));
     }
   }, []);
+
   return (
     <div>
+      {/* Headers */}
       {from == "1" || from == "2" ? (
-        <div className="fixed top-0 z-50  flex w-full justify-center">
+        <div className="fixed top-0 z-50 flex w-full justify-center">
           <TopBar
             setIsModalVisible={setIsModalVisible}
             setIsMessageModalVisible={setIsMessageModalVisible}
             setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
-            setIsLocalQuickModalReviewVisible={
+            setIsLocalQuickReviewModalVisible={
               setIsLocalQuickReviewModalVisible
-            }
+            } // Fixed prop name
           />
         </div>
       ) : null}
+
       {from == "1" ? (
         <Header
           isMegaMenuVisible={isMegaMenuVisible}
@@ -95,46 +97,58 @@ const Layout = ({
         />
       ) : (
         <>
-          {from == "2" ? <div className="flex  h-[45px]" /> : null}
+          {from == "2" ? <div className="flex h-[45px]" /> : null}
           <ObituaryHeader from={from} />
         </>
       )}
-      {isModalVisible && (
-        <div className="flex ">
-          <PopUp setIsModalVisible={setIsModalVisible} />
-        </div>
-      )}
 
-      {isMessageModalVisible && (
-        <div className="flex ">
-          <MessagePopUp setIsMessageModalVisible={setIsMessageModalVisible} />
-        </div>
-      )}
+      {/* Modals for non-CommonHeader pages */}
+      {from !== "18" && (
+        <>
+          {isModalVisible && (
+            <div className="flex">
+              <PopUp setIsModalVisible={setIsModalVisible} />
+            </div>
+          )}
 
-      {isLocalQuickModalVisible && user === null && (
-        <div className="flex ">
-          <LocalQuickReview
-            setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
-          />
-        </div>
-      )}
+          {isMessageModalVisible && (
+            <div className="flex">
+              <MessagePopUp
+                setIsMessageModalVisible={setIsMessageModalVisible}
+              />
+            </div>
+          )}
 
-      {isLocalQuickModalReviewVisible && user !== null && (
-        <div className="flex ">
-          <LocalQuickReviewModal
-            setIsLocalQuickReviewModalVisible={
-              setIsLocalQuickReviewModalVisible
-            }
-          />
-        </div>
+          {isLocalQuickModalVisible && user === null && (
+            <div className="flex">
+              <LocalQuickReview
+                setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
+              />
+            </div>
+          )}
+
+          {isLocalQuickReviewModalVisible &&
+            user !== null && ( // Fixed prop name
+              <div className="flex">
+                <LocalQuickReviewModal
+                  setIsLocalQuickReviewModalVisible={
+                    setIsLocalQuickReviewModalVisible
+                  }
+                />
+              </div>
+            )}
+        </>
       )}
 
       <main className="flex bg-[#F5F7F9]">{children}</main>
+
+      {/* Footer */}
       {forFooter == "company" ? (
         <CompanyFooter data={data || {}} key={`${data?.id}-company-footer`} />
       ) : forFooter == "memorypage" ? null : (
         <Footer />
       )}
+
       <DrawerDialoge
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}

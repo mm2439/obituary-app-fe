@@ -13,12 +13,12 @@ import CommonFooter from "../components/appcomponents/CommonFooter";
 
 const Funeralpromo = () => {
     return (
-        <Layout megaMenu={""} isMegaMenuVisible={false} from={"18"}  currentPage="resitive-za-pogrebna-podjetja" forFooter={'memorypage'}>
+        <Layout megaMenu={""} isMegaMenuVisible={false} from={"18"} currentPage="resitve-za-pogrebna-podjetja" forFooter={'memorypage'}>
             <div className="flex w-full flex-col  bg-gradient-to-br from-[#ECF0F3] to-[#F2F6F9]">
                 <div className="h-[72px] tablet:h-[80px] desktop:h-[92.02px] " />
                 <FuneralCompany />
-                <Ownwebsite /> 
-                <Indispensable /> 
+                <Ownwebsite />
+                <Indispensable />
                 <FreePrice />
                 <OpeningDate />
                 <KickStart cUrl="/p-faq" />
@@ -27,7 +27,7 @@ const Funeralpromo = () => {
                 </div> */}
                 {/* <LastFewPages /> */}
                 {/* <WorkTogether />                                                            */}
-                <CommonFooter currentPage="/resitve-za-pogrebna-podjetja"/>
+                <CommonFooter currentPage="/resitve-za-pogrebna-podjetja" />
 
             </div>
         </Layout>

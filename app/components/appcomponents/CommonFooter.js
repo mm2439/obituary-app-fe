@@ -10,57 +10,57 @@ import { usePathname } from "next/navigation";
 const footerLinkSets = {
   "/osmrtnice": [
     { label: "Prva stran", path: "/", showOnMobile: false },
-    { label: "Osmrtnice", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Pogrebi", path: "/pogrebi " , showOnMobile: true  },
-    { label: "Spominske", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Cvetličarne", path: "/cvetlicarne  " , showOnMobile: true  },
+    { label: "Osmrtnice", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Pogrebi", path: "/pogrebi ", showOnMobile: true },
+    { label: "Spominske", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: true },
   ],
-   "/pogrebi": [
+  "/pogrebi": [
     { label: "Prva stran", path: "/", showOnMobile: false },
-    { label: "Osmrtnice", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Pogrebi", path: "/pogrebi " , showOnMobile: true  },
-    { label: "Spominske", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Cvetličarne", path: "/cvetlicarne  " , showOnMobile: true  },
+    { label: "Osmrtnice", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Pogrebi", path: "/pogrebi ", showOnMobile: true },
+    { label: "Spominske", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: true },
   ],
   "/pogrebna-p": [
     { label: "Prva stran", path: "/", showOnMobile: false },
-    { label: "Osmrtnice", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Pogrebi", path: "/pogrebi " , showOnMobile: true  },
-    { label: "Spominske", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Cvetličarne", path: "/cvetlicarne  " , showOnMobile: true  },
+    { label: "Osmrtnice", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Pogrebi", path: "/pogrebi ", showOnMobile: true },
+    { label: "Spominske", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: true },
   ],
   "/cvetlicarne": [
     { label: "Prva stran", path: "/", showOnMobile: false },
-    { label: "Osmrtnice", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Pogrebi", path: "/pogrebi " , showOnMobile: true  },
-    { label: "Spominske", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Cvetličarne", path: "/cvetlicarne  " , showOnMobile: true  },
+    { label: "Osmrtnice", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Pogrebi", path: "/pogrebi ", showOnMobile: true },
+    { label: "Spominske", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: true },
   ],
   "/zalna-stran": [
     { label: "Prva stran", path: "/", showOnMobile: false },
-    { label: "Osmrtnice", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Pogrebi", path: "/pogrebi " , showOnMobile: true  },
-    { label: "Spominske", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Cvetličarne", path: "/cvetlicarne  " , showOnMobile: true  },
+    { label: "Osmrtnice", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Pogrebi", path: "/pogrebi ", showOnMobile: true },
+    { label: "Spominske", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: true },
   ],
   "/spominska": [
     { label: "Prva stran", path: "/", showOnMobile: false },
-    { label: "Osmrtnice", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Pogrebi", path: "/pogrebi " , showOnMobile: true  },
-    { label: "Spominske", path: "/osmrtnice " , showOnMobile: true  },
-    { label: "Cvetličarne", path: "/cvetlicarne  " , showOnMobile: true  },
+    { label: "Osmrtnice", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Pogrebi", path: "/pogrebi ", showOnMobile: true },
+    { label: "Spominske", path: "/osmrtnice ", showOnMobile: true },
+    { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: true },
   ],
   "/resitve-za-cvetlicarne": [
-    { label: "Začetna ", path: "/ " , showOnMobile: false  },
-    { label: "Cvetličarne", path: "/resitve-za-cvetlicarne " , showOnMobile: true  },
-    { label: "Priložnost", path: "/c-priloznost " , showOnMobile: true  },
-    { label: "Pogrebna", path: "/resitve-za-pogrebna-podjetja " , showOnMobile: true  },
+    { label: "Začetna ", path: "/ ", showOnMobile: false },
+    { label: "Cvetličarne", path: "/resitve-za-cvetlicarne ", showOnMobile: true },
+    { label: "Priložnost", path: "/c-priloznost ", showOnMobile: true },
+    { label: "Pogrebna", path: "/resitve-za-pogrebna-podjetja ", showOnMobile: true },
   ],
-    "/resitve-za-pogrebna-podjetja": [
-    { label: "Začetna ", path: "/ " , showOnMobile: false  },
-    { label: "Cvetličarne", path: "/resitve-za-cvetlicarne " , showOnMobile: true  },
-    { label: "Pogrebna", path: "/resitve-za-pogrebna-podjetja " , showOnMobile: true  },
-    { label: "Priložnost", path: "/p-priloznost " , showOnMobile: true  },
+  "/resitve-za-pogrebna-podjetja": [
+    { label: "Začetna ", path: "/ ", showOnMobile: false },
+    { label: "Cvetličarne", path: "/resitve-za-cvetlicarne ", showOnMobile: true },
+    { label: "Pogrebna", path: "/resitve-za-pogrebna-podjetja ", showOnMobile: true },
+    { label: "Priložnost", path: "/p-priloznost ", showOnMobile: true },
   ],
 };
 
@@ -85,17 +85,15 @@ const CommonFooter = ({ currentPage = "/" }) => {
               <Link
                 key={link.label}
                 href={link.path}
-                className={`text-[#1860A3] underline ${
-                  link.showOnMobile === false ? "mobile:hidden" : ""
-                }`}
+                className={`text-[#1860A3] underline ${link.showOnMobile === false ? "mobile:hidden" : ""
+                  }`}
               >
                 {link.label}
               </Link>
               {index < linksToRender.length - 1 && (
                 <div
-                  className={`w-[5px] h-[5px] bg-[#1860A3] rounded-full ${
-                    link.showOnMobile === false ? "mobile:hidden" : ""
-                  }`}
+                  className={`w-[5px] h-[5px] bg-[#1860A3] rounded-full ${link.showOnMobile === false ? "mobile:hidden" : ""
+                    }`}
                 ></div>
               )}
             </>

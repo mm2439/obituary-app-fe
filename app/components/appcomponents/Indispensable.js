@@ -33,52 +33,55 @@ const Indispensable = () => {
   // bg-[url('/indispensable_bg_img.png')]
 
   return (
-    <div className="relative w-full h-auto flex justify-center items-center">
-      <div
-        className="flex relative  max-w-[1920px] w-full  bg-no-repeat
-             h-auto justify-center items-center tablet:items-start mobile:items-start mx-auto"
-      >
-        <img
-          src="/indispensable_bg_img.jpg"
-          alt="Slika"
-          className="relative hidden desktop:block h-[860px] tablet:h-[1139px] mobile:h-[1267px] w-full object-cover"
-        />
+    <div className="w-full bg-[#E0E9F3]">
+      <div className="relative w-full h-auto flex justify-center items-center">
+        <div
+          className="flex relative w-full bg-no-repeat
+             h-auto justify-center items-center tablet:items-start mobile:items-start"
+        >
+          <img
+            src="/indispensable_bg_img.jpg"
+            alt="Slika"
+            className="relative hidden desktop:block h-[860px] tablet:h-[1139px] mobile:h-[1267px] w-full object-cover"
+          />
 
-        <img
-          src="/levo_spodaj_mob.jpg"
-          alt="Slika"
-          className="relative h-[860px] hidden mobile:block tablet:block tablet:h-[1139px] mobile:h-[1267px] w-full object-cover"
-        />
+          <img
+            src="/levo_spodaj_mob.jpg"
+            alt="Slika"
+            className="relative h-[860px] hidden mobile:block tablet:block tablet:h-[1139px] mobile:h-[1267px] w-full object-cover"
+          />
 
-        <div className="absolute max-w-[1548px] tablet:mt-[43px] mobile:mt-[29px] tablet:max-w-[622px] mobile:max-w-[322px] tablet:h-[831px] h-[860px] tablet:mb-[263px] mobile:h-[1215px] w-full flex justify-end items-center">
-          <div
-            className="h-full w-auto desktop:bg-white tablet:backdrop-blur mobile:backdrop-blur mobile:bg-gradient-to-r mobile:from-[#FFFFFF] mobile:to-[#FFFFFF30] mobile:border mobile:rounded-lg flex justify-center items-center
+          <div className="absolute max-w-[1548px] tablet:mt-[43px] mobile:mt-[29px] tablet:max-w-[622px] mobile:max-w-[322px] tablet:h-[831px] h-[860px] tablet:mb-[263px] mobile:h-[1215px] w-full flex justify-end items-center">
+            <div
+              className="h-full w-auto desktop:bg-white tablet:backdrop-blur mobile:backdrop-blur mobile:bg-gradient-to-r mobile:from-[#FFFFFF] mobile:to-[#FFFFFF30] mobile:border mobile:rounded-lg flex justify-center items-center
                     tablet:bg-gradient-to-r tablet:from-[#FFFFFF] tablet:to-[#FFFFFF30] tablet:border tablet:rounded-lg"
-          >
-            <div className="flex flex-col w-[778px] tablet:w-[622px] mobile:w-[322px] mobile:px-[12px] tablet:pl-[22px] pl-[87px] desktop:pr-[95px]  ">
-              <div className="flex flex-col">
-                <div className="flex h-[33.05px] mobile:justify-center mobile:items-center tablet:items-center mt-[-56px] mobile:mt-[-70px] tablet:mt-[-67px]">
-                  <div className="text-[#3090D5] text-[26px] font-normal mobile:text-[20px] mobile:font-variation-customOpt20">
-                    Nepogrešljiva
+            >
+              <div className="flex flex-col w-[778px] tablet:w-[622px] mobile:w-[322px] mobile:px-[12px] tablet:pl-[22px] pl-[87px] desktop:pr-[95px]  ">
+                <div className="flex flex-col">
+                  <div className="flex h-[33.05px] mobile:justify-center mobile:items-center tablet:items-center mt-[-56px] mobile:mt-[-70px] tablet:mt-[-67px]">
+                    <div className="text-[#3090D5] text-[26px] font-normal mobile:text-[20px] mobile:font-variation-customOpt20">
+                      Nepogrešljiva
+                    </div>
+                  </div>
+                  <div className="flex h-[45px] mobile:justify-center items-center  ">
+                    <p className="text-[#2D3D48] text-[40px] mobile:text-[28px] mobile:font-variation-customOpt28 mobile:leading-[112px] font-normal ">
+                      Pomoč pri vašem delu
+                    </p>
                   </div>
                 </div>
-                <div className="flex h-[45px] mobile:justify-center items-center  ">
-                  <p className="text-[#2D3D48] text-[40px] mobile:text-[28px] mobile:font-variation-customOpt28 mobile:leading-[112px] font-normal ">
-                    Pomoč pri vašem delu
-                  </p>
+                <div className="h-[1px] bg-[#9DC6E4] w-[528px] mobile:w-full my-8 tablet:mt-[29px] mobile:mt-[20px] mobile:mb-[37px] " />
+                <div className="flex flex-col ">
+                  {containerArray?.map((item, index) => (
+                    <ContainerView item={item} index={index} key={index} />
+                  ))}
                 </div>
-              </div>
-              <div className="h-[1px] bg-[#9DC6E4] w-[528px] mobile:w-full my-8 tablet:mt-[29px] mobile:mt-[20px] mobile:mb-[37px] " />
-              <div className="flex flex-col ">
-                {containerArray?.map((item, index) => (
-                  <ContainerView item={item} index={index} key={index} />
-                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 };
 

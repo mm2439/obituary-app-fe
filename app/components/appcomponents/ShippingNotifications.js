@@ -83,7 +83,7 @@ const ShippingNotifications = ({
             key={index}
             src={image}
             alt={`Slide ${index}`}
-            className={`relative hidden desktop:inline object-cover my-auto  h-[300px] w-[156px] ml-4 rounded shadow-custom-light-dark-box-image-wall  `}
+            className={`relative hidden desktop:inline object-cover my-auto h-full w-full  `}
           />
         ) : null}
       </>

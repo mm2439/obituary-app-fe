@@ -1,6 +1,5 @@
 "use client";
 import FloristsSunFlowerView from "@/app/components/appcomponents/FloristsSunFlowerView";
-import Layout from "@/app/components/appcomponents/Layout";
 import Offer from "@/app/components/appcomponents/Offer";
 import Qualityflowers from "@/app/components/appcomponents/Qualityflowers";
 import SadProgram from "@/app/components/appcomponents/SadProgram";
@@ -38,24 +37,14 @@ const CompanyPreview = ({ companyData }: Props) => {
       </button>
 
       <BaseModal open={openModal} onClose={() => setOpenModal(false)}>
-        <Layout
-          from={"7"}
-          data={companyData}
-          forFooter={"memorypage"}
-          isModalLayout
-          isMegaMenuVisible={undefined}
-          megaMenu={undefined}
-          handleCloseModal={() => setOpenModal(false)}
-        >
-          <div className="flex flex-col relative mx-auto overflow-auto w-full bg-[#F5F7F9]">
-            <FloristsSunFlowerView data={companyData} />
-            <Offer data={companyData} />
-            <SadProgram key={companyData?.id} data={companyData} />
-            <Qualityflowers data={companyData} />
-            <SpecialOffer key={companyData?.id} data={companyData} />
-            <SunflowerFlorist key={companyData?.id} data={companyData} />
-          </div>
-        </Layout>
+        <div className="flex flex-col mx-auto w-full bg-[#F5F7F9]">
+          <FloristsSunFlowerView data={companyData} />
+          <Offer data={companyData} />
+          <SadProgram key={companyData?.id} data={companyData} />
+          <Qualityflowers data={companyData} />
+          <SpecialOffer key={companyData?.id} data={companyData} />
+          <SunflowerFlorist key={companyData?.id} data={companyData} />
+        </div>
       </BaseModal>
     </>
   );

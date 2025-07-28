@@ -26,19 +26,15 @@ const Layout = ({
   isMegaMenuVisible,
   megaMenu,
   data = {},
-  onChangeMemory = () => {},
-  handleCloseModal = () => {},
-  isModalLayout = false,
-  currentPage = "",
+  onChangeMemory = () => { },
+  currentPage = ""
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
-  const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] =
-    useState(false);
-  const [isLocalQuickReviewModalVisible, setIsLocalQuickReviewModalVisible] =
-    useState(false); // Fixed prop name
+  const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] = useState(false);
+  const [isLocalQuickReviewModalVisible, setIsLocalQuickReviewModalVisible] = useState(false); // Fixed prop name
 
   const OnDrawerButtonClicked = (item) => {
     console.log(item.name);
@@ -60,9 +56,7 @@ const Layout = ({
             setIsModalVisible={setIsModalVisible}
             setIsMessageModalVisible={setIsMessageModalVisible}
             setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
-            setIsLocalQuickReviewModalVisible={
-              setIsLocalQuickReviewModalVisible
-            } // Fixed prop name
+            setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible} // Fixed prop name
           />
         </div>
       ) : null}
@@ -74,27 +68,14 @@ const Layout = ({
           from={from}
         />
       ) : from == "5" ? (
-        <Header7
-          data={data}
-          from={5}
-          handleCloseModal={isModalLayout ? handleCloseModal : undefined}
-        />
+        <Header7 data={data} from={5} />
       ) : from == "7" ? (
-        <Header7
-          data={data}
-          from={7}
-          handleCloseModal={isModalLayout ? handleCloseModal : undefined}
-        />
+        <Header7 data={data} from={7} />
       ) : from == "3" ? (
         <MemoryHeader onChange={onChangeMemory} />
       ) : from == "18" ? (
-        <CommonHeader
-          currentPage={currentPage}
-          setIsModalVisible={setIsModalVisible}
-          setIsMessageModalVisible={setIsMessageModalVisible}
-          setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
-          setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible}
-        />
+        // CommonHeader now handles its own modals
+        <CommonHeader currentPage={currentPage} />
       ) : (
         <>
           {from == "2" ? <div className="flex h-[45px]" /> : null}
@@ -113,9 +94,7 @@ const Layout = ({
 
           {isMessageModalVisible && (
             <div className="flex">
-              <MessagePopUp
-                setIsMessageModalVisible={setIsMessageModalVisible}
-              />
+              <MessagePopUp setIsMessageModalVisible={setIsMessageModalVisible} />
             </div>
           )}
 
@@ -127,16 +106,13 @@ const Layout = ({
             </div>
           )}
 
-          {isLocalQuickReviewModalVisible &&
-            user !== null && ( // Fixed prop name
-              <div className="flex">
-                <LocalQuickReviewModal
-                  setIsLocalQuickReviewModalVisible={
-                    setIsLocalQuickReviewModalVisible
-                  }
-                />
-              </div>
-            )}
+          {isLocalQuickReviewModalVisible && user !== null && ( // Fixed prop name
+            <div className="flex">
+              <LocalQuickReviewModal
+                setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible}
+              />
+            </div>
+          )}
         </>
       )}
 
@@ -144,7 +120,7 @@ const Layout = ({
 
       {/* Footer */}
       {forFooter == "company" ? (
-        <CompanyFooter data={data || {}} key={`${data?.id}-company-footer`} />
+        <CompanyFooter />
       ) : forFooter == "memorypage" ? null : (
         <Footer />
       )}

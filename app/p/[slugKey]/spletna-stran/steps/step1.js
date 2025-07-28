@@ -182,7 +182,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
                 <input
                   type="text"
                   className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
-                  placeholder=""
+                  placeholder="johndoe"
                   value={facebook}
                   onChange={(e) => setFacebook(e.target.value)}
                 />

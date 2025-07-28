@@ -90,7 +90,7 @@ const Carousel = () => {
       {/* Simple Date Navigation */}
       <div className="flex items-center justify-between py-12 w-full max-w-[900px]">
         <div className="text-left">
-          <h2 className="text-[#0A85C2] font-normal text-[24px] tablet:text-[32px] leading-tight">
+          <h2 className="text-[#0A85C2] font-normal text-[24px] tablet:text-[32px] desktop:text-[32px] leading-tight">
             {getDayName(currentDate)}, {formatDateForDisplay(currentDate)}
           </h2>
         </div>
@@ -121,8 +121,7 @@ const Carousel = () => {
         {obituaries.length === 0 ? (
           <div className="text-center py-6 text-[#3C3E41]">
             Ni vnešenih pogrebov tega dne.
-            {selectedCity && ` v ${selectedCity}`}
-            {selectedRegion && ` (${selectedRegion})`}.
+
           </div>
         ) : (
           obituaries.map((item, index) => (

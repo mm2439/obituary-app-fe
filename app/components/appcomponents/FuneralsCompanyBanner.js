@@ -23,17 +23,12 @@ const getLogoImage = (data) => {
   return data.logo || "/logo_funeral_company.png";
 };
 
-const IconLinkComponent = ({ link, icon, alt, className, type }) => {
-  if (type === "facebook" && !link) return null;
-  let formattedLink = link
+const IconLinkComponent = ({ link, icon, alt, className }) => {
+  const formattedLink = link
     ? link.startsWith("http://") || link.startsWith("https://")
       ? link
       : `https://${link}`
     : "#";
-
-  if (type === "email") {
-    formattedLink = `mailto:${link}`;
-  }
 
   return (
     <div
@@ -42,12 +37,7 @@ const IconLinkComponent = ({ link, icon, alt, className, type }) => {
         className
       )}
     >
-      <Link
-        key={`${link}-icon-link`}
-        href={formattedLink}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Link href={formattedLink} target="_blank" rel="noopener noreferrer">
         <Image
           key={`${link}-icon`}
           src={icon}
@@ -86,14 +76,13 @@ const FuneralsCompanyBanner = ({ data }) => {
           </div>
 
           <h1 className="w-full text-[#1E2125] text-[24px] font-semibold leading-[28px] mobile:mt-2">
-            {data?.heading || data?.User?.company || data?.name}
+            {data?.User?.company || data?.name}
           </h1>
           <div className="hidden desktop:flex min-w-[150px] gap-2">
             <IconLinkComponent
               link={data?.email}
               icon={iconEmail}
               alt="Email Icon"
-              type="email"
             />
             <IconLinkComponent
               link={data?.website}
@@ -104,7 +93,6 @@ const FuneralsCompanyBanner = ({ data }) => {
               link={data?.facebook}
               icon={iconFb}
               alt="Facebook Icon"
-              type="facebook"
             />
           </div>
         </div>
@@ -185,7 +173,6 @@ const FuneralsCompanyBanner = ({ data }) => {
               link={data?.email}
               icon={iconEmail}
               alt="Email Icon"
-              type="email"
             />
             <IconLinkComponent
               link={data?.website}
@@ -196,7 +183,6 @@ const FuneralsCompanyBanner = ({ data }) => {
               link={data?.facebook}
               icon={iconFb}
               alt="Facebook Icon"
-              type="facebook"
             />
           </div>
         </div>
@@ -238,7 +224,6 @@ const FuneralsCompanyBanner = ({ data }) => {
                 icon={iconEmail}
                 alt="Email Icon"
                 className=" w-9 h-9"
-                type="email"
               />
               <IconLinkComponent
                 link={data?.website}
@@ -251,7 +236,6 @@ const FuneralsCompanyBanner = ({ data }) => {
                 icon={iconFb}
                 alt="Facebook Icon"
                 className=" w-9 h-9"
-                type="facebook"
               />
             </div>
           </div>

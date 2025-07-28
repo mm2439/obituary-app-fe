@@ -45,8 +45,6 @@ const Login = () => {
         return;
       }
 
-      console.log(response, "-=====");
-
       localStorage.setItem("user", JSON.stringify(response.user));
 
       toast.success(response.message || "Login successful!");

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from 'next/navigation';
 import Dropdown from "@/app/components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import ObituaryCard from "@/app/components/appcomponents/ObituaryCard";
@@ -16,13 +16,9 @@ const ObituaryListComponent = ({ city }) => {
   const searchParams = useSearchParams();
 
   // Initialize state from URL params
-  const [selectedCity, setSelectedCity] = useState(
-    searchParams.get("city") || city || null
-  );
-  const [selectedRegion, setSelectedRegion] = useState(
-    searchParams.get("region") || null
-  );
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCity, setSelectedCity] = useState(searchParams.get('city') || city || null);
+  const [selectedRegion, setSelectedRegion] = useState(searchParams.get('region') || null);
+  const [searchTerm, setSearchTerm] = useState('');
   const [obituaries, setObituaries] = useState([]);
 
   // Dropdown options
@@ -33,7 +29,7 @@ const ObituaryListComponent = ({ city }) => {
 
   const allCitiesOption = {
     place: "- Pokaži vse občine -",
-    id: "allCities",
+    id: "allCities"
   };
 
   // Region options
@@ -62,9 +58,9 @@ const ObituaryListComponent = ({ city }) => {
   const updateURL = (city, region, search) => {
     const params = new URLSearchParams();
 
-    if (city && city !== "allCities") params.set("city", city);
-    if (region && region !== "allRegions") params.set("region", region);
-    if (search) params.set("search", search);
+    if (city && city !== "allCities") params.set('city', city);
+    if (region && region !== "allRegions") params.set('region', region);
+    if (search) params.set('search', search);
 
     const queryString = params.toString();
     const newURL = queryString ? `?${queryString}` : window.location.pathname;
@@ -131,7 +127,7 @@ const ObituaryListComponent = ({ city }) => {
       if (selectedRegion) queryParams.region = selectedRegion;
       if (searchTerm) queryParams.search = searchTerm;
 
-      console.log("Fetching with params:", queryParams);
+      console.log('Fetching with params:', queryParams);
 
       const response = await obituaryService.getObituary(queryParams);
 
@@ -158,9 +154,11 @@ const ObituaryListComponent = ({ city }) => {
     <div className="max-w-[1920px] w-full tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">
       {/* Main Container */}
       <div className="flex flex-col items-center w-full tablet:w-full mobile:w-full">
+
         {/* DESKTOP VERSION */}
         <div className="w-full hidden desktop:flex tablet:w-full mobile:w-full flex-col items-center">
           <div className="w-[777px] tablet:w-[600px] h-[48px] flex flex-row gap-4 mt-[69.07px] mb-[23.93px]">
+
             {/* Search Input */}
             <div className="flex w-[227px] h-[48px] justify-center items-center">
               <input
@@ -205,6 +203,7 @@ const ObituaryListComponent = ({ city }) => {
         {/* TABLET VERSION */}
         <div className="w-full tablet:w-full mobile:w-full tablet:flex hidden flex-col items-center">
           <div className="w-[600px] h-[112px] columns-2 flex flex-wrap flex-row gap-4 mt-[63px] mb-[53px]">
+
             {/* Region Dropdown */}
             <Dropdown
               label={"Regija"}
@@ -249,6 +248,7 @@ const ObituaryListComponent = ({ city }) => {
         {/* MOBILE VERSION */}
         <div className="w-full tablet:w-full mobile:w-full mobile:flex hidden flex-col items-center">
           <div className="w-[296px] h-[240px] flex-wrap flex flex-row gap-4 mt-[40px] mb-[42px]">
+
             {/* Search Input */}
             <div className="flex w-[296px] h-[48px] justify-center items-center">
               <input
@@ -265,7 +265,7 @@ const ObituaryListComponent = ({ city }) => {
               label={"Regija"}
               isFromNotification={false}
               isFromFlower={false}
-              isFrom={"pogrebi"}
+              isFrom={'pogrebi'}
               data={regionOptions}
               selectedValue={selectedRegion}
               onSelect={handleRegionSelect}
@@ -277,7 +277,7 @@ const ObituaryListComponent = ({ city }) => {
               label={"Mesto"}
               isFromNotification={false}
               isFromFlower={false}
-              isFrom={"pogrebi"}
+              isFrom={'pogrebi'}
               selectedValue={selectedCity}
               onSelect={handleCitySelect}
             />
@@ -294,6 +294,7 @@ const ObituaryListComponent = ({ city }) => {
 
         {/* Quick Selection remains the same... */}
         {/* ... rest of your existing quick selection code ... */}
+
       </div>
     </div>
   );

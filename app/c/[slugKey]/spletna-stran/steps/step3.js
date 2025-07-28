@@ -7,35 +7,33 @@ import packageService from "@/services/pacakge-service";
 import toast from "react-hot-toast";
 import CompanyPreview from "../components/company-preview";
 
-const defaultPackages = [
-  {
-    index: 1,
-    title: "",
-    price: "",
-    image: null,
-  },
-  {
-    index: 2,
-    title: "",
-    price: "",
-    image: null,
-  },
-  {
-    index: 3,
-    title: "",
-    price: "",
-    image: null,
-  },
-  {
-    index: 4,
-    title: "",
-    price: "",
-    image: null,
-  },
-];
-
 export default function Step3({ data, onChange, handleStepChange }) {
-  const [packages, setPackages] = useState(defaultPackages);
+  const [packages, setPackages] = useState([
+    {
+      index: 1,
+      title: "",
+      price: "",
+      image: null,
+    },
+    {
+      index: 2,
+      title: "",
+      price: "",
+      image: null,
+    },
+    {
+      index: 3,
+      title: "",
+      price: "",
+      image: null,
+    },
+    {
+      index: 4,
+      title: "",
+      price: "",
+      image: null,
+    },
+  ]);
   const [companyId, setCompanyId] = useState(null);
 
   useEffect(() => {
@@ -199,23 +197,21 @@ export default function Step3({ data, onChange, handleStepChange }) {
               />
             ))}
 
-            {(packages?.length || 0) < 4 && (
-              <div className="flex items-center justify-end pt-[8px] pb-[16px]">
-                <div
-                  className="inline-flex items-center gap-[8px] cursor-pointer"
-                  onClick={addSliderBlock}
-                >
-                  <img
-                    src="/florist_plus.png"
-                    alt="Dodaj sliko"
-                    className="w-[16px] h-[16px]"
-                  />
-                  <span className="text-[14px] text-[#3C3E41] font-normal leading-[100%]">
-                    DODAJ ŠE DODATNE (največ 4)
-                  </span>
-                </div>
+            <div className="flex items-center justify-end pt-[8px] pb-[16px]">
+              <div
+                className="inline-flex items-center gap-[8px] cursor-pointer"
+                onClick={addSliderBlock}
+              >
+                <img
+                  src="/florist_plus.png"
+                  alt="Dodaj sliko"
+                  className="w-[16px] h-[16px]"
+                />
+                <span className="text-[14px] text-[#3C3E41] font-normal leading-[100%]">
+                  DODAJ ŠE DODATNE (največ 8)
+                </span>
               </div>
-            )}
+            </div>
           </div>
         </div>
         <div className="space-y-[8px]">

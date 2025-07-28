@@ -84,7 +84,7 @@ const Cemeteries = ({ data }) => {
             <Image
               className="flex w-full h-[344.71px] rounded-lg border-[5px] border-[#ffffff]"
               src={
-                cemeteries[0]?.image?.includes("cemetryUploads")
+                cemeteries[0].image.includes("cemetryUploads")
                   ? `${API_BASE_URL}/${cemeteries[0].image}`
                   : cemeteries[0].image
               }
@@ -112,9 +112,9 @@ const Cemeteries = ({ data }) => {
                     key={index}
                     className="relative w-[138.58px] h-[78px] rounded-[5px] overflow-hidden"
                   >
-                    <img
+                    <Image
                       src={
-                        cemetery?.image?.includes("cemetryUploads")
+                        cemetery.image.includes("cemetryUploads")
                           ? `${API_BASE_URL}/${cemetery.image}`
                           : cemetery.image
                       }
@@ -210,7 +210,7 @@ const Cemeteries = ({ data }) => {
                   >
                     <Image
                       src={
-                        cemetery?.image?.includes("cemetryUploads")
+                        cemetery.image.includes("cemetryUploads")
                           ? `${API_BASE_URL}/${cemetery.image}`
                           : cemetery.image
                       }

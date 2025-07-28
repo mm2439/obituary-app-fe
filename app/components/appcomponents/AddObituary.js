@@ -48,15 +48,6 @@ const AddObituary = ({ set_Id, setModal }) => {
   const [obituaryResponse, setObituaryResponse] = useState(null);
   const cardRefs = useRef([]);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (!storedUser) {
-      toast.error("You must be logged in to access this page.");
-      router.push("/registracija");
-    } else {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
   const [events, setEvents] = useState([
     {
       eventName: "",
@@ -264,43 +255,32 @@ const AddObituary = ({ set_Id, setModal }) => {
   const handleUploadTemplateCards = async () => {
     setLoading(true);
 
+    // Wait for cardRefs to be populated
     let attempts = 0;
     while (!cardRefs.current && attempts < 10) {
       await new Promise((resolve) => setTimeout(resolve, 50));
       attempts++;
     }
-
-    if (!obituaryResponse || !cardRefs.current) {
-      setLoading(false);
-      toast.error("Obituary or card references not available.");
+    if (!obituaryResponse || !cardRefs.current) return;
+    const { images, pdfs } = await getCardsImageAndPdfsFiles(cardRefs.current);
+    const formData = new FormData();
+    images.forEach((image) => {
+      formData.append(`cardImages`, image);
+    });
+    pdfs.forEach((pdf) => {
+      formData.append(`cardPdfs`, pdf);
+    });
+    const response = await obituaryService.uploadObituaryTemplateCards(
+      obituaryResponse.id,
+      formData
+    );
+    if (response.error) {
+      toast.error(response.error || "Failed to upload template cards.");
       return;
     }
-
-    const { images, pdfs } = await getCardsImageAndPdfsFiles(cardRefs.current);
-
-    const formData = new FormData();
-    images.forEach((image) => formData.append(`cardImages`, image));
-    pdfs.forEach((pdf) => formData.append(`cardPdfs`, pdf));
-
-    try {
-      const response = await obituaryService.uploadObituaryTemplateCards(
-        obituaryResponse.id,
-        formData
-      );
-
-      if (response?.error || !response.message?.includes("successfully")) {
-        toast.error(response?.error || "Failed to upload template cards.");
-        return;
-      }
-
-      toast.success("Template cards uploaded successfully!");
-      router.push(`/m/${obituaryResponse.slugKey}`);
-    } catch (error) {
-      console.error("Upload error:", error);
-      toast.error("Unexpected error uploading template cards.");
-    } finally {
-      setLoading(false);
-    }
+    toast.success("Template cards uploaded successfully!");
+    setLoading(false);
+    router.push(`/m/${obituaryResponse.slugKey}`);
   };
 
   const handleSubmit = async () => {
@@ -1779,10 +1759,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                   >
                     Na prejšnjo stran
                   </div>
-
-                  <button
-                    type="button"
-                    disabled={user && user.createObituaryPermission === false}
+                  <div
                     onClick={!loading ? handleSubmit : null} // Disable onClick when isLoading is true
                     className={`flex flex-1 px-[90px] py-3 mobile:px-10 text-center justify-center items-center rounded-lg shadow-custom-dual text-[16px] cursor-pointer ${
                       loading
@@ -1791,7 +1768,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                     }`}
                   >
                     {loading ? "Shranjujem..." : "Objavi novo osmrtnico"}
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

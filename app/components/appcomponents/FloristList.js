@@ -16,9 +16,7 @@ const FloristList = () => {
   const searchParams = useSearchParams();
 
   // Get city from URL params, default to empty (no filter)
-  const [selectedCity, setSelectedCity] = useState(
-    searchParams.get("city") || ""
-  );
+  const [selectedCity, setSelectedCity] = useState(searchParams.get('city') || "");
   const [floristList, setFloristList] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -35,12 +33,10 @@ const FloristList = () => {
     const params = new URLSearchParams();
 
     if (city && city.trim() !== "") {
-      params.set("city", city);
+      params.set('city', city);
     }
 
-    const newUrl = params.toString()
-      ? `?${params.toString()}`
-      : window.location.pathname;
+    const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
     router.push(newUrl, { scroll: false });
   };
 
@@ -68,7 +64,7 @@ const FloristList = () => {
 
       // Get city from URL params
       const urlParams = new URLSearchParams(window.location.search);
-      const cityParam = urlParams.get("city");
+      const cityParam = urlParams.get('city');
 
       const params = {};
 
@@ -76,10 +72,12 @@ const FloristList = () => {
       if (cityParam && cityParam.trim() !== "") {
         params.city = cityParam.trim();
       }
-      const response = await shopService.getShops(params);
-      if (response?.shops?.length > 0) {
-        setFloristList(response.shops);
-      }
+
+      console.log("Fetching shops with params:", params);
+      const response = await shopService.getFloristShops(params);
+      console.log("API Response:", response);
+
+      setFloristList(response.shops || []);
     } catch (error) {
       console.error("Error fetching florist shops:", error);
       setFloristList([]);
@@ -101,7 +99,7 @@ const FloristList = () => {
 
   // Update state when URL params change
   useEffect(() => {
-    const cityParam = searchParams.get("city") || "";
+    const cityParam = searchParams.get('city') || "";
     setSelectedCity(cityParam);
   }, [searchParams]);
 
@@ -109,8 +107,10 @@ const FloristList = () => {
     <div className="max-w-[1920px] w-full pb-[81px] tablet:pb-[55px] desktop:pb-[121px] tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">
       <div className="flex flex-col items-center w-full tablet:w-full mobile:w-full">
         <div className="w-full tablet:w-full mobile:w-full flex flex-col items-center">
+
           {/* Filter Section */}
           <div className="flex flex-col tablet:flex-row desktop:flex-row gap-4 mt-[63px] mb-[40px] mobile:w-[311px] tablet:w-[612px] desktop:w-[1088px] tablet:mt-[63px] tablet:mb-[40px] desktop:mt-[80px] desktop:mb-[40px] tablet:justify-end desktop:justify-end">
+
             {/* Mobile Filter Row */}
             <div className="flex tablet:hidden gap-4 w-full">
               <div className="flex-1">
@@ -125,10 +125,7 @@ const FloristList = () => {
                   placeholder="Vse cvetličarne"
                 />
               </div>
-              <div
-                className="flex justify-center items-center w-12 h-[48px] rounded-lg bg-[#414141] cursor-pointer hover:bg-[#555555] transition-colors"
-                onClick={getFlowerShops}
-              >
+              <div className="flex justify-center items-center w-12 h-[48px] rounded-lg bg-[#414141] cursor-pointer hover:bg-[#555555] transition-colors" onClick={getFlowerShops}>
                 <MagnifyingGlassIcon className="w-5 h-5 text-white" />
               </div>
             </div>
@@ -159,6 +156,7 @@ const FloristList = () => {
           {/* Hitri izbor Section */}
           <div className="flex w-full items-center justify-center">
             <div className="flex mobile:flex tablet:flex desktop:flex-row desktop:justify-between mobile:w-[315px] mobile:mb-[59px] tablet:items-center tablet:justify-center tablet:w-[660px] tablet:mb-[42px] desktop:w-[1088px] desktop:mt-[20px] desktop:mb-[68px]">
+
               <div className="flex desktop:ml-[0px] desktop:h-[78px] tablet:w-[650px] tablet:h-[70px] tablet:justify-center mobile:w-[330px] mobile:flex-col desktop:flex-col">
                 <div className="hidden desktop:flex text-[32px] font-[400px] leading-[28.13px] text-[#1E2125]">
                   Hitri izbor
@@ -183,19 +181,18 @@ const FloristList = () => {
                             setSelectedCity(language);
                             updateUrlParams(language);
                           }}
-                          className={`border border-[#C3C6C8] rounded-sm text-[#3C3E41] mobile:mt-[16px] hover:bg-gray-100 transition-colors cursor-pointer ${
-                            index == languages.length - 1
-                              ? "ml-[0px]"
-                              : index == 5
+                          className={`border border-[#C3C6C8] rounded-sm text-[#3C3E41] mobile:mt-[16px] hover:bg-gray-100 transition-colors cursor-pointer ${index == languages.length - 1
+                            ? "ml-[0px]"
+                            : index == 5
                               ? "mobile:ml-[0px] tablet:mx-[6px] desktop:mr-[17px]"
                               : "mobile:ml-[0px] tablet:mx-[6px] desktop:mr-[17px]"
-                          } ${
-                            index < 6 ? "tablet:mb-[18px]" : "tablet:mb-[18px]"
-                          } ${
-                            selectedCity === language
+                            } ${index < 6
+                              ? "tablet:mb-[18px]"
+                              : "tablet:mb-[18px]"
+                            } ${selectedCity === language
                               ? "bg-[#414141] text-white"
                               : "bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]"
-                          } text-[14px] mobile:text-[13px] font-extrabold tablet:font-bold mobile:font-bold italic leading-[16.41px] mobile:px-[6px] px-[7.5px] py-[4px]`}
+                            } text-[14px] mobile:text-[13px] font-extrabold tablet:font-bold mobile:font-bold italic leading-[16.41px] mobile:px-[6px] px-[7.5px] py-[4px]`}
                         >
                           {language}
                         </button>
@@ -217,18 +214,18 @@ const FloristList = () => {
               </div>
             ) : floristList?.length > 0 ? (
               floristList.map((item, index) => (
-                <FloristlistCom
-                  item={item}
-                  index={index}
-                  key={`florist-${index}`}
-                />
+                <FloristlistCom item={item} index={index} key={`florist-${index}`} />
               ))
             ) : (
               <div className="flex flex-col items-center justify-center w-full h-32 text-gray-500">
-                <p>Še ni vnešenih cvetličarn.</p>
+                <p>
+                  Še ni vnešenih cvetličarn.
+                </p>
+
               </div>
             )}
           </div>
+
         </div>
       </div>
     </div>
@@ -265,12 +262,8 @@ const FloristlistCom = ({ item, index }) => {
           {item?.logo || item?.CompanyPage?.logo ? (
             <Image
               src={
-                (item?.logo || item?.CompanyPage?.logo)?.includes(
-                  "floristShopUploads"
-                ) ||
-                (item?.logo || item?.CompanyPage?.logo)?.includes(
-                  "companyUploads"
-                )
+                (item?.logo || item?.CompanyPage?.logo)?.includes("floristShopUploads") ||
+                  (item?.logo || item?.CompanyPage?.logo)?.includes("companyUploads")
                   ? `${API_BASE_URL}/${item?.logo || item?.CompanyPage?.logo}`
                   : item?.logo || item?.CompanyPage?.logo
               }
@@ -283,19 +276,17 @@ const FloristlistCom = ({ item, index }) => {
                       h-full w-full object-cover
                         rounded-lg "
               onError={(e) => {
-                e.target.style.display = "none";
-                e.target.nextSibling.style.display = "flex";
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'flex';
               }}
             />
           ) : null}
 
           <div
             className="fallback-logo flex items-center justify-center h-full w-full bg-gray-200 rounded-lg text-gray-500 text-sm"
-            style={{
-              display: item?.logo || item?.CompanyPage?.logo ? "none" : "flex",
-            }}
+            style={{ display: (item?.logo || item?.CompanyPage?.logo) ? 'none' : 'flex' }}
           >
-            {item?.shopName || item?.CompanyPage?.name || "Cvetličarna"}
+            {item?.shopName || item?.CompanyPage?.name || 'Cvetličarna'}
           </div>
         </div>
         <div className="flex items-start flex-col mt-1 tablet:mt-1 desktop:mt-1 w-[216px] tablet:w-[390px] desktop:w-[514px] tablet:pr-[10px] ">

@@ -57,6 +57,7 @@ function CommonHeader({ currentPage }) {
   const pathname = usePathname();
   const router = useRouter();
   const linksToRender = headerLinkSets[`/${currentPage}`] || [];
+  console.log("currentPage", currentPage);
 
   // Modal states
   const [isModalVisible, setIsModalVisible] = useState(false);

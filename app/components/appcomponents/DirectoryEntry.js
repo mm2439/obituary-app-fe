@@ -89,9 +89,9 @@ const DirectoryEntry = () => {
                                             </div>
                                         </div>
                                         <div className="flex self-center mt-[15px]">
-                                            <div style={{                                              
+                                            <div style={{
                                                 textShadow: "0px 4px 4px #00000025"
-                                                }} className="text-[24px] text-[#2D3D48] font-normal " >
+                                            }} className="text-[24px] text-[#2D3D48] font-normal " >
                                                 BREZPLAČNO
                                             </div>
                                         </div>
@@ -118,11 +118,11 @@ const DirectoryEntry = () => {
                                             </div>
                                         </div>
                                         <div className="flex self-center mt-[15px] gap-[5px] relative">
-                                            <div 
-                                             style={{                                              
-                                                textShadow: "0px 4px 4px #00000025"
+                                            <div
+                                                style={{
+                                                    textShadow: "0px 4px 4px #00000025"
                                                 }}
-                                            className="text-[24px] text-[#2D3D48] font-normal" >
+                                                className="text-[24px] text-[#2D3D48] font-normal" >
                                                 od 10€ naprej
                                             </div>
                                             <div className="self-center absolute top-[-5px] left-[calc(100%+5px)]">
@@ -131,7 +131,7 @@ const DirectoryEntry = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex flex-col mt-[10px] ">
                                             {containerArray2?.map((item, index) => (
                                                 <ContainerView item={item} index={index} key={index} />
@@ -155,10 +155,7 @@ const DirectoryEntry = () => {
                                     Kako naprej?
                                 </div>
                                 <p className="text-[#3C3E41] text-[10px] font-normal " >
-                                    Po 30 dneh vam bomo poslali ponudbo za sklenitev mesečne ali letne naročnine.<br/> V primeru, da vam sodelovanje ne
-                                    prinaša koristi, enostavno počakajte do konca junija, ko bo vaša stran umaknjena in enako dostop do uporabniškega
-                                    računa. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še do konca julija, v kolikor si
-                                    premislite, kasneje pa gre v izbris.<br/> Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna. 
+                                    Pred koncem avgusta vam bomo poslali ponudbo za sklenitev naročnine.<br />V primeru, da vam sodelovanje ne prinaša koristi, enostavno počakajte do sredine septembra, ko bo vaša stran umaknjena in enako dostop do uporabniškega računa.<br /> Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna.
                                     V primeru prekinitve letne pogodbe se tako obračunajo koriščeni meseci po ceni mesečnega najema, vnaprej plačan
                                     preostanek pa se vrne naročniku brez vprašanj. S tem zagotovimo naročniku prijazno pogodbo, brez rizika zaradi
                                     dolgoročnosti.
@@ -180,10 +177,10 @@ const DirectoryEntry = () => {
                                             </div>
                                         </div>
                                         <div className="flex w-[128px] h-[58px] items-center self-center ">
-                                            <div style={{                                              
+                                            <div style={{
                                                 textShadow: "0px 4px 4px #00000025"
-                                                }} className="text-[24px] text-[#2D3D48] font-normal leading-[26.88px] text-center" >
-                                                BREZ RIZIKA 50 DNI
+                                            }} className="text-[24px] text-[#2D3D48] font-normal leading-[26.88px] text-center" >
+                                                BREZ RIZIKA 45 DNI
                                             </div>
                                         </div>
                                         <div className="flex  self-center items-center justify-center mt-[10px] ">
@@ -217,9 +214,9 @@ const DirectoryEntry = () => {
                                             Kako naprej?
                                         </div>
                                         <p className="text-[#3C3E41] text-[10px] font-normal " >
-                                            V prvih dneh junija vam bomo poslali ponudbo za sklenitev mesečne ali letne naročnine. 
-                                            <br /><br /> V primeru, da vam sodelovanje ne prinaša koristi, enostavno počakajte dva tedna, ko bo okrog 20 junija vaša stran umaknjena in enako dostop do uporabniškega računa. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še do konca julija, v kolikor si premislite, kasneje pa gre v izbris. 
-                                            <br /><br />Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna. V primeru prekinitve letne pogodbe se tako obračunajo koriščeni meseci po ceni mesečnega najema, vnaprej plačan preostanek pa se vrne naročniku brez vprašanj. S tem zagotovimo naročniku prijazno pogodbo, brez rizika zaradi dolgoročnosti.  
+                                            V prvih dneh junija vam bomo poslali ponudbo za sklenitev mesečne ali letne naročnine.
+                                            <br /><br /> V primeru, da vam sodelovanje ne prinaša koristi, enostavno počakajte dva tedna, ko bo okrog 20 junija vaša stran umaknjena in enako dostop do uporabniškega računa. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še do konca julija, v kolikor si premislite, kasneje pa gre v izbris.
+                                            <br /><br />Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna. V primeru prekinitve letne pogodbe se tako obračunajo koriščeni meseci po ceni mesečnega najema, vnaprej plačan preostanek pa se vrne naročniku brez vprašanj. S tem zagotovimo naročniku prijazno pogodbo, brez rizika zaradi dolgoročnosti.
                                         </p>
 
                                     </div>
@@ -236,11 +233,11 @@ const DirectoryEntry = () => {
                         </div>
                     </div>
                     <div className="flex mobile:w-[99px] w-[99px] h-[48px] rounded-lg mt-2 items-center justify-center bg-[#BCD7F4] shadow-custom-light-dark ">
-                            <Link href={"/c-primer"}>
-                             <div className="text-[16px] text-[#000000] font-variation-customOpt16 font-normal " >
+                        <Link href={"/c-primer"}>
+                            <div className="text-[16px] text-[#000000] font-variation-customOpt16 font-normal " >
                                 Vzorec
                             </div>
-                          </Link>
+                        </Link>
 
                     </div>
                 </div>

@@ -7,7 +7,6 @@ import FuneralList from "../components/appcomponents/FuneralList";
 import SponsorComponent from "../components/appcomponents/SponsorComponent";
 import PartnersCompo from "../components/appcomponents/PartnersCompo";
 import CommonFooter from "../components/appcomponents/CommonFooter";
-import CommonFooter from "../components/appcomponents/CommonFooter";
 
 const FuneralsList = () => {
   return (

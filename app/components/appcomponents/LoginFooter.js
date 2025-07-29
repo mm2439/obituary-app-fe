@@ -293,7 +293,7 @@ export default function LoginFooter() {
               </div>
 
               <div className="flex justify-center mt-4 h-6 items-center font-variation-customOpt12 text-[12px] text-[#414141]">
-                © osmrtnica.com, 2024. Vse pravice pridržane.
+                © osmrtnica.com, 2025. Vse pravice pridržane.
               </div>
             </div>
           </div>
@@ -336,11 +336,11 @@ export default function LoginFooter() {
             </div>
           </div>
           <div className=" tablet:flex hidden w-[247px] mx-auto text-[#414141] text-[12px] leading-[24px] font-variation-customOpt12">
-              © Our Company, 2024. Vse pravice pridržane.
-            </div>
-            <div className="w-full desktop:flex hidden h-[1px] mt-[20px] bg-[#D4D4D4]"></div>
+            © Our Company, 2024. Vse pravice pridržane.
+          </div>
+          <div className="w-full desktop:flex hidden h-[1px] mt-[20px] bg-[#D4D4D4]"></div>
           <div className="desktop:flex hidden w-full h-[48px]  flex-row justify-between items-center">
-            
+
             <div className=" h-[24px] w-[247px] text-[#414141] text-[12px] leading-[24px] font-variation-customOpt12">
               © Our Company, 2024. Vse pravice pridržane.
             </div>
@@ -351,10 +351,10 @@ export default function LoginFooter() {
 
               <div>Politika zasebnosti</div>
               <div>
-              Politika varovanja osebnih podatkov
+                Politika varovanja osebnih podatkov
               </div>
               <div>
-              Piškotki
+                Piškotki
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@ const CompanyRegistrationPage = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
   return (
-    <Layout megaMenu={""} isMegaMenuVisible={false} from={"18"}  currentPage="" forFooter={'memorypage'}>
+    <Layout megaMenu={""} isMegaMenuVisible={false} from={"18"} currentPage="" forFooter={'memorypage'}>
       <div className="flex flex-1 flex-col bg-[#F5F7F9]">
         <ModalLibrary
           isShowModal={isShowModal}

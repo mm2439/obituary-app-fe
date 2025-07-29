@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+import Link from "next/link";
 import "swiper/swiper-bundle.css";
 
 const BottomSlider = ({ data }) => {
@@ -59,22 +60,22 @@ const BottomSlider = ({ data }) => {
                     {currentIndex === 0
                       ? "Imate cvetličarno?"
                       : currentIndex === 1
-                      ? "Brezplačni skrbnik"
-                      : "Brezplačne MOBI predloge"}
+                        ? "Brezplačni skrbnik"
+                        : "Brezplačne MOBI predloge"}
                   </div>
                   <p className="font-variation-customOpt12 text-[12px] font-normal">
                     {currentIndex === 0
                       ? "Otvoritvena akcija BREZ RIZIKA pravkar poteka. Sodelujmo!"
                       : currentIndex === 1
-                      ? "Podarjajo vam ga cvetličarne in pogrebna podjetja. Povprašajte jih!"
-                      : "Podarjajo vam jih cvetličarne. Enako tudi Posvetilo, Zadnji klic."}
+                        ? "Podarjajo vam ga cvetličarne in pogrebna podjetja. Povprašajte jih!"
+                        : "Podarjajo vam jih cvetličarne. Enako tudi Posvetilo, Zadnji klic."}
                   </p>
                 </div>
-                <div className="flex w-[140.17px] h-[34px] items-center justify-center rounded-lg bg-[#CAF0F8] transition-colors hover:bg-blue-200">
+                <Link href="/podjetja" className="flex w-[140.17px] h-[34px] items-center justify-center rounded-lg bg-[#CAF0F8] transition-colors hover:bg-blue-200">
                   <div className="text-[14px] self-center  text-[#1E2125] line-clamp-1">
                     Več informacij
                   </div>
-                </div>
+                </Link>
               </div>
             </SwiperSlide>
           ))}

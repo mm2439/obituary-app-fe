@@ -30,7 +30,7 @@ const ContactFormPage = () => {
   return (
     // Main Container for all the content and background
     <div
-      className={`w-full min-h-screen pt-[98px] pb-[123px] bg-[url('/Kontakt.avif')] mx-auto max-w-[1920px] bg-center bg-cover flex flex-col`}
+      className={`w-full min-h-screen pt-[98px] pb-[123px] bg-[url('/Kontakt.avif')] mx-auto  bg-center bg-cover flex flex-col`}
     >
       {/* Container for top texts */}
       <div className=" mx-auto desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[79px] h-auto">
@@ -69,7 +69,7 @@ const ContactFormPage = () => {
 
           {/* Second text field and title */}
           <div className="text-[#3C3E41] text-[15px] mt-[20px] leading-[20px] font-variation-customOpt16">
-             {strings.Epošta}
+            {strings.Epošta}
           </div>
           <div className="h-[38px] mt-[4px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
             <input
@@ -85,7 +85,7 @@ const ContactFormPage = () => {
             {strings.Zadeva}
           </div>
           <div className="h-[38px] mt-[4px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
-          <input
+            <input
               type="text"
               value={inputValueMatter}
               onChange={handleValueMatterInput}
@@ -98,15 +98,15 @@ const ContactFormPage = () => {
             {strings.Sporočilo}
           </div>
           <div className="h-[164px] mt-[4px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
-          
+
             <textarea
-                value={inputValueMessage}
-                onChange={handleValueMessageInput}
-                className="w-full h-full px-[6px] pt-[6px] bg-transparent focus:outline-none text-[#848484] resize-none"
-              />  
+              value={inputValueMessage}
+              onChange={handleValueMessageInput}
+              className="w-full h-full px-[6px] pt-[6px] bg-transparent focus:outline-none text-[#848484] resize-none"
+            />
           </div>
 
-          {/*Button Container*/}  
+          {/*Button Container*/}
           <div className="h-[48px] mt-[52px] px-[98.85px] py-[13px] mx-auto bg-gradient-to-b from-[#0D94E8] to-[#1860A3] rounded-lg shadow-custom-light-dark-with-white">
             <Link
               href={"#"}
@@ -116,10 +116,10 @@ const ContactFormPage = () => {
             </Link>
           </div>
 
-          {/*Bottom text*/}    
+          {/*Bottom text*/}
           <div className="text-[14px] self-center mt-5 leading-[24px] font-variation-customOpt14 text-[#6D778E]">
             {strings.ObičajnoOdgovorimoVNekajUrah}
-          </div> 
+          </div>
 
         </div>
       </div>

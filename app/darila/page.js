@@ -63,33 +63,33 @@ const FloristsGifts = () => {
   };
 
   return (
-    <Layout megaMenu={""} isMegaMenuVisible={false} from={"18"}  currentPage="" forFooter={'memorypage'}>
-    <div className="flex flex-1 flex-col bg-[#F5F7F9]">
+    <Layout megaMenu={""} isMegaMenuVisible={false} from={"18"} currentPage="" forFooter={'memorypage'}>
+      <div className="flex flex-1 flex-col bg-[#F5F7F9]">
 
-   
-      
-      <OrbetoryFormComp
-        setModalVisible={handleModalVisibility}
-        showForms={funcShowForms}
-        focusInput={focusInput}
-        setParentEmail={(email) => setEmail(email)}
-        setObituaryId={(id) => setSelectedObituary(id)}
-        setExpiry={(expiry) => setKeeperExpiry(expiry)}
-      />
-      {showBelowForms && (
-        <Newobituary
-          setFile={(file) => setSelectedFile(file)}
-          setName={(name) => setName(name)}
-          setRelation={(relation) => setRelation(relation)}
-          onSubmit={handleAssignKeeper}
-          focusRef={focusRef}
+
+
+        <OrbetoryFormComp
+          setModalVisible={handleModalVisibility}
+          showForms={funcShowForms}
+          focusInput={focusInput}
+          setParentEmail={(email) => setEmail(email)}
+          setObituaryId={(id) => setSelectedObituary(id)}
+          setExpiry={(expiry) => setKeeperExpiry(expiry)}
         />
-      )}
-      {isModalVisible && (
-        <AddFuneralModal setModalVisible={setIsModalVisible} />
-      )}
-    </div>
-       </Layout>
+        {showBelowForms && (
+          <Newobituary
+            setFile={(file) => setSelectedFile(file)}
+            setName={(name) => setName(name)}
+            setRelation={(relation) => setRelation(relation)}
+            onSubmit={handleAssignKeeper}
+            focusRef={focusRef}
+          />
+        )}
+        {isModalVisible && (
+          <AddFuneralModal setModalVisible={setIsModalVisible} />
+        )}
+      </div>
+    </Layout>
   );
 };
 

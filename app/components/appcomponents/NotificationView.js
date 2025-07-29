@@ -16,8 +16,8 @@ const NotificationView = () => {
   };
 
   const [selectedCity, setSelectedCity] = useState(null);
-  const cityOptions = 
-  Object.values(regionsAndCities)
+  const cityOptions =
+    Object.values(regionsAndCities)
       .flat()
       .map((city) => ({
         place: city,
@@ -25,14 +25,16 @@ const NotificationView = () => {
       }))
       .sort((a, b) => a.place.localeCompare(b.place, "sl"));
 
-const handleCitySelect = (item) => {
-        setSelectedCity(item.place);
-        console.log(selectedCity)
-    
-        
-      };
+  const handleCitySelect = (item) => {
+    setSelectedCity(item.place);
+    console.log(selectedCity)
+
+
+  };
   return (
-    <div className="w-full bg-[#fffbf4] flex justify-center mobile:h-[529px]">
+    <div className="w-full bg-[#fffbf4] flex justify-center mobile:h-[529px] relative">
+      {/* Transparent overlay to make section unclickable */}
+      <div className="absolute inset-0 bg-transparent z-50 cursor-not-allowed"></div>
       <div
         className="
       desktop:w-[1200px] desktop:h-[453px] desktop:pl-[57px] desktop:pr-[55px]
@@ -42,14 +44,12 @@ const handleCitySelect = (item) => {
         <div className="flex flex-col desktop:w-[1088px] items-center">
           <div className="desktop:w-[636px] desktop:h-[297.48px] desktop:mt-[80.26px] mobile:w-full">
             <div className="w-full flex flex-col items-center mobile:text-center">
-              <div className="mobile:w-[290px] block mobile:hidden justify-center items-center ">
-                <div className="flex text-[32px] leading-[37.5px] font-normal text-[#1E2125] font-variation-customOpt32 mobile:text-[28px] mobile:font-variation-customOpt28">
-                  Obveščanje o osmrtnicah v domačem kraju
-                </div>
-              </div>
-              <div className="mobile:w-[250px] hidden mobile:block justify-center items-center">
-                <div className="flex text-[32px] leading-[32.81px] font-normal text-[#1E2125] font-variation-customOpt32 mobile:text-[28px] mobile:font-variation-customOpt28">
-                  Obveščanje o lokalnih osmrtnicah
+              <div className="w-full flex justify-center items-center">
+                <div className="text-[20px] tablet:text-[28px] desktop:text-[32px] leading-[24px] tablet:leading-[32px] desktop:leading-[37.5px] font-normal text-[#1E2125] font-variation-customOpt32 tablet:whitespace-nowrap desktop:whitespace-nowrap text-center">
+                  <span className="hidden mobile:inline text-[24px] leading-[28px]">
+                    Obveščanje o<br />lokalnih osmrtnicah (kmalu)
+                  </span>
+                  <span className="mobile:hidden text-[24px]">Obveščanje o osmrtnicah v domačem kraju (kmalu)</span>
                 </div>
               </div>
 
@@ -59,7 +59,7 @@ const handleCitySelect = (item) => {
                   isFromNotification={true}
                   isFromFlower={true}
                   data={cityOptions}
-                  onSelect={()=>handleCitySelect()}
+                  onSelect={() => handleCitySelect()}
                 />
 
                 <input

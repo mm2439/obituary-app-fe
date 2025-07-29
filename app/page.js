@@ -11,6 +11,7 @@ import PopUp from "@/app/components/appcomponents/popup";
 import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   LocalQuickReview,
   LocalQuickReviewModal,
@@ -25,6 +26,8 @@ import IpadSlider from "./components/appcomponents/IpadSlider";
 import SlideOne from "./components/slidercomponents/SlideOne";
 import SlideTwo from "./components/slidercomponents/SlideTwo";
 export default function Home() {
+  const router = useRouter();
+
   // 17 September 2024
   const arrPlace = [
     { place: "City 1", url: "/cvetlicarne", id: 1 },
@@ -75,22 +78,22 @@ export default function Home() {
   const cityOptions =
     selectedRegion && selectedRegion !== "allRegions"
       ? [
-          allCitiesOption,
-          ...regionsAndCities[selectedRegion].map((city) => ({
+        allCitiesOption,
+        ...regionsAndCities[selectedRegion].map((city) => ({
+          place: city,
+          id: city,
+        })),
+      ]
+      : [
+        allCitiesOption,
+        ...Object.values(regionsAndCities)
+          .flat()
+          .map((city) => ({
             place: city,
             id: city,
-          })),
-        ]
-      : [
-          allCitiesOption,
-          ...Object.values(regionsAndCities)
-            .flat()
-            .map((city) => ({
-              place: city,
-              id: city,
-            }))
-            .sort((a, b) => a.place.localeCompare(b.place, "sl")),
-        ];
+          }))
+          .sort((a, b) => a.place.localeCompare(b.place, "sl")),
+      ];
 
   const handleRegionSelect = (item) => {
     if (item.id === "allRegions") {
@@ -116,6 +119,14 @@ export default function Home() {
     // if (region) {
     //   setSelectedRegion(region);
     // }
+  };
+
+  const handleFloristCitySelect = (item) => {
+    if (item.id === "allCities") {
+      router.push("/cvetlicarne");
+      return;
+    }
+    router.push(`/cvetlicarne?city=${encodeURIComponent(item.place)}`);
   };
   const arrIpadData = [
     {
@@ -324,7 +335,7 @@ export default function Home() {
           </div>
 
           <div className="mx-auto hidden tablet:hidden desktop:grid desktop:grid-cols-2 grid-cols-1 tablet:gap-6 desktop:gap-6 mt-[43px] tablet:mt-[64px] desktop:mt-[47.93px] justify-between">
-            {obituaries.map((obituary, index) => (
+            {obituaries.slice(0, 8).map((obituary, index) => (
               <ObituaryCard
                 data={obituary}
                 index={index}
@@ -334,7 +345,7 @@ export default function Home() {
             ))}
           </div>
           <div className="mx-auto hidden tablet:grid grid-cols-1 desktop:hidden desktop:grid-cols-2 tablet:gap-6 desktop:gap-6 mt-[43px] tablet:mt-[64px] desktop:mt-[47.93px] justify-between">
-            {obituaries.map((obituary, index) => (
+            {obituaries.slice(0, 8).map((obituary, index) => (
               <ObituaryCard
                 data={obituary}
                 index={index}
@@ -344,7 +355,7 @@ export default function Home() {
             ))}
           </div>
           <div className="mx-auto grid grid-cols-1 tablet:hidden desktop:hidden gap-[22px] tablet:gap-6 mt-[43px] tablet:mt-[64px]">
-            {obituaries.map((obituary, index) => (
+            {obituaries.slice(0, 8).map((obituary, index) => (
               <ObituaryCard
                 data={obituary}
                 index={index}
@@ -361,7 +372,7 @@ export default function Home() {
         desktop:pt-[45px] desktop:pb-[62px]  "
           >
             <Link
-              href={"/osmrtnice"}
+              href={"/osmrtnice?city=Ljubljana"}
               className="flex items-center rounded-lg justify-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
           mobile:h-[43px] mobile:w-[103px]
           tablet:h-[43px] tablet:w-[97px]
@@ -405,14 +416,14 @@ export default function Home() {
                 isFromFlowerGreenBgTablet={false}
                 isFromObituary={false}
                 data={cityOptions}
-                onSelect={() => handleCitySelect()}
+                onSelect={handleFloristCitySelect}
               />
             </div>
           </div>
         </div>
         <NotificationView />
 
-       
+
       </div>
     </Layout>
   );

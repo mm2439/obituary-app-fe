@@ -40,22 +40,22 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
   const cityOptions =
     selectedRegion && selectedRegion !== "allRegions"
       ? [
-          allCitiesOption,
-          ...regionsAndCities[selectedRegion].map((city) => ({
+        allCitiesOption,
+        ...regionsAndCities[selectedRegion].map((city) => ({
+          place: city,
+          id: city,
+        })),
+      ]
+      : [
+        allCitiesOption,
+        ...Object.values(regionsAndCities)
+          .flat()
+          .map((city) => ({
             place: city,
             id: city,
-          })),
-        ]
-      : [
-          allCitiesOption,
-          ...Object.values(regionsAndCities)
-            .flat()
-            .map((city) => ({
-              place: city,
-              id: city,
-            }))
-            .sort((a, b) => a.place.localeCompare(b.place, "sl")),
-        ];
+          }))
+          .sort((a, b) => a.place.localeCompare(b.place, "sl")),
+      ];
 
   const handleRegionSelect = (item) => {
     if (item.id === "allRegions") {
@@ -171,11 +171,10 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
   return (
     // Main Container for all the content and background
     <div
-      className={`w-full min-h-screen pt-[98px] pb-[123px] ${
-        activeDivtype === "PogrebnaPodjetja"
+      className={`w-full min-h-screen pt-[98px] pb-[123px] ${activeDivtype === "PogrebnaPodjetja"
           ? "bg-[url('/reg_pog.avif')]"
           : "bg-[url('/reg_cvetlicarne.avif')]"
-      } mx-auto max-w-[1920px] bg-center bg-cover flex flex-col`}
+        } bg-center bg-cover bg-fixed flex flex-col`}
     >
       {/* Container for top texts */}
       <div className=" mx-auto desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[79px] h-auto">
@@ -190,11 +189,10 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
       {/* Container for top two buttons */}
       <div className="mx-auto mt-[44px] flex flex-row gap-[24px]">
         <div
-          className={`${
-            activeDivtype === "Cvetličarne"
+          className={`${activeDivtype === "Cvetličarne"
               ? "shadow-custom-light-dark-box-image rounded-[8px] border-[#0A85C2] border-[2px] bg-gradient-to-b from-[#FFFFFF] to-[#DADADA] text-[16px] leading-[24px] font-variation-customOpt16 text-[#1E2125]"
               : "text-[16px] text-[#6D778E] bg-white/50 rounded-[8px] shadow-custom-dark-to-white leading-[24px] font-variation-customOpt16 border-[1px] border-[#FFFFFF]"
-          }`}
+            }`}
         >
           <button
             onClick={() => setActiveDivType("Cvetličarne")}
@@ -205,11 +203,10 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
         </div>
 
         <div
-          className={`${
-            activeDivtype === "PogrebnaPodjetja"
+          className={`${activeDivtype === "PogrebnaPodjetja"
               ? "shadow-custom-light-dark-box-image rounded-[8px] border-[#0A85C2] border-[2px] bg-gradient-to-b from-[#FFFFFF] to-[#DADADA] text-[16px] leading-[24px] font-variation-customOpt16 text-[#1E2125]"
               : "text-[16px] text-[#6D778E] bg-white/50 rounded-[8px] shadow-custom-dark-to-white leading-[24px] font-variation-customOpt16 border-[1px] border-[#FFFFFF]"
-          }`}
+            }`}
         >
           <button
             onClick={() => setActiveDivType("PogrebnaPodjetja")}

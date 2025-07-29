@@ -141,7 +141,7 @@ const Registration = () => {
       <div
         className="fixed inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: "url('/user/main_background.png')",
+          backgroundImage: "url('/ozadje_klop_tablica.avif')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

@@ -8,7 +8,7 @@ const RegistrationPage = () => {
   return (
     <Layout from={"18"} forFooter={"memorypage"} currentPage="">
 
-      <div className="flex flex-1 flex-col bg-[#F5F7F9]">
+      <div className="flex flex-1 flex-col ">
         {/* <HeaderRegistration /> */}
         <Registration />
       </div>

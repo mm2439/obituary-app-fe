@@ -30,7 +30,7 @@ const Floristspromo = () => {
                 <OfficialOpening />
                 <KickStart showButton={true} />
 
-                <div className="mobile:flex w-full flex-col items-center hidden bg-transparent pt-[85px] pb-[100px]">
+                <div className="mobile:flex w-full flex-col  items-center hidden bg-transparent pt-[85px] pb-[100px]">
                     <div className="flex gap-[25px] flex-col justify-between">
                         <div className="flex flex-col w-full mt-[10px]">
                             <div className="text-[40px] mobile:text-[28px] text-[#3C3E41] font-light text-center leading-[48px]">

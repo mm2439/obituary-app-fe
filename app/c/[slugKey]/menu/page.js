@@ -82,9 +82,8 @@ export default function Funeral() {
       localStorage.removeItem("refresh-token");
       const isProd = window.location.hostname.includes("osmrtnica.com");
 
-      document.cookie = `accessToken=; path=/; ${
-        isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
-      } max-age=0`;
+      document.cookie = `accessToken=; path=/; ${isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
+        } max-age=0`;
       router.push("/");
     } catch (err) {
       console.error("Error:", err);

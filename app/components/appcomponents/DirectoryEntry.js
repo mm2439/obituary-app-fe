@@ -142,8 +142,8 @@ const DirectoryEntry = () => {
                 <p className="text-[#3C3E41] text-[10px] font-normal">
                     {isMobile ? (
                         <>
-                            V prvih dneh junija vam bomo poslali ponudbo za sklenitev mesečne ali letne naročnine.
-                            <br /><br /> V primeru, da vam sodelovanje ne prinaša koristi, enostavno počakajte dva tedna, ko bo okrog 20 junija vaša stran umaknjena in enako dostop do uporabniškega računa. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še do konca julija, v kolikor si premislite, kasneje pa gre v izbris.
+                            Pred koncem avgusta vam bomo poslali ponudbo za sklenitev naročnine.
+                            <br /><br />V primeru, da vam sodelovanje ne prinaša koristi, enostavno počakajte do sredine septembra, ko bo vaša stran umaknjena in enako dostop do uporabniškega računa.. Morebitna reaktivacija, tj obnovitev vaše spletne strani bo mogoča še do konca julija, v kolikor si premislite, kasneje pa gre v izbris.
                             <br /><br />Pri letni pogodbi sta zadnja dva meseca pogodbenega leta brezplačna. V primeru prekinitve letne pogodbe se tako obračunajo koriščeni meseci po ceni mesečnega najema, vnaprej plačan preostanek pa se vrne naročniku brez vprašanj. S tem zagotovimo naročniku prijazno pogodbo, brez rizika zaradi dolgoročnosti.
                         </>
                     ) : (

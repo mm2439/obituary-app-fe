@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 
 const defaultImages = [
@@ -21,6 +21,16 @@ const ShippingNotifications = ({
   const heightDivRef = useRef(null);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
+
+  const finalImages = useMemo(() => {
+    const filledImages = images.map((img, idx) => {
+      if (img && typeof img === "string" && img.trim() !== "") {
+        return img;
+      }
+      return defaultImages[idx] || defaultImages[0];
+    });
+    return filledImages;
+  }, [images]);
 
   useEffect(() => {
     const widthDiv = widthDivRef.current;
@@ -74,6 +84,9 @@ const ShippingNotifications = ({
                   src={image}
                   alt={`Slide ${index}`}
                   className={`relative object-cover h-full w-full`}
+                  onError={(e) => {
+                    e.target.src = defaultImages[index];
+                  }}
                 />
               </div>
             </div>
@@ -83,7 +96,10 @@ const ShippingNotifications = ({
             key={index}
             src={image}
             alt={`Slide ${index}`}
-            className={`relative hidden desktop:inline object-cover my-auto  h-[300px] w-[156px] ml-4 rounded shadow-custom-light-dark-box-image-wall  `}
+            className={`elative hidden desktop:inline object-cover my-auto h-[300px] w-[156px] ml-4 rounded shadow-custom-light-dark-box-image-wall  `}
+            onError={(e) => {
+              e.target.src = defaultImages[index];
+            }}
           />
         ) : null}
       </>
@@ -137,7 +153,7 @@ const ShippingNotifications = ({
             className="flex absolute desktop:right-0 tablet:right-0 flex-col"
           >
             <div className="relative  flex-1  flex flex-row mobile:justify-center">
-              {images.map((image, index) => (
+              {finalImages.map((image, index) => (
                 <ImageSliderBlock image={image} index={index} key={index} />
               ))}
             </div>

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const OfficialOpening = () => {
     return (
-        <div className='w-full bg-[#E0E9F3]'>
+        <div className='w-full bg-[#BCD7F48C]'>
             <div className='relative max-w-[1920px]  flex mobile:hidden h-[284px]  w-full overflow-hidden  mx-auto justify-center items-center'>
                 <div className='w-1/3 tablet:w-[22%] h-full'>
                     <img src='/roza_cvet.avif' alt='flower' className='w-full h-full object-cover' />
@@ -24,7 +24,7 @@ const OfficialOpening = () => {
                     <div className='h-full w-full  flex flex-col justify-center items-center'>
                         <div className=' h-[174px] flex flex-col items-center mobile:items-end'>
                             <h1 className='text-[40px] text-center leading-[48px] font-variation-customOpt40 font-normal text-[#3C3E41]'>
-                                Uradna otvoritev je 10. julija
+                                Uradna otvoritev je 30. julija
                             </h1>
 
                             <p className='text-[24px] leading-[48px] font-variation-customOpt24 font-bold text-[#3C3E41]'>

@@ -172,8 +172,8 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
     // Main Container for all the content and background
     <div
       className={`w-full min-h-screen pt-[98px] pb-[123px] ${activeDivtype === "PogrebnaPodjetja"
-          ? "bg-[url('/reg_pog.avif')]"
-          : "bg-[url('/reg_cvetlicarne.avif')]"
+        ? "bg-[url('/user/contact-bg-3.jpg')] mobile:bg-[position:35%_center]"
+        : "bg-[url('/user/contact-bg.jpg')] mobile:bg-[position:70%_center]"
         } bg-center bg-cover bg-fixed flex flex-col`}
     >
       {/* Container for top texts */}
@@ -190,8 +190,8 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
       <div className="mx-auto mt-[44px] flex flex-row gap-[24px]">
         <div
           className={`${activeDivtype === "Cvetličarne"
-              ? "shadow-custom-light-dark-box-image rounded-[8px] border-[#0A85C2] border-[2px] bg-gradient-to-b from-[#FFFFFF] to-[#DADADA] text-[16px] leading-[24px] font-variation-customOpt16 text-[#1E2125]"
-              : "text-[16px] text-[#6D778E] bg-white/50 rounded-[8px] shadow-custom-dark-to-white leading-[24px] font-variation-customOpt16 border-[1px] border-[#FFFFFF]"
+            ? "shadow-custom-light-dark-box-image rounded-[8px] border-[#0A85C2] border-[2px] bg-gradient-to-b from-[#FFFFFF] to-[#DADADA] text-[16px] leading-[24px] font-variation-customOpt16 text-[#1E2125]"
+            : "text-[16px] text-[#6D778E] bg-white/50 rounded-[8px] shadow-custom-dark-to-white leading-[24px] font-variation-customOpt16 border-[1px] border-[#FFFFFF]"
             }`}
         >
           <button
@@ -204,8 +204,8 @@ const CompanyRegistration = ({ set_Id, setModal }) => {
 
         <div
           className={`${activeDivtype === "PogrebnaPodjetja"
-              ? "shadow-custom-light-dark-box-image rounded-[8px] border-[#0A85C2] border-[2px] bg-gradient-to-b from-[#FFFFFF] to-[#DADADA] text-[16px] leading-[24px] font-variation-customOpt16 text-[#1E2125]"
-              : "text-[16px] text-[#6D778E] bg-white/50 rounded-[8px] shadow-custom-dark-to-white leading-[24px] font-variation-customOpt16 border-[1px] border-[#FFFFFF]"
+            ? "shadow-custom-light-dark-box-image rounded-[8px] border-[#0A85C2] border-[2px] bg-gradient-to-b from-[#FFFFFF] to-[#DADADA] text-[16px] leading-[24px] font-variation-customOpt16 text-[#1E2125]"
+            : "text-[16px] text-[#6D778E] bg-white/50 rounded-[8px] shadow-custom-dark-to-white leading-[24px] font-variation-customOpt16 border-[1px] border-[#FFFFFF]"
             }`}
         >
           <button

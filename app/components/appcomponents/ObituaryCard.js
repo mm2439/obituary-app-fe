@@ -20,7 +20,7 @@ const calculateAge = (birthDate, deathDate) => {
   return age;
 };
 
-const ObituaryCard = ({ data, key, index, mob }) => {
+const ObituaryCard = ({ data, key, index, mob, selectedCity, selectedRegion }) => {
   const formattedBirthDate = new Date(data.birthDate).getFullYear();
   const formattedDeathDate = format(new Date(data.deathDate), "dd.MM.yyyy");
 
@@ -33,8 +33,8 @@ const ObituaryCard = ({ data, key, index, mob }) => {
     .getDate()
     .toString()
     .padStart(2, "0")}${(funeralDate.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}${funeralDate.getFullYear().toString().slice(2)}`;
+      .toString()
+      .padStart(2, "0")}${funeralDate.getFullYear().toString().slice(2)}`;
 
   const religionImages = {
     1: "/icon_cross.png",
@@ -44,9 +44,25 @@ const ObituaryCard = ({ data, key, index, mob }) => {
     5: "/img_star.png",
   };
 
+  // Build URL with query parameters
+  const buildHref = () => {
+    const params = new URLSearchParams();
+
+    if (selectedCity) {
+      params.set('city', selectedCity);
+    }
+    if (selectedRegion) {
+      params.set('region', selectedRegion);
+    }
+
+    const queryString = params.toString();
+
+    return queryString ? `/m/${data.slugKey}?${queryString}` : `/m/${data.slugKey}`;
+  };
+
   return (
     <Link
-      href={`/m/${data.slugKey}`}
+      href={buildHref()}
       className="mobile:w-[298px] tablet:w-[466px] desktop:w-[466px] 
       mobile:h-[126px] tablet:h-[170px] desktop:h-[170px]  border-2
        border-white shadow-custom-light-dark-box
@@ -140,9 +156,8 @@ const ObituaryCard = ({ data, key, index, mob }) => {
               alt="Slika"
               width={1000}
               height={1000}
-              className={`w-[51px] ${
-                data.symbol === "3" ? "h-[50px]" : "h-[55px]"
-              }`}
+              className={`w-[51px] ${data.symbol === "3" ? "h-[50px]" : "h-[55px]"
+                }`}
             />
           </div>
         )}
@@ -158,9 +173,8 @@ const ObituaryCard = ({ data, key, index, mob }) => {
               alt="Slika"
               width={500}
               height={500}
-              className={` w-[37.66px] tablet:h-[65px] tablet:w-[51px] ${
-                data.symbol === "3" ? "h-[40px]" : "h-[48px]"
-              }`}
+              className={` w-[37.66px] tablet:h-[65px] tablet:w-[51px] ${data.symbol === "3" ? "h-[40px]" : "h-[48px]"
+                }`}
             />
           </div>
         )}

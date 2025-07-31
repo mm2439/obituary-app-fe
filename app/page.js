@@ -10,8 +10,8 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import PopUp from "@/app/components/appcomponents/popup";
 import MessagePopUp from "@/app/components/appcomponents/MessagePopup";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   LocalQuickReview,
   LocalQuickReviewModal,
@@ -25,8 +25,10 @@ import HomePageBox from "./components/appcomponents/HomePageBox";
 import IpadSlider from "./components/appcomponents/IpadSlider";
 import SlideOne from "./components/slidercomponents/SlideOne";
 import SlideTwo from "./components/slidercomponents/SlideTwo";
-export default function Home() {
+
+function HomeContent(props) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // 17 September 2024
   const arrPlace = [
@@ -36,7 +38,6 @@ export default function Home() {
       url: "/cvetlicarne",
       id: 2,
     },
-
     {
       place: "City 3",
       url: "/cvetlicarne",
@@ -52,113 +53,119 @@ export default function Home() {
   const [obituaries, setObituaries] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
-  const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] =
-    useState(false);
+  const [isLocalQuickModalVisible, setIsLocalQuickModalVisible] = useState(false);
   const [isMemoralPopupVisible, setIsMemoralPopupVisible] = useState(false);
-  const [isLocalQuickReviewModalVisible, setIsLocalQuickReviewModalVisible] =
-    useState(false);
-  const allRegionsOption = {
-    place: "- Pokaži vse regije - ",
-    id: "allRegions",
-  };
-  const allCitiesOption = { place: " - Pokaži vse občine - ", id: "allCities" };
+  const [isLocalQuickReviewModalVisible, setIsLocalQuickReviewModalVisible] = useState(false);
 
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [name, setName] = useState(null);
+  const [selectedFloristCity, setSelectedFloristCity] = useState(null);
 
+  // Initialize state from URL parameters on component mount
+  useEffect(() => {
+    const cityParam = searchParams.get('city');
+    const regionParam = searchParams.get('region');
+
+    if (cityParam) {
+      setSelectedCity(cityParam);
+    }
+    if (regionParam) {
+      setSelectedRegion(regionParam);
+    }
+  }, [searchParams]);
+
+  // Prepare region options
   const regionOptions = [
-    allRegionsOption,
+    { place: "- Pokaži vse regije -", id: "allRegions" },
     ...Object.keys(regionsAndCities).map((region) => ({
       place: region,
       id: region,
     })),
   ];
 
-  const cityOptions =
-    selectedRegion && selectedRegion !== "allRegions"
-      ? [
-        allCitiesOption,
-        ...regionsAndCities[selectedRegion].map((city) => ({
-          place: city,
-          id: city,
-        })),
-      ]
-      : [
-        allCitiesOption,
-        ...Object.values(regionsAndCities)
-          .flat()
-          .map((city) => ({
-            place: city,
-            id: city,
-          }))
-          .sort((a, b) => a.place.localeCompare(b.place, "sl")),
-      ];
+  // Prepare city options (independent of region)
+  const cityOptions = [
+    { place: "- Pokaži vse občine -", id: "allCities" },
+    ...Object.values(regionsAndCities)
+      .flat()
+      .map((city) => ({
+        place: city,
+        id: city,
+      }))
+      .sort((a, b) => a.place.localeCompare(b.place, "sl")),
+  ];
 
+  // Handle region select
   const handleRegionSelect = (item) => {
     if (item.id === "allRegions") {
       setSelectedRegion(null);
-      setSelectedCity(null);
+      updateParams(selectedCity, null);
       return;
     }
     setSelectedRegion(item.place);
-    setSelectedCity(null);
+    updateParams(selectedCity, item.place);
   };
 
+  // Handle city select
   const handleCitySelect = (item) => {
     if (item.id === "allCities") {
       setSelectedCity(null);
+      updateParams(null, selectedRegion);
       return;
     }
     setSelectedCity(item.place);
-    setSelectedRegion(null);
-    // const region = Object.keys(regionsAndCities).find((region) =>
-    //   regionsAndCities[region].includes(item.place)
-    // );
-
-    // if (region) {
-    //   setSelectedRegion(region);
-    // }
+    updateParams(item.place, selectedRegion);
   };
 
+  // Handler for florist city dropdown
   const handleFloristCitySelect = (item) => {
     if (item.id === "allCities") {
-      router.push("/cvetlicarne");
+      setSelectedFloristCity(null);
+      // Keep existing city/region params but remove florist city
+      const currentParams = new URLSearchParams(window.location.search);
+      currentParams.delete('floristCity');
+      const queryString = currentParams.toString();
+      router.replace(`/?${queryString}`);
       return;
     }
-    router.push(`/cvetlicarne?city=${encodeURIComponent(item.place)}`);
+    setSelectedFloristCity(item.place);
+    // Keep existing city/region params and add florist city
+    const currentParams = new URLSearchParams(window.location.search);
+    currentParams.set('floristCity', item.place);
+    router.replace(`/?${currentParams.toString()}`);
   };
-  const arrIpadData = [
-    {
-      heading: "Osmrtnica",
-      content:
-        "Stran, kjer izvemo vse o pogrebu, se vpišemo v Žalno knjigo, izrečemo sožalje in prižgemo virtualno svečko.",
-      subheading: "Vse navedeno je BREZPLAČNO.",
-      buttonTitle: "Več informacij",
-      id: 1,
-    },
-    {
-      heading: "Spominska stran s skrbnikom",
-      content:
-        "Nadgradnja osnovne spominske strani - osmrtnice, kjer skrbnik prevzame kontrolo nad objavljeno vsebino; ponavadi je to nekdo, ki je bil preminulemu bližnji. Upravljanje je enostavno; vsak je lahko skrbnik. \n Ker Skrbnik skrbi za vsebino še preden je objavljena, so tu lahko dodane številne dodatne možnosti za izdelavo prave knjige spominov, na katero se bodo bližnji radi vračali in jo dopolnjevali.  ",
-      subheading: "Vse navedeno je BREZPLAČNO.",
-      buttonTitle: "Več informacij",
-      id: 2,
-    },
-  ];
+
+  // Update URL params - improved version
+  const updateParams = (city, region) => {
+    const params = new URLSearchParams();
+
+    // Keep existing florist city if it exists
+    const currentFloristCity = searchParams.get('floristCity');
+    if (currentFloristCity) {
+      params.set('floristCity', currentFloristCity);
+    }
+
+    // Add city and region if they exist
+    if (city) params.set('city', city);
+    if (region) params.set('region', region);
+
+    const queryString = params.toString();
+    router.replace(queryString ? `/?${queryString}` : '/');
+  };
 
   useEffect(() => {
     fetchObituary();
-  }, []);
+  }, [selectedCity, selectedRegion]);
+
   const fetchObituary = async () => {
     try {
       const queryParams = {};
 
       if (selectedCity) queryParams.city = selectedCity;
-
       if (selectedRegion) queryParams.region = selectedRegion;
-
       if (name) queryParams.name = name;
+
       const response = await obituaryService.getObituary(queryParams);
 
       if (response.error) {
@@ -179,8 +186,10 @@ export default function Home() {
       toast.error(err.message || "Failed to fetch obituary.");
     }
   };
+
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [showContent, setShowContent] = useState(true);
+
   const funcMegaMenu = () => {
     window.scrollTo({
       top: 0,
@@ -211,7 +220,6 @@ export default function Home() {
       megaMenu={funcMegaMenu}
     >
       <div className="absolute z-40 w-full mx-auto mt-[132px] tablet:mt-[122px] mobile:mt-[112px] overflow-auto">
-        {" "}
         {showMegaMenu && <MegaMenu />}
       </div>
       <div className="flex flex-1 mx-auto w-full flex-col bg-[#F5F7F9]">
@@ -225,16 +233,6 @@ export default function Home() {
             setIsLocalQuickModalVisible={setIsLocalQuickModalVisible}
           />
         )}
-        {/* {isLocalQuickReviewModalVisible && (
-          <LocalQuickReviewModal
-            setIsLocalQuickReviewModalVisible={setIsLocalQuickReviewModalVisible}
-          />
-        )}
-        {isMemoralPopupVisible && (
-          <MemoralPopup
-            setIsMemoralPopupVisible={setIsMemoralPopupVisible}
-          />
-        )} */}
 
         <div className="flex flex-col items-center desktop:w-[1280px] tablet:w-[680px] mobile:w-[360px] mx-auto">
           <div
@@ -242,15 +240,6 @@ export default function Home() {
         desktop:mt-[60.73px] tablet:mt-[67.73px] mobile:mt-[22px]
         desktop:h-[47px] tablet:h-[47px] mobile:h-[33px]"
           >
-            {/* 20 September 2024 */}
-            {/* <h1 className="mobile:font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 desktop:text-[40px] tablet:text-[40px] mobile:text-[28px]  text-[#1E2125] leading-[46.88px] ">
-            Zadnje osmrtnice
-          </h1> */}
-
-            {/* <div  className="mobile:font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 desktop:text-[40px] tablet:text-[40px] mobile:text-[28px]  text-[#1E2125] leading-[46.88px] ">
-            Zadnje osmrtnice
-          </div> */}
-            {/* 25 October 2024 */}
             <Link
               href={"/moj-racun"}
               className="mobile:font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 desktop:text-[40px] tablet:text-[40px] mobile:text-[28px]  text-[#1E2125] leading-[46.88px] "
@@ -290,26 +279,26 @@ export default function Home() {
 
               <Dropdown
                 label={"Išči po regiji"}
+                data={regionOptions}
+                selectedValue={selectedRegion}
+                onSelect={handleRegionSelect}
                 isFromNotification={false}
                 isFromFlower={false}
                 isFrom={"mainPage"}
                 isFromFlowerGreenBgTablet={false}
                 isFromObituary={false}
-                data={regionOptions}
-                selectedValue={selectedRegion}
-                onSelect={handleRegionSelect}
               />
               <div className="flex h-[16px] w-[360px] tablet:hidden desktop:hidden" />
               <Dropdown
                 label={"Išči po kraju"}
+                data={cityOptions}
+                selectedValue={selectedCity}
+                onSelect={handleCitySelect}
                 isFromNotification={false}
                 isFromObituary={false}
                 isFromFlower={false}
                 isFrom={"mainPage"}
-                data={cityOptions}
-                selectedValue={selectedCity}
                 isFromFlowerGreenBgTablet={false}
-                onSelect={handleCitySelect}
               />
             </div>
             <div
@@ -341,6 +330,8 @@ export default function Home() {
                 index={index}
                 key={index}
                 mob={false}
+                selectedCity={selectedCity}
+                selectedRegion={selectedRegion}
               />
             ))}
           </div>
@@ -351,6 +342,8 @@ export default function Home() {
                 index={index}
                 key={index}
                 mob={false}
+                selectedCity={selectedCity}
+                selectedRegion={selectedRegion}
               />
             ))}
           </div>
@@ -361,6 +354,8 @@ export default function Home() {
                 index={index}
                 key={index}
                 mob={true}
+                selectedCity={selectedCity}
+                selectedRegion={selectedRegion}
               />
             ))}
           </div>
@@ -416,15 +411,22 @@ export default function Home() {
                 isFromFlowerGreenBgTablet={false}
                 isFromObituary={false}
                 data={cityOptions}
+                selectedValue={selectedFloristCity}
                 onSelect={handleFloristCitySelect}
               />
             </div>
           </div>
         </div>
         <NotificationView />
-
-
       </div>
     </Layout>
+  );
+}
+
+export default function Home(props) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent {...props} />
+    </Suspense>
   );
 }

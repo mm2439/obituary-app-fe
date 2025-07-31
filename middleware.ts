@@ -22,6 +22,9 @@ export function middleware(request: NextRequest) {
   const role = request.cookies.get("role")?.value;
   const slugKey = request.cookies.get("slugKey")?.value;
 
+  console.log("middleware==")
+
+
   const pathParts = pathname.split("/").filter(Boolean);
   const lastSegment = pathParts[pathParts.length - 1];
 

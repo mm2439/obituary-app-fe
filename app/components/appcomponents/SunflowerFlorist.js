@@ -16,13 +16,10 @@ const getLogo = (logo) => {
   return logo;
 };
 
-const SunflowerFlorist = ({ data = {} }) => {
+const SunflowerFlorist = ({ data }) => {
   const ProgressBar = ({ currentSlide, totalSlides }) => {
     return (
-      <div
-        key={`data-${data?.id}`}
-        className="hidden mobile:flex tablet:flex mx-auto desktop:flex gap-2 justify-center mt-[28px] mobile:my-auto tablet:mt-[11px] items-center h-[40px]"
-      >
+      <div className="hidden mobile:flex tablet:flex mx-auto desktop:flex gap-2 justify-center mt-[28px] mobile:my-auto tablet:mt-[11px] items-center h-[40px]">
         {Array.from({ length: totalSlides }).map((_, index) => (
           <div
             key={index}
@@ -59,7 +56,7 @@ const SunflowerFlorist = ({ data = {} }) => {
   }, [currentIndex, shops]);
 
   return (
-    <div key={`data-${data?.id}`} className="bg-white desktop:bg-[#EDF1F3]">
+    <div className="bg-white desktop:bg-[#EDF1F3]">
       {/* Main Container */}
       <div
         className="relative max-w-[1920px] mobile:h-[908px] mobile:w-[360px] w-full mx-auto h-[514px] tablet:h-[838.23px] overflow-hidden flex flex-row 
@@ -104,7 +101,7 @@ const SunflowerFlorist = ({ data = {} }) => {
               alt="sunflower_img"
               width={370}
               height={240}
-              className="h-[240px] w-[371px] object-contain mobile:w-[297px] mobile:h-[240px] 
+              className="h-[240px] w-[371px] mobile:w-[297px] mobile:h-[240px] 
                         mobile:mt-[18px] rounded-md mx-auto tablet:mt-[33px] mt-[56px]"
             />
 
@@ -124,7 +121,7 @@ const SunflowerFlorist = ({ data = {} }) => {
               alt="sunflower_img"
               width={370}
               height={240}
-              className=" tablet:hidden object-contain  mobile:flex desktop:flex h-[240px] w-[371px] mobile:w-[297px] mobile:h-[240px] mobile:mt-[18px] rounded-md mx-auto tablet:mt-[33px] mt-[56px]"
+              className=" tablet:hidden  mobile:flex desktop:flex h-[240px] w-[371px] mobile:w-[297px] mobile:h-[240px] mobile:mt-[18px] rounded-md mx-auto tablet:mt-[33px] mt-[56px]"
             />
           </div>
 
@@ -177,10 +174,7 @@ const SunflowerFlorist = ({ data = {} }) => {
                      mobile:flex-col tablet:w-full tablet:mx-auto tablet:justify-center ml-[29px] mobile:gap-[24px] tablet:gap-[74px] gap-[48px] flex flex-row"
           >
             {/* Container for telephone mail and other texts */}
-            <div
-              key={`${data?.id}-${currentIndex}-${currentShop?.id}`}
-              className="w-[274px] h-[115px] flex flex-col"
-            >
+            <div className="w-[274px] h-[115px] flex flex-col">
               <div className="text-[#000000] leading-[18.75px] text-[16px] font-variation-customOpt16">
                 {currentShop?.shopName || "Cvetličarna št.1"}
               </div>

@@ -124,12 +124,7 @@ export default function Step4({ data, onChange, handleStepChange }) {
                   placeholder="Naš ponos"
                   value={secondaryTitle}
                   onChange={(e) => setSecondaryTitle(e.target.value)}
-                  maxLength={25}
                 />
-                <p className="text-[14px] text-right text-[#6D778E] leading-[24px] font-normal">
-                  {secondaryTitle?.length || 0}
-                  <span className="text-[#ACAAAA]"> /25</span>
-                </p>
               </div>
               <div className="space-y-[8px]">
                 <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
@@ -141,12 +136,7 @@ export default function Step4({ data, onChange, handleStepChange }) {
                   placeholder="Projekt prenove trboveljskega pokopališča je bil leta"
                   value={secondaryDescription}
                   onChange={(e) => setSecondaryDescription(e.target.value)}
-                  maxLength={240}
                 />
-                <p className="text-[14px] text-right text-[#6D778E] leading-[24px] font-normal">
-                  {secondaryDescription?.length || 0}
-                  <span className="text-[#ACAAAA]"> /240</span>
-                </p>
               </div>
               <div className="space-y-[8px]">
                 <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

@@ -3,9 +3,8 @@ import React from "react";
 import iconMenu from "@/public/icon_menu_black.png";
 import back_icon from "@/public/back_icon.png";
 import telephone_icon from "@/public/telephone_icon.png";
-import classNames from "classnames";
 
-function ObituaryHeader({ from, data, handleCloseModal }) {
+function ObituaryHeader({ from, data }) {
   return (
     <header
       key={data?.id}
@@ -75,33 +74,13 @@ function ObituaryHeader({ from, data, handleCloseModal }) {
                 </p>
               </div>
             </div>
-            <div
-              className={classNames(" flex", {
-                "mobile:hidden": !handleCloseModal,
-              })}
-            >
-              {typeof handleCloseModal === "function" ? (
-                <button
-                  type="button"
-                  aria-label="Zapri"
-                  onClick={handleCloseModal}
-                  className="absolute top-4 desktop:right-4 right-12 z-10"
-                  style={{ background: "none", border: "none", padding: 0 }}
-                >
-                  <img
-                    src="/memory_page_cross.png"
-                    alt="trbovlje"
-                    className="w-[40px] h-[40px] desktop:w-[50px] desktop:h-[50px]"
-                  />
-                </button>
-              ) : (
-                <Image
-                  src={iconMenu}
-                  className="
+            <div className="mobile:hidden flex">
+              <Image
+                src={iconMenu}
+                className="
                   h-5 w-6 tablet:h-[26.67px] tablet:w-[32px] desktop:h-[26.67px] desktop:w-[30.73px] 
                    "
-                />
-              )}
+              />
             </div>
           </div>
         </div>

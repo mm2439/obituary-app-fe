@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useState } from "react";
 import Layout from "../../components/appcomponents/Layout";
 import ObituaryPublished from "../../components/appcomponents/ObituaryPublished";
@@ -14,12 +14,14 @@ import obituaryService from "@/services/obituary-service";
 import { toast } from "react-hot-toast";
 import AnnouncementBlock from "../../components/appcomponents/AnnouncementBlock";
 import { FlowerShops2 } from "../../components/appcomponents/FlowerShops";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getTemplateCardImages } from "@/utils/commonUtils";
 
-const MemoryPage = ({ params }) => {
-  const { slugKey, user } = params;
+const MemoryPageContent = ({ params }) => {
+  const { slugKey } = params;
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [isShowModal, setIsShowModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
@@ -29,6 +31,9 @@ const MemoryPage = ({ params }) => {
   const [imageId, setImageId] = useState("0");
 
   const [obituary, setObituary] = useState({});
+
+  const city = searchParams.get("city");
+  const region = searchParams.get("region");
 
   useEffect(() => {
     fetchMemory();
@@ -101,8 +106,10 @@ const MemoryPage = ({ params }) => {
 
   const handleMemoryChange = async (type) => {
     try {
+      // Use city and region from searchParams if available, fallback to obituary
       const queryParams = {
-        city: obituary.city,
+        city: city || obituary.city,
+        region: region || obituary.region,
         date: obituary.createdTimestamp,
         type: type,
       };
@@ -112,7 +119,13 @@ const MemoryPage = ({ params }) => {
 
       const data = response;
 
-      router.push(`/m/${data.slugKey}`);
+      // Build URL with city and region as query params
+      const urlParams = [];
+      if (queryParams.city) urlParams.push(`city=${encodeURIComponent(queryParams.city)}`);
+      if (queryParams.region) urlParams.push(`region=${encodeURIComponent(queryParams.region)}`);
+      const queryString = urlParams.length ? `?${urlParams.join("&")}` : "";
+
+      router.push(`/m/${data.slugKey}${queryString}`);
     } catch (error) {
       console.error("Error fetching memory:", error);
       if (error?.response?.status === 404) {
@@ -199,5 +212,11 @@ const MemoryPage = ({ params }) => {
     </>
   );
 };
+
+const MemoryPage = (props) => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <MemoryPageContent {...props} />
+  </Suspense>
+);
 
 export default MemoryPage;

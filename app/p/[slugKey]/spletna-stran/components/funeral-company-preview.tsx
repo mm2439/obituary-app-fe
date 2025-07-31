@@ -5,6 +5,7 @@ import { FrequentlyAskedQuestionView } from "@/app/components/appcomponents/Freq
 import FuneralInFewDays from "@/app/components/appcomponents/FuneralInFewDays";
 import FuneralsCompanyBanner from "@/app/components/appcomponents/FuneralsCompanyBanner";
 import LastObituariesList from "@/app/components/appcomponents/LastObituariesList";
+import Layout from "@/app/components/appcomponents/Layout";
 import Pride from "@/app/components/appcomponents/Pride";
 import BaseModal from "@/app/components/ui/base-modal";
 import Image from "next/image";
@@ -35,22 +36,34 @@ const FuneralCompanyPreview = ({ company }: Props) => {
       </button>
 
       <BaseModal open={openModal} onClose={() => setOpenModal(false)}>
-        <div className="flex flex-col mx-auto w-full bg-[#F5F7F9]">
-          <FuneralsCompanyBanner key={`${company?.id}-banner`} data={company} />
-          <LastObituariesList key={`${company?.id}-last-obituaries`} />
-          <FuneralInFewDays
-            key={`${company?.id}-funeral-in-few-days`}
-            data={company}
-          />
-          <Cemeteries key={`${company?.id}-cemeteries`} data={company} />
-          <Pride key={`${company?.id}-pride`} data={company} />
-          <FrequentlyAskedQuestionView
-            key={`${company?.id}-faq`}
-            data={company}
-            from={"2"}
-          />
-          <CompanyFooter key={`${company?.id}-footer`} data={company || {}} />
-        </div>
+        <Layout
+          from={"5"}
+          data={company}
+          forFooter={"company"}
+          isMegaMenuVisible={undefined}
+          megaMenu={undefined}
+          handleCloseModal={() => setOpenModal(false)}
+          isModalLayout
+        >
+          <div className="flex flex-col mx-auto w-full bg-[#F5F7F9]">
+            <FuneralsCompanyBanner
+              key={`${company?.id}-banner`}
+              data={company}
+            />
+            <LastObituariesList key={`${company?.id}-last-obituaries`} />
+            <FuneralInFewDays
+              key={`${company?.id}-funeral-in-few-days`}
+              data={company}
+            />
+            <Cemeteries key={`${company?.id}-cemeteries`} data={company} />
+            <Pride key={`${company?.id}-pride`} data={company} />
+            <FrequentlyAskedQuestionView
+              key={`${company?.id}-faq`}
+              data={company}
+              from={"2"}
+            />
+          </div>
+        </Layout>
       </BaseModal>
     </>
   );

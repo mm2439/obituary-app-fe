@@ -245,9 +245,13 @@ function SliderBlock({ index, title, slide, onChange }) {
             placeholder="Posebna ponudba v avgustu"
             value={slide.title}
             name="title"
-            maxLength={25}
+            maxLength={28}
             onChange={handleChange}
           />
+          <p className="text-[14px] text-right text-[#6D778E] leading-[24px] font-normal">
+            {slide.title?.length || 0}
+            <span className="text-[#ACAAAA]"> /28</span>
+          </p>
         </div>
         <div className="space-y-[8px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
@@ -258,10 +262,14 @@ function SliderBlock({ index, title, slide, onChange }) {
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px] min-h-[108px]"
             placeholder="Visok blok, kjer lahko dodamo karkoli, kar bi lahko pritegnilo vaše stranke ali poudarite posebne promocije ali ponudbo med prazniki, ipd. "
             value={slide.description}
-            maxLength={220}
+            maxLength={350}
             name="description"
             onChange={handleChange}
           />
+          <p className="text-[14px] text-right text-[#6D778E] leading-[24px] font-normal">
+            {slide.description?.length || 0}
+            <span className="text-[#ACAAAA]"> /350</span>
+          </p>
         </div>
       </div>
     </OpenableBlock>

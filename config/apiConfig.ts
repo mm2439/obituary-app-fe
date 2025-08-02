@@ -1,7 +1,4 @@
-//Production url
-const API_BASE_URL = "https://dev112.osmrtnica.com/api";
-//FIXME: change to production url
-// const API_BASE_URL = "http://localhost:4000/api";
-
-export default API_BASE_URL;
 export const isDev = false; // use this to toggle for development. 
+
+const API_BASE_URL = isDev ? "http://localhost:4000/api" : "https://dev112.osmrtnica.com/api"
+export default API_BASE_URL;

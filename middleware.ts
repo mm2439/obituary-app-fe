@@ -36,14 +36,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (pathname === "/registracija" && token) {
-    if (role === "Florist" && slugKey) {
+  if (pathname === "/registracija" && token && role && slugKey) {
+    if (role === "Florist") {
       return NextResponse.redirect(new URL(`/c/${slugKey}/menu`, request.url));
     }
-    if (role === "Funeral" && slugKey) {
+    if (role === "Funeral") {
       return NextResponse.redirect(new URL(`/p/${slugKey}/menu`, request.url));
     }
-    if (role === "User" && slugKey) {
+    if (role === "User") {
       return NextResponse.redirect(
         new URL(`/u/${slugKey}/moj-racun`, request.url)
       );

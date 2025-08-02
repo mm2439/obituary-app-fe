@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isDev } from "./config/apiConfig";
 
 const PUBLIC_ROUTES = ["/", "/registracija"];
 
@@ -22,13 +23,19 @@ export function middleware(request: NextRequest) {
   const role = request.cookies.get("role")?.value;
   const slugKey = request.cookies.get("slugKey")?.value;
 
-  console.log("middleware==")
-
-
   const pathParts = pathname.split("/").filter(Boolean);
   const lastSegment = pathParts[pathParts.length - 1];
 
-  // ✅ If user is logged in and tries to visit /registrationpage, redirect them accordingly
+  const isRoleBasedRoute = pathname.startsWith('/c/') || pathname.startsWith('/p/') || pathname.startsWith('/u/');
+  
+  if (isRoleBasedRoute && token && role && slugKey) {
+    return NextResponse.next();
+  }
+
+  if (isRoleBasedRoute) {
+    return NextResponse.next();
+  }
+
   if (pathname === "/registracija" && token) {
     if (role === "Florist" && slugKey) {
       return NextResponse.redirect(new URL(`/c/${slugKey}/menu`, request.url));
@@ -58,14 +65,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL("/access-denied", request.url));
   }
 
-  if (role === "Florist" && FLORIST_ROUTES.includes(lastSegment) && slugKey) {
+  if (role === "Florist" && FLORIST_ROUTES.includes(lastSegment) && slugKey && !isRoleBasedRoute) {
     const targetUrl = `/c/${slugKey}/${lastSegment}`;
     if (pathname !== targetUrl) {
       return NextResponse.redirect(new URL(targetUrl, request.url));
     }
   }
 
-  if (role === "Funeral" && FUNERAL_ROUTES.includes(lastSegment) && slugKey) {
+  if (role === "Funeral" && FUNERAL_ROUTES.includes(lastSegment) && slugKey && !isRoleBasedRoute) {
     const targetUrl = `/p/${slugKey}/${lastSegment}`;
     if (pathname !== targetUrl) {
       return NextResponse.redirect(new URL(targetUrl, request.url));
@@ -87,5 +94,6 @@ export const config = {
     "/potrditev-objave",
     "/c/:slug/:page*",
     "/p/:slug/:page*",
+    "/u/:slug/:page*",
   ],
 };

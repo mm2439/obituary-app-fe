@@ -8,6 +8,7 @@ import Link from "next/link";
 import { toast } from "react-hot-toast";
 import userService from "@/services/user-service";
 import authService from "@/services/auth-service";
+import { redirectToRoleBasedRoute } from "@/utils/navigationUtils";
 
 const Registration = () => {
   const router = useRouter();
@@ -120,15 +121,8 @@ const Registration = () => {
         const role = response.user.role;
         const slugKey = response.user.slugKey;
 
-        if (role === "User" && !isDesktop) {
-          router.push(`/u/${slugKey}/menu`);
-        } else if (role === "User" && isDesktop) {
-          router.push(`/u/${slugKey}/moj-racun`);
-        } else if (role === "Florist") {
-          router.push(`/c/${slugKey}/menu`);
-        } else if (role === "Funeral") {
-          router.push(`/p/${slugKey}/menu`);
-        }
+        // better and more reliable navigation
+        redirectToRoleBasedRoute(role, slugKey, isDesktop);
       }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Layout from "../components/appcomponents/Layout";
 import MemorialPageView from "../components/appcomponents/MemorialPageView";
 import ObituaryListBanner from "../components/appcomponents/ObituaryListBanner";
@@ -14,7 +14,9 @@ const ObituaryList = () => {
     <Layout megaMenu={""} isMegaMenuVisible={false} from={"2"} forFooter={""}>
       <div className="flex flex-col mx-auto bg-[#F5F7F9] w-full">
         <ObituaryListBanner image={"/cvetje.avif"} label={"Osmrtnice"} />
-        <ObituaryListComponent city={""} />{" "}
+        <Suspense fallback={<div>loading...</div>}>
+          <ObituaryListComponent city={""} />{" "}
+        </Suspense>
         {/* remove dummy city from here when working */}
         <NextFunerals />
         <MemorialPageView />

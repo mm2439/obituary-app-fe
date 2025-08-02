@@ -186,44 +186,49 @@ export default function Footer() {
                     </div>
                     <ul className="mt-[24px] ">
                       <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
-                        <div
-                          className=" text-[#414141] font-variation-customOpt16 hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer"
-                          onClick={handleLocalQuickModalVisible}
-                        >
-                          Osmrtnice
-                        </div>
+                        <Link href="/osmrtnice">
+                          <div
+                            className=" text-[#414141] font-variation-customOpt16 hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer"
+                          >
+                            Osmrtnice
+                          </div>
+                        </Link>
                       </li>
                       <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] mt-4 items-center">
-                        <div
-                          className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer"
-                          onClick={handleMemoralPopupVisible}
-                        >
-                          Pogrebi
-                        </div>
+                        <Link href="/pogrebi">
+                          <div
+                            className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px] cursor-pointer"
+                          >
+                            Pogrebi
+                          </div>
+                        </Link>
                       </li>
                       <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
-                        <a
-                          href="#"
-                          className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
-                        >
-                          Spominska
-                        </a>
+                        <Link href="/osmrtnice">
+                          <div
+                            className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
+                          >
+                            Spominska
+                          </div>
+                        </Link>
                       </li>
                       <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
-                        <a
-                          href="#"
-                          className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
-                        >
-                          Cvetličarne
-                        </a>
+                        <Link href="/cvetlicarne">
+                          <div
+                            className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
+                          >
+                            Cvetličarne
+                          </div>
+                        </Link>
                       </li>
                       <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
-                        <a
-                          href="#"
-                          className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
-                        >
-                          Pogrebna podjetja
-                        </a>
+                        <Link href="/pogrebna-p">
+                          <div
+                            className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
+                          >
+                            Pogrebna podjetja
+                          </div>
+                        </Link>
                       </li>
                       <li className="flex tablet:hidden desktop:hidden mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a

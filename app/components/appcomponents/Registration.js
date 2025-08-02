@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 import userService from "@/services/user-service";
 import authService from "@/services/auth-service";
 import { redirectToRoleBasedRoute } from "@/utils/navigationUtils";
+import { isAuthenticated, getUser } from "@/utils/authUtils";
 
 const Registration = () => {
   const router = useRouter();
@@ -27,6 +28,17 @@ const Registration = () => {
       setIsDesktop(true);
     }
   }, []);
+  
+  // Check if user is already logged in and redirect
+  useEffect(() => {
+    if (isAuthenticated()) {
+      const user = getUser();
+      if (user && user.role && user.slugKey) {
+        redirectToRoleBasedRoute(user.role, user.slugKey, isDesktop);
+      }
+    }
+  }, [isDesktop]);
+  
   const [activeDiv, setActiveDiv] = useState("login");
 
   const handleEmailInput = (event) => {

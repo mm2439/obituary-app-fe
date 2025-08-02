@@ -17,7 +17,6 @@ const ObituaryList = () => {
         <Suspense fallback={<div>loading...</div>}>
           <ObituaryListComponent city={""} />{" "}
         </Suspense>
-        {/* remove dummy city from here when working */}
         <NextFunerals />
         <MemorialPageView />
         <SponsorComponent />

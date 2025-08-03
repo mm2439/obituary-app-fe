@@ -269,21 +269,6 @@ const SunflowerFlorist = ({ data }) => {
             </div>
           </div>
 
-          {data?.highlightText ? (
-            <div className="desktop:hidden flex mt-[30px] mobile:mt-[38px]">
-              {data?.highlightText}
-            </div>
-          ) : (
-            <p className="text-[20px] leading-[23.44px] text-[#1E2125] font-variation-customOpt20">
-              Obiščite našo spletno stran:
-              <Link href="https://www.suniflower.com">
-                <href className="text-[#1E2125] text-[24px] font-semibold  font-variation-customOpt24">
-                  www.suniflower.com
-                </href>
-              </Link>
-            </p>
-          )}
-
           <div className="ml-[29px] tablet:mx-auto mobile:mx-auto flex flex-row gap-[16px] w-[176px] h-[48px] tablet:mt-[26px] mobile:mt-[29px] mt-[63px]">
             {data?.facebook ? (
               <div className="w-[48px] h-[48px] rounded-lg text-black flex justify-center items-center shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">

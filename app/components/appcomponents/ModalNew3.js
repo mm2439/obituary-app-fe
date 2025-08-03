@@ -23,6 +23,7 @@ export default function ModalNew3({
   selectedImage,
   data,
   updateObituary,
+  onChange,
 }) {
   const [scrollBehavior, setScrollBehavior] = React.useState("outside");
   const [name, setName] = useState("");
@@ -43,15 +44,30 @@ export default function ModalNew3({
       if (email.trim() !== "") formdata.append("email", email);
       if (selectedFile) formdata.append("picture", selectedFile);
 
-      const id = data;
+      // Get user ID from localStorage
+      const user = JSON.parse(localStorage.getItem("user"));
+      const userId = user?.id;
 
-      const response = await userService.updateUserAndCompany(formdata, id);
+      if (!userId) {
+        toast.error("User not found. Please log in again.");
+        return;
+      }
+
+      const response = await userService.updateUserAndCompany(formdata, userId);
 
       console.log(response);
       toast.success("Updated Successfully");
+      
+      // Close modal after successful update
+      setIsShowModal(false);
+      
+      // Call onChange callback if provided
+      if (onChange) {
+        onChange(response);
+      }
     } catch (error) {
       console.log(error);
-      toast.error("Error Occured", error);
+      toast.error("Error occurred while updating");
     }
   };
   const handleFileChange = (e) => {

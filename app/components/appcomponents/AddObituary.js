@@ -1105,7 +1105,7 @@ const AddObituary = ({ set_Id, setModal }) => {
 
                 {events.map((event, index) => (
                   <div
-                    key={index}
+                    key={event.id || index}
                     className="flex flex-col border-b border-gray-400 pb-8"
                   >
                     <div className="text-[#6D778E] flex mobile:hidden mobile:text-[#6D778E] text-[14px] font-normal leading-[24px] font-variation-customOpt16 mt-7">

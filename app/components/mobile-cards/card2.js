@@ -42,8 +42,7 @@ const Card2 = ({ data = {}, cardRefs, index }) => {
             <p className="text-[#78600B] text-center mx-auto mt-3 text-[14px] font-light">
               {formatDayAndTimeSlovenian(data?.funeralTimestamp).dayName} ob{" "}
               {formatDayAndTimeSlovenian(data?.funeralTimestamp).time} <br />{" "}
-              {/* {data?.Cemetry?.name} */}
-              Pokopališče
+              {data?.Cemetry?.funeralCemetery} v {data?.funeralLocation}
             </p>
           </div>
         </div>

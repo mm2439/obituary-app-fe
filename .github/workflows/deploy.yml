@@ -24,4 +24,4 @@ jobs:
           sleep 3
           npm install
           npm run build
-          pm2 restart obituary-fe
+          /root/.nvm/versions/node/v21.7.3/bin/pm2 restart obituary-fe

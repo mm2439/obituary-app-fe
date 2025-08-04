@@ -21,7 +21,7 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
           cd /home/jenkins/deployment/obituary-app/obituary-fe
-          git pull origin main
+          sleep 3
           npm install
           npm run build
-          pm2 restart obituary-fe || pm2 start "npx serve -s build" --name obituary-frontend
+          pm2 restart obituary-fe

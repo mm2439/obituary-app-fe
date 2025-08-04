@@ -63,6 +63,10 @@ export default function AccountSettings() {
   useEffect(() => {
     console.log(data);
   }, [data]);
+
+  // Check if there are any florist shops
+  const hasFloristShops = data?.CompanyPage?.FloristShops && data?.CompanyPage?.FloristShops?.length > 0;
+
   return (
     <CompanyAccountLayout>
       <div className="w-full max-w-[1000px] min-w-[720px]">
@@ -76,13 +80,6 @@ export default function AccountSettings() {
               <span className="uppercase">CVETLIČARNA:</span>
               <span className="text-[#3C3E41]">{data?.name}</span>
             </div>
-            {/* <div className="flex items-center gap-[12px]">
-              <span className="uppercase">Naslov:</span>
-              <span className="text-[#3C3E41]">
-                {data?.CompanyPage?.FloristShops[0]?.address}
-                {data?.city ? `, ${data.city}` : ""}
-              </span>
-            </div> */}
 
             <div className="flex items-center gap-[12px]">
               <span className="uppercase">email:</span>
@@ -94,14 +91,17 @@ export default function AccountSettings() {
                 {data?.CompanyPage?.website}
               </span>
             </div>
-            <button
-              onClick={() => setIsShowModal1(true)}
-              className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden"
-            >
-              <span className="text-[#2c7ba3] text-[14px]">
-                DODAJ CVETLIČARNO
-              </span>
-            </button>
+            {/* Show "Add" button only when no florist shops exist */}
+            {!hasFloristShops && (
+              <button
+                onClick={() => setIsShowModal1(true)}
+                className="inline-flex items-center gap-3 tabletUserAcc:hidden mobileUserAcc:hidden"
+              >
+                <span className="text-[#2c7ba3] text-[14px]">
+                  DODAJ CVETLIČARNO
+                </span>
+              </button>
+            )}
           </div>
           <div className="space-y-[18px]">
             <div className="flex items-center gap-[12px]">
@@ -128,62 +128,56 @@ export default function AccountSettings() {
           </div>
         </div>
         <hr className="my-[28px]" />
-        <div className="space-y-4 text-[#6D778E] text-[14px]">
-          <div className="flex items-center gap-[12px]">
-            <div className="space-y-[18px] mb-12 w-full">
-              <div className="grid grid-cols-2 gap-3">
-                <h4
-                  className="text-[#2c7ba3] text-[20px] font-medium pb-2"
-                  style={{
-                    fontVariationSettings: "'wdth' 50,'opsz' 26",
-                  }}
-                >
-                  Cvetličarna
-                </h4>
-                <button
-                  onClick={() => setIsShowModal1(true)}
-                  className="inline-flex items-center gap-3"
-                >
-                  <img
-                    src="/plus_icon_blue.png"
-                    alt="add icon"
-                    className="size-6"
-                  />
-                  <span className="text-[#2c7ba3] text-[14px] uppercase underline">
-                    dodaj cvetličarno
-                  </span>
-                </button>
-              </div>
+        
+        {/* FLORIST SHOPS SECTION - Only show when there are shops */}
+        {hasFloristShops && (
+          <div className="space-y-4 text-[#6D778E] text-[14px]">
+            <div className="flex items-center gap-[12px]">
+              <div className="space-y-[18px] mb-12 w-full">
+                <div className="grid grid-cols-2 gap-3">
+                  <h4
+                    className="text-[#2c7ba3] text-[20px] font-medium pb-2"
+                    style={{
+                      fontVariationSettings: "'wdth' 50,'opsz' 26",
+                    }}
+                  >
+                    Cvetličarna
+                  </h4>
+                  <button
+                    onClick={() => setIsShowModal1(true)}
+                    className="inline-flex items-center gap-3"
+                  >
+                    <img
+                      src="/plus_icon_blue.png"
+                      alt="add icon"
+                      className="size-6"
+                    />
+                    <span className="text-[#2c7ba3] text-[14px] uppercase underline">
+                      dodaj cvetličarno
+                    </span>
+                  </button>
+                </div>
 
-              {data?.CompanyPage?.FloristShops &&
-                data?.CompanyPage?.FloristShops?.map((item, index) => (
+                {data?.CompanyPage?.FloristShops?.map((item, index) => (
                   <div
                     key={index}
-                    className="flex flex-col gap-2 text-[#3C3E41] "
+                    className="flex flex-col gap-2 text-[#3C3E41]"
                   >
-                    <div className="my-5 flex flex-col">
-                      <span className="uppercase">
-                        CVETLIČARNA: {item.shopName}
-                      </span>
-
-                      <span className="  uppercase">
-                        NASLOV: {item.address}
-                      </span>
-
-                      <span className=" uppercase">
-                        TEL. ŠTEVILKA: {item.telephone}
-                      </span>
-
-                      <span className=" uppercase">EMAIL: {item.email}</span>
-
-                      <span className=" uppercase">
-                        SPLETNA STRAN: {item?.website}
-                      </span>
+                    <div className="my-5 flex flex-col space-y-2">
+                      <span className="text-[#3C3E41]">{item.shopName}</span>
+                      <span className="text-[#3C3E41]">{item.address}</span>
+                      <span className="text-[#3C3E41]">{item.telephone}</span>
+                      <span className="text-[#3C3E41]">{item.email}</span>
+                      <span className="text-[#3C3E41]">{item?.website}</span>
                     </div>
                   </div>
                 ))}
+              </div>
             </div>
           </div>
+        )}
+        
+        <div className="space-y-4 text-[#6D778E] text-[14px]">
           <div className="space-y-1">
             <span className="uppercase">OBČINA:</span>
             <div className="grid grid-cols-2 gap-[12px] px-6 pb-[10px]">
@@ -231,6 +225,125 @@ export default function AccountSettings() {
           </div>
         </div>
         <hr className="mt-[24px]" />
+
+        {/* PRIVILEGES SECTION */}
+        <div className="space-y-4 text-[#6D778E] mt-[60px] text-[14px]">
+          <h4
+            className="text-[#2c7ba3] text-[20px] font-medium pb-2"
+            style={{
+              fontVariationSettings: "'wdth' 50,'opsz' 26",
+            }}
+          >
+            Privilegiji
+          </h4>
+          
+          <div className="space-y-3">
+            {/* Florist List Publication */}
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={data?.createObituaryPermission}
+                readOnly
+                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
+              />
+              <span className="text-[#3C3E41]">
+                Objava na seznamu cvetličarn
+              </span>
+              <span className="text-[#6D778E] text-[12px]">
+                (po objavi svoje spletne strani)
+              </span>
+            </div>
+
+            {/* Website */}
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={false}
+                readOnly
+                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
+              />
+              <span className="text-[#3C3E41]">Spletna stran</span>
+              <span className="text-[#6D778E] text-[12px]">(kmalu)</span>
+            </div>
+
+            {/* Obituary Publication */}
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={data?.createObituaryPermission}
+                readOnly
+                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
+              />
+              <span className="text-[#3C3E41]">Objava osmrtnic</span>
+              <span className="text-[#6D778E] text-[12px]">
+                (po objavi svoje spletne strani)
+              </span>
+            </div>
+
+            {/* Monthly Administrators */}
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={data?.assignKeeperPermission}
+                readOnly
+                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
+              />
+              <span className="text-[#3C3E41]">Mesečni skrbniki</span>
+              <span className="text-[#6D778E] text-[12px]">
+                (po objavi svoje spletne strani)
+              </span>
+            </div>
+
+            {/* Digital Mobile Cards */}
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={data?.sendMobilePermission}
+                readOnly
+                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
+              />
+              <span className="text-[#3C3E41]">Digitalne mobi kartice</span>
+              <span className="text-[#6D778E] text-[12px]">(kmalu)</span>
+            </div>
+
+            {/* Additional Municipality */}
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={!!data?.secondaryCity}
+                readOnly
+                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
+              />
+              <span className="text-[#3C3E41]">Dodatna občina</span>
+              <span className="text-[#6D778E] text-[12px]">
+                (po objavi svoje spletne strani)
+              </span>
+            </div>
+
+            {/* Memorial Page Participation */}
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={data?.sendGiftsPermission}
+                readOnly
+                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
+              />
+              <span className="text-[#3C3E41]">Sodelovanje na spominskih straneh</span>
+            </div>
+
+            {/* Risk-Free Promotion */}
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={true}
+                readOnly
+                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
+              />
+              <span className="text-[#3C3E41]">Promocija BREZ RIZIKA</span>
+              <span className="text-[#6D778E] text-[12px]">(odpri)</span>
+            </div>
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 tabletUserAcc:grid-cols-3 mobileUserAcc:grid-cols-3 gap-4 text-[#6D778E] mt-[60px] text-[14px]">
           <div className="flex items-center gap-[12px] tabletUserAcc:col-span-2 mobileUserAcc:col-span-2">

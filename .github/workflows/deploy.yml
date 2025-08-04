@@ -25,5 +25,3 @@ jobs:
           npm install
           npm run build
           /root/.nvm/versions/node/v21.7.3/bin/pm2 restart obituary-fe
-          echo "PM2 LOGS"
-          /root/.nvm/versions/node/v21.7.3/bin/pm2 logs obituary-fe

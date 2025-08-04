@@ -198,17 +198,6 @@ const adminService = {
       console.error("Error updating obituary notes:", error);
       throw error;
     }
-  },
-
-  // Get obituaries for admin (includes admin fields)
-  getObituaries: async (params?: any) => {
-    try {
-      const response = await axios.get(`/admin/obituaries`, { params });
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching obituaries for admin:", error);
-      throw error;
-    }
   }
 };
 

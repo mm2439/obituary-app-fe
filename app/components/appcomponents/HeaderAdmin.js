@@ -22,7 +22,7 @@ function HeaderAdmin({
       <div className="w-full flex h-[75px] flex-row items-center relative">
         <div className="w-[800px] flex flex-row items-center bg-[#FFFFFF80">
           <div className="h-[75px] overflow-hidden">
-            <a href="https://dev111.osmrtnica.com" className="flex flex-row items-center">
+            <a href="/" className="flex flex-row items-center">
               <Image
                 src={"/img_logo_admin.png"}
                 alt=""

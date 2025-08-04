@@ -56,23 +56,40 @@ export default function Obituaries() {
       <div className="w-full max-w-[950px]">
         <div className="mt-[60px]">
           <div className="flex items-center gap-3">
-            <div className="h-[55px] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] border-2 custom-border-gradient inline-flex flex-row items-center justify-center rounded-[8px] w-[310px] relative cursor-pointer tabletUserAcc:w-[310px]">
-              <Link
-                href={"/osmrtnice-vpis"}
-                className="text-[18px] text-[#FFFFFF]
-                        font-variation-customOpt16 font-normal leading-[24px]"
-              >
-                DODAJ OSMRTNICO
-              </Link>
+            {user?.createObituaryPermission ? (
+              <div className="h-[55px] bg-gradient-to-b from-[#0D94E8] to-[#1860A3] border-2 custom-border-gradient inline-flex flex-row items-center justify-center rounded-[8px] w-[310px] relative cursor-pointer tabletUserAcc:w-[310px]">
+                <Link
+                  href={"/osmrtnice-vpis"}
+                  className="text-[18px] text-[#FFFFFF]
+                          font-variation-customOpt16 font-normal leading-[24px]"
+                >
+                  DODAJ OSMRTNICO
+                </Link>
 
-              <Image
-                src={"/ico_right_white.png"}
-                alt=""
-                width={32}
-                height={32}
-                className="w-6 h-6 absolute top-1/2 right-[20px] -translate-y-1/2"
-              />
-            </div>
+                <Image
+                  src={"/ico_right_white.png"}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="w-6 h-6 absolute top-1/2 right-[20px] -translate-y-1/2"
+                />
+              </div>
+            ) : (
+              <div className="h-[55px] bg-gradient-to-b from-[#999999] to-[#666666] border-2 custom-border-gradient inline-flex flex-row items-center justify-center rounded-[8px] w-[310px] relative cursor-not-allowed tabletUserAcc:w-[310px] opacity-60">
+                <span className="text-[18px] text-[#FFFFFF]
+                        font-variation-customOpt16 font-normal leading-[24px]">
+                  DODAJ OSMRTNICO (ZAPRTO)
+                </span>
+
+                <Image
+                  src={"/ico_right_white.png"}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="w-6 h-6 absolute top-1/2 right-[20px] -translate-y-1/2 opacity-50"
+                />
+              </div>
+            )}
             <div className="h-[55px] bg-gradient-to-b from-[#F9AB16] to-[#C5870E] border-2 custom-border-gradient inline-flex flex-row items-center justify-center rounded-[8px] w-[310px] relative cursor-pointer tabletUserAcc:w-[310px]">
               <Link
                 href={"/darila"}

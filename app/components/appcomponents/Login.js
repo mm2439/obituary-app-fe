@@ -7,6 +7,7 @@ import { CheckIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import authService from "@/services/auth-service";
+import { redirectToRoleBasedRoute } from "@/utils/navigationUtils"; 
 
 const Login = () => {
   const router = useRouter();
@@ -48,7 +49,13 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(response.user));
 
       toast.success(response.message || "Login successful!");
-      router.push("/");
+      
+      if (response?.user) {
+        const role = response.user.role;
+        const slugKey = response.user.slugKey;
+
+        redirectToRoleBasedRoute(role, slugKey, false)
+      }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
     }

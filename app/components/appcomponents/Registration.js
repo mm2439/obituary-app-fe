@@ -133,7 +133,6 @@ const Registration = () => {
         const role = response.user.role;
         const slugKey = response.user.slugKey;
 
-
         // better and more reliable navigation
         redirectToRoleBasedRoute(role, slugKey, isDesktop);
 

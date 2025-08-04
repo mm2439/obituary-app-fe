@@ -68,7 +68,7 @@ const Obituaryform = () => {
           <div className="text-center">
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
               <h2 className="text-xl font-bold mb-2">Access Denied</h2>
-              <p>You don't have permission to create obituaries.</p>
+              <p>{"You don't have permission to create obituaries."}</p>
               <p className="text-sm mt-2">Please contact your administrator.</p>
             </div>
             <button

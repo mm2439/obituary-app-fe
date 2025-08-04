@@ -7,6 +7,7 @@ import { CheckIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import authService from "@/services/auth-service";
+import { redirectToRoleBasedRoute } from "@/utils/navigationUtils"; 
 
 const Login = () => {
   const router = useRouter();
@@ -53,19 +54,7 @@ const Login = () => {
         const role = response.user.role;
         const slugKey = response.user.slugKey;
 
-        if (role === "SUPERADMIN") {
-          router.push("/admin/Obituaries");
-        } else if (role === "User") {
-          router.push(`/u/${slugKey}/moj-racun`);
-        } else if (role === "Florist") {
-          router.push(`/c/${slugKey}/menu`);
-        } else if (role === "Funeral") {
-          router.push(`/p/${slugKey}/menu`);
-        } else {
-          router.push("/");
-        }
-      } else {
-        router.push("/");
+        redirectToRoleBasedRoute(role, slugKey, false)
       }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");

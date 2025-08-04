@@ -32,8 +32,10 @@ export const useSafeNavigation = () => {
 // Alternative approach: Use window.location for immediate redirect
 export const redirectToRoleBasedRoute = (role: string, slugKey: string, isDesktop: boolean = false) => {
   let targetRoute = '';
-  
-  if (role === "User") {
+  console.log(role, slugKey)
+  if (role === "SUPERADMIN") {
+    targetRoute = "/admin/Obituaries"
+  } else if (role === "User") {
     targetRoute = isDesktop 
       ? `/u/${slugKey}/moj-racun`
       : `/u/${slugKey}/menu`;
@@ -41,8 +43,11 @@ export const redirectToRoleBasedRoute = (role: string, slugKey: string, isDeskto
     targetRoute = `/c/${slugKey}/menu`;
   } else if (role === "Funeral") {
     targetRoute = `/p/${slugKey}/menu`;
+  } else {
+    targetRoute = "/"
   }
 
+  console.log(targetRoute)
   if (targetRoute && typeof window !== 'undefined') {
     // In development, use a small delay to avoid race conditions
     const isDevelopment = isDev;

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -12,10 +12,10 @@ import cancle_icon from "@/public/cancle_icon.png";
 import imgUp from "@/public/ico_up.png";
 import Image from "next/image";
 import Modals from "./Modals";
+import toast from "react-hot-toast";
+import shopService from "@/services/shop-service";
 
-
-
-export default function ModalNew({
+export default function ModalNew2({
   isShowModal,
   setIsShowModal,
   select_id,
@@ -23,8 +23,78 @@ export default function ModalNew({
   selectedImage,
   data,
   updateObituary,
+  onChange,
 }) {
   const [scrollBehavior, setScrollBehavior] = React.useState("outside");
+  const [shopName, setShopName] = useState("");
+  const [address, setAddress] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      setIsSubmitting(true);
+
+      // Validate required fields
+      if (!shopName.trim() || !address.trim() || !telephone.trim() || !email.trim()) {
+        toast.error("Please fill in all required fields");
+        return;
+      }
+
+      // Create shop data object for backend
+      const shopData = {
+        shops: [{
+          shopName: shopName.trim(),
+          address: address.trim(),
+          telephone: telephone.trim(),
+          email: email.trim(),
+          website: website.trim() || null,
+          hours: "", // Default empty hours
+          secondaryHours: "",
+          tertiaryHours: "",
+          quaternaryHours: "",
+        }]
+      };
+
+      // Call backend API to create the shop
+      const response = await shopService.createShop(shopData);
+
+      // Call onChange callback with updated shops from backend
+      if (onChange && response.shops) {
+        onChange(response.shops);
+      }
+
+      // Clear form
+      setShopName("");
+      setAddress("");
+      setTelephone("");
+      setEmail("");
+      setWebsite("");
+
+      // Close modal
+      setIsShowModal(false);
+      
+      toast.success("Florist shop added successfully!");
+    } catch (error) {
+      console.error("Error adding florist shop:", error);
+      toast.error("Error adding florist shop. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Clear form when modal opens/closes
+  useEffect(() => {
+    if (!isShowModal) {
+      setShopName("");
+      setAddress("");
+      setTelephone("");
+      setEmail("");
+      setWebsite("");
+    }
+  }, [isShowModal]);
 
   return (
     <Modal
@@ -71,12 +141,16 @@ export default function ModalNew({
                     <div className="px-[10px] mobile:pl-4 pl-6 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
+                        value={shopName}
+                        onChange={(e) => setShopName(e.target.value)}
                         placeholder="vpisujete vsako posebej (glavna je že vnešena)"
                         className="w-full h-full bg-transparent mobile:hidden focus:outline-none text-[#ACAAAA]"
                       />
 
                       <input
                         type="text"
+                        value={shopName}
+                        onChange={(e) => setShopName(e.target.value)}
                         placeholder="vpisujete vsako posebej "
                         className="w-full h-full bg-transparent tablet:hidden desktop:hidden focus:outline-none text-[#ACAAAA]"
                       />
@@ -88,6 +162,8 @@ export default function ModalNew({
                     <div className="px-[10px] mobile:pl-4 pl-6 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
                         placeholder="te cvetličarne"
                         className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
                       />
@@ -99,6 +175,8 @@ export default function ModalNew({
                     <div className="px-[10px] pl-6 m mobile:pl-4t-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
+                        value={telephone}
+                        onChange={(e) => setTelephone(e.target.value)}
                         placeholder="te cvetličarne "
                         className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
                       />
@@ -110,6 +188,8 @@ export default function ModalNew({
                     <div className="px-[10px] pl-6 mobile:pl-4 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="ki naj bo izpisan ob tej cvetličarni"
                         className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
                       />
@@ -121,6 +201,8 @@ export default function ModalNew({
                     <div className="px-[10px] pl-6 mobile:pl-4 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
                         placeholder="če je nimate, pustite prazno"
                         className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
                       />
@@ -128,9 +210,13 @@ export default function ModalNew({
                   </div>
 
                   <button
-                  style={{ boxShadow: '5px 5px 10px #A6ABBD, -5px -5px 10px #FAFBFF' }}
-                  className="w-full h-[60px] rounded-[10px] bg-[#09C1A3] text-white font-semibold text-xl">
-                    Dodaj cvetličarno
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    style={{ boxShadow: '5px 5px 10px #A6ABBD, -5px -5px 10px #FAFBFF' }}
+                    className={`w-full h-[60px] rounded-[10px] text-white font-semibold text-xl ${
+                      isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#09C1A3]'
+                    }`}>
+                    {isSubmitting ? 'Dodajanje...' : 'Dodaj cvetličarno'}
                   </button>
 
                 </div>

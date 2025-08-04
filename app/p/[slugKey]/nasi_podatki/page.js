@@ -9,7 +9,7 @@ import regionsAndCities from "@/utils/regionAndCities";
 import DropdownWithSearch from "@/app/components/appcomponents/DropdownWithSearch";
 import userService from "@/services/user-service";
 import toast from "react-hot-toast";
-import ModalNew3 from "@/app/components/appcomponents/ModalNew3";
+import { CheckCircle, XCircle } from "lucide-react";
 
 export default function AccountSettings() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -178,12 +178,11 @@ export default function AccountSettings() {
           <div className="space-y-3">
             {/* Funeral Company List Publication */}
             <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={data?.createObituaryPermission}
-                readOnly
-                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
-              />
+              {data?.createObituaryPermission ? (
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              ) : (
+                <XCircle className="w-5 h-5 text-red-500" />
+              )}
               <span className="text-[#3C3E41]">
                 Objava na seznamu pogrebnih podjetij
               </span>
@@ -194,24 +193,18 @@ export default function AccountSettings() {
 
             {/* Website */}
             <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={false}
-                readOnly
-                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
-              />
+              <XCircle className="w-5 h-5 text-red-500" />
               <span className="text-[#3C3E41]">Spletna stran</span>
               <span className="text-[#6D778E] text-[12px]">(kmalu)</span>
             </div>
 
             {/* Obituary Publication */}
             <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={data?.createObituaryPermission}
-                readOnly
-                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
-              />
+              {data?.createObituaryPermission ? (
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              ) : (
+                <XCircle className="w-5 h-5 text-red-500" />
+              )}
               <span className="text-[#3C3E41]">Objava osmrtnic</span>
               <span className="text-[#6D778E] text-[12px]">
                 (po objavi svoje spletne strani)
@@ -220,12 +213,11 @@ export default function AccountSettings() {
 
             {/* Monthly Administrators */}
             <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={data?.assignKeeperPermission}
-                readOnly
-                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
-              />
+              {data?.assignKeeperPermission ? (
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              ) : (
+                <XCircle className="w-5 h-5 text-red-500" />
+              )}
               <span className="text-[#3C3E41]">Mesečni skrbniki</span>
               <span className="text-[#6D778E] text-[12px]">
                 (po objavi svoje spletne strani)
@@ -234,24 +226,22 @@ export default function AccountSettings() {
 
             {/* Digital Mobile Cards */}
             <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={data?.sendMobilePermission}
-                readOnly
-                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
-              />
+              {data?.sendMobilePermission ? (
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              ) : (
+                <XCircle className="w-5 h-5 text-red-500" />
+              )}
               <span className="text-[#3C3E41]">Digitalne mobi kartice</span>
               <span className="text-[#6D778E] text-[12px]">(kmalu)</span>
             </div>
 
             {/* Additional Municipality */}
             <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={!!data?.secondaryCity}
-                readOnly
-                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
-              />
+              {!!data?.secondaryCity ? (
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              ) : (
+                <XCircle className="w-5 h-5 text-red-500" />
+              )}
               <span className="text-[#3C3E41]">Dodatna občina</span>
               <span className="text-[#6D778E] text-[12px]">
                 (po objavi svoje spletne strani)
@@ -260,23 +250,17 @@ export default function AccountSettings() {
 
             {/* Memorial Page Participation */}
             <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={data?.sendGiftsPermission}
-                readOnly
-                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
-              />
+              {data?.sendGiftsPermission ? (
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              ) : (
+                <XCircle className="w-5 h-5 text-red-500" />
+              )}
               <span className="text-[#3C3E41]">Sodelovanje na spominskih straneh</span>
             </div>
 
             {/* Risk-Free Promotion */}
             <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={true}
-                readOnly
-                className="w-4 h-4 text-[#0A85C2] bg-gray-100 border-gray-300 rounded focus:ring-[#0A85C2] focus:ring-2"
-              />
+              <CheckCircle className="w-5 h-5 text-green-500" />
               <span className="text-[#3C3E41]">Promocija BREZ RIZIKA</span>
               <span className="text-[#6D778E] text-[12px]">(odpri)</span>
             </div>

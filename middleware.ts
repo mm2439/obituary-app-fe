@@ -13,6 +13,8 @@ const USER_ROUTES = [
   "/potrditev-objave",
 ];
 
+const ADMIN_ROUTES = ["/admin"];
+
 const FLORIST_ROUTES = ["spletna-stran", "nasi_podatki"];
 const FUNERAL_ROUTES = ["spletna-stran", "nasi_podatki"];
 
@@ -21,9 +23,6 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("accessToken")?.value;
   const role = request.cookies.get("role")?.value;
   const slugKey = request.cookies.get("slugKey")?.value;
-
-  console.log("middleware==")
-
 
   const pathParts = pathname.split("/").filter(Boolean);
   const lastSegment = pathParts[pathParts.length - 1];
@@ -45,6 +44,7 @@ export function middleware(request: NextRequest) {
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
   const isUserRoute = USER_ROUTES.includes(pathname);
+  const isAdminRoute = pathname.startsWith("/admin");
 
   if (isPublicRoute) {
     return NextResponse.next();
@@ -52,6 +52,11 @@ export function middleware(request: NextRequest) {
 
   if (!token) {
     return NextResponse.redirect(new URL("/registracija", request.url));
+  }
+
+  // Admin route protection - only SUPERADMIN can access
+  if (isAdminRoute && role !== "SUPERADMIN") {
+    return NextResponse.redirect(new URL("/access-denied", request.url));
   }
 
   if (isUserRoute && role !== "User") {
@@ -85,6 +90,7 @@ export const config = {
     "/pregled2",
     "/user-accounts-dashboard",
     "/potrditev-objave",
+    "/admin/:path*",
     "/c/:slug/:page*",
     "/p/:slug/:page*",
   ],

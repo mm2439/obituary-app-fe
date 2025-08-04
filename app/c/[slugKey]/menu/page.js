@@ -82,8 +82,9 @@ export default function Funeral() {
       localStorage.removeItem("refresh-token");
       const isProd = window.location.hostname.includes("osmrtnica.com");
 
-      document.cookie = `accessToken=; path=/; ${isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
-        } max-age=0`;
+      document.cookie = `accessToken=; path=/; ${
+        isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
+      } max-age=0`;
       router.push("/");
     } catch (err) {
       console.error("Error:", err);
@@ -318,42 +319,75 @@ export default function Funeral() {
               >
                 ZA STRANKE
               </div>
-              <Link
-                href={"/osmrtnice-vpis"}
-                className="bg-white rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[2px] mobileUserAcc:mt-[5px] relative overflow-hidden min-h-[55px]"
-              >
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-end bg-gradient-to-b from-[rgba(249,171,22,1)] to-[rgba(197,135,14,1)]">
-                  <div className="px-5">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2.5}
-                      stroke="#fff"
-                      className="size-4"
+              {user?.createObituaryPermission ? (
+                <Link
+                  href={"/osmrtnice-vpis"}
+                  className="bg-white rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[2px] mobileUserAcc:mt-[5px] relative overflow-hidden min-h-[55px]"
+                >
+                  <div className="absolute top-0 left-0 w-full h-full flex items-center justify-end bg-gradient-to-b from-[rgba(249,171,22,1)] to-[rgba(197,135,14,1)]">
+                    <div className="px-5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="#fff"
+                        className="size-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-5 absolute top-[2px] left-[2px] w-[calc(100%-55px)] h-[51px] bg-white rounded-s-md px-3">
+                    <img
+                      src="/user/plus.png"
+                      alt="predloge"
+                      className="w-6 h-6 object-contain"
+                    />
+                    <Link
+                      href={"/osmrtnice-vpis"}
+                      className="text-[16px] text-[#6D778E]"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                      />
-                    </svg>
+                      DODAJ OSMRTNICO
+                    </Link>
+                  </div>
+                </Link>
+              ) : (
+                <div className="bg-gray-200 rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[2px] mobileUserAcc:mt-[5px] relative overflow-hidden min-h-[55px] cursor-not-allowed">
+                  <div className="absolute top-0 left-0 w-full h-full flex items-center justify-end bg-gradient-to-b from-[rgba(128,128,128,1)] to-[rgba(96,96,96,1)]">
+                    <div className="px-5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="#fff"
+                        className="size-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-5 absolute top-[2px] left-[2px] w-[calc(100%-55px)] h-[51px] bg-gray-100 rounded-s-md px-3">
+                    <img
+                      src="/user/plus.png"
+                      alt="predloge"
+                      className="w-6 h-6 object-contain opacity-50"
+                    />
+                    <span className="text-[16px] text-[#999999]">
+                      DODAJ OSMRTNICO (ZAPRTO)
+                    </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-5 absolute top-[2px] left-[2px] w-[calc(100%-55px)] h-[51px] bg-white rounded-s-md px-3">
-                  <img
-                    src="/user/plus.png"
-                    alt="predloge"
-                    className="w-6 h-6 object-contain"
-                  />
-                  <Link
-                    href={"/osmrtnice-vpis"}
-                    className="text-[16px] text-[#6D778E]"
-                  >
-                    DODAJ OSMRTNICO
-                  </Link>
-                </div>
-              </Link>
+              )}
               <Link
                 href={"/darila"}
                 className="bg-white rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[9px] mobileUserAcc:mt-[15px] relative overflow-hidden min-h-[55px]"

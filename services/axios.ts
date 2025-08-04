@@ -11,6 +11,9 @@ axiosInstance.interceptors.request.use(
     const accesstoken = localStorage.getItem("access-token");
     const refreshtoken = localStorage.getItem("refresh-token");
 
+    console.log("Axios Request - Access Token:", accesstoken ? "Found" : "Not found");
+    console.log("Axios Request - Refresh Token:", refreshtoken ? "Found" : "Not found");
+
     if (accesstoken) {
       config.headers["access-token"] = accesstoken;
     }
@@ -49,9 +52,8 @@ axiosInstance.interceptors.response.use(
       //   window.location.href = "/registrationpage";
       // }
     } else if (error.response.status === 403) {
-      if (window.location.pathname !== "/") {
-        window.location.href = "/";
-      }
+      // Don't redirect for 403 errors - let the component handle the error message
+      // This prevents automatic redirection for blocked users
     }
     return Promise.reject(error);
   }

@@ -120,7 +120,9 @@ const Registration = () => {
         const role = response.user.role;
         const slugKey = response.user.slugKey;
 
-        if (role === "User" && !isDesktop) {
+        if (role === "SUPERADMIN") {
+          router.push("/admin/Obituaries");
+        } else if (role === "User" && !isDesktop) {
           router.push(`/u/${slugKey}/menu`);
         } else if (role === "User" && isDesktop) {
           router.push(`/u/${slugKey}/moj-racun`);
@@ -141,8 +143,8 @@ const Registration = () => {
       <div
         className="fixed inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: "url('/user/bg-desk.jpg')",
-          backgroundSize: "100% 100%",
+          backgroundImage: "url('/user/main_background.png')",
+          backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
@@ -152,8 +154,8 @@ const Registration = () => {
       {/* Content Container */}
       <form className="relative z-10 max-w-[1920px] min-h-screen mobile:pb-[41px] mobile:pt-[71px] w-full desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[79px] flex flex-col justify-center items-center mx-auto">
         <div
-          className="w-[550px] tablet:pt-[79px] tablet:pb-[54px] desktop:pt-[79px] desktop:pb-[54px] mobile:max-w-[400px] mobile:w-full mobile:mx-2 flex flex-col
-       tablet:bg-gray-300/30 desktop:bg-gray-300/30 desktop:backdrop-blur tablet:backdrop-blur mobile:bg-gray-300/30 mobile:backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] desktop:shadow-lg tablet:shadow-lg mobile:shadow-lg mobile:border-[0px] px-[32px] py-[42px] mobile:px-[16px] mobile:py-[25px]"
+          className="w-[550px] tablet:pt-[79px] tablet:pb-[54px] desktop:pt-[79px] desktop:pb-[54px] mobile:max-w-[340px] mobile:w-full mobile:mx-2 flex flex-col
+       tablet:bg-gray-300/30 desktop:bg-gray-300/30 desktop:backdrop-blur tablet:backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] desktop:shadow-lg tablet:shadow-lg mobile:border-[0px]"
         >
           {/* register and Login buttons */}
           <div className="flex flex-col mx-auto items-center w-[401px] h-auto mobile:w-full">
@@ -177,7 +179,7 @@ const Registration = () => {
               {/* Register Div */}
               <div
                 className={`transition-all duration-300 ease-in-out ${activeDiv === "register"
-                  ? "w-[234px] h-[56px] mobile:w-[180px] mobile:h-[48px] shadow-custom-dark-to-white bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[8px] border-[1px] border-[#FFFFFF] text-[#1E2125] text-[24px] mobile:text-[20px] leading-[24px] font-variation-customOpt24"
+                  ? "w-[234px] h-[56px] mobile:w-[180px] mobile:h-[48px] shadow-custom-dark-to-white bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[8px] border-[1px] border-[#FFFFFF] text-[#1E2125] text-[24px] mobile:text-[24px] leading-[24px] font-variation-customOpt24"
                   : "w-[143px] h-[36px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] shadow-custom-light-dark-with-white rounded-[8px] text-[#6D778E] text-[16px] leading-[24px] font-variation-customOpt16"
                   } flex justify-center items-center ml-4`}
               >
@@ -377,13 +379,13 @@ const Registration = () => {
           <div
             onClick={() => router.push("/podjetja")}
             style={{ cursor: "pointer" }}
-            className="w-[550px] mobile:w-max-[340px] flex justify-end mobile:justify-center items-center mt-[30px] mobile:w-[310px] h-[43px]"
+            className="w-[550px] mobile:w-max-[340px] flex justify-end mobile:justify-start items-center mt-[30px] mobile:w-[310px] h-[43px]"
           >
             <div
               link
-              className="border-[1px] border-[#FFFFFF] rounded-[8px] tablet:shadow-custom-light-dark desktop:shadow-custom-light-dark bg-transparent px-[25px] py-[12px]"
+              className="border-[1px] border-[#FFFFFF] rounded-[8px] tablet:shadow-custom-light-dark desktop:shadow-custom-light-dark bg-transparent mobile:border-[0px]"
             >
-              <div className="text-[16px] text-white leading-[19px] font-variation-customOpt16">
+              <div className="px-[25px] mobile:px-[10px] py-[12px] text-[16px] text-[#FFFFFF] mobile:text-[#414141] leading-[19px] font-variation-customOpt16">
                 Registracija za podjetja
               </div>
             </div>

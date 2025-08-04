@@ -48,7 +48,25 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(response.user));
 
       toast.success(response.message || "Login successful!");
-      router.push("/");
+      
+      if (response?.user) {
+        const role = response.user.role;
+        const slugKey = response.user.slugKey;
+
+        if (role === "SUPERADMIN") {
+          router.push("/admin/Obituaries");
+        } else if (role === "User") {
+          router.push(`/u/${slugKey}/moj-racun`);
+        } else if (role === "Florist") {
+          router.push(`/c/${slugKey}/menu`);
+        } else if (role === "Funeral") {
+          router.push(`/p/${slugKey}/menu`);
+        } else {
+          router.push("/");
+        }
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
     }

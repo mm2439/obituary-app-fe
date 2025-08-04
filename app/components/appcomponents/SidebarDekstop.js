@@ -4,6 +4,7 @@ import Image from "next/image";
 import { CommonViewUserAccSidebar } from "./Commonfunction";
 import { usePathname, useRouter } from "next/navigation";
 import authService from "@/services/auth-service";
+import { useLogout } from "@/utils/authUtils";
 
 function SidebarDekstop({
   showAlternateContent,
@@ -14,23 +15,8 @@ function SidebarDekstop({
   const router = useRouter();
   const [user, setUser] = useState(null);
 
-  const logoutUser = async () => {
-    try {
-      const response = await authService.logout();
+  const { logout } = useLogout();
 
-      localStorage.removeItem("user");
-      localStorage.removeItem("access-token");
-      localStorage.removeItem("refresh-token");
-      const isProd = window.location.hostname.includes("osmrtnica.com");
-
-      document.cookie = `accessToken=; path=/; ${
-        isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
-      } max-age=0`;
-      router.push("/");
-    } catch (err) {
-      console.error("Error Fetching Pending Posts:", err);
-    }
-  };
   useEffect(() => {
     const currUser = localStorage.getItem("user");
     if (currUser) {
@@ -170,7 +156,7 @@ function SidebarDekstop({
 
           <div
             className="w-[186px]   cursor-pointer rounded-[10px] mt-[4px]"
-            onClick={logoutUser}
+            onClick={logout}
           >
             <div className="h-[48px] flex justify-start items-center rounded-[8px]">
               <div className="ml-[15px]">

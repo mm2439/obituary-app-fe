@@ -6,9 +6,9 @@ import {
   NotificationViewUserAccSidebar,
 } from "./Commonfunction";
 import { usePathname, useRouter } from "next/navigation";
-import authService from "@/services/auth-service";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useLogout } from "@/utils/authUtils";
 
 export default function CompanySidebar({
   showAlternateContent,
@@ -24,23 +24,7 @@ export default function CompanySidebar({
     : pathname.replace("/p", "");
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
-  const logoutUser = async () => {
-    try {
-      const response = await authService.logout();
-
-      localStorage.removeItem("user");
-      localStorage.removeItem("access-token");
-      localStorage.removeItem("refresh-token");
-      const isProd = window.location.hostname.includes("osmrtnica.com");
-
-      document.cookie = `accessToken=; path=/; ${
-        isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
-      } max-age=0`;
-      router.push("/");
-    } catch (err) {
-      console.error("Error Fetching Pending Posts:", err);
-    }
-  };
+  const { logout } = useLogout();
 
   useEffect(() => {
     const currUser = localStorage.getItem("user");
@@ -186,7 +170,7 @@ export default function CompanySidebar({
 
           <div
             className="w-[186px]   cursor-pointer rounded-[10px] mt-[20px]"
-            onClick={logoutUser}
+                          onClick={logout}
           >
             <div className="h-[48px] flex justify-start items-center rounded-[8px]">
               <div className="ml-[15px]">

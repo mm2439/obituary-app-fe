@@ -8,6 +8,8 @@ import Link from "next/link";
 import { toast } from "react-hot-toast";
 import userService from "@/services/user-service";
 import authService from "@/services/auth-service";
+import { redirectToRoleBasedRoute } from "@/utils/navigationUtils";
+import { isAuthenticated, getUser } from "@/utils/authUtils";
 
 const Registration = () => {
   const router = useRouter();
@@ -26,6 +28,17 @@ const Registration = () => {
       setIsDesktop(true);
     }
   }, []);
+  
+  // Check if user is already logged in and redirect
+  useEffect(() => {
+    if (isAuthenticated()) {
+      const user = getUser();
+      if (user && user.role && user.slugKey) {
+        redirectToRoleBasedRoute(user.role, user.slugKey, isDesktop);
+      }
+    }
+  }, [isDesktop]);
+  
   const [activeDiv, setActiveDiv] = useState("login");
 
   const handleEmailInput = (event) => {
@@ -120,17 +133,10 @@ const Registration = () => {
         const role = response.user.role;
         const slugKey = response.user.slugKey;
 
-        if (role === "SUPERADMIN") {
-          router.push("/admin/Obituaries");
-        } else if (role === "User" && !isDesktop) {
-          router.push(`/u/${slugKey}/menu`);
-        } else if (role === "User" && isDesktop) {
-          router.push(`/u/${slugKey}/moj-racun`);
-        } else if (role === "Florist") {
-          router.push(`/c/${slugKey}/menu`);
-        } else if (role === "Funeral") {
-          router.push(`/p/${slugKey}/menu`);
-        }
+
+        // better and more reliable navigation
+        redirectToRoleBasedRoute(role, slugKey, isDesktop);
+
       }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");

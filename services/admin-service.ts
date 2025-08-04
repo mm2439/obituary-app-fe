@@ -156,17 +156,6 @@ const adminService = {
     }
   },
 
-  // Delete user
-  deleteUser: async (userId: number) => {
-    try {
-      const response = await axios.delete(`/admin/users/${userId}`);
-      return response.data;
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      throw error;
-    }
-  },
-
   // Delete obituary
   deleteObituary: async (obituaryId: number) => {
     try {

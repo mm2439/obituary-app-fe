@@ -8,22 +8,6 @@ const login = async (credentials: { email: string; password: string }) => {
       withCredentials: true,
     });
 
-    // Store tokens from response headers to localStorage
-    const accessToken = response.headers["access-token"];
-    const refreshToken = response.headers["refresh-token"];
-
-    console.log("Login Response - Access Token Header:", accessToken ? "Found" : "Not found");
-    console.log("Login Response - Refresh Token Header:", refreshToken ? "Found" : "Not found");
-
-    if (accessToken) {
-      localStorage.setItem("access-token", accessToken);
-      console.log("Stored access token in localStorage");
-    }
-    if (refreshToken) {
-      localStorage.setItem("refresh-token", refreshToken);
-      console.log("Stored refresh token in localStorage");
-    }
-
     return response.data;
   } catch (error: any) {
     if (error.response && error.response.data) {

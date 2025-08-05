@@ -29,23 +29,6 @@ function UserCompanyHeaderNew({
 
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
-  const logoutUser = async () => {
-    try {
-      const response = await authService.logout();
-
-      localStorage.removeItem("user");
-      localStorage.removeItem("access-token");
-      localStorage.removeItem("refresh-token");
-      const isProd = window.location.hostname.includes("osmrtnica.com");
-
-      document.cookie = `accessToken=; path=/; ${
-        isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
-      } max-age=0`;
-      router.push("/");
-    } catch (err) {
-      console.error("Error Fetching Pending Posts:", err);
-    }
-  };
   return (
     <React.Fragment>
       <header className="fixed top-0 left-0 right-0 bg-white shadow-lg z-50 ">

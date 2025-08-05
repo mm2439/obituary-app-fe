@@ -4,6 +4,7 @@ import { IconView } from "./Commonfunction";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import authService from "@/services/auth-service";
+import { useLogout } from "@/utils/authUtils";
 
 function CompanyFooterMobile({ handleGoToTop, setIsMobilSideBarOpen }) {
   const pathname = usePathname();
@@ -20,24 +21,8 @@ function CompanyFooterMobile({ handleGoToTop, setIsMobilSideBarOpen }) {
   //   }
   // }, [pathname]);
 
-  const logoutUser = async () => {
-    console.log("here");
-    try {
-      const response = await authService.logout();
+  const { logout } = useLogout();
 
-      localStorage.removeItem("user");
-      localStorage.removeItem("access-token");
-      localStorage.removeItem("refresh-token");
-      const isProd = window.location.hostname.includes("osmrtnica.com");
-
-      document.cookie = `accessToken=; path=/; ${
-        isProd ? "domain=.osmrtnica.com; secure; sameSite=None;" : ""
-      } max-age=0`;
-      router.push("/");
-    } catch (err) {
-      console.error("Error Fetching Pending Posts:", err);
-    }
-  };
   return (
     <div className=" hidden mobileUserAcc:flex tabletUserAcc:flex self-end bottom-0 rounded-t-[12px] fixed z-[999] w-full h-[85px] bg-[#FFFFFF] shadow-lg justify-center items-center">
       <div
@@ -46,7 +31,7 @@ function CompanyFooterMobile({ handleGoToTop, setIsMobilSideBarOpen }) {
       "
       >
         <div className=" hidden tabletUserAcc:flex ">
-          <button onClick={logoutUser} className="w-full h-[52px] ">
+          <button onClick={logout} className="w-full h-[52px] ">
             <IconView iconPath={"/icon_home.png"} name={"Začetna"} />
           </button>
         </div>

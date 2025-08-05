@@ -13,6 +13,23 @@ const FloristFirst = () => {
   const [whichScreen, setWhichScreen] = useState(1);
   const [whichTab, setWhichTab] = useState("");
   const [companies, setCompanies] = useState([]);
+
+  // Helper function to format consecutive number for Florists
+  const formatConsecutiveNumber = (index) => {
+    return `C${(index + 1).toString().padStart(4, '0')}`;
+  };
+
+  // Helper function to format date safely
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return "N/A";
+      return date.toLocaleDateString('en-GB');
+    } catch (error) {
+      return "N/A";
+    }
+  };
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [notesModal, setNotesModal] = useState({
@@ -1089,7 +1106,7 @@ const FloristFirst = () => {
                   <tr key={company.id} className={`h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] ${index % 2 === 0 ? 'bg-[#FFFFFF66]' : 'bg-white'}`}>
                     <td className="w-[78px] text-center">
                       <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                        {company.slugKey || `S${company.id}`}
+                        {formatConsecutiveNumber(index)}
                       </p>
                     </td>
 
@@ -1116,7 +1133,7 @@ const FloristFirst = () => {
 
                     <td className="w-[74px] text-left">
                       <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                        {new Date(company.createdTimestamp).toLocaleDateString('en-GB')}
+                        {formatDate(company.createdTimestamp)}
                       </p>
                     </td>
 

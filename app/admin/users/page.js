@@ -11,6 +11,23 @@ const Obituaries = () => {
   const [screen, setScreen] = useState(1);
   const [whichTab, setWhichTab] = useState("Gifts");
   const [users, setUsers] = useState([]);
+
+  // Helper function to format consecutive number for Users
+  const formatConsecutiveNumber = (index) => {
+    return `U${(index + 1).toString().padStart(4, '0')}`;
+  };
+
+  // Helper function to format date safely
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return "N/A";
+      return date.toLocaleDateString('en-GB');
+    } catch (error) {
+      return "N/A";
+    }
+  };
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [notesModal, setNotesModal] = useState({
@@ -164,7 +181,7 @@ const Obituaries = () => {
           <thead>
             <tr className="text-[#3C3E41] text-[12px] leading-[16px] font-variation-customOpt16 font-semibold uppercase">
               <th className="text-start px-[10px] w-[170px]">
-                # <br />
+                USER # <br />
                 email
                 <Image src="/admin-table-down.png" alt="edit" width={10} height={10} className="mt-2 mx-3" />
               </th>
@@ -244,14 +261,14 @@ const Obituaries = () => {
               users.map((user, index) => (
                 <tr key={user.id} className={`h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] ${index % 2 === 0 ? 'bg-[#FFFFFF66]' : 'bg-white'} text-[#3C3E41]`}>
                   <td className="px-[18px] py-[18px]">
-                    <p className="text-[12px] leading-[100%]">{user.slugKey}</p>
+                    <p className="text-[12px] leading-[100%]">{formatConsecutiveNumber(index)}</p>
                     <p className="text-[10px] leading-[24px]">{user.email}</p>
                   </td>
                   <td className="px-[10px] py-[18px] text-[12px] leading-[16px]">
                     {user.city}
                   </td>
                   <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                    {new Date(user.registered).toLocaleDateString('en-GB')}
+                    {formatDate(user.registered)}
                   </td>
                   <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
                     <Image 
@@ -266,7 +283,7 @@ const Obituaries = () => {
                     {user.lastContribution}
                   </td>
                   <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                    {new Date(user.lastLogin).toLocaleDateString('en-GB')}
+                    {formatDate(user.lastLogin)}
                   </td>
                   <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
                     {user.daysVisited}

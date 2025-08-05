@@ -39,6 +39,11 @@ const Obituaries = () => {
     });
   };
 
+  // Helper function to format consecutive number
+  const formatConsecutiveNumber = (id) => {
+    return `O${id.toString().padStart(5, '0')}`;
+  };
+
   // Fetch obituaries data
   const fetchObituaries = async () => {
     try {
@@ -166,6 +171,22 @@ const Obituaries = () => {
     }
   };
 
+  // Handle opening obituary form
+  const handleOpenObituaryForm = (obituaryId, slugKey) => {
+    // Open the obituary details page in a new tab
+    // This will show the obituary information that can be reviewed/edited
+    const obituaryUrl = `/c/${slugKey}`;
+    window.open(obituaryUrl, '_blank');
+  };
+
+  // Handle opening memory page
+  const handleOpenMemoryPage = (obituaryId, slugKey) => {
+    // Open the memory page in a new tab
+    // The memory page URL structure is /memorypage/[id]/[user]
+    const memoryUrl = `/memorypage/${obituaryId}/${slugKey}`;
+    window.open(memoryUrl, '_blank');
+  };
+
   // Fetch obituaries when component mounts
   useEffect(() => {
     fetchObituaries();
@@ -174,7 +195,8 @@ const Obituaries = () => {
   // Transform API data to match table structure
   const tableData = obituaries.map((obituary, index) => ({
     id: obituary.id,
-    memoryBook: obituary.slugKey || `OB${obituary.id}`,
+    slugKey: obituary.slugKey,
+    memoryBook: formatConsecutiveNumber(obituary.id),
     ObituaryName: obituary.name || "Unknown",
     keeperAmount: obituary.sirName || "",
     city: obituary.city || "Unknown",
@@ -381,7 +403,7 @@ const Obituaries = () => {
               <tr className="">
                 <th className="pl-[16px] w-[80px] mt-[8px] flex flex-row items-center text-center border-r">
                   <div className=" text-[13px] leading-[16px] font-variation-customOpt12 font-semibold text-[#3C3E41]">
-                    #
+                    OBIT #
                   </div>
                   <Image
                     src={"/ico_down_arrow_memory.png"}
@@ -506,19 +528,19 @@ const Obituaries = () => {
             <tbody className="">
               {loading ? (
                 <tr>
-                  <td colSpan="15" className="text-center py-8">
+                  <td colSpan="16" className="text-center py-8">
                     <p className="font-sourcesans text-[16px] text-[#6D778E]">Loading obituaries...</p>
                   </td>
                 </tr>
               ) : error ? (
                 <tr>
-                  <td colSpan="15" className="text-center py-8">
+                  <td colSpan="16" className="text-center py-8">
                     <p className="font-sourcesans text-[16px] text-[#EB1D1D]">Error loading data: {error}</p>
                   </td>
                 </tr>
               ) : tableData.length === 0 ? (
                 <tr>
-                  <td colSpan="15" className="text-center py-8">
+                  <td colSpan="16" className="text-center py-8">
                     <p className="font-sourcesans text-[16px] text-[#6D778E]">No obituaries found</p>
                   </td>
                 </tr>
@@ -530,7 +552,7 @@ const Obituaries = () => {
                     index === 0 ? "bg-[#F7F9FA70]" : ""
                   }`}
                 >
-                  <td className="pl-[18px] text-left w-[80px] text-[10px] font-normal text-[#3C3E41]">
+                  <td className="pl-[18px] text-left w-[80px] text-[12px] font-semibold text-[#3C3E41]">
                     {data.memoryBook}
                   </td>
                   <td className="w-[140px] flex flex-col gap-x-[4px] justify-start items-start text-center text-[12px] text-black ">
@@ -541,7 +563,7 @@ const Obituaries = () => {
                       {data.keeperAmount}
                     </div>
                   </td>
-                  <td className="w-[120px] text-[12px] text-right font-normal text-[#3C3E41]">
+                  <td className="w-[120px] text-[12px] text-left pl-2 font-normal text-[#3C3E41]">
                     {data.city}
                   </td>
                   <td className="w-[120px] pr-3 text-right text-[10px] font-normal text-[#3C3E41]">
@@ -567,15 +589,21 @@ const Obituaries = () => {
                   <td className="w-[100px] text-[10px]  text-[#3C3E41]  "></td>
                   <td className="w-[122px] text-center px-2 ">
                     <div className="flex flex-col items-center gap-y-[4px]">
-                      <Image
-                        src={data.expiresImg}
-                        alt=""
-                        width={18}
-                        height={18}
-                        className={`${
-                          data.expiresImg === "" ? "hidden" : "block"
-                        }`}
-                      />
+                      <button
+                        onClick={() => handleOpenObituaryForm(data.id, data.slugKey)}
+                        className="cursor-pointer"
+                        title="Open Obituary Form"
+                      >
+                        <Image
+                          src={data.expiresImg}
+                          alt=""
+                          width={18}
+                          height={18}
+                          className={`${
+                            data.expiresImg === "" ? "hidden" : "block"
+                          }`}
+                        />
+                      </button>
                     </div>
                   </td>
 
@@ -607,15 +635,21 @@ const Obituaries = () => {
 
                   <td className="w-[60px]  pl-[25px] text-center px-2 ">
                     <div className="flex flex-col items-start gap-y-[4px]">
-                      <Image
-                        src={data.memoryPage}
-                        alt=""
-                        width={16}
-                        height={18}
-                        className={`${
-                          data.memoryPage === "" ? "hidden" : "block"
-                        }`}
-                      />
+                      <button
+                        onClick={() => handleOpenMemoryPage(data.id, data.slugKey)}
+                        className="cursor-pointer"
+                        title="Open Memory Page"
+                      >
+                        <Image
+                          src={data.memoryPage}
+                          alt=""
+                          width={16}
+                          height={18}
+                          className={`${
+                            data.memoryPage === "" ? "hidden" : "block"
+                          }`}
+                        />
+                      </button>
                     </div>
                   </td>
 

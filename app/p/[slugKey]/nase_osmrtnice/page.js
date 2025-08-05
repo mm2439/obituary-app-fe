@@ -1,13 +1,22 @@
 "use client";
 import CompanyAccountLayout from "@/app/components/appcomponents/CompanyAccountLayout";
 import obituaryService from "@/services/obituary-service";
+import userService from "@/services/user-service";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function Obituaries() {
   const [obituaries, setObituaries] = useState([]);
+  const [user, setUser] = useState(); 
+
+  
   useEffect(() => {
+    const getUser = async () => {
+      const user = await userService.getMyUser();
+      setUser(user)
+    }
+    getUser();
     getObituaries();
   }, []);
 
@@ -141,112 +150,112 @@ export default function Obituaries() {
               <tbody className="bg-white/40">
                 {obituaries.length > 0
                   ? obituaries.map((obituary, index) => (
-                      <tr
-                        key={index}
-                        className="h-[72px] border-b border-[#A1B1D4]"
-                      >
-                        <td className="px-[19px] py-[28px] tabletUserAcc:py-[16px] mobileUserAcc:py-[16px] text-[#6D778E] leading-none">
-                          <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
-                            {formatDate(obituary.createdTimestamp)}
+                    <tr
+                      key={index}
+                      className="h-[72px] border-b border-[#A1B1D4]"
+                    >
+                      <td className="px-[19px] py-[28px] tabletUserAcc:py-[16px] mobileUserAcc:py-[16px] text-[#6D778E] leading-none">
+                        <span className="tabletUserAcc:hidden mobileUserAcc:hidden">
+                          {formatDate(obituary.createdTimestamp)}
+                        </span>
+                        <span className="hidden mobileUserAcc:block tabletUserAcc:block text-end text-[rgba(109,119,142,1)] leading-[20px] text-[14px]">
+                          {formatDay(obituary.createdTimestamp)}
+                          <br />
+                          <span className="text-[rgba(212,212,212,1)]">
+                            {formatYear(obituary.createdTimestamp)}
                           </span>
-                          <span className="hidden mobileUserAcc:block tabletUserAcc:block text-end text-[rgba(109,119,142,1)] leading-[20px] text-[14px]">
-                            {formatDay(obituary.createdTimestamp)}
-                            <br />
-                            <span className="text-[rgba(212,212,212,1)]">
-                              {formatYear(obituary.createdTimestamp)}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="inline-flex gap-[16px] items-center">
+                          <div className="space-y-[1px]">
+                            <span className="text-[14px] text-[#6D778E]">
+                              {obituary.name}
                             </span>
-                          </span>
-                        </td>
-                        <td>
-                          <div className="inline-flex gap-[16px] items-center">
-                            <div className="space-y-[1px]">
-                              <span className="text-[14px] text-[#6D778E]">
-                                {obituary.name}
-                              </span>
-                              <div className="text-[#3C3E41] text-[16px]">
-                                {obituary.sirName}
-                              </div>
+                            <div className="text-[#3C3E41] text-[16px]">
+                              {obituary.sirName}
                             </div>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={2.8}
-                              stroke="#6D778E"
-                              className="size-5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                          </div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2.8}
+                            stroke="#6D778E"
+                            className="size-5"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                            />
+                          </svg>
+                        </div>
+                      </td>
+                      <td className="flex justify-center items-center h-[72px]">
+                        {obituary.hasKeeper === true ? (
+                          <img
+                            src="/tick_green.png"
+                            alt=""
+                            className="w-[28px] h-[28px]"
+                          />
+                        ) : (
+                          <img
+                            src="/tick.png"
+                            alt=""
+                            className="w-[24px] h-[24px]"
+                          />
+                        )}
+                      </td>
+                      <td className="text-center">
+                        <div className="flex items-center justify-center gap-3">
+                          <div className="w-[50%] flex items-center justify-end">
+                            {obituary.image === null ? (
+                              <img
+                                src="/cross.png"
+                                alt=""
+                                className="w-[28px] h-[28px]"
                               />
-                            </svg>
+                            ) : (
+                              <img
+                                src="/tick_green.png"
+                                alt=""
+                                className="w-[28px] h-[28px]"
+                              />
+                            )}
                           </div>
-                        </td>
-                        <td className="flex justify-center items-center h-[72px]">
-                          {obituary.hasKeeper === true ? (
-                            <img
-                              src="/tick_green.png"
-                              alt=""
-                              className="w-[28px] h-[28px]"
-                            />
-                          ) : (
-                            <img
-                              src="/tick.png"
-                              alt=""
-                              className="w-[24px] h-[24px]"
-                            />
-                          )}
-                        </td>
-                        <td className="text-center">
-                          <div className="flex items-center justify-center gap-3">
-                            <div className="w-[50%] flex items-center justify-end">
-                              {obituary.image === null ? (
-                                <img
-                                  src="/cross.png"
-                                  alt=""
-                                  className="w-[28px] h-[28px]"
-                                />
-                              ) : (
-                                <img
-                                  src="/tick_green.png"
-                                  alt=""
-                                  className="w-[28px] h-[28px]"
-                                />
-                              )}
-                            </div>
-                            <span className="text-[#D4D4D4]">I</span>
-                            <div className="w-[50%] flex items-center justify-start">
-                              {obituary.funeralTimestamp === null ? (
-                                <img
-                                  src="/cross.png"
-                                  alt=""
-                                  className="w-[28px] h-[28px]"
-                                />
-                              ) : (
-                                <img
-                                  src="/tick_green.png"
-                                  alt=""
-                                  className="w-[28px] h-[28px]"
-                                />
-                              )}
-                            </div>
+                          <span className="text-[#D4D4D4]">I</span>
+                          <div className="w-[50%] flex items-center justify-start">
+                            {obituary.funeralTimestamp === null ? (
+                              <img
+                                src="/cross.png"
+                                alt=""
+                                className="w-[28px] h-[28px]"
+                              />
+                            ) : (
+                              <img
+                                src="/tick_green.png"
+                                alt=""
+                                className="w-[28px] h-[28px]"
+                              />
+                            )}
                           </div>
-                        </td>
-                        <td className="pr-[25px]">
-                          <button className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto ">
-                            <img
-                              src="/edit.png"
-                              alt=""
-                              className="w-[26px] h-[26px]"
-                            />
-                            <span className="text-[16px] text-[#6D778E] leading-none">
-                              Dopolni
-                            </span>
-                          </button>
-                        </td>
-                      </tr>
-                    ))
+                        </div>
+                      </td>
+                      <td className="pr-[25px]">
+                        <button className="border-[2px] border-[#0A85C2] bg-white rounded-[6px] px-[11px] py-[5px] flex items-center gap-[16px] shadow-md ml-auto ">
+                          <img
+                            src="/edit.png"
+                            alt=""
+                            className="w-[26px] h-[26px]"
+                          />
+                          <span className="text-[16px] text-[#6D778E] leading-none">
+                            Dopolni
+                          </span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))
                   : null}
               </tbody>
             </table>

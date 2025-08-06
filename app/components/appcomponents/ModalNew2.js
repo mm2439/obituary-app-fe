@@ -58,41 +58,53 @@ export default function ModalNew2({
         }]
       };
 
+      console.log("Sending shop data to backend:", shopData);
+
       // Call backend API to create the shop
       const response = await shopService.createShop(shopData);
+      console.log("Backend response:", response);
 
+      // The response should contain all shops (existing + new)
       // Call onChange callback with updated shops from backend
-      if (onChange && response.shops) {
-        onChange(response.shops);
+      if (onChange) {
+        // Check different possible response structures
+        const updatedShops = response.shops || 
+                            response.data?.shops || 
+                            response.FloristShops ||
+                            response.data?.FloristShops ||
+                            [];
+        
+        console.log("Updated shops from response:", updatedShops);
+        onChange(updatedShops);
       }
 
       // Clear form
-      setShopName("");
-      setAddress("");
-      setTelephone("");
-      setEmail("");
-      setWebsite("");
+      clearForm();
 
       // Close modal
       setIsShowModal(false);
       
-      toast.success("Florist shop added successfully!");
+      toast.success("Cvetličarna je bila uspešno dodana!");
     } catch (error) {
       console.error("Error adding florist shop:", error);
-      toast.error("Error adding florist shop. Please try again.");
+      toast.error("Napaka pri dodajanju cvetličarne. Poskusite znova.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const clearForm = () => {
+    setShopName("");
+    setAddress("");
+    setTelephone("");
+    setEmail("");
+    setWebsite("");
+  };
+
   // Clear form when modal opens/closes
   useEffect(() => {
     if (!isShowModal) {
-      setShopName("");
-      setAddress("");
-      setTelephone("");
-      setEmail("");
-      setWebsite("");
+      clearForm();
     }
   }, [isShowModal]);
 
@@ -108,7 +120,6 @@ export default function ModalNew2({
       <ModalContent className="flex items-center justify-center w-full mt-32">
         <div className="flex flex-col w-full items-center justify-center desktop:w-[600px]">
           <div className="flex  " />
-          {/* {/ <div className="flex flex-col tablet:w-[600px] desktop:w-[600px] w-full mobile:w-[95%] bg-[#E8F0F6]  rounded-2xl  p-4  "> /} */}
           <div className="flex flex-col bg-[#E8F0F6]  rounded-2xl ">
             <div
               onClick={() => {
@@ -137,61 +148,66 @@ export default function ModalNew2({
                   </p>
                   
                   <div className=" text-[#6D778E] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
-                    <div className="mb-2.5 text-[#414141]">CVETLIČARNA</div>
+                    <div className="mb-2.5 text-[#414141]">CVETLIČARNA *</div>
                     <div className="px-[10px] mobile:pl-4 pl-6 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
                         value={shopName}
                         onChange={(e) => setShopName(e.target.value)}
                         placeholder="vpisujete vsako posebej (glavna je že vnešena)"
-                        className="w-full h-full bg-transparent mobile:hidden focus:outline-none text-[#ACAAAA]"
+                        className="w-full h-full bg-transparent mobile:hidden focus:outline-none text-[#3C3E41] placeholder:text-[#ACAAAA]"
+                        required
                       />
 
                       <input
                         type="text"
                         value={shopName}
                         onChange={(e) => setShopName(e.target.value)}
-                        placeholder="vpisujete vsako posebej "
-                        className="w-full h-full bg-transparent tablet:hidden desktop:hidden focus:outline-none text-[#ACAAAA]"
+                        placeholder="vpisujete vsako posebej"
+                        className="w-full h-full bg-transparent tablet:hidden desktop:hidden focus:outline-none text-[#3C3E41] placeholder:text-[#ACAAAA]"
+                        required
                       />
                     </div>
                   </div>
 
                    <div className=" text-[#6D778E] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
-                    <div className="mb-2.5 text-[#414141]">NASLOV </div>
+                    <div className="mb-2.5 text-[#414141]">NASLOV *</div>
                     <div className="px-[10px] mobile:pl-4 pl-6 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                         placeholder="te cvetličarne"
-                        className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
+                        className="w-full h-full bg-transparent focus:outline-none text-[#3C3E41] placeholder:text-[#ACAAAA]"
+                        required
                       />
                     </div>
                   </div>
 
                    <div className=" text-[#6D778E] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
-                    <div className="mb-2.5 text-[#414141]">TEL. ŠTEVILKA</div>
-                    <div className="px-[10px] pl-6 m mobile:pl-4t-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
+                    <div className="mb-2.5 text-[#414141]">TEL. ŠTEVILKA *</div>
+                    <div className="px-[10px] pl-6 mobile:pl-4 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
                         value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
-                        placeholder="te cvetličarne "
-                        className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
+                        placeholder="te cvetličarne"
+                        className="w-full h-full bg-transparent focus:outline-none text-[#3C3E41] placeholder:text-[#ACAAAA]"
+                        required
                       />
                     </div>
                   </div>
 
                    <div className=" text-[#6D778E] leading-[20px] font-[400px] w-full mt-[10px] h-[82px] flex flex-col justify-start items-start mb-2.5">
-                    <div className="mb-2.5 text-[#414141]">E-NASLOV</div>
+                    <div className="mb-2.5 text-[#414141]">E-NASLOV *</div>
                     <div className="px-[10px] pl-6 mobile:pl-4 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
-                        type="text"
+                        type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="ki naj bo izpisan ob tej cvetličarni"
-                        className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
+                        className="w-full h-full bg-transparent focus:outline-none text-[#3C3E41] placeholder:text-[#ACAAAA]"
+                        required
                       />
                     </div>
                   </div>
@@ -200,21 +216,23 @@ export default function ModalNew2({
                     <div className="mb-2.5 text-[#414141]">SPLETNA STRAN</div>
                     <div className="px-[10px] pl-6 mobile:pl-4 mt-[4px] h-[48px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                       <input
-                        type="text"
+                        type="url"
                         value={website}
                         onChange={(e) => setWebsite(e.target.value)}
                         placeholder="če je nimate, pustite prazno"
-                        className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
+                        className="w-full h-full bg-transparent focus:outline-none text-[#3C3E41] placeholder:text-[#ACAAAA]"
                       />
                     </div>
                   </div>
 
                   <button
                     onClick={handleSubmit}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !shopName.trim() || !address.trim() || !telephone.trim() || !email.trim()}
                     style={{ boxShadow: '5px 5px 10px #A6ABBD, -5px -5px 10px #FAFBFF' }}
-                    className={`w-full h-[60px] rounded-[10px] text-white font-semibold text-xl ${
-                      isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#09C1A3]'
+                    className={`w-full h-[60px] rounded-[10px] text-white font-semibold text-xl transition-colors ${
+                      isSubmitting || !shopName.trim() || !address.trim() || !telephone.trim() || !email.trim()
+                        ? 'bg-gray-400 cursor-not-allowed' 
+                        : 'bg-[#09C1A3] hover:bg-[#08A087]'
                     }`}>
                     {isSubmitting ? 'Dodajanje...' : 'Dodaj cvetličarno'}
                   </button>

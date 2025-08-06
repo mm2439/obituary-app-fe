@@ -58,11 +58,9 @@ export default function ModalNew2({
         }]
       };
 
-      console.log("Sending shop data to backend:", shopData);
 
       // Call backend API to create the shop
       const response = await shopService.createShop(shopData);
-      console.log("Backend response:", response);
 
       // The response should contain all shops (existing + new)
       // Call onChange callback with updated shops from backend
@@ -74,7 +72,6 @@ export default function ModalNew2({
                             response.data?.FloristShops ||
                             [];
         
-        console.log("Updated shops from response:", updatedShops);
         onChange(updatedShops);
       }
 

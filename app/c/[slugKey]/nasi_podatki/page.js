@@ -45,7 +45,6 @@ export default function AccountSettings() {
   const fetchShops = async () => {
     try {
       const response = await shopService.getFloristShops();
-      console.log("Shops fetched from shop-service:", response);
       if (response.shops) {
         setShops(response.shops);
       }
@@ -59,15 +58,9 @@ export default function AccountSettings() {
       const queryParams = {};
       queryParams.type = "FLORIST";
       const response = await companyService.getCompleteCompany(queryParams);
-      console.log("API Response:", response);
-      console.log("User data:", response.user);
-      console.log("CompanyPage data:", response.user?.CompanyPage);
-      console.log("All CompanyPage properties:", Object.keys(response.user?.CompanyPage || {}));
-      console.log("Full CompanyPage object:", JSON.stringify(response.user?.CompanyPage, null, 2));
-       
+     
       // Get shops using centralized logic
       const shopsFromCompany = getShopsFromData(response.user?.CompanyPage);
-      console.log("Processed shops from company:", shopsFromCompany);
        
       // Set the complete data as received from API, but ensure shops are properly structured
       const userData = response.user || {};
@@ -83,7 +76,6 @@ export default function AccountSettings() {
         setSelectedCity(response.user.secondaryCity);
       }
     } catch (error) {
-      console.log("Error fetching company data:", error);
       toast.error("Error loading company data");
     }
   };
@@ -112,7 +104,6 @@ export default function AccountSettings() {
         secondaryCity: item,
       }));
     } catch (error) {
-      console.log(error);
       toast.error("Error Updating City");
     }
   };
@@ -139,15 +130,10 @@ export default function AccountSettings() {
       // You might want to add an API call here to persist the deletion
       // await companyService.updateFloristShops(updatedShops);
     } catch (error) {
-      console.log(error);
       toast.error("Error deleting shop");
     }
   };
 
-  useEffect(() => {
-    console.log("Current data state:", data);
-    console.log("Current shops from shop-service:", shops);
-  }, [data, shops]);
 
   // Use shops from shop-service for rendering
   const hasFloristShops = shops && shops.length > 0;
@@ -256,7 +242,6 @@ export default function AccountSettings() {
               <div className="space-y-4">
                 {hasFloristShops ? (
                   shops.map((item, index) => {
-                    console.log("Rendering shop:", item);
                     return (
                       <div
                         key={index}
@@ -501,7 +486,6 @@ export default function AccountSettings() {
         set_Id={setSelect_Id}
         data={data?.CompanyPage}
         onChange={(updatedShops) => {
-          console.log("ModalNew onChange:", updatedShops);
           setShops(updatedShops);
           setData((prevData) => ({
             ...prevData,
@@ -520,7 +504,6 @@ export default function AccountSettings() {
         set_Id={setSelect_Id}
         data={data?.CompanyPage}
         onChange={(updatedShops) => {
-          console.log("ModalNew2 onChange:", updatedShops);
           // Update shops state with new shops from backend
           setShops(updatedShops);
           setData((prevData) => ({

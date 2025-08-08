@@ -13,6 +13,23 @@ const FuneralCompanyData = () => {
   const [whichScreen, setWhichScreen] = useState(1);
   const [whichTab, setWhichTab] = useState("");
   const [companies, setCompanies] = useState([]);
+
+  // Helper function to format consecutive number for Funeral Companies
+  const formatConsecutiveNumber = (index) => {
+    return `F${(index + 1).toString().padStart(4, '0')}`;
+  };
+
+  // Helper function to format date safely
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return "N/A";
+      return date.toLocaleDateString('en-GB');
+    } catch (error) {
+      return "N/A";
+    }
+  };
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // Remove local state since we'll use database data
@@ -507,6 +524,11 @@ const FuneralCompanyData = () => {
             <table className="min-w-full relative table-auto  z-10">
               <thead>
                 <tr className="h-[70px] uppercase ">
+                  <th className="w-[80px] text-center pt-[40px]">
+                    <p className="font-sourcesans text-[13px] font-semibold leading-[16px] text-[#3C3E41]">
+                      FUNERAL #
+                    </p>
+                  </th>
                   <th className="w-[167px] pt-[60px]  pl-[13px]">
                     <p className="text-left  font-sourcesans text-[13px] font-semibold leading-[16px] text-[#3C3E41]">
                       Funeral Company
@@ -678,25 +700,30 @@ const FuneralCompanyData = () => {
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan="11" className="text-center py-8">
+                    <td colSpan="12" className="text-center py-8">
                       <p className="font-sourcesans text-[16px] text-[#6D778E]">Loading funeral companies...</p>
                     </td>
                   </tr>
                 ) : error ? (
                   <tr>
-                    <td colSpan="11" className="text-center py-8">
+                    <td colSpan="12" className="text-center py-8">
                       <p className="font-sourcesans text-[16px] text-[#EB1D1D]">Error loading data: {error}</p>
                     </td>
                   </tr>
                 ) : companies.length === 0 ? (
                   <tr>
-                    <td colSpan="11" className="text-center py-8">
+                    <td colSpan="12" className="text-center py-8">
                       <p className="font-sourcesans text-[16px] text-[#6D778E]">No funeral companies found</p>
                     </td>
                   </tr>
                 ) : (
                   companies.map((company, index) => (
                     <tr key={company.id} className={`h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] ${index % 2 === 0 ? 'bg-[#FFFFFF66]' : 'bg-white'}`}>
+                      <td className="w-[80px] text-center">
+                        <p className="font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
+                          {formatConsecutiveNumber(index)}
+                        </p>
+                      </td>
                       <td className="w-[167px] pl-[13px]">
                         <p className="text-left font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
                           {company.name}
@@ -2076,7 +2103,7 @@ const FuneralCompanyData = () => {
                   <tr key={company.id} className={`h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] ${index % 2 === 0 ? 'bg-[#FFFFFF66]' : 'bg-white'}`}>
                     <td className="w-[78px] text-center">
                       <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                        {company.slugKey || `S${company.id}`}
+                        {formatConsecutiveNumber(index)}
                       </p>
                     </td>
 
@@ -2101,11 +2128,11 @@ const FuneralCompanyData = () => {
                       </p>
                     </td>
 
-                    <td className="w-[74px] text-left">
-                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                        {new Date(company.createdTimestamp).toLocaleDateString('en-GB')}
-                      </p>
-                    </td>
+                                          <td className="w-[74px] text-left">
+                        <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                          {formatDate(company.createdTimestamp)}
+                        </p>
+                      </td>
 
                     <td className="w-[131px] text-center">
                       <p className="font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">

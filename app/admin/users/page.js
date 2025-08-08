@@ -3,10 +3,139 @@
 import React, { useEffect, useState } from "react";
 import SideMenuAdmin from "../../components/appcomponents/SideMenuAdmin";
 import Image from "next/image";
+import adminService from "../../../services/admin-service";
+import { toast } from "react-hot-toast";
+import NotesModal from "../../components/NotesModal";
 
 const Obituaries = () => {
   const [screen, setScreen] = useState(1);
   const [whichTab, setWhichTab] = useState("Gifts");
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [notesModal, setNotesModal] = useState({
+    isOpen: false,
+    userId: null,
+    currentNotes: "",
+    userName: ""
+  });
+
+  // Fetch users data
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const response = await adminService.getUsers();
+      if (response.success) {
+        setUsers(response.data);
+      } else {
+        setError("Failed to fetch users");
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setError("Failed to fetch users");
+      toast.error("Failed to load users");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle block user toggle
+  const handleBlockUserToggle = async (userId, currentBlockedStatus) => {
+    try {
+      const response = await adminService.blockUser(userId, !currentBlockedStatus);
+      if (response.success) {
+        // Update local state
+        setUsers(prevUsers => 
+          prevUsers.map(user => 
+            user.id === userId 
+              ? { ...user, isBlocked: !currentBlockedStatus }
+              : user
+          )
+        );
+        toast.success(currentBlockedStatus ? "User unblocked successfully" : "User blocked successfully");
+      }
+    } catch (error) {
+      console.error("Error blocking/unblocking user:", error);
+      toast.error("Failed to block/unblock user");
+    }
+  };
+
+  // Handle notes update
+  const handleNotesUpdate = async (userId, notes) => {
+    try {
+      const response = await adminService.updateUserNotes(userId, notes);
+      if (response.success) {
+        // Update local state
+        setUsers(prevUsers => 
+          prevUsers.map(user => 
+            user.id === userId 
+              ? { ...user, notes }
+              : user
+          )
+        );
+        toast.success("Notes updated successfully");
+      }
+    } catch (error) {
+      console.error("Error updating notes:", error);
+      toast.error("Failed to update notes");
+    }
+  };
+
+  // Handle delete user
+  const handleDeleteUser = async (userId) => {
+    if (!window.confirm("Are you sure you want to delete this user? This action cannot be undone.")) {
+      return;
+    }
+    
+    try {
+      const response = await adminService.deleteUser(userId);
+      if (response.success) {
+        // Remove user from local state
+        setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+        toast.success("User deleted successfully");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      toast.error("Failed to delete user");
+    }
+  };
+
+  // Notes modal handlers
+  const openNotesModal = (userId, currentNotes, userName) => {
+    setNotesModal({
+      isOpen: true,
+      userId,
+      currentNotes: currentNotes || "",
+      userName
+    });
+  };
+
+  const closeNotesModal = () => {
+    setNotesModal({
+      isOpen: false,
+      userId: null,
+      currentNotes: "",
+      userName: ""
+    });
+  };
+
+  const saveNotes = async (notes) => {
+    if (notesModal.userId) {
+      await handleNotesUpdate(notesModal.userId, notes);
+    }
+  };
+
+  // Fetch users when component mounts
+  useEffect(() => {
+    if (screen === 1) {
+      fetchUsers();
+    }
+  }, [screen]);
+  useEffect(() => {
+    if (screen === 1) {
+      fetchUsers();
+    }
+  }, [screen]);
 
   useEffect(() => {
     if(screen === 1) {
@@ -93,165 +222,123 @@ const Obituaries = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] bg-[#FFFFFF66] text-[#3C3E41]">
-              <td className="px-[18px] py-[18px]">
-                <p className="text-[12px] leading-[100%]">01002SIA</p>
-                <p className="text-[10px] leading-[24px]">their@email.com</p>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px]">
-                Acapulco
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                12.03.2023
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_check.png" alt="check" width={18} height={18} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21.05.2024
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21.05.2024
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              29
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21 Hours
-              </td>
-              <td></td>
-              <td className="px-[10px] py-[18px] text-[16px] leading-[16px] text-center">
-                <div className="inline-flex gap-[10px] items-center text-[#ACAAAA] font-[100]">
-                  <Image src="/admin_table_edit.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_info_muted.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_attherate.png" alt="check" width={18} height={18} className="mx-auto" />
-                </div>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <div className="inline-flex gap-[12px] items-center text-[#ACAAAA] font-[100]">
-                  <Image src="/admin_table_cross_muted.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_delete_muted.png" alt="check" width={18} height={18} className="mx-auto" />
-                </div>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_award_muted.png" alt="check" width={22} height={22} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_right.png" alt="check" width={24} height={24} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_right.png" alt="check" width={24} height={24} className="mx-auto" />
-              </td>
-            </tr>
-            <tr className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] text-[#3C3E41]">
-              <td className="px-[18px] py-[18px]">
-                <p className="text-[12px] leading-[100%]">01002SIA</p>
-                <p className="text-[10px] leading-[24px]">their@email.com</p>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px]">
-                Acapulco
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                12.03.2023
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_check.png" alt="check" width={18} height={18} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21.05.2024
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21.05.2024
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              29
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21 Hours
-              </td>
-              <td></td>
-              <td className="px-[10px] py-[18px] text-[16px] leading-[16px] text-center">
-                <div className="inline-flex gap-[10px] items-center text-[#ACAAAA] font-[100]">
-                  <Image src="/admin_table_edit.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_info.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_attherate_muted.png" alt="check" width={18} height={18} className="mx-auto" />
-                </div>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <div className="inline-flex gap-[12px] items-center text-[#ACAAAA] font-[100]">
-                  <Image src="/admin_table_cross.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_delete_muted.png" alt="check" width={18} height={18} className="mx-auto" />
-                </div>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_award_muted.png" alt="check" width={22} height={22} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_right.png" alt="check" width={24} height={24} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_right.png" alt="check" width={24} height={24} className="mx-auto" />
-              </td>
-            </tr>
-            <tr className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] text-[#3C3E41]">
-              <td className="px-[18px] py-[18px]">
-                <p className="text-[12px] leading-[100%]">01002SIA</p>
-                <p className="text-[10px] leading-[24px]">their@email.com</p>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px]">
-                Acapulco
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                12.03.2023
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_check.png" alt="check" width={18} height={18} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21.05.2024
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21.05.2024
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              29
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-              21 Hours
-              </td>
-              <td></td>
-              <td className="px-[10px] py-[18px] text-[16px] leading-[16px] text-center">
-                <div className="inline-flex gap-[10px] items-center text-[#ACAAAA] font-[100]">
-                  <Image src="/admin_table_edit.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_info.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_attherate_muted.png" alt="check" width={18} height={18} className="mx-auto" />
-                </div>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <div className="inline-flex gap-[12px] items-center text-[#ACAAAA] font-[100]">
-                  <Image src="/admin_table_cross.png" alt="check" width={18} height={18} className="mx-auto" />
-                  I
-                  <Image src="/admin_table_delete_muted.png" alt="check" width={18} height={18} className="mx-auto" />
-                </div>
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_award_muted.png" alt="check" width={22} height={22} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_right.png" alt="check" width={24} height={24} className="mx-auto" />
-              </td>
-              <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
-                <Image src="/admin_table_right.png" alt="check" width={24} height={24} className="mx-auto" />
-              </td>
-            </tr>
+            {loading ? (
+              <tr>
+                <td colSpan="14" className="text-center py-8">
+                  <p className="font-sourcesans text-[16px] text-[#6D778E]">Loading users...</p>
+                </td>
+              </tr>
+            ) : error ? (
+              <tr>
+                <td colSpan="14" className="text-center py-8">
+                  <p className="font-sourcesans text-[16px] text-[#EB1D1D]">Error loading data: {error}</p>
+                </td>
+              </tr>
+            ) : users.length === 0 ? (
+              <tr>
+                <td colSpan="14" className="text-center py-8">
+                  <p className="font-sourcesans text-[16px] text-[#6D778E]">No users found</p>
+                </td>
+              </tr>
+            ) : (
+              users.map((user, index) => (
+                <tr key={user.id} className={`h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] ${index % 2 === 0 ? 'bg-[#FFFFFF66]' : 'bg-white'} text-[#3C3E41]`}>
+                  <td className="px-[18px] py-[18px]">
+                    <p className="text-[12px] leading-[100%]">{user.slugKey}</p>
+                    <p className="text-[10px] leading-[24px]">{user.email}</p>
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px]">
+                    {user.city}
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    {new Date(user.registered).toLocaleDateString('en-GB')}
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    <Image 
+                      src={user.subscribed ? "/admin_table_check.png" : "/admin_table_cross_muted.png"} 
+                      alt="check" 
+                      width={18} 
+                      height={18} 
+                      className="mx-auto" 
+                    />
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    {user.lastContribution}
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    {new Date(user.lastLogin).toLocaleDateString('en-GB')}
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    {user.daysVisited}
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    {user.readTime}
+                  </td>
+                  <td></td>
+                  <td className="px-[10px] py-[18px] text-[16px] leading-[16px] text-center">
+                    <div className="inline-flex gap-[10px] items-center text-[#ACAAAA] font-[100]">
+                      <button
+                        onClick={() => openNotesModal(user.id, user.notes, user.name)}
+                        className="cursor-pointer"
+                        title="Edit Notes"
+                      >
+                        <Image 
+                          src={user.notes ? "/admin_table_edit.png" : "/admin_table_edit.png"} 
+                          alt="edit" 
+                          width={18} 
+                          height={18} 
+                          className="mx-auto" 
+                        />
+                      </button>
+                      I
+                      <Image src="/admin_table_info_muted.png" alt="info" width={18} height={18} className="mx-auto" />
+                      I
+                      <Image src="/admin_table_attherate_muted.png" alt="email" width={18} height={18} className="mx-auto" />
+                    </div>
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    <div className="inline-flex gap-[12px] items-center text-[#ACAAAA] font-[100]">
+                      <button
+                        onClick={() => handleBlockUserToggle(user.id, user.isBlocked)}
+                        className="cursor-pointer"
+                        title={user.isBlocked ? "Unblock User" : "Block User"}
+                      >
+                        <Image 
+                          src={user.isBlocked ? "/admin_table_cross.png" : "/admin_table_cross_muted.png"} 
+                          alt="block" 
+                          width={18} 
+                          height={18} 
+                          className="mx-auto" 
+                        />
+                      </button>
+                      I
+                      <button
+                        onClick={() => handleDeleteUser(user.id)}
+                        className="cursor-pointer"
+                        title="Delete User"
+                      >
+                        <Image 
+                          src="/admin_table_delete_muted.png" 
+                          alt="delete" 
+                          width={18} 
+                          height={18} 
+                          className="mx-auto" 
+                        />
+                      </button>
+                    </div>
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    <Image src="/admin_table_award_muted.png" alt="award" width={22} height={22} className="mx-auto" />
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    <Image src="/admin_table_right.png" alt="contributions" width={24} height={24} className="mx-auto" />
+                  </td>
+                  <td className="px-[10px] py-[18px] text-[12px] leading-[16px] text-center">
+                    <Image src="/admin_table_right.png" alt="account" width={24} height={24} className="mx-auto" />
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>}
@@ -2031,6 +2118,15 @@ const Obituaries = () => {
           </tbody>
         </table>
       </div>}
+
+      {/* Notes Modal */}
+      <NotesModal
+        isOpen={notesModal.isOpen}
+        onClose={closeNotesModal}
+        onSave={saveNotes}
+        currentNotes={notesModal.currentNotes}
+        companyName={notesModal.userName}
+      />
     </div>
   )
 }
@@ -2323,5 +2419,7 @@ const RevenueComp2Tab4 = ({
     </div>
   );
 };
+
+
 
 export default Obituaries;

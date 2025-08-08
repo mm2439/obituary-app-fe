@@ -1,135 +1,206 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import SideMenuAdmin from "../../components/appcomponents/SideMenuAdmin";
 import RevenueComp from "../../components/appcomponents/RevenueComp";
 import Dropdown from "../../components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import obituaryService from "../../../services/obituary-service";
+import adminService from "../../../services/admin-service";
+import { toast } from "react-hot-toast";
+import NotesModal from "../../components/NotesModal";
 
 const Obituaries = () => {
-  const tableData = [
-    {
-      memoryBook: "1PD102S ",
-      ObituaryName: "Mario Danilo",
-      keeperAmount: "Primo",
-      city: "Palm Springs",
-      died: "11.05.24",
-      invoiceImg: "",
-      invoice: "14.05.24 ",
-      funeral: "13.00",
-      cemetery: "Neverland Cemetery",
-      Obituary: "Last wishes funeral company",
-      postedby: "Palm Springs",
-      date: "14.05.24",
-      expiresImg: "/ico_eye.png",
-      photo_funeral_one: "/blue_tick.png",
-      photo_funeral_two: "/yellow_tick.png",
-      memoryPage: "/purple_arrow.png",
-      keeper: "/green_arrow.png",
-      delete: "/delete.png",
-      hide: "/red_cross.png",
-      block: "/gray_cross.png",
-      notes: "/file.png",
-      grantCode: "/grant_code.png",
-    },
-    {
-      memoryBook: "1PD104G ",
-      ObituaryName: "Danny",
-      keeperAmount: "de Vito",
-      city: "Palm Springs",
-      died: "11.05.24",
-      invoiceImg: "",
-      invoice: "",
-      funeral: "",
-      cemetery: "Neverland Cemetery",
-      Obituary: "Magnolia Flower",
-      postedby: "Tahoe",
-      date: "14.05.24",
-      expiresImg: "/ico_eye.png",
-      photo_funeral_one: "/blue_tick.png",
-      photo_funeral_two: "/gray_tick.png",
-      memoryPage: "/purple_arrow.png",
-      keeper: "/green_arrow.png",
-      delete: "/delete.png",
-      hide: "/red_cross.png",
-      block: "/gray_cross.png",
-      notes: "/file.png",
-      grantCode: "/grant_code.png",
-    },
-    {
-      memoryBook: "1PD111V",
-      ObituaryName: "Alexander",
-      keeperAmount: "the Great",
-      city: "Palm Springs",
-      died: "10.05.24",
-      invoiceImg: "/ico_eye.png",
-      invoice: "13.05.24 ",
-      funeral: "16.00",
-      cemetery: "Neverland Cemetery",
-      Obituary: "Last wishes funeral company",
-      postedby: "Palm Springs",
-      date: "14.05.24",
-      expiresImg: "/ico_eye.png",
-      photo_funeral_one: "/gray_tick.png",
-      photo_funeral_two: "/gray_tick.png",
-      memoryPage: "/purple_arrow.png",
-      keeper: "",
-      delete: "/delete.png",
-      hide: "/danger_cross.png",
-      block: "/black_cross.png",
-      notes: "/gray_file.png",
-      grantCode: "/grant_code.png",
-    },
-    {
-      memoryBook: "1PD137F",
-      ObituaryName: "Claudio",
-      keeperAmount: "Stradivari Nicolo",
-      city: "Palm Springs",
-      died: "08.05.24",
-      invoiceImg: "",
-      invoice: "",
-      funeral: "",
-      cemetery: "Neverland Cemetery",
-      Obituary: "Last wishes funeral company",
-      postedby: "Palm Springs",
-      date: "14.05.24",
-      expiresImg: "/ico_eye.png",
-      photo_funeral_one: "/blue_tick.png",
-      photo_funeral_two: "/gray_tick.png",
-      memoryPage: "/purple_arrow.png",
-      keeper: "/green_arrow.png",
-      delete: "/delete.png",
-      hide: "/red_cross.png",
-      block: "/black_cross.png",
-      notes: "/file.png",
-      grantCode: "/grant_code.png",
-    },
-    {
-      memoryBook: "1PD134A",
-      ObituaryName: "Tetsuya",
-      keeperAmount: "Miyazaki",
-      city: "Palm Springs",
-      died: "08.05.24",
-      invoiceImg: "/ico_eye.png",
-      invoice: "",
-      funeral: "",
-      cemetery: "Neverland Cemetery",
-      Obituary: "Roses and Candles  ",
-      postedby: "Palm Springs",
-      date: "14.05.24",
-      whosKeeper: "01002SIA \n their@email.com",
-      expiresImg: "/ico_eye.png",
-      photo_funeral_one: "/gray_tick.png",
-      photo_funeral_two: "/yellow_tick.png",
-      memoryPage: "/purple_arrow.png",
-      keeper: "",
-      delete: "/delete.png",
-      hide: "/red_cross.png",
-      block: "/gray_cross.png",
-      notes: "/gray_file.png",
-      grantCode: "/grant_code.png",
-    },
-  ];
+  const [obituaries, setObituaries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [notesModal, setNotesModal] = useState({
+    isOpen: false,
+    obituaryId: null,
+    currentNotes: "",
+    obituaryName: ""
+  });
+
+  // Helper function to format date
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB');
+  };
+
+  // Helper function to format time
+  const formatTime = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('en-GB', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: false 
+    });
+  };
+
+  // Fetch obituaries data
+  const fetchObituaries = async () => {
+    try {
+      setLoading(true);
+      const response = await obituaryService.getObituary();
+      // The API returns { total, obituaries, funeralCount } without a success field
+      if (response && response.obituaries) {
+        setObituaries(response.obituaries || []);
+      } else {
+        setError("Failed to fetch obituaries");
+      }
+    } catch (error) {
+      console.error("Error fetching obituaries:", error);
+      setError("Failed to fetch obituaries");
+      toast.error("Failed to load obituaries");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle delete obituary
+  const handleDeleteObituary = async (obituaryId, obituaryName) => {
+    if (!window.confirm(`Are you sure you want to delete the obituary for ${obituaryName}? This action cannot be undone, but the obituary can be recovered within 1 month.`)) {
+      return;
+    }
+    
+    try {
+      const response = await adminService.deleteObituary(obituaryId);
+      if (response.success) {
+        // Remove obituary from local state
+        setObituaries(prevObituaries => prevObituaries.filter(obit => obit.id !== obituaryId));
+        toast.success("Obituary deleted successfully. It can be recovered within 1 month.");
+      }
+    } catch (error) {
+      console.error("Error deleting obituary:", error);
+      toast.error("Failed to delete obituary");
+    }
+  };
+
+  // Handle hide/unhide obituary
+  const handleToggleObituaryVisibility = async (obituaryId, currentHiddenStatus, obituaryName) => {
+    try {
+      const response = await adminService.toggleObituaryVisibility(obituaryId, !currentHiddenStatus);
+      if (response.success) {
+        // Update local state
+        setObituaries(prevObituaries => 
+          prevObituaries.map(obit => 
+            obit.id === obituaryId 
+              ? { ...obit, isHidden: !currentHiddenStatus }
+              : obit
+          )
+        );
+        toast.success(currentHiddenStatus ? "Obituary unhidden successfully" : "Obituary hidden successfully");
+      }
+    } catch (error) {
+      console.error("Error toggling obituary visibility:", error);
+      toast.error("Failed to toggle obituary visibility");
+    }
+  };
+
+  // Handle block/unblock memory page
+  const handleToggleMemoryVisibility = async (obituaryId, currentBlockedStatus, obituaryName) => {
+    try {
+      const response = await adminService.toggleMemoryVisibility(obituaryId, !currentBlockedStatus);
+      if (response.success) {
+        // Update local state
+        setObituaries(prevObituaries => 
+          prevObituaries.map(obit => 
+            obit.id === obituaryId 
+              ? { ...obit, isMemoryBlocked: !currentBlockedStatus }
+              : obit
+          )
+        );
+        toast.success(currentBlockedStatus ? "Memory page unblocked successfully" : "Memory page blocked successfully");
+      }
+    } catch (error) {
+      console.error("Error toggling memory visibility:", error);
+      toast.error("Failed to toggle memory visibility");
+    }
+  };
+
+  // Handle admin notes
+  const handleUpdateNotes = async (obituaryId, notes) => {
+    try {
+      const response = await adminService.updateObituaryNotes(obituaryId, notes);
+      if (response.success) {
+        // Update local state
+        setObituaries(prevObituaries => 
+          prevObituaries.map(obit => 
+            obit.id === obituaryId 
+              ? { ...obit, adminNotes: notes }
+              : obit
+          )
+        );
+        toast.success("Admin notes updated successfully");
+      }
+    } catch (error) {
+      console.error("Error updating admin notes:", error);
+      toast.error("Failed to update admin notes");
+    }
+  };
+
+  // Notes modal handlers
+  const openNotesModal = (obituaryId, currentNotes, obituaryName) => {
+    setNotesModal({
+      isOpen: true,
+      obituaryId,
+      currentNotes: currentNotes || "",
+      obituaryName
+    });
+  };
+
+  const closeNotesModal = () => {
+    setNotesModal({
+      isOpen: false,
+      obituaryId: null,
+      currentNotes: "",
+      obituaryName: ""
+    });
+  };
+
+  const saveNotes = async (notes) => {
+    if (notesModal.obituaryId) {
+      await handleUpdateNotes(notesModal.obituaryId, notes);
+    }
+  };
+
+  // Fetch obituaries when component mounts
+  useEffect(() => {
+    fetchObituaries();
+  }, []);
+
+  // Transform API data to match table structure
+  const tableData = obituaries.map((obituary, index) => ({
+    id: obituary.id,
+    memoryBook: obituary.slugKey || `OB${obituary.id}`,
+    ObituaryName: obituary.name || "Unknown",
+    keeperAmount: obituary.sirName || "",
+    city: obituary.city || "Unknown",
+    died: formatDate(obituary.deathDate),
+    invoiceImg: obituary.deathReportExists ? "/ico_eye.png" : "",
+    invoice: formatDate(obituary.funeralTimestamp),
+    funeral: formatTime(obituary.funeralTimestamp),
+    cemetery: obituary.funeralCemetery || "Unknown Cemetery",
+    Obituary: obituary.User?.company || obituary.User?.name || "Unknown",
+    postedby: obituary.User?.city || "Unknown",
+    date: formatDate(obituary.createdTimestamp),
+    expiresImg: "/ico_eye.png",
+    photo_funeral_one: obituary.image ? "/blue_tick.png" : "/gray_tick.png",
+    photo_funeral_two: obituary.deathReportExists ? "/yellow_tick.png" : "/gray_tick.png",
+    memoryPage: "/purple_arrow.png",
+    keeper: "/green_arrow.png",
+    delete: "/delete.png",
+    hide: obituary.isHidden ? "/red_cross.png" : "/gray_cross.png",
+    block: obituary.isMemoryBlocked ? "/black_cross.png" : "/gray_cross.png",
+    notes: obituary.adminNotes ? "/file.png" : "/gray_file.png",
+    grantCode: "/grant_code.png",
+    // Status fields for functionality
+    isHidden: obituary.isHidden || false,
+    isMemoryBlocked: obituary.isMemoryBlocked || false,
+    adminNotes: obituary.adminNotes || "",
+  }));
   return (
     <div className="w-[1920px] bg-[#ECF0F3] min-h-screen pt-[80px] flex flex-row justify-start">
       <div>
@@ -433,7 +504,26 @@ const Obituaries = () => {
               </tr>
             </thead>
             <tbody className="">
-              {tableData.map((data, index) => (
+              {loading ? (
+                <tr>
+                  <td colSpan="15" className="text-center py-8">
+                    <p className="font-sourcesans text-[16px] text-[#6D778E]">Loading obituaries...</p>
+                  </td>
+                </tr>
+              ) : error ? (
+                <tr>
+                  <td colSpan="15" className="text-center py-8">
+                    <p className="font-sourcesans text-[16px] text-[#EB1D1D]">Error loading data: {error}</p>
+                  </td>
+                </tr>
+              ) : tableData.length === 0 ? (
+                <tr>
+                  <td colSpan="15" className="text-center py-8">
+                    <p className="font-sourcesans text-[16px] text-[#6D778E]">No obituaries found</p>
+                  </td>
+                </tr>
+              ) : (
+                tableData.map((data, index) => (
                 <tr
                   key={index}
                   className={`border-[0.5px] border-[#A1B1D4] max-h-[64px] ${
@@ -543,48 +633,72 @@ const Obituaries = () => {
                   <td className="w-[100px] text-center pl-[18px] px-2 "></td>
                   <td className="w-[80px] text-left pl-[18px]  px-2 ">
                     <div className="flex flex-col items-center gap-y-[4px]">
-                      <Image
-                        src={data.delete}
-                        alt=""
-                        width={18}
-                        height={20}
-                        className={`${data.delete === "" ? "hidden" : "block"}`}
-                      />
+                      <button
+                        onClick={() => handleDeleteObituary(data.id, data.ObituaryName)}
+                        className="cursor-pointer"
+                        title="Delete Obituary"
+                      >
+                        <Image
+                          src={data.delete}
+                          alt=""
+                          width={18}
+                          height={20}
+                          className={`${data.delete === "" ? "hidden" : "block"}`}
+                        />
+                      </button>
                     </div>
                   </td>
                   <td className="w-[80px] text-left pl-[18px]  px-2 ">
                     <div className="flex flex-col items-center gap-y-[4px]">
-                      <Image
-                        src={data.hide}
-                        alt=""
-                        width={18}
-                        height={18}
-                        className={`${data.hide === "" ? "hidden" : "block"}`}
-                      />
+                      <button
+                        onClick={() => handleToggleObituaryVisibility(data.id, data.isHidden, data.ObituaryName)}
+                        className="cursor-pointer"
+                        title={data.isHidden ? "Unhide Obituary" : "Hide Obituary"}
+                      >
+                        <Image
+                          src={data.hide}
+                          alt=""
+                          width={18}
+                          height={18}
+                          className={`${data.hide === "" ? "hidden" : "block"}`}
+                        />
+                      </button>
                     </div>
                   </td>
                   <td className="w-[80px] text-left pl-[18px] px-2 ">
                     <div className="flex flex-col items-center gap-y-[4px]">
-                      <Image
-                        src={data.block}
-                        alt=""
-                        width={18}
-                        height={18}
-                        className={`${data.block === "" ? "hidden" : "block"}`}
-                      />
+                      <button
+                        onClick={() => handleToggleMemoryVisibility(data.id, data.isMemoryBlocked, data.ObituaryName)}
+                        className="cursor-pointer"
+                        title={data.isMemoryBlocked ? "Unblock Memory Page" : "Block Memory Page"}
+                      >
+                        <Image
+                          src={data.block}
+                          alt=""
+                          width={18}
+                          height={18}
+                          className={`${data.block === "" ? "hidden" : "block"}`}
+                        />
+                      </button>
                     </div>
                   </td>
                   <td className="w-[90px] text-center text-[12px]  text-[#3C3E41]  ">
                     <div className="flex flex-row justify-center items-center">
-                      <Image
-                        src={data.notes}
-                        alt=""
-                        width={14}
-                        height={14}
-                        className={`h-[18.9px] w-[18.9px] ${
-                          data.notes === "" ? "hidden" : "block "
-                        }`}
-                      />
+                      <button
+                        onClick={() => openNotesModal(data.id, data.adminNotes, data.ObituaryName)}
+                        className="cursor-pointer"
+                        title="Edit Admin Notes"
+                      >
+                        <Image
+                          src={data.notes}
+                          alt=""
+                          width={14}
+                          height={14}
+                          className={`h-[18.9px] w-[18.9px] ${
+                            data.notes === "" ? "hidden" : "block "
+                          }`}
+                        />
+                      </button>
                     </div>
                   </td>
                   <td className="w-[90px] text-center text-[12px]  text-[#3C3E41]  "></td>
@@ -602,11 +716,21 @@ const Obituaries = () => {
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+              )}
             </tbody>
           </table>
         </div>
       </div>
+
+      {/* Notes Modal */}
+      <NotesModal
+        isOpen={notesModal.isOpen}
+        onClose={closeNotesModal}
+        onSave={saveNotes}
+        currentNotes={notesModal.currentNotes}
+        companyName={notesModal.obituaryName}
+      />
     </div>
   );
 };

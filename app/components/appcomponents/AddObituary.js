@@ -284,6 +284,13 @@ const AddObituary = ({ set_Id, setModal }) => {
   };
 
   const handleSubmit = async () => {
+    // Check permission before allowing submission
+    const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
+    if (!currentUser.createObituaryPermission) {
+      toast.error("You don't have permission to create obituaries.");
+      return;
+    }
+
     if (!validateFields()) return;
 
     try {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 import { isDev } from "./config/apiConfig";
 
 const PUBLIC_ROUTES = ["/", "/registracija"];
@@ -13,6 +13,8 @@ const USER_ROUTES = [
   "/user-accounts-dashboard",
   "/potrditev-objave",
 ];
+
+const ADMIN_ROUTES = ["/admin"];
 
 const FLORIST_ROUTES = ["spletna-stran", "nasi_podatki"];
 const FUNERAL_ROUTES = ["spletna-stran", "nasi_podatki"];
@@ -32,10 +34,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (isRoleBasedRoute) {
-    return NextResponse.next();
-  }
-
   if (pathname === "/registracija" && token && role && slugKey) {
     if (role === "Florist") {
       return NextResponse.redirect(new URL(`/c/${slugKey}/menu`, request.url));
@@ -48,10 +46,14 @@ export function middleware(request: NextRequest) {
         new URL(`/u/${slugKey}/moj-racun`, request.url)
       );
     }
+    if (role === "SUPERADMIN") {
+      return NextResponse.redirect( new URL('/admin/obituaries', request.url));
+    }
   }
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
   const isUserRoute = USER_ROUTES.includes(pathname);
+  const isAdminRoute = pathname.startsWith("/admin");
 
   if (isPublicRoute) {
     return NextResponse.next();
@@ -59,6 +61,11 @@ export function middleware(request: NextRequest) {
 
   if (!token) {
     return NextResponse.redirect(new URL("/registracija", request.url));
+  }
+
+  // Admin route protection - only SUPERADMIN can access
+  if (isAdminRoute && role !== "SUPERADMIN") {
+    return NextResponse.redirect(new URL("/access-denied", request.url));
   }
 
   if (isUserRoute && role !== "User") {
@@ -92,6 +99,7 @@ export const config = {
     "/pregled2",
     "/user-accounts-dashboard",
     "/potrditev-objave",
+    "/admin/:path*",
     "/c/:slug/:page*",
     "/p/:slug/:page*",
     "/u/:slug/:page*",

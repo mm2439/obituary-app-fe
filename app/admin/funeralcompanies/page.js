@@ -4,12 +4,24 @@ import Image from "next/image";
 import SideMenuAdmin from "../../components/appcomponents/SideMenuAdmin";
 import Dropdown from "../../components/appcomponents/Dropdown";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import adminService from "../../../services/admin-service";
+import { toast } from "react-hot-toast";
+import NotesModal from "../../components/NotesModal";
 
 // verify
 const FuneralCompanyData = () => {
   const [whichScreen, setWhichScreen] = useState(1);
-
   const [whichTab, setWhichTab] = useState("");
+  const [companies, setCompanies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  // Remove local state since we'll use database data
+  const [notesModal, setNotesModal] = useState({
+    isOpen: false,
+    companyId: null,
+    currentNotes: "",
+    companyName: ""
+  });
 
   useEffect(() => {
     if (whichScreen == 2) {
@@ -20,6 +32,202 @@ const FuneralCompanyData = () => {
       setWhichTab("Funeral Companies");
     }
   }, [whichScreen]);
+
+  // Fetch funeral companies data
+  useEffect(() => {
+    const fetchFuneralCompanies = async () => {
+      try {
+        setLoading(true);
+        const response = await adminService.getFuneralCompanies();
+        if (response.success) {
+          setCompanies(response.companies);
+        } else {
+          setError("Failed to fetch funeral companies");
+        }
+      } catch (error) {
+        console.error("Error fetching funeral companies:", error);
+        setError("Failed to fetch funeral companies");
+        toast.error("Failed to load funeral companies data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFuneralCompanies();
+  }, []);
+
+  // Handle permission toggle
+  const handlePermissionToggle = async (companyId, permissionType, currentValue) => {
+    try {
+      const permissions = {
+        createObituaryPermission: permissionType === 'createObituary' ? !currentValue : undefined,
+        assignKeeperPermission: permissionType === 'assignKeeper' ? !currentValue : undefined,
+        sendGiftsPermission: permissionType === 'sendGifts' ? !currentValue : undefined,
+        sendMobilePermission: permissionType === 'sendMobile' ? !currentValue : undefined,
+      };
+
+      // Remove undefined values
+      Object.keys(permissions).forEach(key => {
+        if (permissions[key] === undefined) {
+          delete permissions[key];
+        }
+      });
+
+      const response = await adminService.updateUserPermissions(companyId, permissions);
+      if (response.success) {
+        // Update local state
+        setCompanies(prevCompanies => 
+          prevCompanies.map(company => 
+            company.id === companyId 
+              ? { ...company, permissions: { ...company.permissions, [permissionType]: !currentValue } }
+              : company
+          )
+        );
+        toast.success("Permissions updated successfully");
+      }
+    } catch (error) {
+      console.error("Error updating permissions:", error);
+      toast.error("Failed to update permissions");
+    }
+  };
+
+  // Handle block user toggle
+  const handleBlockUserToggle = async (companyId, currentBlockedStatus) => {
+    try {
+      const response = await adminService.blockUser(companyId, !currentBlockedStatus);
+      if (response.success) {
+        // Update local state
+        setCompanies(prevCompanies => 
+          prevCompanies.map(company => 
+            company.id === companyId 
+              ? { ...company, isBlocked: !currentBlockedStatus }
+              : company
+          )
+        );
+        toast.success(response.message);
+      }
+    } catch (error) {
+      console.error("Error blocking/unblocking user:", error);
+      toast.error("Failed to block/unblock user");
+    }
+  };
+
+  // Handle notes update
+  const handleNotesUpdate = async (companyId, notes) => {
+    try {
+      const response = await adminService.updateUserNotes(companyId, notes);
+      if (response.success) {
+        // Update local state
+        setCompanies(prevCompanies => 
+          prevCompanies.map(company => 
+            company.id === companyId 
+              ? { ...company, notes }
+              : company
+          )
+        );
+        toast.success("Notes updated successfully");
+      }
+    } catch (error) {
+      console.error("Error updating notes:", error);
+      toast.error("Failed to update notes");
+    }
+  };
+
+  // Open notes modal
+  const openNotesModal = (companyId, currentNotes, companyName) => {
+    setNotesModal({
+      isOpen: true,
+      companyId,
+      currentNotes: currentNotes || "",
+      companyName
+    });
+  };
+
+  // Close notes modal
+  const closeNotesModal = () => {
+    setNotesModal({
+      isOpen: false,
+      companyId: null,
+      currentNotes: "",
+      companyName: ""
+    });
+  };
+
+  // Save notes from modal
+  const saveNotes = async (notes) => {
+    if (notesModal.companyId) {
+      await handleNotesUpdate(notesModal.companyId, notes);
+    }
+  };
+
+  // Handle admin rating update
+  const handleRatingUpdate = async (companyId, rating) => {
+    try {
+      const response = await adminService.updateAdminFields(companyId, { adminRating: rating });
+      if (response.success) {
+        // Update local state
+        setCompanies(prevCompanies => 
+          prevCompanies.map(company => 
+            company.id === companyId 
+              ? { ...company, adminRating: rating }
+              : company
+          )
+        );
+        toast.success("Rating updated successfully");
+      }
+    } catch (error) {
+      console.error("Error updating rating:", error);
+      toast.error("Failed to update rating");
+    }
+  };
+
+  // Handle florist company toggle
+  const handleFloristCompanyToggle = async (companyId) => {
+    try {
+      const currentCompany = companies.find(c => c.id === companyId);
+      const newHasFlorist = !(currentCompany?.hasFlorist || false);
+      
+      const response = await adminService.updateAdminFields(companyId, { hasFlorist: newHasFlorist });
+      if (response.success) {
+        // Update local state
+        setCompanies(prevCompanies => 
+          prevCompanies.map(company => 
+            company.id === companyId 
+              ? { ...company, hasFlorist: newHasFlorist }
+              : company
+          )
+        );
+        toast.success("Florist status updated successfully");
+      }
+    } catch (error) {
+      console.error("Error updating florist status:", error);
+      toast.error("Failed to update florist status");
+    }
+  };
+
+  // Handle paid toggle
+  const handlePaidToggle = async (companyId) => {
+    try {
+      const currentCompany = companies.find(c => c.id === companyId);
+      const newIsPaid = !(currentCompany?.isPaid || false);
+      
+      const response = await adminService.updateAdminFields(companyId, { isPaid: newIsPaid });
+      if (response.success) {
+        // Update local state
+        setCompanies(prevCompanies => 
+          prevCompanies.map(company => 
+            company.id === companyId 
+              ? { ...company, isPaid: newIsPaid }
+              : company
+          )
+        );
+        toast.success("Payment status updated successfully");
+      }
+    } catch (error) {
+      console.error("Error updating payment status:", error);
+      toast.error("Failed to update payment status");
+    }
+  };
   return (
     <div className="w-[1920px] bg-[#ECF0F3]  min-h-screen pt-[80px] flex flex-row justify-start">
       <div>
@@ -468,423 +676,198 @@ const FuneralCompanyData = () => {
               </thead>
 
               <tbody>
-                <tr className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] bg-[#FFFFFF66]">
-                  <td className="w-[167px]  pl-[13px]">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Last Wishes LCC
-                    </p>
-                    <p className="text-left  font-sourcesans text-[12px] font-normal leading-[14px] text-[#ACAAAA]">
-                      Last Wishes LCC
-                    </p>
-                  </td>
+                {loading ? (
+                  <tr>
+                    <td colSpan="11" className="text-center py-8">
+                      <p className="font-sourcesans text-[16px] text-[#6D778E]">Loading funeral companies...</p>
+                    </td>
+                  </tr>
+                ) : error ? (
+                  <tr>
+                    <td colSpan="11" className="text-center py-8">
+                      <p className="font-sourcesans text-[16px] text-[#EB1D1D]">Error loading data: {error}</p>
+                    </td>
+                  </tr>
+                ) : companies.length === 0 ? (
+                  <tr>
+                    <td colSpan="11" className="text-center py-8">
+                      <p className="font-sourcesans text-[16px] text-[#6D778E]">No funeral companies found</p>
+                    </td>
+                  </tr>
+                ) : (
+                  companies.map((company, index) => (
+                    <tr key={company.id} className={`h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] ${index % 2 === 0 ? 'bg-[#FFFFFF66]' : 'bg-white'}`}>
+                      <td className="w-[167px] pl-[13px]">
+                        <p className="text-left font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
+                          {company.name}
+                        </p>
+                        <p className="text-left font-sourcesans text-[12px] font-normal leading-[14px] text-[#ACAAAA]">
+                          {company.company}
+                        </p>
+                      </td>
 
-                  <td className="w-[143px] text-left">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Last Wishes LCC
-                    </p>
-                  </td>
+                      <td className="w-[143px] text-left">
+                        <p className="text-left font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
+                          {company.city}
+                        </p>
+                      </td>
 
-                  <td className="w-[163px] text-left ">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Osrednja Slo
-                    </p>
-                  </td>
+                      <td className="w-[163px] text-left">
+                        <p className="text-left font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
+                          {company.region}
+                        </p>
+                      </td>
 
-                  <td className="w-[91px] text-center">
-                    <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] m-auto">
-                      145
-                    </p>
-                  </td>
+                      <td className="w-[91px] text-center">
+                        <p className="font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] m-auto">
+                          {company.totalObituaries}
+                        </p>
+                      </td>
 
-                  <td className="w-[103px] text-center ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#0769FD] ">
-                        36
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        25
-                      </p>
-                    </div>
-                  </td>
+                      <td className="w-[103px] text-center">
+                        <div className="flex justify-center items-center">
+                          <p className="font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#0769FD]">
+                            {company.lastMonthObituaries}
+                          </p>
+                          <span className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
+                            |
+                          </span>
+                          <p className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA]">
+                            {company.prevMonthObituaries}
+                          </p>
+                        </div>
+                      </td>
 
-                  <td className="w-[125px] text-center  ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        62
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#1FBE11]">
-                        82
-                      </p>
-                    </div>
-                  </td>
+                      <td className="w-[125px] text-center">
+                        <div className="flex justify-center items-center">
+                          <p className="font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E]">
+                            {company.photoFuneralPercentage}
+                          </p>
+                          <span className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
+                            |
+                          </span>
+                          <p className="font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#1FBE11]">
+                            {company.photoFuneralPercentage}
+                          </p>
+                        </div>
+                      </td>
 
-                  <td className="w-[228px] pl-[20px]">
-                    <div className="flex ">
-                      <p className=" font-sourcesans text-[14px] font-normal leading-[16px] text-[#3C3E41] ">
-                        78
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[14px] font-normal leading-[16px] text-[#6D778E] ">
-                        97
-                      </p>
-                    </div>
-                  </td>
+                      <td className="w-[228px] pl-[20px]">
+                        <div className="flex">
+                          <p className="font-sourcesans text-[14px] font-normal leading-[16px] text-[#3C3E41]">
+                            {company.localObitsPercentage}
+                          </p>
+                          <span className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
+                            |
+                          </span>
+                          <p className="font-sourcesans text-[14px] font-normal leading-[16px] text-[#6D778E]">
+                            {company.lastMonthLocalPercentage}
+                          </p>
+                        </div>
+                      </td>
 
-                  <td className="w-[117px] text-center">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        15
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        15
-                      </p>
-                    </div>
-                  </td>
+                      <td className="w-[117px] text-center">
+                        <div className="flex justify-center items-center">
+                          <p className="font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E]">
+                            {company.keepersLastMonth}
+                          </p>
+                          <span className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
+                            |
+                          </span>
+                          <p className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA]">
+                            {company.keepersPrevMonth}
+                          </p>
+                        </div>
+                      </td>
 
-                  <td className="w-[114px] text-center  ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        12
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        9
-                      </p>
-                    </div>
-                  </td>
+                      <td className="w-[114px] text-center">
+                        <div className="flex justify-center items-center">
+                          <p className="font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E]">
+                            {company.mobileLastMonth}
+                          </p>
+                          <span className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
+                            |
+                          </span>
+                          <p className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA]">
+                            {company.mobilePrevMonth}
+                          </p>
+                        </div>
+                      </td>
 
-                  <td className="w-[131px] text-center ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        0
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        0
-                      </p>
-                    </div>
-                  </td>
+                      <td className="w-[131px] text-center">
+                        <div className="flex justify-center items-center">
+                          <p className="font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E]">
+                            {company.tributesLastMonth}
+                          </p>
+                          <span className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
+                            |
+                          </span>
+                          <p className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA]">
+                            {company.tributesPrevMonth}
+                          </p>
+                        </div>
+                      </td>
 
-                  <td className="w-[136px] text-center">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        12
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        18
-                      </p>
-                    </div>
-                  </td>
+                      <td className="w-[136px] text-center">
+                        <div className="flex justify-center items-center">
+                          <p className="font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E]">
+                            {company.contributionsLastMonth}
+                          </p>
+                          <span className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
+                            |
+                          </span>
+                          <p className="font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA]">
+                            {company.contributionsPrevMonth}
+                          </p>
+                        </div>
+                      </td>
 
-                  <td className="w-[62px] text-center ">
-                    <Image
-                      src={"/icon_arrowright.png"}
-                      width={24}
-                      height={24}
-                      //   className="w-[24px] h-[30px] m-[0]"
-                    ></Image>
-                  </td>
-                </tr>
+                      <td className="w-[62px] text-center">
+                        <div className="flex flex-col items-center space-y-1">
+                          {/* Permission toggles */}
+                          <button
+                            onClick={() => handlePermissionToggle(company.id, 'createObituary', company.permissions.createObituary)}
+                            className={`w-6 h-6 rounded-full border-2 ${
+                              company.permissions.createObituary 
+                                ? 'bg-green-500 border-green-500' 
+                                : 'bg-white border-gray-300'
+                            }`}
+                            title="Create Obituary Permission"
+                          />
+                          <button
+                            onClick={() => handlePermissionToggle(company.id, 'assignKeeper', company.permissions.assignKeeper)}
+                            className={`w-6 h-6 rounded-full border-2 ${
+                              company.permissions.assignKeeper 
+                                ? 'bg-green-500 border-green-500' 
+                                : 'bg-white border-gray-300'
+                            }`}
+                            title="Assign Keeper Permission"
+                          />
+                          <button
+                            onClick={() => handlePermissionToggle(company.id, 'sendGifts', company.permissions.sendGifts)}
+                            className={`w-6 h-6 rounded-full border-2 ${
+                              company.permissions.sendGifts 
+                                ? 'bg-green-500 border-green-500' 
+                                : 'bg-white border-gray-300'
+                            }`}
+                            title="Send Gifts Permission"
+                          />
+                          <button
+                            onClick={() => handlePermissionToggle(company.id, 'sendMobile', company.permissions.sendMobile)}
+                            className={`w-6 h-6 rounded-full border-2 ${
+                              company.permissions.sendMobile 
+                                ? 'bg-green-500 border-green-500' 
+                                : 'bg-white border-gray-300'
+                            }`}
+                            title="Send Mobile Permission"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
 
-                <tr
-                  className="h-[64px] border-l-[0.5px] border-l-[solid] border-l-[#A1B1D4]
-       border-r-[0.5px] border-r-[solid] border-r-[#A1B1D4]
-       border-b-[0.5px] border-b-[solid] border-b-[#A1B1D4]
-      "
-                >
-                  <td className="w-[167px]  pl-[13px]">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Goodbye Funerals
-                    </p>
-                    <p className="text-left  font-sourcesans text-[12px] font-normal leading-[14px] text-[#ACAAAA]">
-                      Goodbye Funerals
-                    </p>
-                  </td>
 
-                  <td className="w-[143px] text-left">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Manila
-                    </p>
-                  </td>
-
-                  <td className="w-[163px] text-left ">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Zasavje
-                    </p>
-                  </td>
-
-                  <td className="w-[91px] text-center">
-                    <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] m-auto">
-                      38
-                    </p>
-                  </td>
-
-                  <td className="w-[103px] text-center ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#0769FD] ">
-                        36
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        25
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[125px] text-center  ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        44
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#1FBE11]">
-                        31
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[228px] pl-[20px]">
-                    <div className="flex ">
-                      <p className=" font-sourcesans text-[14px] font-normal leading-[16px] text-[#3C3E41] ">
-                        62
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[14px] font-normal leading-[16px] text-[#6D778E] ">
-                        82
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[117px] text-center">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        0
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        0
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[114px] text-center  ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        0
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        0
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[131px] text-center ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        0
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        0
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[136px] text-center">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        17
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        12
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[62px] text-center ">
-                    <Image
-                      src={"/icon_arrowright.png"}
-                      width={24}
-                      height={24}
-                      //   className="w-[24px] h-[30px] m-[0]"
-                    ></Image>
-                  </td>
-                </tr>
-
-                <tr
-                  className="h-[64px] border-l-[0.5px] border-l-[solid] border-l-[#A1B1D4]
-       border-r-[0.5px] border-r-[solid] border-r-[#A1B1D4]
-       border-b-[0.5px] border-b-[solid] border-b-[#A1B1D4]
-      "
-                >
-                  <td className="w-[167px]  pl-[13px]">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Adios Funeral Comp
-                    </p>
-                    <p className="text-left  font-sourcesans text-[12px] font-normal leading-[14px] text-[#ACAAAA]">
-                      Blue Roses
-                    </p>
-                  </td>
-
-                  <td className="w-[143px] text-left">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Houston
-                    </p>
-                  </td>
-
-                  <td className="w-[163px] text-left ">
-                    <p className="text-left  font-sourcesans text-[13px] font-normal leading-[16px] text-[#3C3E41]">
-                      Prekmurje
-                    </p>
-                  </td>
-
-                  <td className="w-[91px] text-center">
-                    <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] m-auto">
-                      103
-                    </p>
-                  </td>
-
-                  <td className="w-[103px] text-center ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#0769FD] ">
-                        24
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        25
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[125px] text-center  ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        81
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#1FBE11]">
-                        86
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[228px] pl-[20px]">
-                    <div className="flex ">
-                      <p className=" font-sourcesans text-[14px] font-normal leading-[16px] text-[#3C3E41] ">
-                        100
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[14px] font-normal leading-[16px] text-[#6D778E] ">
-                        100
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[117px] text-center">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        5
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        1
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[114px] text-center  ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        0
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        0
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[131px] text-center ">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        0
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        0
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[136px] text-center">
-                    <div className="flex justify-center items-center">
-                      <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                        6
-                      </p>
-                      <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
-                        |
-                      </span>
-                      <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                        8
-                      </p>
-                    </div>
-                  </td>
-
-                  <td className="w-[62px] text-center ">
-                    <Image
-                      src={"/icon_arrowright.png"}
-                      width={24}
-                      height={24}
-                      //   className="w-[24px] h-[30px] m-[0]"
-                    ></Image>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -923,20 +906,20 @@ const FuneralCompanyData = () => {
 
                 <td className="w-[91px] text-center">
                   <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] m-auto">
-                    973
+                    {companies.reduce((sum, company) => sum + company.totalObituaries, 0)}
                   </p>
                 </td>
 
                 <td className="w-[103px] text-center ">
                   <div className="flex justify-center items-center">
                     <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                      244
+                      {companies.reduce((sum, company) => sum + company.lastMonthObituaries, 0)}
                     </p>
                     <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
                       |
                     </span>
                     <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                      145
+                      {companies.reduce((sum, company) => sum + company.prevMonthObituaries, 0)}
                     </p>
                   </div>
                 </td>
@@ -944,13 +927,13 @@ const FuneralCompanyData = () => {
                 <td className="w-[125px] text-center  ">
                   <div className="flex justify-center items-center">
                     <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#1FBE11] ">
-                      75
+                      {Math.round(companies.reduce((sum, company) => sum + company.photoFuneralPercentage, 0) / Math.max(companies.length, 1))}
                     </p>
                     <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
                       |
                     </span>
                     <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#1FBE11]">
-                      66
+                      {Math.round(companies.reduce((sum, company) => sum + company.photoFuneralPercentage, 0) / Math.max(companies.length, 1))}
                     </p>
                   </div>
                 </td>
@@ -960,13 +943,13 @@ const FuneralCompanyData = () => {
                 <td className="w-[117px] text-center">
                   <div className="flex justify-center items-center">
                     <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                      20
+                      {companies.reduce((sum, company) => sum + company.keepersLastMonth, 0)}
                     </p>
                     <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
                       |
                     </span>
                     <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                      16
+                      {companies.reduce((sum, company) => sum + company.keepersPrevMonth, 0)}
                     </p>
                   </div>
                 </td>
@@ -974,13 +957,13 @@ const FuneralCompanyData = () => {
                 <td className="w-[114px] text-center  ">
                   <div className="flex justify-center items-center">
                     <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                      20
+                      {companies.reduce((sum, company) => sum + company.mobileLastMonth, 0)}
                     </p>
                     <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
                       |
                     </span>
                     <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                      9
+                      {companies.reduce((sum, company) => sum + company.mobilePrevMonth, 0)}
                     </p>
                   </div>
                 </td>
@@ -988,13 +971,13 @@ const FuneralCompanyData = () => {
                 <td className="w-[131px] text-center ">
                   <div className="flex justify-center items-center">
                     <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                      0
+                      {companies.reduce((sum, company) => sum + company.tributesLastMonth, 0)}
                     </p>
                     <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
                       |
                     </span>
                     <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                      0
+                      {companies.reduce((sum, company) => sum + company.tributesPrevMonth, 0)}
                     </p>
                   </div>
                 </td>
@@ -1002,13 +985,13 @@ const FuneralCompanyData = () => {
                 <td className="w-[136px] text-center">
                   <div className="flex justify-center items-center">
                     <p className=" font-sourcesans text-[20px] font-bold leading-[23.44px] text-[#6D778E] ">
-                      36
+                      {companies.reduce((sum, company) => sum + company.contributionsLastMonth, 0)}
                     </p>
                     <span className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] my-auto mx-[8px]">
                       |
                     </span>
                     <p className=" font-sourcesans text-[12px] font-light leading-[16px] text-[#ACAAAA] ">
-                      38
+                      {companies.reduce((sum, company) => sum + company.contributionsPrevMonth, 0)}
                     </p>
                   </div>
                 </td>
@@ -2070,431 +2053,258 @@ const FuneralCompanyData = () => {
             </thead>
 
             <tbody>
-              <tr className="h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] bg-[#FFFFFF66]">
-                <td className="w-[78px] text-center">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    S105
-                  </p>
-                </td>
+              {loading ? (
+                <tr>
+                  <td colSpan="19" className="text-center py-8">
+                    <p className="font-sourcesans text-[16px] text-[#6D778E]">Loading funeral companies...</p>
+                  </td>
+                </tr>
+              ) : error ? (
+                <tr>
+                  <td colSpan="19" className="text-center py-8">
+                    <p className="font-sourcesans text-[16px] text-[#EB1D1D]">Error loading data: {error}</p>
+                  </td>
+                </tr>
+              ) : companies.length === 0 ? (
+                <tr>
+                  <td colSpan="19" className="text-center py-8">
+                    <p className="font-sourcesans text-[16px] text-[#6D778E]">No funeral companies found</p>
+                  </td>
+                </tr>
+              ) : (
+                companies.map((company, index) => (
+                  <tr key={company.id} className={`h-[64px] border-[0.5px] border-[solid] border-[#A1B1D4] ${index % 2 === 0 ? 'bg-[#FFFFFF66]' : 'bg-white'}`}>
+                    <td className="w-[78px] text-center">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {company.slugKey || `S${company.id}`}
+                      </p>
+                    </td>
 
-                <td className="w-[190px]">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Adios Funeral Comp
-                  </p>
-                  <p className="text-left font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#ACAAAA]">
-                    Blue Roses
-                  </p>
-                </td>
+                    <td className="w-[190px]">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {company.name}
+                      </p>
+                      <p className="text-left font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#ACAAAA]">
+                        {company.company}
+                      </p>
+                    </td>
 
-                <td className="w-[120px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Santa Monica
-                  </p>
-                </td>
+                    <td className="w-[120px] text-left">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {company.city}
+                      </p>
+                    </td>
 
-                <td className="w-[150px] text-left ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Oszdrinja Slo
-                  </p>
-                </td>
+                    <td className="w-[150px] text-left">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {company.region}
+                      </p>
+                    </td>
 
-                <td className="w-[74px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    21.05.24
-                  </p>
-                </td>
+                    <td className="w-[74px] text-left">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
+                        {new Date(company.createdTimestamp).toLocaleDateString('en-GB')}
+                      </p>
+                    </td>
 
-                <td className="w-[131px] text-center ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">
-                    1{" "}
-                    <span className="mx-[5px] font-sourcesans text-[12px] font-light leading-[16px] text-[#D4D4D4]">
-                      |
-                    </span>{" "}
-                    1
-                  </p>
-                </td>
+                    <td className="w-[131px] text-center">
+                      <p className="font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">
+                        1{" "}
+                        <span className="mx-[5px] font-sourcesans text-[12px] font-light leading-[16px] text-[#D4D4D4]">
+                          |
+                        </span>{" "}
+                        1
+                      </p>
+                    </td>
 
-                <td className="w-[90px] h-[64px]  flex justify-center items-center">
-                  <Image src={"/verify.png"} width={24} height={24}></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="ml-[28px]"
-                  ></Image>
-                </td>
+                    {/* OBITS Permission Toggle */}
+                    <td className="w-[90px] h-[64px] flex justify-center items-center">
+                      <button
+                        onClick={() => handlePermissionToggle(company.id, 'createObituary', company.permissions.createObituary)}
+                        className="cursor-pointer"
+                        title="Toggle Obituary Creation Permission"
+                      >
+                        <Image 
+                          src={company.permissions.createObituary ? "/verify.png" : "/reject.png"} 
+                          width={24} 
+                          height={24}
+                          alt={company.permissions.createObituary ? "Obituary creation allowed" : "Obituary creation blocked"}
+                        />
+                      </button>
+                    </td>
 
-                <td className="w-[50px] ">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
+                    {/* KEEPERS Permission Toggle */}
+                    <td className="w-[90px]">
+                      <button
+                        onClick={() => handlePermissionToggle(company.id, 'assignKeeper', company.permissions.assignKeeper)}
+                        className="cursor-pointer m-auto block"
+                        title="Toggle Keeper Assignment Permission"
+                      >
+                        <Image
+                          src={company.permissions.assignKeeper ? "/verify.png" : "/reject.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                          alt={company.permissions.assignKeeper ? "Keeper assignment allowed" : "Keeper assignment blocked"}
+                        />
+                      </button>
+                    </td>
 
-                <td className="w-[55px]">
-                  <Image
-                    src={"/disableNote.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                {/* 28 October 2024 */}
-                {/* <td className="w-[60px] ">
-                  <Image
-                    src={"/disable@.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td> */}
-                <td className="w-[60px] ">
-                  <Image
-                    src={"/disbleGift.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="pl-[45px] w-[60px] text-center">
-                  <p className="font-sourcesans text-[20px] font-bold leading-[23.3px] text-[#EB1D1D]">
-                    4
-                  </p>
-                </td>
-                <td className="w-[60px] ">
-                  <Image
-                    src={"/yellowright.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[60px]">
-                  <Image
-                    src={"/ico_green_check.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
+                    {/* MOBILES Permission Toggle */}
+                    <td className="w-[90px]">
+                      <button
+                        onClick={() => handlePermissionToggle(company.id, 'sendMobile', company.permissions.sendMobile)}
+                        className="cursor-pointer m-auto block"
+                        title="Toggle Mobile Permission"
+                      >
+                        <Image
+                          src={company.permissions.sendMobile ? "/verify.png" : "/reject.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                          alt={company.permissions.sendMobile ? "Mobile allowed" : "Mobile blocked"}
+                        />
+                      </button>
+                    </td>
 
-                <td className="pl-[30px] w-[60px] ">
-                  <Image
-                    src={"/icon_arrowright.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-              </tr>
+                    {/* TRIBUTES Permission Toggle */}
+                    <td className="w-[90px]">
+                      <button
+                        onClick={() => handlePermissionToggle(company.id, 'sendGifts', company.permissions.sendGifts)}
+                        className="cursor-pointer ml-[28px] block"
+                        title="Toggle Gifts/Tributes Permission"
+                      >
+                        <Image
+                          src={company.permissions.sendGifts ? "/verify.png" : "/reject.png"}
+                          width={24}
+                          height={24}
+                          className="ml-[28px]"
+                          alt={company.permissions.sendGifts ? "Gifts/Tributes allowed" : "Gifts/Tributes blocked"}
+                        />
+                      </button>
+                    </td>
 
-              <tr
-                className="h-[64px] border-l-[0.5px] border-l-[solid] border-l-[#A1B1D4]
-    border-r-[0.5px] border-r-[solid] border-r-[#A1B1D4]
-    border-b-[0.5px] border-b-[solid] border-b-[#A1B1D4]
-    "
-              >
-                <td className="w-[78px] text-center">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    SI11A
-                  </p>
-                </td>
+                    {/* Block User Toggle */}
+                    <td className="w-[50px]">
+                      <button
+                        onClick={() => handleBlockUserToggle(company.id, company.isBlocked)}
+                        className="cursor-pointer m-auto block"
+                        title={company.isBlocked ? "Unblock User" : "Block User"}
+                      >
+                        <Image
+                          src={company.isBlocked ? "/reject.png" : "/verify.png"}
+                          width={18}
+                          height={18}
+                          className="m-auto"
+                          alt={company.isBlocked ? "User is blocked" : "User is active"}
+                        />
+                      </button>
+                    </td>
+                    <td className="w-[90px]">
+                      <Image
+                        src={"/reject.png"}
+                        width={18}
+                        height={18}
+                        className="m-auto"
+                      />
+                    </td>
 
-                <td className="w-[148px] ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    ABC Gmbh
-                  </p>
-                  <p className="text-left font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#ACAAAA]">
-                    1st funeral company
-                  </p>
-                </td>
+                    {/* Our Notes */}
+                    <td className="w-[55px]">
+                      <button
+                        onClick={() => openNotesModal(company.id, company.notes, company.name)}
+                        className="cursor-pointer m-auto block"
+                        title="Edit Notes"
+                      >
+                        <Image
+                          src={company.notes ? "/file.png" : "/disableNote.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                          alt={company.notes ? "Notes available" : "No notes"}
+                        />
+                      </button>
+                    </td>
 
-                <td className="w-[120px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Beverly Hills
-                  </p>
-                </td>
+                    <td className="w-[60px]">
+                      <Image
+                        src={"/disbleGift.png"}
+                        width={24}
+                        height={24}
+                        className="m-auto"
+                      />
+                    </td>
+                    {/* Our Rating - Single character input */}
+                    <td className="pl-[45px] w-[60px] text-center">
+                      <input
+                        type="text"
+                        maxLength={1}
+                        value={company.adminRating || ""}
+                        onChange={(e) => handleRatingUpdate(company.id, e.target.value)}
+                        className="w-8 h-8 text-center font-sourcesans text-[20px] bg-white font-bold leading-[23.3px] text-[#EB1D1D] border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#0A85C2]"
+                        placeholder="?"
+                        title="Enter rating (1-9)"
+                      />
+                    </td>
+                    {/* Have Florist - Toggle button */}
+                    <td className="w-[60px]">
+                      <button
+                        onClick={() => handleFloristCompanyToggle(company.id)}
+                        className="cursor-pointer m-auto block"
+                        title={company.hasFlorist ? "Has Florist Company" : "No Florist Company"}
+                      >
+                        <Image
+                          src={company.hasFlorist ? "/yellowright.png" : "/reject.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                          alt={company.hasFlorist ? "Has Florist" : "No Florist"}
+                        />
+                      </button>
+                    </td>
+                    {/* PAID - Toggle button */}
+                    <td className="w-[60px]">
+                      <button
+                        onClick={() => handlePaidToggle(company.id)}
+                        className="cursor-pointer m-auto block"
+                        title={company.isPaid ? "Paid" : "Not Paid"}
+                      >
+                        <Image
+                          src={company.isPaid ? "/ico_green_check.png" : "/reject.png"}
+                          width={24}
+                          height={24}
+                          className="m-auto"
+                          alt={company.isPaid ? "Paid" : "Not Paid"}
+                        />
+                      </button>
+                    </td>
 
-                <td className="w-[150px] text-left ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Osrednja Slo
-                  </p>
-                </td>
+                    <td className="pl-[30px] w-[60px]">
+                      <Image
+                        src={"/icon_arrowright.png"}
+                        width={24}
+                        height={24}
+                        className="m-auto"
+                      />
+                    </td>
+                  </tr>
+                ))
+              )}
 
-                <td className="w-[74px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    05.12.23
-                  </p>
-                </td>
 
-                <td className="w-[131px] text-center ">
-                  <p className="m-auto  flex justify-center font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">
-                    1{" "}
-                    <span className="  ml-[5px] font-sourcesans text-[12px] font-light leading-[16px] text-[#D4D4D4]">
-                      |{" "}
-                    </span>{" "}
-                    <h1 className=" ml-[5px] font-sourcesans text-[20px] font-medium leading-[23.44px] text-[#EB1D1D]">
-                      2
-                    </h1>
-                  </p>
-                </td>
-
-                <td className="w-[90px] h-[64px]  flex justify-center items-center">
-                  <Image src={"/verify.png"} width={24} height={24}></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/disableverify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px]">
-                  <Image
-                    src={"/disableverify.png"}
-                    width={24}
-                    height={24}
-                    className="ml-[28px]"
-                  ></Image>
-                </td>
-
-                <td className="w-[50px]">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px]">
-                  <Image
-                    src={"/enablereject.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-
-                <td className="w-[55px]">
-                  <Image
-                    src={"/enablenote.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                {/* 28 October 2024 - Commented */}
-                {/* <td className="w-[60px]">
-                  <Image
-                    src={"/enable@.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td> */}
-                <td className="w-[60px] ">
-                  <Image
-                    src={"/disbleGift.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="pl-[45px] w-[60px] text-center">
-                  <p className="font-sourcesans text-[20px] font-bold leading-[23.3px] text-[#6D778E]">
-                    3
-                  </p>
-                </td>
-                <td className="w-[60px] "></td>
-                <td className="w-[60px]"></td>
-
-                <td className="pl-[30px] w-[60px] ">
-                  <Image
-                    src={"/icon_arrowright.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-              </tr>
-
-              <tr
-                className="h-[64px] border-l-[0.5px] border-l-[solid] border-l-[#A1B1D4]
-    border-r-[0.5px] border-r-[solid] border-r-[#A1B1D4]
-    border-b-[0.5px] border-b-[solid] border-b-[#A1B1D4]
-    "
-              >
-                <td className="w-[78px] text-center">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    SI35C
-                  </p>
-                </td>
-
-                <td className="w-[148px] ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Last Wishes LCC
-                  </p>
-                  <p className="text-left font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#ACAAAA]">
-                    Hollywood Funerals
-                  </p>
-                </td>
-
-                <td className="w-[120px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Hollywood
-                  </p>
-                </td>
-
-                <td className="w-[150px] text-left ">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    Osrednja Slo
-                  </p>
-                </td>
-
-                <td className="w-[74px] text-left">
-                  <p className="font-sourcesans text-[13px] font-normal leading-[15.23px] text-[#3C3E41]">
-                    16.02.24
-                  </p>
-                </td>
-
-                <td className="w-[131px] text-center ">
-                  <p className="m-auto  flex justify-center font-sourcesans text-[13px] font-normal leading-[24px] text-[#6D778E]">
-                    1{" "}
-                    <span className=" mx-[5px] font-sourcesans text-[12px] font-light leading-[16px] text-[#D4D4D4]">
-                      |{" "}
-                    </span>{" "}
-                    1
-                  </p>
-                </td>
-
-                <td className="w-[90px]  h-[64px]  flex justify-center items-center">
-                  <Image src={"/verify.png"} width={24} height={24}></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/disableverify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/verify.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/disableverify.png"}
-                    width={24}
-                    height={24}
-                    className="ml-[28px]"
-                  ></Image>
-                </td>
-
-                <td className="w-[50px] ">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="w-[90px] ">
-                  <Image
-                    src={"/reject.png"}
-                    width={18}
-                    height={18}
-                    className="m-auto"
-                  ></Image>
-                </td>
-
-                <td className="w-[55px]">
-                  <Image
-                    src={"/enablenote.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                {/* 28 October 2024 */}
-                {/* <td className="w-[60px] ">
-                  <Image
-                    src={"/disable@.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td> */}
-                <td className="w-[60px] ">
-                  <Image
-                    src={"/disbleGift.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-                <td className="pl-[45px] w-[60px] text-center">
-                  <p className="font-sourcesans text-[20px] font-bold leading-[23.3px] text-[#6D778E]">
-                    2
-                  </p>
-                </td>
-                <td className="w-[60px] "></td>
-                <td className="w-[60px]"></td>
-
-                <td className="pl-[30px] w-[60px] ">
-                  <Image
-                    src={"/icon_arrowright.png"}
-                    width={24}
-                    height={24}
-                    className="m-auto"
-                  ></Image>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
       )}
+
+      {/* Notes Modal */}
+      <NotesModal
+        isOpen={notesModal.isOpen}
+        onClose={closeNotesModal}
+        onSave={saveNotes}
+        currentNotes={notesModal.currentNotes}
+        companyName={notesModal.companyName}
+      />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation';
 import authService from '@/services/auth-service';
+import toast from 'react-hot-toast';
 
 export const clearClientSideAuth = () => {
   // Clear localStorage
@@ -35,6 +36,8 @@ export const useLogout = () => {
       
       // Redirect to home
       router.push("/");
+      toast.success("Logout Successful!");
+      
     } catch (err) {
       console.error("Error during logout:", err);
       // Even if server logout fails, clear client-side data

@@ -34,6 +34,15 @@ const OrbetoryFormComp = ({
 
   const [debouncedValue, setDebouncedValue] = useState("");
 
+  // Get user data and check permissions
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+    }
+  }, []);
+
   const getObituaries = async (query) => {
     try {
       let queryParams = {};
@@ -84,6 +93,13 @@ const OrbetoryFormComp = ({
   };
 
   const submitMobileCard = async () => {
+    // Check permission before allowing submission
+    const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
+    if (!currentUser.sendMobilePermission) {
+      toast.error("You don't have permission to send mobile cards.");
+      return;
+    }
+
     try {
       if (!validateData()) return;
 
@@ -190,12 +206,12 @@ const OrbetoryFormComp = ({
 
   return (
     <div
-      className="min-h-screen w-full desktop:bg-[url('/login_ozadje.avif')] bg-[url('/ozadje_klop_tablica.avif')] 
-    bg-cover bg-center bg-no-repeat bg-fixed desktop:pt-[80.02px] mobile:pt-[60px] tablet:pt-[79px] flex justify-center items-center overflow-auto py-[30px]
+      className="relative max-w-[1920px] min-h-[852px] max-h-[100vh] mobile:h-[731px] desktop:bg-[url('/login_ozadje.avif')] bg-[url('/ozadje_klop_tablica.avif')] 
+    tablet: bg-cover bg-center w-full mx-auto desktop:mt-[80.02px] mobile:mt-[60px] tablet:mt-[79px] flex justify-center items-center
     "
     >
       <div
-        className="pt-[50px] mobile:pt-[20px] tablet:pt-[40px] pb-[30px] pr-[91px] pl-[91px] w-[650px] min-h-[620px] mobile:mx-2 flex flex-col
+        className="mb-[30px] pt-[50px] mobile:pt-[20px] tablet:pt-[40px] pr-[91px] pl-[91px] w-[650px] h-[620px] max-h-[100%] mobile:mx-2 absolute flex flex-col
          bg-gray-300/30 backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] shadow-lg
          
          tablet:w-[550px] tablet:pr-[60px] tablet:pl-[60px]
@@ -220,7 +236,7 @@ const OrbetoryFormComp = ({
             >
               Skrbnik
             </button>
-          ) : (
+          ) : user?.assignKeeperPermission ? (
             <button
               type="button"
               onClick={() => {
@@ -233,6 +249,18 @@ const OrbetoryFormComp = ({
                "
             >
               Skrbnik
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="w-[144px] h-[47px] rounded-[8px] bg-[linear-gradient(180deg,_#999999_0%,_#666666_100%)] border-[2px] border-[solid] border-[#CCCCCC] font-sourcesans text-[16px] font-normal leading-[24px] text-[#ffffff] opacity-60 cursor-not-allowed
+               tablet:w-[133px] tablet:font-normal
+               mobile:w-[95px] mobile:font-normal
+               "
+              title="You don't have permission to assign keepers"
+            >
+              Skrbnik (ZAPRTO)
             </button>
           )}
 
@@ -274,7 +302,7 @@ const OrbetoryFormComp = ({
             >
               Posvetilo
             </button>
-          ) : (
+          ) : user?.sendMobilePermission ? (
             <button
               type="button"
               onClick={() => {
@@ -287,6 +315,18 @@ const OrbetoryFormComp = ({
               "
             >
               Posvetilo
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="w-[144px] h-[47px] rounded-[8px] bg-[linear-gradient(180deg,_#999999_0%,_#666666_100%)] border-[2px] border-[solid] border-[#CCCCCC] font-sourcesans text-[16px] font-normal leading-[24px] text-[#ffffff] opacity-60 cursor-not-allowed
+               tablet:w-[133px] tablet:font-normal
+               mobile:w-[95px] mobile:font-normal
+               "
+              title="You don't have permission to send mobile cards"
+            >
+              Posvetilo (ZAPRTO)
             </button>
           )}
         </div>
@@ -315,8 +355,8 @@ const OrbetoryFormComp = ({
                   value={
                     selectedObituary
                       ? obituaries.find(
-                        (option) => option.id === selectedObituary
-                      )
+                          (option) => option.id === selectedObituary
+                        )
                       : null
                   }
                   inputValue={inputValue}
@@ -403,8 +443,8 @@ const OrbetoryFormComp = ({
                     backgroundColor: isDisabled
                       ? "#f5f5f5" // Light gray bg for disabled options
                       : isFocused
-                        ? "#e8f5f4" // Hover highlight for enabled options
-                        : "#fff",
+                      ? "#e8f5f4" // Hover highlight for enabled options
+                      : "#fff",
                     color: isDisabled ? "#999" : "#333", // Dimmed text for disabled
                     cursor: isDisabled ? "not-allowed" : "pointer",
                     fontStyle: "normal",
@@ -484,8 +524,8 @@ const OrbetoryFormComp = ({
                   value={
                     selectedObituary
                       ? obituaries.find(
-                        (option) => option.id === selectedObituary
-                      )
+                          (option) => option.id === selectedObituary
+                        )
                       : null
                   }
                   inputValue={inputValue}
@@ -571,8 +611,8 @@ const OrbetoryFormComp = ({
                     backgroundColor: isDisabled
                       ? "#f5f5f5" // Light gray bg for disabled options
                       : isFocused
-                        ? "#e8f5f4" // Hover highlight for enabled options
-                        : "#fff",
+                      ? "#e8f5f4" // Hover highlight for enabled options
+                      : "#fff",
                     color: isDisabled ? "#999" : "#333", // Dimmed text for disabled
                     cursor: isDisabled ? "not-allowed" : "pointer",
                     fontStyle: "normal",

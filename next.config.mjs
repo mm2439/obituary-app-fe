@@ -73,6 +73,38 @@ const nextConfig = {
         hostname: "dev112.osmrtnica.com",
         pathname: "/api/packageUploads/**",
       },
+
+      // dev111 patterns
+      {
+        protocol: "https",
+        hostname: "dev111.osmrtnica.com",
+        pathname: "/be/api/obituaryUploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "dev111.osmrtnica.com",
+        pathname: "/be/api/companyUploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "dev111.osmrtnica.com",
+        pathname: "/be//api/cemetryUploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "dev111.osmrtnica.com",
+        pathname: "/be//api/floristShopUploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "dev111.osmrtnica.com",
+        pathname: "/be//api/floristSlideUploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "dev111.osmrtnica.com",
+        pathname: "/be//api/packageUploads/**",
+      },
     ],
   },
 };

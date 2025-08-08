@@ -134,7 +134,7 @@ export default function Step2({ data, onChange, handleStepChange }) {
                   />
 
                   {/* Counter in bottom right corner */}
-                  <span className="absolute bottom-2 right-3 text-[12px] text-gray-500">
+                  <span className="absolute bottom-2 right-5 text-[12px] text-gray-500">
                     {description?.length || 0}/{280}
                   </span>
                 </div>

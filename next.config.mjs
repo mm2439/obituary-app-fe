@@ -41,39 +41,7 @@ const nextConfig = {
         port: "4000",
         pathname: "/api/packageUploads/**",
       },
-
-      // ✅ dev112 patterns (use https if it supports SSL)
-      {
-        protocol: "https",
-        hostname: "dev112.osmrtnica.com",
-        pathname: "/api/obituaryUploads/**",
-      },
-      {
-        protocol: "https",
-        hostname: "dev112.osmrtnica.com",
-        pathname: "/api/companyUploads/**",
-      },
-      {
-        protocol: "https",
-        hostname: "dev112.osmrtnica.com",
-        pathname: "/api/cemetryUploads/**",
-      },
-      {
-        protocol: "https",
-        hostname: "dev112.osmrtnica.com",
-        pathname: "/api/floristShopUploads/**",
-      },
-      {
-        protocol: "https",
-        hostname: "dev112.osmrtnica.com",
-        pathname: "/api/floristSlideUploads/**",
-      },
-      {
-        protocol: "https",
-        hostname: "dev112.osmrtnica.com",
-        pathname: "/api/packageUploads/**",
-      },
-
+      
       // dev111 patterns
       {
         protocol: "https",

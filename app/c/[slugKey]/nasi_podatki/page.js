@@ -269,7 +269,7 @@ export default function AccountSettings() {
                   })
                 ) : (
                   <div className="text-[#6D778E] italic py-8 px-6 border border-gray-200 rounded-lg bg-gray-50 text-center">
-                    Ni dodanih cvetličarn. Kliknite "dodaj več cvetličarn" za dodajanje novih cvetličarn.
+                    {`Ni dodanih cvetličarn. Kliknite "dodaj več cvetličarn" za dodajanje novih cvetličarn.`}
                   </div>
                 )}
               </div>

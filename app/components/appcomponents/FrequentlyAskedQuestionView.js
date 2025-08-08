@@ -6,6 +6,7 @@ import icon_cancel from "@/public/icon_cancel.png";
 import icon_cancel_white from "@/public/icon_cancel_white.png";
 import icon_plus from "@/public/icon_plus.png";
 import icon_cancel_dark from "@/public/icon_cancel_dark.png";
+import "react-quill-new/dist/quill.snow.css";
 
 const defaultQuestions = [
   {
@@ -72,37 +73,44 @@ export const FrequentlyAskedQuestionView = ({ from, data }) => {
           </div>
 
           {faqs && faqs.length > 0
-            ? faqs.map((faq, index) => (
-                <>
-                  <button
-                    onClick={() => {
-                      setVisibleIndexes((prev) => ({
-                        ...prev,
-                        [index]: !prev[index],
-                      }));
-                      setOpenIndex(openIndex === index ? null : index);
-                    }}
-                    className=" flex w-full justify-between items-center py-3 border-t border-t-[#D4D4D4] px-6 mobile:px-[8px]"
-                  >
-                    <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-[24px] text-[#1E2125] text-center">
-                      {faq.question}
-                    </div>
+            ? faqs.map(
+                (faq, index) =>
+                  faq.answer && (
+                    <>
+                      <button
+                        onClick={() => {
+                          setVisibleIndexes((prev) => ({
+                            ...prev,
+                            [index]: !prev[index],
+                          }));
+                          setOpenIndex(openIndex === index ? null : index);
+                        }}
+                        className={`flex w-full justify-between items-center ${
+                          openIndex === index ? "pt-3" : "py-3"
+                        }  border-t border-t-[#D4D4D4] px-6 mobile:px-[8px]`}
+                      >
+                        <div className="flex font-variation-customOpt16 font-normal text-[16px] leading-[24px] text-[#1E2125] text-center">
+                          {faq.question}
+                        </div>
 
-                    <Image
-                      src={openIndex === index ? icon_cancel : icon_plus}
-                      className="h-[9px] w-[9px]"
-                      alt="cross Icon"
-                      width={1000}
-                      height={1000}
-                    />
-                  </button>
-                  {openIndex === index && (
-                    <div className="flex w-full flex-col mt-4 mb-12 px-14 mobile:px-0 ">
-                      {faq.answer}
-                    </div>
-                  )}
-                </>
-              ))
+                        <Image
+                          src={openIndex === index ? icon_cancel : icon_plus}
+                          className="h-[9px] w-[9px]"
+                          alt="cross Icon"
+                          width={1000}
+                          height={1000}
+                        />
+                      </button>
+                      {openIndex === index && (
+                        <div
+                          className="flex ql-editor text-black w-full flex-col ml-8 px-14 mobile:px-0 "
+                          dangerouslySetInnerHTML={{ __html: faq.answer }}
+                          style={{ paddingTop: "0px !important" }}
+                        />
+                      )}
+                    </>
+                  )
+              )
             : null}
         </div>
       </div>

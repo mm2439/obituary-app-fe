@@ -67,7 +67,7 @@ function ObituaryHeader({ from, data, handleCloseModal }) {
               </div>
               <div
                 className="mobile:hidden  flex   ml-4 tablet:ml-6 h-[52px] w-[52px] tablet:justify-center desktop:h-[48px] desktop:w-[200px] items-center
-               bg-[#72C6DD10] border-2 border-[#0A85C2] desktop:pl-[25.5px] rounded-lg shadow-custom-light-dark "
+               bg-[#72C6DD10] border-2 border-[#0A85C2] desktop:justify-center rounded-lg shadow-custom-light-dark "
               >
                 <Image src={telephone_icon} className=" h-[27px] w-[27px] " />
                 <p className="hidden desktop:flex text-[#1E2125] font-normal text-[20px] ml-[12.5px] ">

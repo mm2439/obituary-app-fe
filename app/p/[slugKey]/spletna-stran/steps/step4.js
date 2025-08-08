@@ -118,25 +118,40 @@ export default function Step4({ data, onChange, handleStepChange }) {
                 <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                   Naslov
                 </div>
-                <input
-                  type="text"
-                  className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
-                  placeholder="Naš ponos"
-                  value={secondaryTitle}
-                  onChange={(e) => setSecondaryTitle(e.target.value)}
-                />
+                <div className="relative w-full">
+                  <input
+                    type="text"
+                    className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+                    placeholder="Naš ponos"
+                    value={secondaryTitle}
+                    onChange={(e) => setSecondaryTitle(e.target.value)}
+                    maxLength={24}
+                  />
+                  <span className="absolute bottom-2 right-3 text-[12px] text-gray-500">
+                    {secondaryTitle?.length || 0}/{24}
+                  </span>
+                </div>
               </div>
               <div className="space-y-[8px]">
                 <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                   Tekst
                 </div>
-                <input
-                  type="text"
-                  className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
-                  placeholder="Projekt prenove trboveljskega pokopališča je bil leta"
-                  value={secondaryDescription}
-                  onChange={(e) => setSecondaryDescription(e.target.value)}
-                />
+
+                <div className="relative w-full">
+                  <textarea
+                    type="text"
+                    className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px] min-h-[108px] resize-none"
+                    maxLength={240}
+                    placeholder="Projekt prenove trboveljskega pokopališča je bil leta"
+                    value={secondaryDescription}
+                    onChange={(e) => setSecondaryDescription(e.target.value)}
+                  />
+
+                  {/* Counter in bottom right corner */}
+                  <span className="absolute bottom-2 right-3 text-[12px] text-gray-500">
+                    {secondaryDescription?.length || 0}/{240}
+                  </span>
+                </div>
               </div>
               <div className="space-y-[8px]">
                 <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

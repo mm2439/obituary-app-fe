@@ -152,7 +152,7 @@ export default function Step5({ data, onChange, handleStepChange }) {
                   KORAK 5
                 </div>
                 <div className="text-[20px] text-[#1E2125] leading-[100%] font-semibold">
-                  Premični blok - slajder
+                  Pogosta vprašanja
                 </div>
               </div>
             </div>

@@ -239,29 +239,39 @@ function SliderBlock({ index, title, slide, onChange }) {
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Naslov
           </label>
-          <input
-            type="text"
-            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
-            placeholder="Posebna ponudba v avgustu"
-            value={slide.title}
-            name="title"
-            maxLength={25}
-            onChange={handleChange}
-          />
+          <div className="relative w-full">
+            <input
+              type="text"
+              className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+              placeholder="Posebna ponudba v avgustu"
+              value={slide.title}
+              name="title"
+              maxLength={25}
+              onChange={handleChange}
+            />
+            <span className="absolute bottom-2 right-5 text-[12px] text-gray-500">
+              {slide.title.length}/{25}
+            </span>
+          </div>
         </div>
         <div className="space-y-[8px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Tekst
           </label>
-          <textarea
-            type="text"
-            className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px] min-h-[108px]"
-            placeholder="Visok blok, kjer lahko dodamo karkoli, kar bi lahko pritegnilo vaše stranke ali poudarite posebne promocije ali ponudbo med prazniki, ipd. "
-            value={slide.description}
-            maxLength={220}
-            name="description"
-            onChange={handleChange}
-          />
+          <div className="relative w-full">
+            <textarea
+              type="text"
+              className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px] min-h-[108px] resize-none"
+              placeholder="Visok blok, kjer lahko dodamo karkoli, kar bi lahko pritegnilo vaše stranke ali poudarite posebne promocije ali ponudbo med prazniki, ipd. "
+              value={slide.description}
+              maxLength={350}
+              name="description"
+              onChange={handleChange}
+            />
+            <span className="absolute bottom-2 right-5 text-[12px] text-gray-500">
+              {slide.description.length}/{350}
+            </span>
+          </div>
         </div>
       </div>
     </OpenableBlock>

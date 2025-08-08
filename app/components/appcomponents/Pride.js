@@ -20,7 +20,7 @@ const Pride = ({ data }) => {
         >
           <div
             className="leading-[46.88px] desktop:ml-[10px] tablet:mt-[15px] mobile:text-[28px] 
-                    mobile:font-variation-customOpt28 mobile:leading-[32.81px] mobile:flex mobile:justify-center text-[40px] text-[#1E2125] font-variation-customOpt40"
+                    mobile:font-variation-customOpt28 mobile:leading-[32.81px] mobile:flex mobile:justify-center text-[32px] text-[#1E2125] font-variation-customOpt40"
           >
             <div>{data?.secondary_title || "Naš ponos"}</div>
           </div>

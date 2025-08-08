@@ -18,7 +18,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
   const [description, setDescription] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [companyId, setCompanyId] = useState(null);
-  const [glassFrameState, setGlassFrameState] = useState(true);
+  const [glassFrameState, setGlassFrameState] = useState(false);
   const [user, setUser] = useState(null);
   const handleSave = async () => {
     const formData = new FormData();

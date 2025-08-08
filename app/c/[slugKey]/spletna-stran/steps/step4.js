@@ -277,7 +277,7 @@ function SliderBlock({ index, title, box, onChange }) {
       isDefaultOpen={isDefaultOpen}
       title={title}
       index={index}
-      hasDeleteButton={true}
+      hasDeleteButton={false}
       helpText="(največ 2)"
     >
       <div className="space-y-[16px]">

@@ -7,7 +7,7 @@ import Image from "next/image";
 // 7 October 2024 - bela_ikebana.avif, sopek.avif
 
 const defaultText =
-  "Dodate osem produktov iz vaše ponudbe in dodate pod njimi svoje tekste. Seveda ni nujno, da so vsi produkti iz žalnega programa. Tudi naslov lahko poimenujete drugače.";
+  "S spoštovanjem in nežnostjo oblikujemo žalne aranžmaje, ki s svežim cvetjem in subtilno eleganco tolažijo in večno ohranjajo spomin na ljubljene.";
 
 const SadProgram = ({ data }) => {
   const [list, setList] = useState([]);

@@ -288,7 +288,7 @@ function SliderBlock({ index, title, cemetery, onChange }) {
             value={cemetery.address}
             onChange={handleChange}
             className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
-            placeholder="Gabrsko 59, Trbovlje"
+            // placeholder="Gabrsko 59, Trbovlje"
             disabled={true}
           />
         </div>

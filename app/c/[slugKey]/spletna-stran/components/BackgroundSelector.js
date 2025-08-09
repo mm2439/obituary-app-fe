@@ -121,11 +121,29 @@ export function BackgroundSelectorStep2({ setFile }) {
 }
 
 export function IconSelectorStep4({ setBoxIcon }) {
-  const [selectedBackground, setSelectedBackground] = useState(null);
+  const [selectedBackgrounds, setSelectedBackgrounds] = useState([]);
 
   const handleChange = (background) => {
-    setSelectedBackground(background.id);
-    setBoxIcon("icon", background.image);
+    let updatedSelection = [...selectedBackgrounds];
+
+    if (updatedSelection.includes(background.id)) {
+      // If already selected, remove it (toggle off)
+      updatedSelection = updatedSelection.filter((id) => id !== background.id);
+    } else {
+      // Add new selection only if less than 2
+      if (updatedSelection.length < 2) {
+        updatedSelection.push(background.id);
+      }
+    }
+
+    setSelectedBackgrounds(updatedSelection);
+
+    // Pass selected images to parent
+    const selectedImages = backgrounds
+      .filter((bg) => updatedSelection.includes(bg.id))
+      .map((bg) => bg.image);
+
+    setBoxIcon("icon", selectedImages);
   };
 
   const backgrounds = [
@@ -155,19 +173,20 @@ export function IconSelectorStep4({ setBoxIcon }) {
       name: "Cvetličarna Suniflower, Milano",
     },
   ];
+
   return (
     <div className="flex flex-wrap items-center gap-[8px]">
       {backgrounds.map((background) => (
         <div
           key={background.id}
-          className="w-[64px] h-[64px] rounded-[4px] overflow-hidden relative bg-white flex items-center justify-center"
+          className="w-[64px] h-[64px] rounded-[4px] overflow-hidden relative bg-white flex items-center justify-center cursor-pointer"
           onClick={() => handleChange(background)}
         >
-          {selectedBackground === background.id && (
+          {selectedBackgrounds.includes(background.id) && (
             <div className="absolute top-0 left-0 w-full h-full bg-[#00000066] flex items-center justify-center">
               <img
                 src="/icon_tick.png"
-                alt="Spletna stran"
+                alt="Selected"
                 className="w-[24px] h-[24px]"
               />
             </div>
@@ -176,7 +195,7 @@ export function IconSelectorStep4({ setBoxIcon }) {
             src={background.image}
             width={36}
             height={36}
-            alt="Spletna stran"
+            alt={background.name}
             className="h-[36px] w-auto"
           />
         </div>

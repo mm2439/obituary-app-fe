@@ -105,25 +105,39 @@ export default function Step2({ data, onChange, handleStepChange }) {
                 <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                   Naslov
                 </span>
-                <input
-                  type="text"
-                  className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
-                  placeholder="Predstavitev"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
+                <div className="relative w-full">
+                  <input
+                    type="text"
+                    className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
+                    placeholder="Predstavitev"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    maxLength={24}
+                  />
+                  <span className="absolute bottom-2 right-3 text-[12px] text-gray-500">
+                    {title?.length || 0}/{24}
+                  </span>
+                </div>
               </div>
               <div className="space-y-[8px]">
                 <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                   Tekst
                 </span>
-                <input
-                  type="text"
-                  className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[16px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px]"
-                  placeholder="Komunala Trbovlje v okviru pogrebnega zavoda "
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
+                <div className="relative w-full">
+                  <textarea
+                    type="text"
+                    className="w-full border border-[#6D778E] bg-[#FFFFFF] outline-none rounded-[8px] py-[12px] px-[20px] text-[14px] text-[#3C3E41] placeholder:text-[#ACAAAA] leading-[24px] min-h-[108px] resize-none"
+                    maxLength={280}
+                    placeholder="Komunala Trbovlje v okviru pogrebnega zavoda "
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+
+                  {/* Counter in bottom right corner */}
+                  <span className="absolute bottom-2 right-5 text-[12px] text-gray-500">
+                    {description?.length || 0}/{280}
+                  </span>
+                </div>
               </div>
             </OpenableBlock>
             <div

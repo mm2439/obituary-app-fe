@@ -30,7 +30,7 @@ function RichTexEditor({ value, handleChange }: Props) {
           "underline",
           "strike",
           "list",
-          "color",
+          // "color",
           "link",
         ]}
         modules={{
@@ -39,22 +39,24 @@ function RichTexEditor({ value, handleChange }: Props) {
               [{ header: [3, 4, 5, 6, false] }],
               ["bold", "italic", "underline", "strike", "blockquote"],
               [{ align: [] }],
-              [
-                {
-                  color: [
-                    "#2563eb", // Blue
-                    "#16a34a", // Green
-                    "#dc2626", // Red
-                    "#9333ea", // Purple
-                    "#ea580c", // Orange
-                    "#0d9488", // Teal
-                    "#be185d", // Pink
-                    "#854d0e", // Amber
-                    "#1e293b", // Slate
-                    "#4338ca", // Indigo
-                  ],
-                },
-              ],
+              // [
+              //   {
+              //     color: [
+              //       "#2563eb", // Blue
+              //       "#16a34a", // Green
+              //       "#dc2626", // Red
+              //       "#9333ea", // Purple
+              //       "#ea580c", // Orange
+              //       "#0d9488", // Teal
+              //       "#be185d", // Pink
+              //       "#854d0e", // Amber
+              //       "#1e293b", // Slate
+              //       "#4338ca", // Indigo
+              //       "#000000", // Black
+              //       "#f3f4f6", // Light Gray
+              //     ],
+              //   },
+              // ],
               [{ list: "ordered" }, { list: "bullet" }],
               ["link"],
             ],

@@ -41,7 +41,7 @@ const IconLinkComponent = ({ link, icon, alt, className }) => {
         <Image
           key={`${link}-icon`}
           src={icon}
-          className=" h-[24px] w-[24px]"
+          className=" h-[22px] w-[22px]"
           alt={alt}
           width={1000}
           height={1000}
@@ -64,19 +64,21 @@ const FuneralsCompanyBanner = ({ data }) => {
       />
       <div className="bg-white rounded-2xl border-2 p-7 mobile:p-4 border-[#EDF1F3]  h-[185px] mobile:h-[405px] tablet:h-[272px] max-w-[1009px] w-full tablet:w-[80%] mobile:w-[296px] absolute top-[195px] mobile:top-[184px] tablet:top-[152px]">
         <div className="w-full flex mobile:flex-col items-center">
-          <div className="min-w-200 mobile:min-w-[184px] max-w-[252px] w-full">
-            <Image
-              key={`${data?.id}-logo`}
-              src={getLogoImage(data)}
-              alt="App Logo"
-              width={1000}
-              height={1000}
-              className="w-[200px] mobile:w-[184px] mobile:h-[75px] h-[82px]"
-            />
+          <div className="min-w-200 flex justify-start mobile:min-w-[184px] max-w-[290px] h-[90px] w-full">
+            <div>
+              <img
+                key={`${data?.id}-logo`}
+                src={getLogoImage(data)}
+                alt="App Logo"
+                // width={1000}
+                // height={1000}
+                className="w-full object-contain mobile:w-[184px] mobile:h-[75px] h-full"
+              />
+            </div>
           </div>
 
           <h1 className="w-full text-[#1E2125] text-[24px] font-semibold leading-[28px] mobile:mt-2">
-            {data?.User?.company || data?.name}
+            {data?.heading || data?.User?.company}
           </h1>
           <div className="hidden desktop:flex min-w-[150px] gap-2">
             <IconLinkComponent

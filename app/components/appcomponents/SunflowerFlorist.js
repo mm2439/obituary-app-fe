@@ -65,21 +65,22 @@ const SunflowerFlorist = ({ data }) => {
         <div className="flex desktop:hidden mobile:w-[306px] mobile:h-[84px] mobile:mt-[6.27px] w-[593px] h-[42px] mx-auto flex-wrap mt-[43.23px] text-center text-[#939393] text-[14px] leading-[21px]">
           {/* {images[currentIndex].detail} */}
         </div>
-
-        <button
-          onClick={handlePrev}
-          className={
-            "hidden desktop:flex self-center my-auto translate-x-[80px]"
-          }
-        >
-          <img src="/img_back.png" alt="Next" className="h-[40px] w-[17px]" />
-        </button>
+        {shops.length > 1 && (
+          <button
+            onClick={handlePrev}
+            className={
+              "hidden desktop:flex self-center my-auto translate-x-[80px]"
+            }
+          >
+            <img src="/img_back.png" alt="Next" className="h-[40px] w-[17px]" />
+          </button>
+        )}
         {/* First detail Container for heading and flower image */}
         <div
           key={`${data?.id}-${currentIndex}-${currentShop?.id}`}
           className="max-w-[596px] w-full mobile:w-full tablet:h-full desktop:h-full mobile:mx-auto items-center flex flex-col"
         >
-          <div className="text-[#1E2125] mobile:hidden text-[40px] mt-[58px] tablet:mt-[34px] leading-[46.88px] font-variation-customOpt40">
+          <div className="text-[#1E2125] mobile:hidden text-[32px] mt-[58px] tablet:mt-[34px] leading-[46.88px] font-variation-customOpt40">
             {data?.name || "Cvetličarna Suniflower"}
           </div>
 
@@ -99,9 +100,9 @@ const SunflowerFlorist = ({ data }) => {
                   : "/suniflo_logo.avif"
               }
               alt="sunflower_img"
-              width={370}
-              height={240}
-              className="h-[240px] w-[371px] mobile:w-[297px] mobile:h-[240px] 
+              width={300}
+              height={200}
+              className="h-[200px] w-[300px] mobile:w-[297px] mobile:h-[240px] 
                         mobile:mt-[18px] rounded-md mx-auto tablet:mt-[33px] mt-[56px]"
             />
 
@@ -114,14 +115,12 @@ const SunflowerFlorist = ({ data }) => {
             </button>
           </div>
 
-          <div className="flex flex-row">
-            <Image
+          <div className="flex h-[180px] w-[370px] justify-center flex-row mobile:w-[297px] mobile:h-[240px] mobile:mt-[18px] mx-auto tablet:mt-[33px] mt-[56px]">
+            <img
               key={`${data?.id}-${currentIndex}-logo-${currentShop?.id}`}
               src={getLogo(data?.logo)}
               alt="sunflower_img"
-              width={370}
-              height={240}
-              className=" tablet:hidden  mobile:flex desktop:flex h-[240px] w-[371px] mobile:w-[297px] mobile:h-[240px] mobile:mt-[18px] rounded-md mx-auto tablet:mt-[33px] mt-[56px]"
+              className=" tablet:hidden w-full h-full object-contain mobile:flex desktop:flex   rounded-md "
             />
           </div>
 
@@ -194,34 +193,34 @@ const SunflowerFlorist = ({ data }) => {
             </div>
 
             {/* Container for time and other texts */}
-            <div className="w-[166px] h-[115px] flex flex-col">
+            <div className="w-[166px] h-auto flex flex-col">
               <div className="text-[#000000] leading-[18.75px] text-[16px] font-variation-customOpt16">
                 Delovni čas
               </div>
               {currentShop?.hours ? (
                 <>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     {currentShop?.hours}
                   </div>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     {currentShop?.secondaryHours}
                   </div>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     {currentShop?.tertiaryHours}
                   </div>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     {currentShop?.quaternaryHours}
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     Pon - Pet: 8:00 -18:00
                   </div>
-                  <div className="font-variation-customOpt16 mt-[8px] italic text-[16px] leading-[24px] text-[#414141]">
+                  <div className="font-variation-customOpt16 mt-[8px] text-[16px] leading-[24px] text-[#414141]">
                     Sobota: 8:00 - 15:00
                   </div>
-                  <div className="text-[16px] italic text-[#414141] leading-[24px] mt-[8px] font-variation-customOpt16">
+                  <div className="text-[16px] text-[#414141] leading-[24px] mt-[8px] font-variation-customOpt16">
                     Nedelja: Zaprto
                   </div>
                 </>
@@ -268,21 +267,6 @@ const SunflowerFlorist = ({ data }) => {
               </button>
             </div>
           </div>
-
-          {data?.highlightText ? (
-            <div className="desktop:hidden flex mt-[30px] mobile:mt-[38px]">
-              {data?.highlightText}
-            </div>
-          ) : (
-            <p className="text-[20px] leading-[23.44px] text-[#1E2125] font-variation-customOpt20">
-              Obiščite našo spletno stran:
-              <Link href="https://www.suniflower.com">
-                <href className="text-[#1E2125] text-[24px] font-semibold  font-variation-customOpt24">
-                  www.suniflower.com
-                </href>
-              </Link>
-            </p>
-          )}
 
           <div className="ml-[29px] tablet:mx-auto mobile:mx-auto flex flex-row gap-[16px] w-[176px] h-[48px] tablet:mt-[26px] mobile:mt-[29px] mt-[63px]">
             {data?.facebook ? (
@@ -352,16 +336,18 @@ const SunflowerFlorist = ({ data }) => {
           </div>
         </div>
 
-        <button
-          onClick={handleNext}
-          className={"hidden desktop:flex self-center my-auto ml-[-80px]"}
-        >
-          <img
-            src="/img_forward.png"
-            alt="Next"
-            className="h-[40px] w-[17px]"
-          />
-        </button>
+        {shops.length > 1 && (
+          <button
+            onClick={handleNext}
+            className={"hidden desktop:flex self-center my-auto ml-[-80px]"}
+          >
+            <img
+              src="/img_forward.png"
+              alt="Next"
+              className="h-[40px] w-[17px]"
+            />
+          </button>
+        )}
       </div>
     </div>
   );

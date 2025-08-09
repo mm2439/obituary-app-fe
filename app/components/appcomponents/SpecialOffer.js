@@ -63,8 +63,8 @@ const SpecialOffer = ({ data }) => {
   };
 
   return (
-    <div className="relative w-full  overflow-hidden">
-      <div className="w-full flex-shrink-0  desktop:bg-[#FBF8F4] bg-white flex items-center justify-center">
+    <div className="relative w-full overflow-hidden">
+      <div className="w-full flex-shrink-0 lg:w-[90%] px-5 mx-auto  desktop:bg-[#FBF8F4] bg-white flex items-center justify-between">
         <button
           onClick={handlePrev}
           className="mobile:hidden flex my-auto mr-[30px] tablet:ml-[30px]"
@@ -78,7 +78,7 @@ const SpecialOffer = ({ data }) => {
             className="h-full max-w-[1023px] w-full py-28 tablet:py-8 mobile:py-6 flex desktop:flex-row flex-col-reverse justify-between items-center"
           >
             <div className=" flex  flex-col w-[450px] mobile:w-[300px]">
-              <div className="text-[40px] leading-[47px mobile:leading-[38px] font-variation-customOpt40  text-[#000000] mobile:text-[32px] ">
+              <div className="text-[32px] leading-[47px mobile:leading-[38px] font-variation-customOpt40  text-[#000000] mobile:text-[32px] ">
                 {activeSlide.title}
               </div>
               <div className="text-[16px] text-[#414141] font-variation-customOpt16 leading-[24px] mt-[20px]">

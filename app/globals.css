@@ -136,36 +136,6 @@ input:-webkit-autofill {
   top: 87%;
 }
 
-/* Position arrows horizontally centered */
-.slick-prev,
-.slick-next {
-  top: 45% !important; /* center vertically */
-  transform: translateY(-50%) !important;
-  z-index: 2;
-}
-
-.slick-prev {
-  left: 5px !important;
-}
-
-.slick-next {
-  right: 20px !important;
-}
-
-/* Remove background completely */
-.slick-prev,
-.slick-next {
-  background: none !important;
-}
-
-.slick-prev:before,
-.slick-next:before {
-  font-size: 36px !important;
-  color: white !important; /* Change to your preferred color */
-  opacity: 1 !important;
-}
-
-
 /* Optional: Make dots bigger */
 .slick-dots li button:before {
   font-size: 14px;

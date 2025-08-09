@@ -199,28 +199,28 @@ const SunflowerFlorist = ({ data }) => {
               </div>
               {currentShop?.hours ? (
                 <>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     {currentShop?.hours}
                   </div>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     {currentShop?.secondaryHours}
                   </div>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     {currentShop?.tertiaryHours}
                   </div>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     {currentShop?.quaternaryHours}
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="text-[#414141] italic text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
+                  <div className="text-[#414141] text-[16px] mt-[8px] leading-[24px] font-variation-customOpt16">
                     Pon - Pet: 8:00 -18:00
                   </div>
-                  <div className="font-variation-customOpt16 mt-[8px] italic text-[16px] leading-[24px] text-[#414141]">
+                  <div className="font-variation-customOpt16 mt-[8px] text-[16px] leading-[24px] text-[#414141]">
                     Sobota: 8:00 - 15:00
                   </div>
-                  <div className="text-[16px] italic text-[#414141] leading-[24px] mt-[8px] font-variation-customOpt16">
+                  <div className="text-[16px] text-[#414141] leading-[24px] mt-[8px] font-variation-customOpt16">
                     Nedelja: Zaprto
                   </div>
                 </>
@@ -267,21 +267,6 @@ const SunflowerFlorist = ({ data }) => {
               </button>
             </div>
           </div>
-
-          {data?.highlightText ? (
-            <div className="desktop:hidden flex mt-[30px] mobile:mt-[38px]">
-              {data?.highlightText}
-            </div>
-          ) : (
-            <p className="text-[20px] leading-[23.44px] text-[#1E2125] font-variation-customOpt20">
-              Obiščite našo spletno stran:
-              <Link href="https://www.suniflower.com">
-                <href className="text-[#1E2125] text-[24px] font-semibold  font-variation-customOpt24">
-                  www.suniflower.com
-                </href>
-              </Link>
-            </p>
-          )}
 
           <div className="ml-[29px] tablet:mx-auto mobile:mx-auto flex flex-row gap-[16px] w-[176px] h-[48px] tablet:mt-[26px] mobile:mt-[29px] mt-[63px]">
             {data?.facebook ? (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import API_BASE_URL from "@/config/apiConfig";
+import ImageCarousel from "./CemeteriesSliderComponent/CemeteriesSlider";
 const defaultCemeteries = [
   {
     image: "/pok_gabrsko2.jpg",
@@ -35,6 +36,9 @@ const Cemeteries = ({ data }) => {
       setCemeteries(defaultCemeteries);
     }
   }, [data]);
+
+  console.log(cemeteries, "Cemeteries data");
+
   return (
     <div className="relative w-full h-[639px] tablet:h-[785px] mobile:h-[510px] overflow-hidden mx-auto flex justify-center items-center bg-[#E0E9F3]">
       {companyId === null && (
@@ -72,69 +76,20 @@ const Cemeteries = ({ data }) => {
       )}
       {/*Main container*/}
       <div
-        className="flex  pt-1 mobile:pt-0 desktop:pt-0 tablet:flex-col mobile:flex-col
+        className="flex mt-[73.5px] pt-1 mobile:pt-0 desktop:pt-0 tablet:flex-col mobile:flex-col
                         w-[1024px] h-[452px]
                         tablet:w-[600px] tablet:h-[785px] 
                         mobile:w-[300px] mobile:h-[410.75px]"
       >
-        {/*Big Image Container*/}
-        {cemeteries && cemeteries.length > 0 ? (
-          <div className="hidden w-[600px] h-[452px] flex-col desktop:flex">
-            {/*Main Image*/}
+        {/*Image Carousel*/}
+        {cemeteries.length > 0 && <ImageCarousel images={cemeteries} />}
 
-            <img
-              className="flex w-full h-[344.71px] rounded-lg border-[5px] border-[#ffffff]"
-              src={
-                cemeteries[0].image.includes("cemetryUploads")
-                  ? `${API_BASE_URL}/${cemeteries[imageIndex].image}`
-                  : cemeteries[imageIndex].image
-              }
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{
-                width: "100%",
-                height: "344.71px",
-                objectFit: "cover",
-              }}
-            />
-
-            {/*Four images container*/}
-
-            <div
-              className="flex gap-2 h-[78px] mx-auto scrollbar-hide mt-[24.29px] overflow-x-auto"
-              style={{
-                width: `${138.58 * 4 + 8 * 3}px`, // 4 thumbnails + 3 gaps of 8px
-                scrollBehavior: "smooth",
-              }}
-            >
-              {cemeteries.map((cemetery, index) => (
-                <div
-                  key={index}
-                  className="relative shrink-0 w-[138.58px] h-full rounded-[5px] overflow-hidden cursor-pointer"
-                  onClick={() => setImageIndex(index)}
-                >
-                  <img
-                    src={
-                      cemetery.image.includes("cemetryUploads")
-                        ? `${API_BASE_URL}/${cemetery.image}`
-                        : cemetery.image
-                    }
-                    className="w-full h-full object-cover bg-black"
-                    width={140}
-                    height={78}
-                    alt={`Cemetery image ${index + 1}`}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : null}
         {/*Text Container*/}
-        <div className="flex w-[384.84px] h-auto mobile:w-[294px] mobile:h-[169px] ml-[40.64px] mt-[73.5px] tablet:ml-0 tablet:mt-[31px] mobile:ml-[6px] mobile:mt-0 flex-col">
+        <div className="flex w-[384.84px] h-auto mobile:w-[294px] mobile:h-[169px] ml-[40.64px] tablet:ml-0 tablet:mt-[31px] mobile:ml-[6px] mobile:mt-0 flex-col">
           <div className="text-[40px] text-[#1E2125] font-variation-customOpt40 mobile:text-[28px] mobile:font-variation-customOpt28 ">
             Naša pokopališča
           </div>
+
           <div className="text-[16px] text-[#414141] font-variation-customOpt16 mt-2">
             Upravljamo z naslednjimi pokopališči:
           </div>

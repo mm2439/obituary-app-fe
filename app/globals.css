@@ -128,3 +128,50 @@ input:-webkit-autofill {
   -webkit-text-fill-color: black !important;
   transition: background-color 5000s ease-in-out 0s; /* Prevent flash */
 }
+
+
+/* Align dots below the slider like your 2nd screenshot */
+.slick-dots {
+  position: static !important;
+  top: 87%;
+}
+
+/* Position arrows horizontally centered */
+.slick-prev,
+.slick-next {
+  top: 45% !important; /* center vertically */
+  transform: translateY(-50%) !important;
+  z-index: 2;
+}
+
+.slick-prev {
+  left: 5px !important;
+}
+
+.slick-next {
+  right: 20px !important;
+}
+
+/* Remove background completely */
+.slick-prev,
+.slick-next {
+  background: none !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 36px !important;
+  color: white !important; /* Change to your preferred color */
+  opacity: 1 !important;
+}
+
+
+/* Optional: Make dots bigger */
+.slick-dots li button:before {
+  font-size: 14px;
+  color: #333;
+}
+.slick-dots li.slick-active button:before {
+  color: red; /* active dot color */
+}
+
